@@ -1,12 +1,16 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+import Vuetify from 'vuetify'
+import VueFilterDateFormat from 'vue-filter-date-format'
+
+Vue.use(Vuex)
+Vue.use(VueRouter)
+Vue.use(Vuetify)
+Vue.use(VueFilterDateFormat)
 
 require('./bootstrap');
-
-window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,12 +25,56 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import App from './views/App'
+import Home from './views/Home'
+
+import CourseDetails from './views/CourseDetails'
+import CourseList from './views/CourseList'
+
+import UserDashboard from './views/UserDashboard'
+
+
+const store = new Vuex.Store({
+
+  state: {},
+  mutations: {},
+  actions: {},
+  getters: {},
+
+});
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/c/details',
+      name: 'coursedetails',
+      component: CourseDetails
+    },
+    {
+      path: '/c',
+      name: 'courselist',
+      component: CourseList
+    },
+    {
+      path: '/u/dashboard',
+      name: 'userdashboard',
+      component: UserDashboard
+    },
+  ],
+});
 
 const app = new Vue({
-    el: '#app',
+  components: {
+    App,
+  },
+  el: '#app',
+  router,
+  store,
+  vuetify: new Vuetify(),
 });

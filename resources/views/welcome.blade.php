@@ -63,73 +63,73 @@
     }
   </style>
 
-
-
-
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
+  <script src="https://cdn.tiny.cloud/1/0aygowvdr5lggby1ma2wqz2fgwj7k5kovyq7a27lwyja02qp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
   <script>
     tinymce.init({
       selector: '#mytextarea',
-      plugins: 'print preview  searchreplace autolink autosave save fullscreen image link media table hr insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+      plugins: 'print preview searchreplace autolink autosave save fullscreen image link media table hr insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
       // mobile: {
       //   plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker textpattern noneditable help formatpainter pageembed charmap mentions quickbars linkchecker emoticons advtable'
       // },
       menubar: false,
-      toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
-      // autosave_ask_before_unload: true,
+      toolbar1: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent ',
+      toolbar2: 'numlist bullist | forecolor backcolor removeformat | charmap emoticons | fullscreen  preview save print | insertfile image media template link quicktable',
       autosave_interval: "30s",
-      // autosave_prefix: "{path}{query}-{id}-",
-      // autosave_restore_when_empty: false,
-      // autosave_retention: "2m",
-      // image_advtab: true,
-      // content_css: '//www.tiny.cloud/css/codepen.min.css',
-      // link_list: [
-      // { title: 'My page 1', value: 'http://www.tinymce.com' },
-      // { title: 'My page 2', value: 'http://www.moxiecode.com' }
-      // ],
-      // image_list: [
-      // { title: 'My page 1', value: 'http://www.tinymce.com' },
-      // { title: 'My page 2', value: 'http://www.moxiecode.com' }
-      // ],
-      // image_class_list: [
-      // { title: 'None', value: '' },
-      // { title: 'Some class', value: 'class-name' }
-      // ],
-      // importcss_append: true,
-      // height: 400,
-      // templates: [
-      // { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-      // { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-      // { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
-      // ],
-      // template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-      // template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-      // height: 600,
-      // image_caption: true,
-      // quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-      // noneditable_noneditable_class: "mceNonEditable",
-      // toolbar_mode: 'sliding',
-      // spellchecker_dialog: true,
-      // spellchecker_whitelist: ['Ephox', 'Moxiecode'],
-      // tinycomments_mode: 'embedded',
-      // content_style: ".mymention{ color: gray; }",
-      // contextmenu: "link image imagetools table configurepermanentpen",
-      // a11y_advanced_options: true,
-      // /*
-      // The following settings require more configuration than shown here.
-      // For information on configuring the mentions plugin, see:
-      // https://www.tiny.cloud/docs/plugins/mentions/.
-      // */
-      // mentions_selector: '.mymention',
-      // mentions_fetch: mentions_fetch,
-      // mentions_menu_hover: mentions_menu_hover,
-      // mentions_menu_complete: mentions_menu_complete,
-      // mentions_select: mentions_select,
+
+      height: 400,
+      quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+      toolbar_mode: 'sliding',
+
+      image_title: true,
+  /* enable automatic uploads of images represented by blob or data URIs*/
+  automatic_uploads: true,
+  /*
+    URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+    images_upload_url: 'postAcceptor.php',
+    here we add custom filepicker only to Image dialog
+  */
+  file_picker_types: 'image',
+  /* and here's our custom image picker*/
+  file_picker_callback: function (cb, value, meta) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+
+    /*
+      Note: In modern browsers input[type="file"] is functional without
+      even adding it to the DOM, but that might not be the case in some older
+      or quirky browsers like IE, so you might want to add it to the DOM
+      just in case, and visually hide it. And do not forget do remove it
+      once you do not need it anymore.
+    */
+
+    input.onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        /*
+          Note: Now we need to register the blob in TinyMCEs image blob
+          registry. In the next release this part hopefully won't be
+          necessary, as we are looking to handle it internally.
+        */
+        var id = 'blobid' + (new Date()).getTime();
+        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(',')[1];
+        var blobInfo = blobCache.create(id, file, base64);
+        blobCache.add(blobInfo);
+
+        /* call the callback and populate the Title field with the file name */
+        cb(blobInfo.blobUri(), { title: file.name });
+      };
+      reader.readAsDataURL(file);
+    };
+
+    input.click();
+  }
     });
   </script>
-
 
 </head>
 <body>

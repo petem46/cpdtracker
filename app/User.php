@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'school', 'avatar', 'usergroup_id'
     ];
 
     /**
@@ -36,4 +36,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getGoogleSchool($gmail) {
+      $domain = explode("@", $gmail);
+      $school = explode(".", $domain[1]);
+      $school = $school[0];
+      if($school === 'FCAT' || $school === 'fcat') {
+          $school = strtoupper($school);
+      } else {
+          $school = ucfirst($school);
+      }
+
+      return $school;
+  }
+
 }
