@@ -6068,3 +6068,8 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.v-list-item__title a {
+  text-decoration: none;
+  color: white !important;
+}
+

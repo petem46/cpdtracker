@@ -12,6 +12,73 @@
     >
 
     <v-list shaped>
+      <v-subheader>MY CPD</v-subheader>
+      <v-list-item-group>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-account-details</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/dashboard"
+              >
+              My Profile
+            </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-check</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/completed"
+              >
+                Completed
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-play</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/inprogress"
+              >
+                In Progress
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-star</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/tostart"
+              >
+                To Start
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
       <v-subheader>COURSES</v-subheader>
       <v-list-item-group>
         <v-list-item>
@@ -25,7 +92,7 @@
               exact-active-class="teal--yellow"
               to="/c/details"
               >
-              <v-text>Find A Course</v-text>
+              Find A Course
             </router-link>
             </v-list-item-title>
           </v-list-item-content>
@@ -41,7 +108,7 @@
               exact-active-class="teal--yellow"
               to="/c"
               >
-                <v-text>My Courses</v-text>
+                My Courses
               </router-link>
             </v-list-item-title>
           </v-list-item-content>

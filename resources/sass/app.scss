@@ -14,3 +14,9 @@
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+
+
+.v-list-item__title a {
+  text-decoration: none;
+  color: white !important;
+}

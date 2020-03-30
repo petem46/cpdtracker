@@ -31,7 +31,10 @@ import Home from './views/Home'
 import CourseDetails from './views/CourseDetails'
 import CourseList from './views/CourseList'
 
+import UserCompleted from './views/UserCompleted'
 import UserDashboard from './views/UserDashboard'
+import UserInProgress from './views/UserInProgress'
+import UserToStart from './views/UserToStart'
 
 
 const store = new Vuex.Store({
@@ -65,6 +68,21 @@ const router = new VueRouter({
       path: '/u/dashboard',
       name: 'userdashboard',
       component: UserDashboard
+    },
+    {
+      path: '/u/completed',
+      name: 'usercompleted',
+      component: UserCompleted
+    },
+    {
+      path: '/u/inprogress',
+      name: 'userinprogress',
+      component: UserInProgress
+    },
+    {
+      path: '/u/tostart',
+      name: 'usertostart',
+      component: UserToStart
     },
   ],
 });
