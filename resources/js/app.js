@@ -10,6 +10,12 @@ Vue.use(VueRouter)
 Vue.use(Vuetify)
 Vue.use(VueFilterDateFormat)
 
+export default new Vuetify({
+  theme: {
+    dark: true,
+  },
+});
+
 require('./bootstrap');
 
 /**

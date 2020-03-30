@@ -12,7 +12,7 @@
     >
 
     <v-list shaped>
-      <v-subheader>MY CPD</v-subheader>
+      <v-subheader class="font-weight-bold headline">MY CPD</v-subheader>
       <v-list-item-group>
         <v-list-item>
           <v-list-item-icon>
@@ -27,6 +27,41 @@
               >
               My Profile
             </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+      <v-subheader>COURSES</v-subheader>
+      <v-list-item-group>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-book-search-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/c"
+              >
+              Find A Course
+            </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-folder-account-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/c"
+              >
+                My Courses
+              </router-link>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -79,7 +114,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
-      <v-subheader>COURSES</v-subheader>
+      <v-subheader>CATEGORIES</v-subheader>
       <v-list-item-group>
         <v-list-item>
           <v-list-item-icon>
@@ -90,9 +125,9 @@
               <router-link
               exact
               exact-active-class="teal--yellow"
-              to="/c/details"
+              to="/c"
               >
-              Find A Course
+              Pastoral Wellbeing
             </router-link>
             </v-list-item-title>
           </v-list-item-content>
@@ -108,7 +143,55 @@
               exact-active-class="teal--yellow"
               to="/c"
               >
-                My Courses
+                SEN
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-check</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/completed"
+              >
+                Ed Tech
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-play</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/inprogress"
+              >
+                Leadership
+              </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-playlist-star</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/tostart"
+              >
+                STEM
               </router-link>
             </v-list-item-title>
           </v-list-item-content>

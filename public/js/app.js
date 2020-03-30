@@ -2080,6 +2080,89 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2127,6 +2210,431 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2158,6 +2666,68 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2199,6 +2769,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2212,6 +2803,34 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -37800,7 +38419,9 @@ var render = function() {
             "v-list",
             { attrs: { shaped: "" } },
             [
-              _c("v-subheader", [_vm._v("MY CPD")]),
+              _c("v-subheader", { staticClass: "font-weight-bold headline" }, [
+                _vm._v("MY CPD")
+              ]),
               _vm._v(" "),
               _c(
                 "v-list-item-group",
@@ -37830,6 +38451,94 @@ var render = function() {
                                   }
                                 },
                                 [_vm._v("\n            My Profile\n          ")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-subheader", [_vm._v("COURSES")]),
+              _vm._v(" "),
+              _c(
+                "v-list-item-group",
+                [
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-book-search-outline")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c(
+                            "v-list-item-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    exact: "",
+                                    "exact-active-class": "teal--yellow",
+                                    to: "/c"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            Find A Course\n          "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-folder-account-outline")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c(
+                            "v-list-item-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    exact: "",
+                                    "exact-active-class": "teal--yellow",
+                                    to: "/c"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              My Courses\n            "
+                                  )
+                                ]
                               )
                             ],
                             1
@@ -37964,7 +38673,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("v-subheader", [_vm._v("COURSES")]),
+              _c("v-subheader", [_vm._v("CATEGORIES")]),
               _vm._v(" "),
               _c(
                 "v-list-item-group",
@@ -37990,12 +38699,12 @@ var render = function() {
                                   attrs: {
                                     exact: "",
                                     "exact-active-class": "teal--yellow",
-                                    to: "/c/details"
+                                    to: "/c"
                                   }
                                 },
                                 [
                                   _vm._v(
-                                    "\n            Find A Course\n          "
+                                    "\n            Pastoral Wellbeing\n          "
                                   )
                                 ]
                               )
@@ -38033,11 +38742,123 @@ var render = function() {
                                     to: "/c"
                                   }
                                 },
+                                [_vm._v("\n              SEN\n            ")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-playlist-check")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c(
+                            "v-list-item-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    exact: "",
+                                    "exact-active-class": "teal--yellow",
+                                    to: "/u/completed"
+                                  }
+                                },
                                 [
                                   _vm._v(
-                                    "\n              My Courses\n            "
+                                    "\n              Ed Tech\n            "
                                   )
                                 ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-playlist-play")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c(
+                            "v-list-item-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    exact: "",
+                                    "exact-active-class": "teal--yellow",
+                                    to: "/u/inprogress"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n              Leadership\n            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("mdi-playlist-star")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c(
+                            "v-list-item-title",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    exact: "",
+                                    "exact-active-class": "teal--yellow",
+                                    to: "/u/tostart"
+                                  }
+                                },
+                                [_vm._v("\n              STEM\n            ")]
                               )
                             ],
                             1
@@ -38144,16 +38965,1452 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Pastoral & Wellbeing")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Special Education Needs")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("Ed Tech")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("The Arts")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("Literacy")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("MFL")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("STEM")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("RE")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("RESEARCH")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Teaching & Learning")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [_vm._v("Leadership")]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Early career teachers")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        { staticClass: "pb-5" },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("CourseList.vue")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38206,16 +40463,233 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Completed Courses (10)")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("UserCompleted.vue")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38268,16 +40742,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Courses In Progress (3)")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("UserInProgress.vue")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38299,16 +40843,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "font-weight-light" }, [
+        _vm._v("Courses To Start (4)")
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+            [
+              _c("v-img", {
+                attrs: { src: "https://via.placeholder.com/295x165.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "pt-2" },
+                [
+                  _c("v-icon", [_vm._v("mdi-apps")]),
+                  _vm._v("  Course Title\n      ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("UserToStart.vue")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -95983,7 +98618,7 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96012,6 +98647,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_3___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_filter_date_format__WEBPACK_IMPORTED_MODULE_4__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuetify__WEBPACK_IMPORTED_MODULE_3___default.a({
+  theme: {
+    dark: true
+  }
+}));
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /**
