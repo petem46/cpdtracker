@@ -56,6 +56,11 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
+      path: '/home',
+      name: 'landing',
+      component: Home
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
@@ -66,7 +71,7 @@ const router = new VueRouter({
       component: CourseDetails
     },
     {
-      path: '/c',
+      path: '/c/all',
       name: 'courselist',
       component: CourseList
     },

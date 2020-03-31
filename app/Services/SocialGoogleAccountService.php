@@ -32,6 +32,7 @@ class SocialGoogleAccountService
             'school' => User::getGoogleSchool($providerUser->getEmail()),
             'password' => md5(rand(1,10000)),
             'usergroup_id' => '5',
+            'role_id' => '1',
             ]);
           }
           $account->user()->associate($user);

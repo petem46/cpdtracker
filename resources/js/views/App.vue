@@ -12,7 +12,7 @@
     >
 
     <v-list shaped>
-      <v-subheader class="font-weight-bold headline">MY CPD</v-subheader>
+      <v-subheader class="font-weight-light">MY CPD</v-subheader>
       <v-list-item-group>
         <v-list-item>
           <v-list-item-icon>
@@ -30,6 +30,22 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-book-plus-multiple</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link
+              exact
+              exact-active-class="teal--yellow"
+              to="/u/dashboard"
+              >
+              Add A Course
+            </router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list-item-group>
       <v-subheader>COURSES</v-subheader>
       <v-list-item-group>
@@ -42,7 +58,7 @@
               <router-link
               exact
               exact-active-class="teal--yellow"
-              to="/c"
+              to="/c/all"
               >
               Find A Course
             </router-link>
@@ -67,7 +83,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-check</v-icon>
+            <v-icon color="light-green accent-3">mdi-playlist-check</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -83,7 +99,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-play</v-icon>
+            <v-icon color="amber">mdi-playlist-play</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -99,7 +115,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-star</v-icon>
+            <v-icon color="yellow accent-2">mdi-playlist-star</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -118,7 +134,7 @@
       <v-list-item-group>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-book-search-outline</v-icon>
+            <v-icon color="green lighten-2">mdi-label</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -134,7 +150,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-folder-account-outline</v-icon>
+            <v-icon color="orange darken-2">mdi-label</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -150,7 +166,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-check</v-icon>
+            <v-icon color="red darken-1">mdi-label</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -166,7 +182,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-play</v-icon>
+            <v-icon color="purple lighten-1">mdi-label</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -182,7 +198,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-playlist-star</v-icon>
+            <v-icon color="blue lighten-3">mdi-label</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -210,7 +226,16 @@
       <v-app-bar-nav-icon
         @click.stop="primaryDrawer.model = !primaryDrawer.model"
       />
-      <v-toolbar-title>FCAT CPD Tracker</v-toolbar-title>
+      <v-toolbar-title>
+        FCAT CPD Tracker
+      </v-toolbar-title>
+      <v-spacer />
+      <v-icon
+        large
+        @click="logout"
+      >
+        mdi-logout
+      </v-icon>
     </v-app-bar>
     <v-content>
       <v-container fluid>
@@ -230,5 +255,10 @@ export default {
       mini: false,
     },
   }),
+  methods: {
+    logout () {
+      alert('Trigger Logout Method')
+    },
+  },
 }
 </script>
