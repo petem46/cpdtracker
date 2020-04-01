@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Category;
+use App\CourseProgress;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -29,6 +32,46 @@ class CourseController extends Controller
       // dump($data);
       return $data;
     }
+
+    public function addToMyCourses($course_id)
+    {
+      $mycourse = CourseProgress::create([
+        'course_id'   => $course_id,
+        'user_id'     => Auth::id(),
+        'state_id'    => 3,
+      ]);
+      return response(null, Response::HTTP_OK);
+    }
+
+    public function getMyCourses()
+    {
+      $uid = Auth::id();
+      $uid = 1;
+      $data = [
+        'mycompletedcourses' => Course::whereHas('courserating', function($q) use ($uid) {$q->where('user_id', $uid);})
+                                  ->WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '2');})
+                                  ->with([
+                                    'courserating'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+                                    'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+                                  ])
+                                  ->get(),
+        'myinprogresscourses' => Course::with('courseprogress')->whereHas('courseprogress', function($q) use ($uid) { $q->where('user_id', $uid)->where('state_id', '1'); })->get(),
+        'mytostartcourses' => Course::with('courseprogress')->whereHas('courseprogress', function($q) use ($uid) { $q->where('user_id', $uid)->where('state_id', '3'); })->get(),
+      ];
+      return $data;
+    }
+
+
+    public function dashboarddata($user_id)
+    {
+      $data = [
+        'category_courses' => Category::with('course')->get(),
+      ];
+      // dump($data);
+      return $data;
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

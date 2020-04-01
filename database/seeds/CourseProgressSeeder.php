@@ -1,9 +1,9 @@
 <?php
 
-use App\CourseState;
+use App\CourseProgress;
 use Illuminate\Database\Seeder;
 
-class CourseStateSeeder extends Seeder
+class CourseProgressSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class CourseStateSeeder extends Seeder
     public function run()
     {
       $count = 500;
-      factory(CourseState::class, $count)->create();
+      factory(CourseProgress::class, $count)->create();
 
     }
 }

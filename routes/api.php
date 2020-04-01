@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/courselist', 'Api\CourseController@courselist');
+// Route::get('/courselist', 'Api\CourseController@courselist');

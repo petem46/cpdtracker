@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\CourseState;
+use App\CourseProgress;
 use Faker\Generator as Faker;
 
-$factory->define(CourseState::class, function (Faker $faker) {
+$factory->define(CourseProgress::class, function (Faker $faker) {
     return [
       'course_id' => $faker->numberBetween($min = 1, $max = 101),
       'user_id' => $faker->numberBetween($min = 1, $max = 5),

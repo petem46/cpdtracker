@@ -19,4 +19,13 @@ class Course extends Model
     return $this->belongsTo('App\Category');
   }
 
+  public function courserating() {
+    return $this->hasMany('App\CourseRating');
+  }
+
+  public function courseprogress() {
+    return $this->hasMany('App\CourseProgress');
+  }
+
+
 }

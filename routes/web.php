@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/courselist', 'CourseController@courselist');
+
+Route::get('/u/getMyCourses', 'CourseController@getMyCourses');
+
+Route::put('/u/addToMyCourses/{course_id}',  'CourseController@addToMyCourses');
+
+Route::get('/u/dashboarddata', 'CourseController@dashboarddata');
 
 Auth::routes();
 
@@ -22,13 +29,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
 
 Route::group(['middleware' => ['auth']], function () {
 
-  // Route::get('/', function () {
-    //     return view('welcome');
-    // });
-    // Route::get('/home', 'HomeController@index')->name('home');
 
-  Route::get('/courselist', 'CourseController@courselist');
+
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-
 });
-

@@ -39,6 +39,7 @@ import CourseList from './views/CourseList'
 
 import UserCompleted from './views/UserCompleted'
 import UserDashboard from './views/UserDashboard'
+import MyCourses from './views/u/MyCourses'
 import UserInProgress from './views/UserInProgress'
 import UserToStart from './views/UserToStart'
 
@@ -79,6 +80,11 @@ const router = new VueRouter({
       path: '/u/dashboard',
       name: 'userdashboard',
       component: UserDashboard
+    },
+    {
+      path: '/u/mycourses',
+      name: 'usermycourses',
+      component: MyCourses
     },
     {
       path: '/u/completed',

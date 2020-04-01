@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseRating extends Model
+class CourseProgress extends Model
 {
-  protected $table = 'course_ratings';
-  protected $fillable = ['course_id', 'user_id', 'rating'];
 
+  protected $table = 'course_progress';
+  protected $fillable = ['course_id', 'user_id', 'state_id'];
 
   public function course() {
     return $this->belongsTo('App\Course');

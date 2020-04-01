@@ -13,7 +13,7 @@ class CreateCourseStateTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_states', function (Blueprint $table) {
+        Schema::create('course_progress', function (Blueprint $table) {
           $table->id();
           $table->integer('course_id');
           $table->integer('user_id');
@@ -29,6 +29,6 @@ class CreateCourseStateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_states');
+        Schema::dropIfExists('course_progress');
     }
 }

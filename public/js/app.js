@@ -2098,99 +2098,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       primaryDrawer: {
         model: null,
         clipped: false,
@@ -2201,7 +2112,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logout: function logout() {
-      alert('Trigger Logout Method');
+      axios.post("/logout").then(function (response) {
+        if (response.status === 302 || 401) {
+          // this.$router.push('/login')
+          window.location.href = '/login';
+        } else {// throw error and go to catch block
+        }
+      })["catch"](function (error) {});
     }
   }
 });
@@ -2302,6 +2219,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2310,7 +2255,18 @@ __webpack_require__.r(__webpack_exports__);
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       courses: [],
       endpoint: "/courselist",
-      rating: 4.5
+      rating: 4.5,
+      addtosheet: false,
+      addtooptions: [{
+        img: "keep.png",
+        title: "Completed Courses"
+      }, {
+        img: "inbox.png",
+        title: "In Progress Courses"
+      }, {
+        img: "hangouts.png",
+        title: "Shortlisted Courses"
+      }]
     };
   },
   created: function created() {
@@ -2323,14 +2279,18 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.endpoint).then(function (_ref) {
         var data = _ref.data;
         _this.courses = data.category_courses;
-        console.log(_this.courses);
+      });
+    },
+    addToMyCourses: function addToMyCourses($course_id) {
+      console.log("Course ID: " + $course_id);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + $course_id).then(function () {// this.updated = true;
       });
     },
     randomTile: function randomTile($courseid) {
       return "https://picsum.photos/295/165/?random=" + $courseid;
     },
     tileClick: function tileClick($id, $name) {
-      alert('You Clicked course.id:' + $id + ' course.name:' + $name + '!');
+      alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
     }
   }
 });
@@ -2475,12 +2435,45 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      colors: ["indigo", "warning", "pink darken-2", "red lighten-1", "deep-purple accent-4"],
+      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+      courses: [],
+      endpoint: "/u/dashboarddata",
+      rating: 4.5
+    };
+  },
+  created: function created() {
+    this.fetch();
+  },
+  methods: {
+    fetch: function fetch() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.endpoint).then(function (_ref) {
+        var data = _ref.data;
+        _this.courses = data.category_courses;
+        console.log(_this.courses);
+      });
+    },
+    randomTile: function randomTile($courseid) {
+      return "https://picsum.photos/295/165/?random=" + $courseid;
+    },
+    tileClick: function tileClick($id, $name) {
+      alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
+    }
+  }
+});
 
 /***/ }),
 
@@ -2583,6 +2576,250 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
+    randomTile: function randomTile() {
+      return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      endpoint: "/u/getMyCourses",
+      mycompletedcourses: [],
+      myinprogresscourses: [],
+      myshortlistededcourses: []
+    };
+  },
+  created: function created() {
+    this.fetch();
+  },
+  methods: {
+    fetch: function fetch() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.endpoint).then(function (_ref) {
+        var data = _ref.data;
+        _this.mycompletedcourses = data.mycompletedcourses;
+        _this.myinprogresscourses = data.myinprogresscourses;
+        _this.myshortlistededcourses = data.myshortlistededcourses;
+      });
+    },
     randomTile: function randomTile() {
       return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
     }
@@ -7134,7 +7371,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-card--reveal {\n  /* align-items: center; */\n  bottom: 0;\n  /* justify-content: center; */\n  opacity: .85;\n  position: absolute;\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.v-card--reveal {\n\t/* align-items: center; */\n\tbottom: 0;\n\t/* justify-content: center; */\n\topacity: 0.85;\n\tposition: absolute;\n\twidth: 100%;\n}\n", ""]);
 
 // exports
 
@@ -38846,7 +39083,7 @@ var render = function() {
                                     to: "/u/dashboard"
                                   }
                                 },
-                                [_vm._v("\n            My Profile\n          ")]
+                                [_vm._v("My Profile")]
                               )
                             ],
                             1
@@ -38882,11 +39119,7 @@ var render = function() {
                                     to: "/u/dashboard"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n            Add A Course\n          "
-                                  )
-                                ]
+                                [_vm._v("Add A Course")]
                               )
                             ],
                             1
@@ -38930,11 +39163,7 @@ var render = function() {
                                     to: "/c/all"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n            Find A Course\n          "
-                                  )
-                                ]
+                                [_vm._v("Find A Course")]
                               )
                             ],
                             1
@@ -38967,14 +39196,10 @@ var render = function() {
                                   attrs: {
                                     exact: "",
                                     "exact-active-class": "teal--yellow",
-                                    to: "/c"
+                                    to: "/u/mycourses"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              My Courses\n            "
-                                  )
-                                ]
+                                [_vm._v("My Courses")]
                               )
                             ],
                             1
@@ -39016,11 +39241,7 @@ var render = function() {
                                     to: "/u/completed"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              Completed\n            "
-                                  )
-                                ]
+                                [_vm._v("Completed")]
                               )
                             ],
                             1
@@ -39060,11 +39281,7 @@ var render = function() {
                                     to: "/u/inprogress"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              In Progress\n            "
-                                  )
-                                ]
+                                [_vm._v("In Progress")]
                               )
                             ],
                             1
@@ -39106,11 +39323,7 @@ var render = function() {
                                     to: "/u/tostart"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              To Start\n            "
-                                  )
-                                ]
+                                [_vm._v("To Start")]
                               )
                             ],
                             1
@@ -39160,11 +39373,7 @@ var render = function() {
                                     to: "/c"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n            Pastoral Wellbeing\n          "
-                                  )
-                                ]
+                                [_vm._v("Pastoral Wellbeing")]
                               )
                             ],
                             1
@@ -39206,7 +39415,7 @@ var render = function() {
                                     to: "/c"
                                   }
                                 },
-                                [_vm._v("\n              SEN\n            ")]
+                                [_vm._v("SEN")]
                               )
                             ],
                             1
@@ -39246,11 +39455,7 @@ var render = function() {
                                     to: "/u/completed"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              Ed Tech\n            "
-                                  )
-                                ]
+                                [_vm._v("Ed Tech")]
                               )
                             ],
                             1
@@ -39292,11 +39497,7 @@ var render = function() {
                                     to: "/u/inprogress"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n              Leadership\n            "
-                                  )
-                                ]
+                                [_vm._v("Leadership")]
                               )
                             ],
                             1
@@ -39336,7 +39537,7 @@ var render = function() {
                                     to: "/u/tostart"
                                   }
                                 },
-                                [_vm._v("\n              STEM\n            ")]
+                                [_vm._v("STEM")]
                               )
                             ],
                             1
@@ -39376,13 +39577,11 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("\n      FCAT CPD Tracker\n    ")]),
+          _c("v-toolbar-title", [_vm._v("FCAT CPD Tracker")]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-icon", { attrs: { large: "" }, on: { click: _vm.logout } }, [
-            _vm._v("\n      mdi-logout\n    ")
-          ])
+          _c("v-icon", { on: { click: _vm.logout } }, [_vm._v("mdi-logout")])
         ],
         1
       ),
@@ -39508,12 +39707,7 @@ var render = function() {
                 _vm._b(
                   {
                     key: course.id,
-                    attrs: { cols: "6", md: "4", lg: "3", xl: "2" },
-                    on: {
-                      click: function($event) {
-                        return _vm.tileClick(course.id, course.name)
-                      }
-                    }
+                    attrs: { cols: "6", md: "4", lg: "3", xl: "2" }
                   },
                   "v-col",
                   course,
@@ -39521,7 +39715,7 @@ var render = function() {
                 ),
                 [
                   _c("v-hover", {
-                    attrs: { "close-delay": "200" },
+                    attrs: { "open-delay": "150", "close-delay": "200" },
                     scopedSlots: _vm._u(
                       [
                         {
@@ -39552,25 +39746,15 @@ var render = function() {
                                           [
                                             _c("div", { staticClass: "pa-3" }, [
                                               _vm._v(
-                                                "\n          " +
+                                                "\n\t\t\t\t\t\t\t\t\t" +
                                                   _vm._s(course.description) +
-                                                  "\n          "
+                                                  "\n\t\t\t\t\t\t\t\t\t"
                                               ),
                                               _c("br"),
-                                              _vm._v(" "),
-                                              _c("br"),
                                               _vm._v(
-                                                "\n          Length: " +
+                                                "\n\t\t\t\t\t\t\t\t\tLength: " +
                                                   _vm._s(course.length) +
-                                                  "\n          "
-                                              ),
-                                              _c("br"),
-                                              _vm._v(" "),
-                                              _c("br"),
-                                              _vm._v(
-                                                "\n          Cost: " +
-                                                  _vm._s(course.cost) +
-                                                  "\n          "
+                                                  " time\n\t\t\t\t\t\t\t\t"
                                               )
                                             ])
                                           ]
@@ -39591,32 +39775,90 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "pt-2" },
+                    {
+                      staticClass: "black darken-3",
+                      attrs: { id: "course-details-container" }
+                    },
                     [
-                      _c("v-icon", [_vm._v("mdi-label")]),
-                      _vm._v(
-                        "\n\t\t\t\t\t \n\t\t\t\t\t" +
-                          _vm._s(course.name) +
-                          "\n\t\t\t\t"
+                      _c(
+                        "v-card-text",
+                        {
+                          staticClass: "pt-6 pb-1",
+                          staticStyle: { position: "relative" }
+                        },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              staticClass: "white--text",
+                              attrs: {
+                                absolute: "",
+                                color: "orange darken-2",
+                                fab: "",
+                                right: "",
+                                top: ""
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.addtosheet = true
+                                }
+                              }
+                            },
+                            [_c("v-icon", [_vm._v("mdi-heart")])],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        {
+                          staticClass:
+                            "subtitle-1 py-1 grey--text text--lighten-1",
+                          staticStyle: {
+                            "word-break": "break-word",
+                            "min-height": "100px"
+                          }
+                        },
+                        [_vm._v(_vm._s(course.name))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        { staticClass: "py-2" },
+                        [
+                          _c(
+                            "v-row",
+                            { staticClass: "mx-0", attrs: { align: "center" } },
+                            [
+                              _c("v-rating", {
+                                attrs: {
+                                  value: 4.5,
+                                  color: "amber",
+                                  dense: "",
+                                  "half-increments": "",
+                                  readonly: "",
+                                  size: "14"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "grey--text ml-4" }, [
+                                _vm._v("4.5 (413)")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "my-1 caption text-left" }, [
+                            _vm._v("Cost: " + _vm._s(course.cost))
+                          ])
+                        ],
+                        1
                       )
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _c("v-rating", {
-                    attrs: {
-                      "half-increments": "",
-                      "background-color": "orange lighten-3",
-                      color: "orange"
-                    },
-                    model: {
-                      value: _vm.rating,
-                      callback: function($$v) {
-                        _vm.rating = $$v
-                      },
-                      expression: "rating"
-                    }
-                  })
+                  )
                 ],
                 1
               )
@@ -39624,7 +39866,65 @@ var render = function() {
           ],
           2
         )
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "v-bottom-sheet",
+        {
+          model: {
+            value: _vm.addtosheet,
+            callback: function($$v) {
+              _vm.addtosheet = $$v
+            },
+            expression: "addtosheet"
+          }
+        },
+        [
+          _c(
+            "v-list",
+            [
+              _c("v-subheader", [_vm._v("Add course to")]),
+              _vm._v(" "),
+              _vm._l(_vm.addtooptions, function(tile) {
+                return _c(
+                  "v-list-item",
+                  {
+                    key: tile.title,
+                    on: {
+                      click: function($event) {
+                        _vm.addtosheet = false
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "v-list-item-avatar",
+                      [
+                        _c("v-avatar", { attrs: { size: "32px", tile: "" } }, [
+                          _c("img", {
+                            attrs: {
+                              src:
+                                "https://cdn.vuetifyjs.com/images/bottom-sheets/" +
+                                tile.img,
+                              alt: tile.title
+                            }
+                          })
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-list-item-title", [_vm._v(_vm._s(tile.title))])
+                  ],
+                  1
+                )
+              })
+            ],
+            2
+          )
+        ],
+        1
+      )
     ],
     2
   )
@@ -40343,6 +40643,553 @@ var render = function() {
           )
         ],
         1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-row",
+        [
+          _c("h1", { staticClass: "col-12 font-weight-light" }, [
+            _vm._v("My In-Progress Courses")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.myinprogresscourses, function(course) {
+            return _c(
+              "v-col",
+              _vm._b(
+                {
+                  key: course.id,
+                  attrs: { cols: "6", md: "4", lg: "3", xl: "2" }
+                },
+                "v-col",
+                course,
+                false
+              ),
+              [
+                _c("v-hover", {
+                  attrs: { "open-delay": "150", "close-delay": "200" },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var hover = ref.hover
+                          return [
+                            _c(
+                              "v-img",
+                              {
+                                attrs: {
+                                  src: _vm.randomTile(course.id),
+                                  alt: "Course Tile",
+                                  height: "165",
+                                  width: "295"
+                                }
+                              },
+                              [
+                                _c("v-expand-transition", [
+                                  hover
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "d-flex transition-fast-in-fast-out teal v-card--reveal white--text",
+                                          staticStyle: { height: "100%" }
+                                        },
+                                        [
+                                          _c("div", { staticClass: "pa-3" }, [
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\t" +
+                                                _vm._s(course.description) +
+                                                "\n\t\t\t\t\t\t\t\t\t"
+                                            ),
+                                            _c("br"),
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
+                                                _vm._s(course.length) +
+                                                " time\n\t\t\t\t\t\t\t\t"
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            )
+                          ]
+                        }
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "black darken-3",
+                    attrs: { id: "course-details-container" }
+                  },
+                  [
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass: "pt-6 pb-1",
+                        staticStyle: { position: "relative" }
+                      },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass: "white--text",
+                            attrs: {
+                              absolute: "",
+                              color: "orange darken-2",
+                              fab: "",
+                              right: "",
+                              top: ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.addToMyCourses(course.id)
+                              }
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("mdi-heart")])],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass:
+                          "subtitle-1 py-1 grey--text text--lighten-1",
+                        staticStyle: {
+                          "word-break": "break-word",
+                          "min-height": "100px"
+                        }
+                      },
+                      [_vm._v(_vm._s(course.name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      { staticClass: "py-2" },
+                      [
+                        _c(
+                          "v-row",
+                          { staticClass: "mx-0", attrs: { align: "center" } },
+                          [
+                            _c("v-rating", {
+                              attrs: {
+                                value: 4.5,
+                                color: "amber",
+                                dense: "",
+                                "half-increments": "",
+                                readonly: "",
+                                size: "14"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "grey--text ml-4" }, [
+                              _vm._v("4.5 (413)")
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "my-1 caption text-left" }, [
+                          _vm._v("Cost: " + _vm._s(course.cost))
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c("h1", { staticClass: "col-12 font-weight-light" }, [
+            _vm._v("My Shortlisted Courses")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.myshortlistededcourses, function(course) {
+            return _c(
+              "v-col",
+              _vm._b(
+                {
+                  key: course.id,
+                  attrs: { cols: "6", md: "4", lg: "3", xl: "2" }
+                },
+                "v-col",
+                course,
+                false
+              ),
+              [
+                _c("v-hover", {
+                  attrs: { "open-delay": "150", "close-delay": "200" },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var hover = ref.hover
+                          return [
+                            _c(
+                              "v-img",
+                              {
+                                attrs: {
+                                  src: _vm.randomTile(course.id),
+                                  alt: "Course Tile",
+                                  height: "165",
+                                  width: "295"
+                                }
+                              },
+                              [
+                                _c("v-expand-transition", [
+                                  hover
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "d-flex transition-fast-in-fast-out teal v-card--reveal white--text",
+                                          staticStyle: { height: "100%" }
+                                        },
+                                        [
+                                          _c("div", { staticClass: "pa-3" }, [
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\t" +
+                                                _vm._s(course.description) +
+                                                "\n\t\t\t\t\t\t\t\t\t"
+                                            ),
+                                            _c("br"),
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
+                                                _vm._s(course.length) +
+                                                " time\n\t\t\t\t\t\t\t\t"
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            )
+                          ]
+                        }
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "black darken-3",
+                    attrs: { id: "course-details-container" }
+                  },
+                  [
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass: "pt-6 pb-1",
+                        staticStyle: { position: "relative" }
+                      },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass: "white--text",
+                            attrs: {
+                              absolute: "",
+                              color: "orange darken-2",
+                              fab: "",
+                              right: "",
+                              top: ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.addToMyCourses(course.id)
+                              }
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("mdi-heart")])],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass:
+                          "subtitle-1 py-1 grey--text text--lighten-1",
+                        staticStyle: {
+                          "word-break": "break-word",
+                          "min-height": "100px"
+                        }
+                      },
+                      [_vm._v(_vm._s(course.name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      { staticClass: "py-2" },
+                      [
+                        _c(
+                          "v-row",
+                          { staticClass: "mx-0", attrs: { align: "center" } },
+                          [
+                            _c("v-rating", {
+                              attrs: {
+                                value: 4.5,
+                                color: "amber",
+                                dense: "",
+                                "half-increments": "",
+                                readonly: "",
+                                size: "14"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "grey--text ml-4" }, [
+                              _vm._v("4.5 (413)")
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "my-1 caption text-left" }, [
+                          _vm._v("Cost: " + _vm._s(course.cost))
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "v-row",
+        [
+          _c("h1", { staticClass: "col-12 font-weight-light" }, [
+            _vm._v("My Completed Courses")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.mycompletedcourses, function(course) {
+            return _c(
+              "v-col",
+              _vm._b(
+                {
+                  key: course.id,
+                  attrs: { cols: "6", md: "4", lg: "3", xl: "2" }
+                },
+                "v-col",
+                course,
+                false
+              ),
+              [
+                _c("v-hover", {
+                  attrs: { "open-delay": "150", "close-delay": "200" },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var hover = ref.hover
+                          return [
+                            _c(
+                              "v-img",
+                              {
+                                attrs: {
+                                  src: _vm.randomTile(course.id),
+                                  alt: "Course Tile",
+                                  height: "165",
+                                  width: "295"
+                                }
+                              },
+                              [
+                                _c("v-expand-transition", [
+                                  hover
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "d-flex transition-fast-in-fast-out teal v-card--reveal white--text",
+                                          staticStyle: { height: "100%" }
+                                        },
+                                        [
+                                          _c("div", { staticClass: "pa-3" }, [
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\t" +
+                                                _vm._s(course.description) +
+                                                "\n\t\t\t\t\t\t\t\t\t"
+                                            ),
+                                            _c("br"),
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
+                                                _vm._s(course.length) +
+                                                " time\n\t\t\t\t\t\t\t\t"
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            )
+                          ]
+                        }
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "black darken-3",
+                    attrs: { id: "course-details-container" }
+                  },
+                  [
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass: "pt-6 pb-1",
+                        staticStyle: { position: "relative" }
+                      },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass: "white--text",
+                            attrs: {
+                              absolute: "",
+                              color: "orange darken-2",
+                              fab: "",
+                              right: "",
+                              top: ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.addToMyCourses(course.id)
+                              }
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("mdi-heart")])],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      {
+                        staticClass:
+                          "subtitle-1 py-1 grey--text text--lighten-1",
+                        staticStyle: {
+                          "word-break": "break-word",
+                          "min-height": "100px"
+                        }
+                      },
+                      [_vm._v(_vm._s(course.name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      { staticClass: "py-2" },
+                      [
+                        _c(
+                          "v-row",
+                          { staticClass: "mx-0", attrs: { align: "center" } },
+                          [
+                            _c("v-rating", {
+                              attrs: {
+                                value: 4.5,
+                                color: "amber",
+                                dense: "",
+                                "half-increments": "",
+                                readonly: "",
+                                size: "14"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "grey--text ml-4" }, [
+                              _vm._v("4.5 (413)")
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "my-1 caption text-left" }, [
+                          _vm._v("Cost: " + _vm._s(course.cost))
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          })
+        ],
+        2
       )
     ],
     1
@@ -87395,7 +88242,7 @@ function () {
 
   Vuetify.install = _install__WEBPACK_IMPORTED_MODULE_0__["install"];
   Vuetify.installed = false;
-  Vuetify.version = "2.2.19";
+  Vuetify.version = "2.2.20";
   return Vuetify;
 }();
 
@@ -98041,8 +98888,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_CourseList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/CourseList */ "./resources/js/views/CourseList.vue");
 /* harmony import */ var _views_UserCompleted__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/UserCompleted */ "./resources/js/views/UserCompleted.vue");
 /* harmony import */ var _views_UserDashboard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/UserDashboard */ "./resources/js/views/UserDashboard.vue");
-/* harmony import */ var _views_UserInProgress__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/UserInProgress */ "./resources/js/views/UserInProgress.vue");
-/* harmony import */ var _views_UserToStart__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/UserToStart */ "./resources/js/views/UserToStart.vue");
+/* harmony import */ var _views_u_MyCourses__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/u/MyCourses */ "./resources/js/views/u/MyCourses.vue");
+/* harmony import */ var _views_UserInProgress__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/UserInProgress */ "./resources/js/views/UserInProgress.vue");
+/* harmony import */ var _views_UserToStart__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/UserToStart */ "./resources/js/views/UserToStart.vue");
 
 
 
@@ -98071,6 +98919,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
+
 
 
 
@@ -98108,17 +98957,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     name: 'userdashboard',
     component: _views_UserDashboard__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
+    path: '/u/mycourses',
+    name: 'usermycourses',
+    component: _views_u_MyCourses__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }, {
     path: '/u/completed',
     name: 'usercompleted',
     component: _views_UserCompleted__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: '/u/inprogress',
     name: 'userinprogress',
-    component: _views_UserInProgress__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _views_UserInProgress__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
     path: '/u/tostart',
     name: 'usertostart',
-    component: _views_UserToStart__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _views_UserToStart__WEBPACK_IMPORTED_MODULE_13__["default"]
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -98812,6 +99665,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserToStart_vue_vue_type_template_id_6b560e0d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserToStart_vue_vue_type_template_id_6b560e0d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/u/MyCourses.vue":
+/*!********************************************!*\
+  !*** ./resources/js/views/u/MyCourses.vue ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyCourses.vue?vue&type=template&id=21844a03& */ "./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03&");
+/* harmony import */ var _MyCourses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyCourses.vue?vue&type=script&lang=js& */ "./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MyCourses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/u/MyCourses.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCourses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCourses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/u/MyCourses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCourses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03& ***!
+  \***************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MyCourses.vue?vue&type=template&id=21844a03& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/u/MyCourses.vue?vue&type=template&id=21844a03&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MyCourses_vue_vue_type_template_id_21844a03___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
