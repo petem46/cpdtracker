@@ -47,7 +47,7 @@ class CourseController extends Controller
     public function getMyCourses()
     {
       $uid = Auth::id();
-      // $uid = 1;
+      $uid = 1;
       $data = [
         'mycompletedcourses' => Course::whereHas('courserating', function($q) use ($uid) {$q->where('user_id', $uid);})
                                   ->WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '2');})
