@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \DB;
 use App\Course;
 use App\Category;
 use App\CourseProgress;
@@ -33,12 +34,12 @@ class CourseController extends Controller
       return $data;
     }
 
-    public function addToMyCourses($course_id)
+    public function addToMyCourses($course_id, $state_id)
     {
       $mycourse = CourseProgress::create([
         'course_id'   => $course_id,
         'user_id'     => Auth::id(),
-        'state_id'    => 3,
+        'state_id'    => $state_id,
       ]);
       return response(null, Response::HTTP_OK);
     }
@@ -46,7 +47,7 @@ class CourseController extends Controller
     public function getMyCourses()
     {
       $uid = Auth::id();
-      $uid = 1;
+      // $uid = 1;
       $data = [
         'mycompletedcourses' => Course::whereHas('courserating', function($q) use ($uid) {$q->where('user_id', $uid);})
                                   ->WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '2');})
@@ -55,8 +56,22 @@ class CourseController extends Controller
                                     'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
                                   ])
                                   ->get(),
-        'myinprogresscourses' => Course::with('courseprogress')->whereHas('courseprogress', function($q) use ($uid) { $q->where('user_id', $uid)->where('state_id', '1'); })->get(),
-        'mytostartcourses' => Course::with('courseprogress')->whereHas('courseprogress', function($q) use ($uid) { $q->where('user_id', $uid)->where('state_id', '3'); })->get(),
+        // 'mycompletedcourses1' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '2');})
+        //                           ->with([
+        //                             'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+        //                           ])
+        //                           ->get(),
+        'myinprogresscourses' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '1');})
+                                  ->with([
+                                    'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+                                  ])
+                                  ->get(),
+        'myshortlistedcourses' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '3');})
+                                  ->with([
+                                    'courserating',
+                                    'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+                                  ])
+                                  ->get(),
       ];
       return $data;
     }

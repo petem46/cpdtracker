@@ -47,7 +47,7 @@
 					<v-card-text class="pt-6 pb-1" style="position: relative;">
 						<!-- @click="addToMyCourses(course.id)" -->
 						<v-btn
-							@click="addtosheet = true"
+							@click="addtosheet = true; setaddcoursedata(course.id, course.name)"
 							absolute
 							color="orange darken-2"
 							class="white--text"
@@ -55,7 +55,7 @@
 							right
 							top
 						>
-							<v-icon>mdi-heart</v-icon>
+							<v-icon>mdi-plus</v-icon>
 						</v-btn>
 					</v-card-text>
 					<v-card-text
@@ -79,7 +79,7 @@
 		<v-bottom-sheet v-model="addtosheet">
 			<v-list>
 				<v-subheader>Add course to</v-subheader>
-				<v-list-item v-for="tile in addtooptions" :key="tile.title" @click="addtosheet = false">
+				<v-list-item v-for="tile in addtooptions" :key="tile.title" @click="addtosheet = false; addToMyCourses(tile.action, tile.stateid)">
 					<v-list-item-avatar>
 						<v-avatar size="32px" tile>
 							<img :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`" :alt="tile.title" />
@@ -107,11 +107,13 @@ export default {
 			courses: [],
 			endpoint: "/courselist",
 			rating: 4.5,
-			addtosheet: false,
+      addtocoursename: '',
+      addtocourseid: '',
+      addtosheet: false,
 			addtooptions: [
-				{ img: "keep.png", title: "Completed Courses" },
-				{ img: "inbox.png", title: "In Progress Courses" },
-				{ img: "hangouts.png", title: "Shortlisted Courses" }
+				{ img: "hangouts.png", title: "Add To Shortlisted Courses",  action: "addtoshortlist", stateid: 3},
+				{ img: "inbox.png", title: "Add To In Progress Courses",  action: "addtoinprogress", stateid: 1},
+				{ img: "keep.png", title: "Add To Completed Courses",  action: "addtocompleted", stateid: 2},
 			]
 		};
 	},
@@ -124,10 +126,11 @@ export default {
 				this.courses = data.category_courses;
 			});
 		},
-		addToMyCourses($course_id) {
-			console.log("Course ID: " + $course_id);
-			axios.put("/u/addToMyCourses/" + $course_id).then(() => {
-				// this.updated = true;
+		addToMyCourses($action, $state_id) {
+      console.log("Course ID: " + this.addtocourseid);
+			axios.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(() => {
+        // this.updated = true;
+        console.log('YOU WOT!?')
 			});
 		},
 		randomTile($courseid) {
@@ -135,7 +138,16 @@ export default {
 		},
 		tileClick($id, $name) {
 			alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
-		}
+		},
+    addcourse($action, $state) {
+      alert('You Cllicked ' + $action + " with a state_id of " + $state);
+
+    },
+    setaddcoursedata($id, $name) {
+      this.addtocourseid = $id;
+      this.addtocoursename = $name;
+      return true;
+    },
 	}
 };
 </script>

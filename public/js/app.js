@@ -2256,16 +2256,24 @@ __webpack_require__.r(__webpack_exports__);
       courses: [],
       endpoint: "/courselist",
       rating: 4.5,
+      addtocoursename: '',
+      addtocourseid: '',
       addtosheet: false,
       addtooptions: [{
-        img: "keep.png",
-        title: "Completed Courses"
+        img: "hangouts.png",
+        title: "Add To Shortlisted Courses",
+        action: "addtoshortlist",
+        stateid: 3
       }, {
         img: "inbox.png",
-        title: "In Progress Courses"
+        title: "Add To In Progress Courses",
+        action: "addtoinprogress",
+        stateid: 1
       }, {
-        img: "hangouts.png",
-        title: "Shortlisted Courses"
+        img: "keep.png",
+        title: "Add To Completed Courses",
+        action: "addtocompleted",
+        stateid: 2
       }]
     };
   },
@@ -2281,9 +2289,11 @@ __webpack_require__.r(__webpack_exports__);
         _this.courses = data.category_courses;
       });
     },
-    addToMyCourses: function addToMyCourses($course_id) {
-      console.log("Course ID: " + $course_id);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + $course_id).then(function () {// this.updated = true;
+    addToMyCourses: function addToMyCourses($action, $state_id) {
+      console.log("Course ID: " + this.addtocourseid);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {
+        // this.updated = true;
+        console.log('YOU WOT!?');
       });
     },
     randomTile: function randomTile($courseid) {
@@ -2291,6 +2301,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     tileClick: function tileClick($id, $name) {
       alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
+    },
+    addcourse: function addcourse($action, $state) {
+      alert('You Cllicked ' + $action + " with a state_id of " + $state);
+    },
+    setaddcoursedata: function setaddcoursedata($id, $name) {
+      this.addtocourseid = $id;
+      this.addtocoursename = $name;
+      return true;
     }
   }
 });
@@ -2796,6 +2814,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2803,7 +2859,7 @@ __webpack_require__.r(__webpack_exports__);
       endpoint: "/u/getMyCourses",
       mycompletedcourses: [],
       myinprogresscourses: [],
-      myshortlistededcourses: []
+      myshortlistedcourses: []
     };
   },
   created: function created() {
@@ -2817,12 +2873,13 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this.mycompletedcourses = data.mycompletedcourses;
         _this.myinprogresscourses = data.myinprogresscourses;
-        _this.myshortlistededcourses = data.myshortlistededcourses;
+        _this.myshortlistedcourses = data.myshortlistedcourses;
       });
     },
     randomTile: function randomTile() {
       return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
-    }
+    },
+    averageRating: function averageRating() {}
   }
 });
 
@@ -39801,10 +39858,11 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   _vm.addtosheet = true
+                                  _vm.setaddcoursedata(course.id, course.name)
                                 }
                               }
                             },
-                            [_c("v-icon", [_vm._v("mdi-heart")])],
+                            [_c("v-icon", [_vm._v("mdi-plus")])],
                             1
                           )
                         ],
@@ -39893,6 +39951,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         _vm.addtosheet = false
+                        _vm.addToMyCourses(tile.action, tile.stateid)
                       }
                     }
                   },
@@ -40676,9 +40735,41 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("h1", { staticClass: "col-12 font-weight-light" }, [
-            _vm._v("My In-Progress Courses")
-          ]),
+          _c(
+            "h1",
+            { staticClass: "col-12 font-weight-light" },
+            [
+              _vm._v("\n\t\t\t\tMy In-Progress Courses\n\t\t\t\t"),
+              !_vm.myinprogresscourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "red darken-4", "text-color": "white" }
+                    },
+                    [_vm._v("0")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.myinprogresscourses
+                ? _c("h3", { staticClass: "font-weight-light orange--text" }, [
+                    _vm._v("You have no in-progress courses.")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.myinprogresscourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "teal", "text-color": "white" }
+                    },
+                    [_vm._v(_vm._s(_vm.myinprogresscourses.length))]
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._l(_vm.myinprogresscourses, function(course) {
             return _c(
@@ -40849,11 +40940,43 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("h1", { staticClass: "col-12 font-weight-light" }, [
-            _vm._v("My Shortlisted Courses")
-          ]),
+          _c(
+            "h1",
+            { staticClass: "col-12 font-weight-light" },
+            [
+              _vm._v("\n\t\t\t\tMy Shortlisted Courses\n\t\t\t\t"),
+              !_vm.myshortlistedcourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "red darken-4", "text-color": "white" }
+                    },
+                    [_vm._v("0")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.myshortlistedcourses
+                ? _c("h3", { staticClass: "font-weight-light orange--text" }, [
+                    _vm._v("You have no shortlisted courses.")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.myshortlistedcourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "teal", "text-color": "white" }
+                    },
+                    [_vm._v(_vm._s(_vm.myshortlistedcourses.length))]
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
-          _vm._l(_vm.myshortlistededcourses, function(course) {
+          _vm._l(_vm.myshortlistedcourses, function(course) {
             return _c(
               "v-col",
               _vm._b(
@@ -41022,9 +41145,41 @@ var render = function() {
       _c(
         "v-row",
         [
-          _c("h1", { staticClass: "col-12 font-weight-light" }, [
-            _vm._v("My Completed Courses")
-          ]),
+          _c(
+            "h1",
+            { staticClass: "col-12 font-weight-light" },
+            [
+              _vm._v("\n\t\t\t\tMy Completed Courses\n\t\t\t\t"),
+              !_vm.mycompletedcourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "red darken-4", "text-color": "white" }
+                    },
+                    [_vm._v("0")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.mycompletedcourses
+                ? _c("h3", { staticClass: "font-weight-light orange--text" }, [
+                    _vm._v("You have not completed any courses.")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.mycompletedcourses
+                ? _c(
+                    "v-chip",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "teal", "text-color": "white" }
+                    },
+                    [_vm._v(_vm._s(_vm.mycompletedcourses.length))]
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._l(_vm.mycompletedcourses, function(course) {
             return _c(
@@ -41169,7 +41324,7 @@ var render = function() {
                             }),
                             _vm._v(" "),
                             _c("div", { staticClass: "grey--text ml-4" }, [
-                              _vm._v("4.5 (413)")
+                              _vm._v(_vm._s(course.averageRating))
                             ])
                           ],
                           1

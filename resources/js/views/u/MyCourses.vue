@@ -1,7 +1,20 @@
 <template>
 	<div>
 		<v-row>
-			<h1 class="col-12 font-weight-light">My In-Progress Courses</h1>
+			<h1 class="col-12 font-weight-light">
+				My In-Progress Courses
+				<v-chip v-if="!myinprogresscourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
+				<h3
+					v-if="!myinprogresscourses"
+					class="font-weight-light orange--text"
+				>You have no in-progress courses.</h3>
+				<v-chip
+					v-if="myinprogresscourses"
+					class="ma-2"
+					color="teal"
+					text-color="white"
+				>{{ myinprogresscourses.length }}</v-chip>
+			</h1>
 
 			<!--
         -- Course Tile Start --
@@ -67,7 +80,20 @@
 		</v-row>
 
 		<v-row>
-			<h1 class="col-12 font-weight-light">My Shortlisted Courses</h1>
+			<h1 class="col-12 font-weight-light">
+				My Shortlisted Courses
+				<v-chip v-if="!myshortlistedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
+				<h3
+					v-if="!myshortlistedcourses"
+					class="font-weight-light orange--text"
+				>You have no shortlisted courses.</h3>
+				<v-chip
+					v-if="myshortlistedcourses"
+					class="ma-2"
+					color="teal"
+					text-color="white"
+				>{{ myshortlistedcourses.length }}</v-chip>
+			</h1>
 
 			<!--
         -- Course Tile Start --
@@ -77,7 +103,7 @@
 				md="4"
 				lg="3"
 				xl="2"
-				v-for="course in myshortlistededcourses"
+				v-for="course in myshortlistedcourses"
 				v-bind="course"
 				:key="course.id"
 			>
@@ -131,9 +157,21 @@
         -- Course Tile End --
 			-->
 		</v-row>
-
 		<v-row>
-			<h1 class="col-12 font-weight-light">My Completed Courses</h1>
+			<h1 class="col-12 font-weight-light">
+				My Completed Courses
+				<v-chip v-if="!mycompletedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
+				<h3
+					v-if="!mycompletedcourses"
+					class="font-weight-light orange--text"
+				>You have not completed any courses.</h3>
+				<v-chip
+					v-if="mycompletedcourses"
+					class="ma-2"
+					color="teal"
+					text-color="white"
+				>{{ mycompletedcourses.length }}</v-chip>
+			</h1>
 
 			<!--
         -- Course Tile Start --
@@ -186,7 +224,7 @@
 					<v-card-text class="py-2">
 						<v-row align="center" class="mx-0">
 							<v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-							<div class="grey--text ml-4">4.5 (413)</div>
+							<div class="grey--text ml-4">{{ course.averageRating }}</div>
 						</v-row>
 						<div class="my-1 caption text-left">Cost: {{ course.cost }}</div>
 						<!-- <div>{{ course.description }}</div> -->
@@ -207,7 +245,7 @@ export default {
 			endpoint: "/u/getMyCourses",
 			mycompletedcourses: [],
 			myinprogresscourses: [],
-			myshortlistededcourses: []
+			myshortlistedcourses: []
 		};
 	},
 	created() {
@@ -218,7 +256,7 @@ export default {
 			axios.get(this.endpoint).then(({ data }) => {
 				this.mycompletedcourses = data.mycompletedcourses;
 				this.myinprogresscourses = data.myinprogresscourses;
-				this.myshortlistededcourses = data.myshortlistededcourses;
+        this.myshortlistedcourses = data.myshortlistedcourses;
 			});
 		},
 		randomTile() {
@@ -226,7 +264,8 @@ export default {
 				"https://picsum.photos/295/165/?random=" +
 				Math.floor(Math.random() * 250)
 			);
-		}
+		},
+		averageRating() {}
 	}
 };
 </script>

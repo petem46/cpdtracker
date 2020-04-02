@@ -17,7 +17,7 @@ Route::get('/courselist', 'CourseController@courselist');
 
 Route::get('/u/getMyCourses', 'CourseController@getMyCourses');
 
-Route::put('/u/addToMyCourses/{course_id}',  'CourseController@addToMyCourses');
+Route::put('/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
 
 Route::get('/u/dashboarddata', 'CourseController@dashboarddata');
 
