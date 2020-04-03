@@ -37,7 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function courserating() {
+      return $this->hasOne('App\CourseRating');
+    }
 
+    public function couresprogress() {
+      return $this->hasOne('App\CourseProgress');
+    }
 
     public static function getGoogleSchool($gmail) {
       $domain = explode("@", $gmail);

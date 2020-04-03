@@ -13,6 +13,14 @@ class CourseRatingSeeder extends Seeder
   public function run()
   {
     $count = 500;
-    factory(CourseRating::class, $count)->create();
+    $ratings = factory(CourseRating::class, $count)->make();
+    foreach ($ratings as $rating) {
+      repeat: try {
+        $rating->save();
+      } catch (\Illuminate\Database\QueryException $e) {
+        $rating = factory(CourseRating::class)->make();
+        goto repeat;
+      }
+    }
   }
 }

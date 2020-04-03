@@ -15,11 +15,18 @@ class CreateCourseRatingTable extends Migration
     {
         Schema::create('course_ratings', function (Blueprint $table) {
           $table->id();
-          $table->integer('course_id');
+          $table->foreignId('course_id')->constrained();
+          // $table->foreignId('user_id')->constrained();
+          // $table->integer('course_id');
           $table->integer('user_id');
           $table->integer('rating');
           $table->timestamps();
-      });
+
+          $table->unique(['course_id','user_id']);
+
+        });
+
+
     }
 
     /**

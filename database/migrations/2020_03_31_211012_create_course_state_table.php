@@ -15,10 +15,13 @@ class CreateCourseStateTable extends Migration
     {
         Schema::create('course_progress', function (Blueprint $table) {
           $table->id();
-          $table->integer('course_id');
+          $table->integer('course_id')->constrained();
           $table->integer('user_id');
-          $table->integer('state_id');
+          $table->integer('state_id')->constrained();
           $table->timestamps();
+
+          $table->unique(['course_id','user_id', 'state_id']);
+
         });
     }
 

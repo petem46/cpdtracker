@@ -61,11 +61,21 @@ class CourseController extends Controller
         //                             'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
         //                           ])
         //                           ->get(),
-        'myinprogresscourses' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '1');})
-                                  ->with([
-                                    'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
-                                  ])
-                                  ->get(),
+        'myinprogresscourses' => Course::select('courses.id', 'courses.name', 'courses.access_details', DB::raw('avg(course_ratings.rating) as avgrating'), DB::raw('count(course_ratings.rating) as count'))
+                                  ->WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '1');})
+                                  ->leftjoin('course_ratings', 'course_ratings.course_id', '=', 'courses.id')
+                                // ->join('course_progress', function($join) use ($uid) {
+                                //   $join->on('course_progress.course_id', 'courses.id')
+                                //   ->where('course_progress.user_id', $uid);
+                                // })
+                                ->groupBy('courses.id', 'courses.name', 'courses.access_details')
+                                ->orderBy('courses.id')
+                                ->get(),
+        // 'myinprogresscourses' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '1');})
+        //                           ->with([
+        //                             'courseprogress'  => function($q) use ($uid){ $q->where('user_id',$uid);},
+        //                           ])
+        //                           ->get(),
         'myshortlistedcourses' => Course::WhereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '3');})
                                   ->with([
                                     'courserating',
