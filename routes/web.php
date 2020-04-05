@@ -14,12 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/courselist', 'CourseController@courselist');
+Route::get('/c', 'CourseController@courselist');
 
 Route::get('/u/getMyCourses', 'CourseController@getMyCourses');
 
 Route::put('/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
 
 Route::get('/u/dashboarddata', 'CourseController@dashboarddata');
+
+// Route::get('category/{id}', 'CategoryController@show');
+
+Route::resource('cc', 'CategoryController');
+Route::resource('c', 'CourseController');
 
 Auth::routes();
 

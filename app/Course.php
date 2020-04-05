@@ -27,5 +27,9 @@ class Course extends Model
     return $this->hasMany('App\CourseProgress');
   }
 
+  public function coursereview() {
+    return $this->hasMany('App\CourseReview');
+  }
+
 
 }

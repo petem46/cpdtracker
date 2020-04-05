@@ -2247,6 +2247,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2254,10 +2259,10 @@ __webpack_require__.r(__webpack_exports__);
       colors: ["indigo", "warning", "pink darken-2", "red lighten-1", "deep-purple accent-4"],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       courses: [],
-      endpoint: "/courselist",
-      rating: 4.5,
-      addtocoursename: '',
-      addtocourseid: '',
+      endpoint: "/cc",
+      // rating: 4.5,
+      addtocoursename: "",
+      addtocourseid: "",
       addtosheet: false,
       addtooptions: [{
         img: "hangouts.png",
@@ -2277,7 +2282,8 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  created: function created() {
+  created: function created() {},
+  mounted: function mounted() {
     this.fetch();
   },
   methods: {
@@ -2286,14 +2292,12 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.endpoint).then(function (_ref) {
         var data = _ref.data;
-        _this.courses = data.category_courses;
+        _this.courses = data.data.category_courses;
       });
     },
     addToMyCourses: function addToMyCourses($action, $state_id) {
       console.log("Course ID: " + this.addtocourseid);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {
-        // this.updated = true;
-        console.log('YOU WOT!?');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {// this.updated = true;
       });
     },
     randomTile: function randomTile($courseid) {
@@ -2303,14 +2307,26 @@ __webpack_require__.r(__webpack_exports__);
       alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
     },
     addcourse: function addcourse($action, $state) {
-      alert('You Cllicked ' + $action + " with a state_id of " + $state);
+      alert("You Cllicked " + $action + " with a state_id of " + $state);
     },
     setaddcoursedata: function setaddcoursedata($id, $name) {
       this.addtocourseid = $id;
       this.addtocoursename = $name;
       return true;
+    },
+    getRatings: function getRatings(courserating) {
+      var total = 0,
+          length = courserating.length;
+
+      for (var i = 0; i < length; i++) {
+        total += parseFloat(courserating[i].rating);
+      }
+
+      courserating.avgRating = total / length;
+      return courserating.avgRating;
     }
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -39758,7 +39774,7 @@ var render = function() {
               _vm._v(_vm._s(category.name))
             ]),
             _vm._v(" "),
-            _vm._l(category.course, function(course) {
+            _vm._l(category.courses, function(course) {
               return _c(
                 "v-col",
                 _vm._b(
@@ -39892,7 +39908,7 @@ var render = function() {
                             [
                               _c("v-rating", {
                                 attrs: {
-                                  value: 4.5,
+                                  value: _vm.getRatings(course.courserating),
                                   color: "amber",
                                   dense: "",
                                   "half-increments": "",
@@ -39902,7 +39918,15 @@ var render = function() {
                               }),
                               _vm._v(" "),
                               _c("div", { staticClass: "grey--text ml-4" }, [
-                                _vm._v("4.5 (413)")
+                                course.courserating.length
+                                  ? _c("div", [
+                                      _vm._v(
+                                        "(" +
+                                          _vm._s(course.courserating.length) +
+                                          ")"
+                                      )
+                                    ])
+                                  : _vm._e()
                               ])
                             ],
                             1
@@ -99090,7 +99114,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   getters: {}
 });
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  mode: 'history',
+  // mode: 'history',
   routes: [{
     path: '/home',
     name: 'landing',

@@ -5,7 +5,6 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-use Ottaviano\Faker\Gravatar as Gravatar;
 
 
 /*
@@ -20,9 +19,9 @@ use Ottaviano\Faker\Gravatar as Gravatar;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-  $faker->addProvider(new Gravatar($faker));
     return [
         'name' => $faker->name,
+        'school' => $faker->city,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

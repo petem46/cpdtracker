@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 });
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/home',

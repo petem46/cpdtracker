@@ -21,7 +21,7 @@
 				md="4"
 				lg="3"
 				xl="2"
-				v-for="course in category.course"
+				v-for="course in category.courses"
 				v-bind="course"
 				:key="course.id"
 			>
@@ -64,11 +64,12 @@
 					>{{ course.name }}</v-card-text>
 					<v-card-text class="py-2">
 						<v-row align="center" class="mx-0">
-							<v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-							<div class="grey--text ml-4">4.5 (413)</div>
+							<v-rating :value="getRatings(course.courserating)" color="amber" dense half-increments readonly size="14"></v-rating>
+							<div class="grey--text ml-4">
+								<div v-if="course.courserating.length">({{course.courserating.length }})</div>
+							</div>
 						</v-row>
 						<div class="my-1 caption text-left">Cost: {{ course.cost }}</div>
-						<!-- <div>{{ course.description }}</div> -->
 					</v-card-text>
 				</div>
 			</v-col>
@@ -79,7 +80,11 @@
 		<v-bottom-sheet v-model="addtosheet">
 			<v-list>
 				<v-subheader>Add course to</v-subheader>
-				<v-list-item v-for="tile in addtooptions" :key="tile.title" @click="addtosheet = false; addToMyCourses(tile.action, tile.stateid)">
+				<v-list-item
+					v-for="tile in addtooptions"
+					:key="tile.title"
+					@click="addtosheet = false; addToMyCourses(tile.action, tile.stateid)"
+				>
 					<v-list-item-avatar>
 						<v-avatar size="32px" tile>
 							<img :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`" :alt="tile.title" />
@@ -105,33 +110,50 @@ export default {
 			],
 			slides: ["First", "Second", "Third", "Fourth", "Fifth"],
 			courses: [],
-			endpoint: "/courselist",
-			rating: 4.5,
-      addtocoursename: '',
-      addtocourseid: '',
-      addtosheet: false,
+			endpoint: "/cc",
+			// rating: 4.5,
+			addtocoursename: "",
+			addtocourseid: "",
+			addtosheet: false,
 			addtooptions: [
-				{ img: "hangouts.png", title: "Add To Shortlisted Courses",  action: "addtoshortlist", stateid: 3},
-				{ img: "inbox.png", title: "Add To In Progress Courses",  action: "addtoinprogress", stateid: 1},
-				{ img: "keep.png", title: "Add To Completed Courses",  action: "addtocompleted", stateid: 2},
+				{
+					img: "hangouts.png",
+					title: "Add To Shortlisted Courses",
+					action: "addtoshortlist",
+					stateid: 3
+				},
+				{
+					img: "inbox.png",
+					title: "Add To In Progress Courses",
+					action: "addtoinprogress",
+					stateid: 1
+				},
+				{
+					img: "keep.png",
+					title: "Add To Completed Courses",
+					action: "addtocompleted",
+					stateid: 2
+				}
 			]
 		};
 	},
-	created() {
+	created() {},
+	mounted() {
 		this.fetch();
 	},
 	methods: {
 		fetch() {
 			axios.get(this.endpoint).then(({ data }) => {
-				this.courses = data.category_courses;
+				this.courses = data.data.category_courses;
 			});
 		},
 		addToMyCourses($action, $state_id) {
-      console.log("Course ID: " + this.addtocourseid);
-			axios.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(() => {
-        // this.updated = true;
-        console.log('YOU WOT!?')
-			});
+			console.log("Course ID: " + this.addtocourseid);
+			axios
+				.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.then(() => {
+					// this.updated = true;
+				});
 		},
 		randomTile($courseid) {
 			return "https://picsum.photos/295/165/?random=" + $courseid;
@@ -139,16 +161,27 @@ export default {
 		tileClick($id, $name) {
 			alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
 		},
-    addcourse($action, $state) {
-      alert('You Cllicked ' + $action + " with a state_id of " + $state);
+		addcourse($action, $state) {
+			alert("You Cllicked " + $action + " with a state_id of " + $state);
+		},
+		setaddcoursedata($id, $name) {
+			this.addtocourseid = $id;
+			this.addtocoursename = $name;
+			return true;
+		},
+		getRatings(courserating) {
+			var total = 0,
+				length = courserating.length;
 
-    },
-    setaddcoursedata($id, $name) {
-      this.addtocourseid = $id;
-      this.addtocoursename = $name;
-      return true;
-    },
-	}
+			for (var i = 0; i < length; i++) {
+				total += parseFloat(courserating[i].rating);
+			}
+
+			courserating.avgRating = total / length;
+			return courserating.avgRating;
+		}
+	},
+	computed: {}
 };
 </script>
 <style>
