@@ -23,7 +23,7 @@ $factory->define(CourseRating::class, function (Faker $faker) {
 
   return [
     'course_id' => $faker->numberBetween($min = 1, $max = 101),
-    'user_id' => $faker->numberBetween($min = 1, $max = 500),
+    'user_id' => $faker->numberBetween($min = 1, $max = 5),
     'rating' => $faker->numberBetween($min = 1, $max = 5),
   ];
 });

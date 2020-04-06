@@ -14,6 +14,15 @@ class CourseReviewSeeder extends Seeder
   public function run()
   {
     $count = 500;
-    factory(CourseReview::class, $count)->create();
+    $reviews = factory(CourseReview::class, $count)->make();
+    foreach ($reviews as $rating) {
+      repeat: try {
+        $rating->save();
+      } catch (\Illuminate\Database\QueryException $e) {
+        $rating = factory(CourseReview::class)->make();
+        goto repeat;
+      }
+    }
+
   }
 }

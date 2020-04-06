@@ -34,15 +34,15 @@ require('./bootstrap');
 import App from './views/App'
 import Home from './views/Home'
 
-import CourseDetails from './views/CourseDetails'
-import CourseList from './views/CourseList'
+import CourseDetails from './views/c/CourseDetails'
+import CourseList from './views/c/CourseList'
 import CourseTile from './components/c/CourseTile'
 
-import UserCompleted from './views/UserCompleted'
-import UserDashboard from './views/UserDashboard'
+import UserCompleted from './views/u/UserCompleted'
+import UserDashboard from './views/u/UserDashboard'
 import MyCourses from './views/u/MyCourses'
-import UserInProgress from './views/UserInProgress'
-import UserToStart from './views/UserToStart'
+import UserInProgress from './views/u/UserInProgress'
+import UserToStart from './views/u/UserToStart'
 
 // Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
