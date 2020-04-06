@@ -29,13 +29,14 @@ require('./bootstrap');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 import App from './views/App'
 import Home from './views/Home'
 
 import CourseDetails from './views/CourseDetails'
 import CourseList from './views/CourseList'
+import CourseTile from './components/c/CourseTile'
 
 import UserCompleted from './views/UserCompleted'
 import UserDashboard from './views/UserDashboard'

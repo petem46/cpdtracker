@@ -12,7 +12,11 @@
 
 		<v-row v-for="category in courses" v-bind="category" :key="category.id">
 			<h1 class="col-12 font-weight-light">{{ category.name }}</h1>
-
+      <!-- <CourseTile
+				v-for="course in category.courses"
+				v-bind="course"
+				:key="course.id"
+      ></CourseTile> -->
 			<!--
         -- Course Tile Start --
 			-->
