@@ -46,13 +46,13 @@ class CourseController extends Controller
     $uid = Auth::id();
     $uid = 1;
     $data = [
-      'completedcourses' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+      'completed' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('state_id', '=', 2)->where('user_id', '=', $uid);
       })->get()),
-      'inprogresscourses' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+      'inprogress' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('state_id', '=', 1)->where('user_id', '=', $uid);
       })->get()),
-      'shortlistedcourses' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+      'shortlisted' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('state_id', '=', 3)->where('user_id', '=', $uid);
       })->get()),
     ];

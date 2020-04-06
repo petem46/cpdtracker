@@ -1899,6 +1899,294 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'name', 'courseprogress', 'courserating', 'coursereview'],
+  data: function data() {
+    return {
+      cname: this.name,
+      cid: this.id
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.progress);
+  },
+  methods: {
+    update: function update() {
+      console.log("UPDATE METHOD");
+    },
+    addToMyCourses: function addToMyCourses($action, $state_id) {
+      console.log("Course ID: " + this.addtocourseid);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {// this.updated = true;
+      });
+    },
+    randomTile: function randomTile($courseid) {
+      return "https://picsum.photos/295/165/?random=" + $courseid;
+    },
+    tileClick: function tileClick($id, $name) {
+      alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
+    },
+    addcourse: function addcourse($action, $state) {
+      alert("You Cllicked " + $action + " with a state_id of " + $state);
+    },
+    setaddcoursedata: function setaddcoursedata($id, $name) {
+      this.addtocourseid = $id;
+      this.addtocoursename = $name;
+      return true;
+    },
+    checkUserProgress: function checkUserProgress(courseprogress) {
+      var state = 0;
+      var length = courseprogress.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
+
+      if (length > 0) {
+        for (var i = 0; i < length; i = i + 1) {
+          if (courseprogress[i].state_id == 1 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 1;
+          }
+
+          if (courseprogress[i].state_id == 2 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 2;
+          }
+
+          if (courseprogress[i].state_id == 3 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 3;
+          }
+        }
+
+        return state;
+      }
+    },
+    getUserRating: function getUserRating(courserating) {
+      var usercourserating = 0;
+      var length = courserating.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
+
+      for (var i = 0; i < length; i++) {
+        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
+
+        if (courserating[i].user_id == userid) {
+          usercourserating += parseFloat(courserating[i].rating);
+          console.log('Your rating');
+        }
+      }
+
+      return usercourserating;
+    },
+    getAverageRating: function getAverageRating(courserating) {
+      var total = 0,
+          length = courserating.length;
+
+      for (var i = 0; i < length; i++) {
+        total += parseFloat(courserating[i].rating);
+      }
+
+      courserating.avgRating = total / length;
+      return courserating.avgRating;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/App.vue?vue&type=script&lang=js& ***!
@@ -2776,6 +3064,404 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2795,15 +3481,91 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.endpoint).then(function (_ref) {
         var data = _ref.data;
-        _this.mycompletedcourses = data.mycompletedcourses;
-        _this.myinprogresscourses = data.myinprogresscourses;
-        _this.myshortlistedcourses = data.myshortlistedcourses;
+        _this.mycompletedcourses = data.completed.courses;
+        _this.myinprogresscourses = data.inprogress.courses;
+        _this.myshortlistedcourses = data.shortlisted.courses;
       });
     },
-    randomTile: function randomTile() {
-      return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
+    addToMyCourses: function addToMyCourses($action, $state_id) {
+      console.log("Course ID: " + this.addtocourseid);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {// this.updated = true;
+      });
     },
-    averageRating: function averageRating() {}
+    randomTile: function randomTile($courseid) {
+      return "https://picsum.photos/295/165/?random=" + $courseid;
+    },
+    tileClick: function tileClick($id, $name) {
+      alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
+    },
+    addcourse: function addcourse($action, $state) {
+      alert("You Cllicked " + $action + " with a state_id of " + $state);
+    },
+    setaddcoursedata: function setaddcoursedata($id, $name) {
+      this.addtocourseid = $id;
+      this.addtocoursename = $name;
+      return true;
+    },
+    checkUserProgress: function checkUserProgress(courseprogress) {
+      var state = 0;
+      var length = courseprogress.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
+
+      if (length > 0) {
+        for (var i = 0; i < length; i = i + 1) {
+          if (courseprogress[i].state_id == 1 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 1;
+          }
+
+          if (courseprogress[i].state_id == 2 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 2;
+          }
+
+          if (courseprogress[i].state_id == 3 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 3;
+          }
+        }
+
+        return state;
+      }
+    },
+    getUserRating: function getUserRating(courserating) {
+      var usercourserating = 0;
+      var length = courserating.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
+
+      for (var i = 0; i < length; i++) {
+        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
+
+        if (courserating[i].user_id == userid) {
+          usercourserating += parseFloat(courserating[i].rating);
+          console.log('Your rating');
+        }
+      }
+
+      return usercourserating;
+    },
+    getAverageRating: function getAverageRating(courserating) {
+      var total = 0,
+          length = courserating.length;
+
+      for (var i = 0; i < length; i++) {
+        total += parseFloat(courserating[i].rating);
+      }
+
+      courserating.avgRating = total / length;
+      return courserating.avgRating;
+    },
+    update: function update() {}
+  },
+  computed: {
+    userid: function userid() {
+      return this.$store.getters.getUserId;
+    }
   }
 });
 
@@ -39212,6 +39974,475 @@ var main = {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-col",
+        { attrs: { cols: "6", md: "4", lg: "3", xl: "2" } },
+        [
+          _c("v-hover", {
+            attrs: { "open-delay": "150", "close-delay": "200" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(ref) {
+                  var hover = ref.hover
+                  return [
+                    _c(
+                      "v-img",
+                      {
+                        attrs: {
+                          src: _vm.randomTile(7),
+                          alt: "Course Tile",
+                          height: "165",
+                          width: "295"
+                        }
+                      },
+                      [
+                        _c("v-expand-transition", [
+                          hover
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "d-flex transition-fast-in-fast-out teal v-card--reveal white--text",
+                                  staticStyle: { height: "100%" }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "pa-3" },
+                                    [
+                                      _vm._v(
+                                        "\n\t\t\t\t\t\t\t" +
+                                          _vm._s(this.description) +
+                                          "\n\t\t\t\t\t\t\t"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass:
+                                            "mx-auto my-2 teal--text",
+                                          attrs: { color: "white" }
+                                        },
+                                        [_vm._v("Course Details")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ],
+                      1
+                    )
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          !_vm.checkUserProgress(this.courseprogress)
+            ? _c(
+                "div",
+                {
+                  staticClass: "black darken-3",
+                  attrs: { id: "course-details-container" }
+                },
+                [
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "pt-6 pb-1",
+                      staticStyle: { position: "relative" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: {
+                            absolute: "",
+                            color: "orange darken-2",
+                            fab: "",
+                            right: "",
+                            top: ""
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.addtosheet = true
+                              _vm.setaddcoursedata(this.id, this.name)
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-plus")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "subtitle-1 py-1 grey--text text--lighten-1",
+                      staticStyle: {
+                        "word-break": "break-word",
+                        "min-height": "100px"
+                      }
+                    },
+                    [_vm._v(_vm._s(this.name))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "py-2" },
+                    [
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-0", attrs: { align: "center" } },
+                        [
+                          _c("v-rating", {
+                            attrs: {
+                              value: _vm.getAverageRating(this.courserating),
+                              color: "amber",
+                              dense: "",
+                              "half-increments": "",
+                              "background-color": "grey lighten-1",
+                              readonly: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "grey--text ml-4" }, [
+                            this.courserating.length
+                              ? _c("div", [
+                                  _vm._v(
+                                    "(" + _vm._s(this.courserating.length) + ")"
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "my-1 caption text-left" }, [
+                        _vm._v("Cost: " + _vm._s(this.cost))
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.checkUserProgress(this.courseprogress) === 2
+            ? _c(
+                "div",
+                {
+                  staticClass: "black darken-3",
+                  attrs: { id: "course-details-container" }
+                },
+                [
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "pt-6 pb-1",
+                      staticStyle: { position: "relative" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: {
+                            absolute: "",
+                            color: "green darken-2",
+                            fab: "",
+                            right: "",
+                            top: ""
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.addtosheet = true
+                              _vm.setaddcoursedata(this.id, this.name)
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-check")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "subtitle-1 py-1 grey--text text--lighten-1",
+                      staticStyle: {
+                        "word-break": "break-word",
+                        "min-height": "100px"
+                      }
+                    },
+                    [_vm._v(_vm._s(this.name))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "py-2" },
+                    [
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-0", attrs: { align: "center" } },
+                        [
+                          _c("v-rating"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "grey--text ml-4" }, [
+                            this.courserating.length ? _c("div") : _vm._e()
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "my-1 caption green--text text-left" },
+                        [_vm._v("You have completed this course")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.checkUserProgress(this.courseprogress) === 1
+            ? _c(
+                "div",
+                {
+                  staticClass: "black darken-3",
+                  attrs: { id: "course-details-container" }
+                },
+                [
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "pt-6 pb-1",
+                      staticStyle: { position: "relative" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: {
+                            absolute: "",
+                            color: "blue darken-2",
+                            fab: "",
+                            right: "",
+                            top: ""
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.addtosheet = true
+                              _vm.setaddcoursedata(this.id, this.name)
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-play")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "subtitle-1 py-1 grey--text text--lighten-1",
+                      staticStyle: {
+                        "word-break": "break-word",
+                        "min-height": "100px"
+                      }
+                    },
+                    [_vm._v(_vm._s(this.name))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "py-2" },
+                    [
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-0", attrs: { align: "center" } },
+                        [
+                          _c("v-rating", {
+                            attrs: {
+                              value: _vm.getAverageRating(this.courserating),
+                              color: "amber",
+                              dense: "",
+                              "half-increments": "",
+                              "background-color": "grey lighten-1",
+                              readonly: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "grey--text ml-4" }, [
+                            this.courserating.length
+                              ? _c("div", [
+                                  _vm._v(
+                                    "(" + _vm._s(this.courserating.length) + ")"
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "my-1 caption blue--text text-left" },
+                        [_vm._v("You have started this course")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.checkUserProgress(this.courseprogress) === 3
+            ? _c(
+                "div",
+                {
+                  staticClass: "black darken-3",
+                  attrs: { id: "course-details-container" }
+                },
+                [
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "pt-6 pb-1",
+                      staticStyle: { position: "relative" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "white--text",
+                          attrs: {
+                            absolute: "",
+                            color: "pink",
+                            fab: "",
+                            right: "",
+                            top: ""
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.addtosheet = true
+                              _vm.setaddcoursedata(this.id, this.name)
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("mdi-heart")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    {
+                      staticClass: "subtitle-1 py-1 grey--text text--lighten-1",
+                      staticStyle: {
+                        "word-break": "break-word",
+                        "min-height": "100px"
+                      }
+                    },
+                    [_vm._v(_vm._s(this.name))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    { staticClass: "py-2" },
+                    [
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-0", attrs: { align: "center" } },
+                        [
+                          _c("v-rating", {
+                            attrs: {
+                              value: _vm.getAverageRating(this.courserating),
+                              color: "amber",
+                              dense: "",
+                              "half-increments": "",
+                              "background-color": "grey lighten-1",
+                              readonly: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "grey--text ml-4" }, [
+                            this.courserating.length
+                              ? _c("div", [
+                                  _vm._v(
+                                    "(" + _vm._s(this.courserating.length) + ")"
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "my-1 caption text-left" }, [
+                        _vm._v("You have shortlisted this course")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=template&id=91ac6b5c&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/App.vue?vue&type=template&id=91ac6b5c& ***!
@@ -40686,19 +41917,29 @@ var render = function() {
                                           staticStyle: { height: "100%" }
                                         },
                                         [
-                                          _c("div", { staticClass: "pa-3" }, [
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\t" +
-                                                _vm._s(course.description) +
-                                                "\n\t\t\t\t\t\t\t\t\t"
-                                            ),
-                                            _c("br"),
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
-                                                _vm._s(course.length) +
-                                                " time\n\t\t\t\t\t\t\t\t"
-                                            )
-                                          ])
+                                          _c(
+                                            "div",
+                                            { staticClass: "pa-3" },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t" +
+                                                  _vm._s(course.description) +
+                                                  "\n\t\t\t\t\t\t\t\t\t"
+                                              ),
+                                              _c("br"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass:
+                                                    "mx-auto my-2 teal--text",
+                                                  attrs: { color: "white" }
+                                                },
+                                                [_vm._v("Course Details")]
+                                              )
+                                            ],
+                                            1
+                                          )
                                         ]
                                       )
                                     : _vm._e()
@@ -40715,92 +41956,424 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "black darken-3",
-                    attrs: { id: "course-details-container" }
-                  },
-                  [
-                    _c(
-                      "v-card-text",
+                !_vm.checkUserProgress(course.courseprogress)
+                  ? _c(
+                      "div",
                       {
-                        staticClass: "pt-6 pb-1",
-                        staticStyle: { position: "relative" }
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
                       },
                       [
                         _c(
-                          "v-btn",
+                          "v-card-text",
                           {
-                            staticClass: "white--text",
-                            attrs: {
-                              absolute: "",
-                              color: "orange darken-2",
-                              fab: "",
-                              right: "",
-                              top: ""
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.addToMyCourses(course.id)
-                              }
-                            }
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
                           },
-                          [_c("v-icon", [_vm._v("mdi-heart")])],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      {
-                        staticClass:
-                          "subtitle-1 py-1 grey--text text--lighten-1",
-                        staticStyle: {
-                          "word-break": "break-word",
-                          "min-height": "100px"
-                        }
-                      },
-                      [_vm._v(_vm._s(course.name))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      { staticClass: "py-2" },
-                      [
-                        _c(
-                          "v-row",
-                          { staticClass: "mx-0", attrs: { align: "center" } },
                           [
-                            _c("v-rating", {
-                              attrs: {
-                                value: 4.5,
-                                color: "amber",
-                                dense: "",
-                                "half-increments": "",
-                                readonly: "",
-                                size: "14"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "grey--text ml-4" }, [
-                              _vm._v("4.5 (413)")
-                            ])
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "orange darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-plus")])],
+                              1
+                            )
                           ],
                           1
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "my-1 caption text-left" }, [
-                          _vm._v("Cost: " + _vm._s(course.cost))
-                        ])
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("Cost: " + _vm._s(course.cost))]
+                            )
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
-                  ],
-                  1
-                )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 2
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "green darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-check")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getUserRating(
+                                      course.courserating
+                                    ),
+                                    length: "5",
+                                    color: "green",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div")
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "my-1 caption green--text text-left"
+                              },
+                              [_vm._v("You have completed this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 1
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "blue darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "my-1 caption blue--text text-left"
+                              },
+                              [_vm._v("You have started this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 3
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "pink",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-heart")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("You have shortlisted this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ],
               1
             )
@@ -40891,19 +42464,29 @@ var render = function() {
                                           staticStyle: { height: "100%" }
                                         },
                                         [
-                                          _c("div", { staticClass: "pa-3" }, [
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\t" +
-                                                _vm._s(course.description) +
-                                                "\n\t\t\t\t\t\t\t\t\t"
-                                            ),
-                                            _c("br"),
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
-                                                _vm._s(course.length) +
-                                                " time\n\t\t\t\t\t\t\t\t"
-                                            )
-                                          ])
+                                          _c(
+                                            "div",
+                                            { staticClass: "pa-3" },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t" +
+                                                  _vm._s(course.description) +
+                                                  "\n\t\t\t\t\t\t\t\t\t"
+                                              ),
+                                              _c("br"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass:
+                                                    "mx-auto my-2 teal--text",
+                                                  attrs: { color: "white" }
+                                                },
+                                                [_vm._v("Course Details")]
+                                              )
+                                            ],
+                                            1
+                                          )
                                         ]
                                       )
                                     : _vm._e()
@@ -40920,92 +42503,424 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "black darken-3",
-                    attrs: { id: "course-details-container" }
-                  },
-                  [
-                    _c(
-                      "v-card-text",
+                !_vm.checkUserProgress(course.courseprogress)
+                  ? _c(
+                      "div",
                       {
-                        staticClass: "pt-6 pb-1",
-                        staticStyle: { position: "relative" }
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
                       },
                       [
                         _c(
-                          "v-btn",
+                          "v-card-text",
                           {
-                            staticClass: "white--text",
-                            attrs: {
-                              absolute: "",
-                              color: "orange darken-2",
-                              fab: "",
-                              right: "",
-                              top: ""
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.addToMyCourses(course.id)
-                              }
-                            }
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
                           },
-                          [_c("v-icon", [_vm._v("mdi-heart")])],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      {
-                        staticClass:
-                          "subtitle-1 py-1 grey--text text--lighten-1",
-                        staticStyle: {
-                          "word-break": "break-word",
-                          "min-height": "100px"
-                        }
-                      },
-                      [_vm._v(_vm._s(course.name))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      { staticClass: "py-2" },
-                      [
-                        _c(
-                          "v-row",
-                          { staticClass: "mx-0", attrs: { align: "center" } },
                           [
-                            _c("v-rating", {
-                              attrs: {
-                                value: 4.5,
-                                color: "amber",
-                                dense: "",
-                                "half-increments": "",
-                                readonly: "",
-                                size: "14"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "grey--text ml-4" }, [
-                              _vm._v("4.5 (413)")
-                            ])
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "orange darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-plus")])],
+                              1
+                            )
                           ],
                           1
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "my-1 caption text-left" }, [
-                          _vm._v("Cost: " + _vm._s(course.cost))
-                        ])
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("Cost: " + _vm._s(course.cost))]
+                            )
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
-                  ],
-                  1
-                )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 2
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "green darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-check")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getUserRating(
+                                      course.courserating
+                                    ),
+                                    length: "5",
+                                    color: "green",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div")
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "my-1 caption green--text text-left"
+                              },
+                              [_vm._v("You have completed this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 1
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "blue darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "my-1 caption blue--text text-left"
+                              },
+                              [_vm._v("You have started this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 3
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "pink",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-heart")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("You have shortlisted this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ],
               1
             )
@@ -41096,19 +43011,29 @@ var render = function() {
                                           staticStyle: { height: "100%" }
                                         },
                                         [
-                                          _c("div", { staticClass: "pa-3" }, [
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\t" +
-                                                _vm._s(course.description) +
-                                                "\n\t\t\t\t\t\t\t\t\t"
-                                            ),
-                                            _c("br"),
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\tLength: " +
-                                                _vm._s(course.length) +
-                                                " time\n\t\t\t\t\t\t\t\t"
-                                            )
-                                          ])
+                                          _c(
+                                            "div",
+                                            { staticClass: "pa-3" },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t" +
+                                                  _vm._s(course.description) +
+                                                  "\n\t\t\t\t\t\t\t\t\t"
+                                              ),
+                                              _c("br"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  staticClass:
+                                                    "mx-auto my-2 teal--text",
+                                                  attrs: { color: "white" }
+                                                },
+                                                [_vm._v("Course Details")]
+                                              )
+                                            ],
+                                            1
+                                          )
                                         ]
                                       )
                                     : _vm._e()
@@ -41125,92 +43050,424 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "black darken-3",
-                    attrs: { id: "course-details-container" }
-                  },
-                  [
-                    _c(
-                      "v-card-text",
+                !_vm.checkUserProgress(course.courseprogress)
+                  ? _c(
+                      "div",
                       {
-                        staticClass: "pt-6 pb-1",
-                        staticStyle: { position: "relative" }
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
                       },
                       [
                         _c(
-                          "v-btn",
+                          "v-card-text",
                           {
-                            staticClass: "white--text",
-                            attrs: {
-                              absolute: "",
-                              color: "orange darken-2",
-                              fab: "",
-                              right: "",
-                              top: ""
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.addToMyCourses(course.id)
-                              }
-                            }
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
                           },
-                          [_c("v-icon", [_vm._v("mdi-heart")])],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      {
-                        staticClass:
-                          "subtitle-1 py-1 grey--text text--lighten-1",
-                        staticStyle: {
-                          "word-break": "break-word",
-                          "min-height": "100px"
-                        }
-                      },
-                      [_vm._v(_vm._s(course.name))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-text",
-                      { staticClass: "py-2" },
-                      [
-                        _c(
-                          "v-row",
-                          { staticClass: "mx-0", attrs: { align: "center" } },
                           [
-                            _c("v-rating", {
-                              attrs: {
-                                value: 4.5,
-                                color: "amber",
-                                dense: "",
-                                "half-increments": "",
-                                readonly: "",
-                                size: "14"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "grey--text ml-4" }, [
-                              _vm._v(_vm._s(course.averageRating))
-                            ])
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "orange darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-plus")])],
+                              1
+                            )
                           ],
                           1
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "my-1 caption text-left" }, [
-                          _vm._v("Cost: " + _vm._s(course.cost))
-                        ])
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("Cost: " + _vm._s(course.cost))]
+                            )
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
-                  ],
-                  1
-                )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 2
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "green darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-check")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getUserRating(
+                                      course.courserating
+                                    ),
+                                    length: "5",
+                                    color: "green",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div")
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "my-1 caption green--text text-left"
+                              },
+                              [_vm._v("You have completed this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 1
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "blue darken-2",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "my-1 caption blue--text text-left"
+                              },
+                              [_vm._v("You have started this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.checkUserProgress(course.courseprogress) === 3
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "black darken-3",
+                        attrs: { id: "course-details-container" }
+                      },
+                      [
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass: "pt-6 pb-1",
+                            staticStyle: { position: "relative" }
+                          },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "white--text",
+                                attrs: {
+                                  absolute: "",
+                                  color: "pink",
+                                  fab: "",
+                                  right: "",
+                                  top: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addtosheet = true
+                                    _vm.setaddcoursedata(course.id, course.name)
+                                  }
+                                }
+                              },
+                              [_c("v-icon", [_vm._v("mdi-heart")])],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          {
+                            staticClass:
+                              "subtitle-1 py-1 grey--text text--lighten-1",
+                            staticStyle: {
+                              "word-break": "break-word",
+                              "min-height": "100px"
+                            }
+                          },
+                          [_vm._v(_vm._s(course.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-card-text",
+                          { staticClass: "py-2" },
+                          [
+                            _c(
+                              "v-row",
+                              {
+                                staticClass: "mx-0",
+                                attrs: { align: "center" }
+                              },
+                              [
+                                _c("v-rating", {
+                                  attrs: {
+                                    value: _vm.getAverageRating(
+                                      course.courserating
+                                    ),
+                                    color: "amber",
+                                    dense: "",
+                                    "half-increments": "",
+                                    "background-color": "grey lighten-1",
+                                    readonly: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "grey--text ml-4" }, [
+                                  course.courserating.length
+                                    ? _c("div", [
+                                        _vm._v(
+                                          "(" +
+                                            _vm._s(course.courserating.length) +
+                                            ")"
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "my-1 caption text-left" },
+                              [_vm._v("You have shortlisted this course")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ],
               1
             )
@@ -99594,9 +101851,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-tile', __webpack_require__(/*! ./components/c/CourseTile.vue */ "./resources/js/components/c/CourseTile.vue")["default"]);
 
 
 
@@ -99730,17 +101987,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseTile.vue?vue&type=template&id=73ed9000& */ "./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000&");
+/* harmony import */ var _CourseTile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseTile.vue?vue&type=script&lang=js& */ "./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CourseTile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -99748,8 +102008,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/components/c/CourseTile.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseTile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CourseTile.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/c/CourseTile.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseTile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CourseTile.vue?vue&type=template&id=73ed9000& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/c/CourseTile.vue?vue&type=template&id=73ed9000&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseTile_vue_vue_type_template_id_73ed9000___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

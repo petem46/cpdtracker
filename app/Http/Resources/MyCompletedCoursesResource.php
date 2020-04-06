@@ -11,7 +11,7 @@ class MyCompletedCoursesResource extends ResourceCollection
   {
     // return parent::toArray($request);
     return [
-      'category_courses' => MyCompletedCourseResource::collection($this->collection),
+      'courses' => MyCompletedCourseResource::collection($this->collection),
     ];
   }
 }

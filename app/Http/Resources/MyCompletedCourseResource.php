@@ -19,9 +19,9 @@ class MyCompletedCourseResource extends Resource
         'type'          =>  'course',
         'id'            =>  (string) $this->id,
         'name'          => $this->name,
-        'progress'      => CourseProgress::where('course_id', $this->id)->where('user_id', $uid)->get(),
-        'rating'        => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->get(),
-        'review'        => CourseReview::where('course_id', $this->id)->where('user_id', $uid)->get(),
+        'courseprogress'      => CourseProgress::where('course_id', $this->id)->where('user_id', $uid)->get(),
+        'courserating'        => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->get(),
+        'coursereview'        => CourseReview::where('course_id', $this->id)->where('user_id', $uid)->get(),
         'links'         => [
             'self' => $uid,
         ],
