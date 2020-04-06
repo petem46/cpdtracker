@@ -37,7 +37,12 @@ export default {
 		tileClick($id, $name) {
 			alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
 		}
-	}
+	},
+  computed: {
+    userid() {
+      return this.$store.getters.getUserid;
+    }
+  },
 };
 </script>
 <style>

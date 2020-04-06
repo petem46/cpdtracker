@@ -35,6 +35,11 @@ export default {
 				Math.floor(Math.random() * 250)
 			);
 		}
-	}
+	},
+  computed: {
+    userid() {
+      return this.$store.getters.getUserid;
+    }
+  },
 };
 </script>

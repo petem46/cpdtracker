@@ -37,7 +37,7 @@
 								<div class="pa-3">
 									{{ course.description }}
 									<br />
-									Length: {{ course.length }} time
+                <v-btn class="mx-auto my-2 teal--text" color="white">Course Details</v-btn>
 								</div>
 							</div>
 						</v-expand-transition>
@@ -47,7 +47,7 @@
 				<div
 					id="course-details-container"
 					class="black darken-3"
-					v-if="checkUserProgress(course.courseprogress) === 0"
+					v-if="!checkUserProgress(course.courseprogress)"
 				>
 					<v-card-text class="pt-6 pb-1" style="position: relative;">
 						<v-btn
@@ -232,7 +232,13 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			colors: [
+		// csrf: document
+		// 	.querySelector('meta[name="csrf-token"]')
+    //   .getAttribute("content"),
+    // userid: document
+		// 	.querySelector('meta[name="user-id"]')
+    //   .getAttribute("content"),
+    colors: [
 				"indigo",
 				"warning",
 				"pink darken-2",
@@ -268,7 +274,8 @@ export default {
 			]
 		};
 	},
-	created() {},
+	created() {
+  },
 	mounted() {
 		this.fetch();
 	},
@@ -302,35 +309,50 @@ export default {
 		},
 		checkUserProgress(courseprogress) {
 			var state = 0;
-			var length = courseprogress.length;
-			for (var i = 0; i < length; i++) {
-				if (
-					courseprogress[i].state_id === 1 &&
-					courseprogress[i].user_id === 1
+      var length = courseprogress.length;
+      var userid = 0;
+
+      userid = this.$store.getters.getUserId;
+      if (length > 0) {
+      for (
+        var i = 0;
+        i < length;
+        i = i+1) {
+        if (
+					courseprogress[i].state_id == 1 &&
+					courseprogress[i].user_id == userid
 				) {
+          console.log('A MATCH!');
 					state = 1;
 				}
 				if (
-					courseprogress[i].state_id === 2 &&
-					courseprogress[i].user_id === 1
+          courseprogress[i].state_id == 2 &&
+					courseprogress[i].user_id == userid
 				) {
+          console.log('A MATCH!');
 					state = 2;
 				}
 				if (
-					courseprogress[i].state_id === 3 &&
-					courseprogress[i].user_id === 1
+          courseprogress[i].state_id == 3 &&
+					courseprogress[i].user_id == userid
 				) {
+          console.log('A MATCH!');
 					state = 3;
-				}
+        }
+        }
 				return state;
 			}
 		},
 		getUserRating(courserating) {
 			var usercourserating = 0;
-			var length = courserating.length;
+      var length = courserating.length;
+      var userid = 0;
+
+      userid = this.$store.getters.getUserId;
 
 			for (var i = 0; i < length; i++) {
-				if (courserating[i].user_id === 1) {
+        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
+				if (courserating[i].user_id == userid) {
           usercourserating += parseFloat(courserating[i].rating);
           console.log('Your rating');
 				}
@@ -349,7 +371,11 @@ export default {
 			return courserating.avgRating;
 		}
 	},
-	computed: {}
+  computed: {
+    userid() {
+      return this.$store.getters.getUserId;
+    }
+  },
 };
 </script>
 <style>

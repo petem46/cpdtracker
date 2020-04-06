@@ -20,7 +20,7 @@ class CreateCourseProgressTable extends Migration
           $table->integer('state_id')->constrained();
           $table->timestamps();
 
-          $table->unique(['course_id','user_id', 'state_id']);
+          $table->unique(['course_id','user_id']);
 
         });
     }

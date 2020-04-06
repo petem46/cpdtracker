@@ -43,14 +43,24 @@ import MyCourses from './views/u/MyCourses'
 import UserInProgress from './views/UserInProgress'
 import UserToStart from './views/UserToStart'
 
+// Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 const store = new Vuex.Store({
 
-  state: {},
-  mutations: {},
+  state: {
+    userid: null,
+  },
+  mutations: {
+    setUserId(state, id) {
+      state.userid = id;
+    },
+  },
   actions: {},
-  getters: {},
-
+  getters: {
+    getUserId(state) {
+      return state.userid;
+    },
+  },
 });
 
 const router = new VueRouter({

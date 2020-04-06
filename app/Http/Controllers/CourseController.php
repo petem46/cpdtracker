@@ -32,7 +32,6 @@ class CourseController extends Controller
 
   public function courselist()
   {
-    $uid = Auth::id();
     return new CategoriesResource(Category::get());
   }
 
@@ -49,7 +48,6 @@ class CourseController extends Controller
   public function getMyCourses()
   {
     $uid = Auth::id();
-    $uid = 1;
     $data = [
       // 'simpleinprogress' => Course::whereHas('courseprogress', function($q) use ($uid) {$q->where('user_id', $uid)->where('state_id', '2');})->get(),
       'simpleinprogress2' => Course::

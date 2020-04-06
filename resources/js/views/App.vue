@@ -41,7 +41,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c/all">Find A Course</router-link>
+								<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">Find A Course</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -160,7 +160,10 @@ export default {
 	data: () => ({
 		csrf: document
 			.querySelector('meta[name="csrf-token"]')
-			.getAttribute("content"),
+      .getAttribute("content"),
+    userid: document
+			.querySelector('meta[name="user-id"]')
+      .getAttribute("content"),
 		primaryDrawer: {
 			model: null,
 			clipped: false,
@@ -168,20 +171,26 @@ export default {
 			mini: false
 		}
 	}),
+	mounted() {
+    this.$store.commit("setUserId", this.userid);
+    console.log("Store userid = " + this.$store.getters.getUserId);
+	},
 	methods: {
 		logout() {
 			axios
 				.post("/logout")
 				.then(response => {
 					if (response.status === 302 || 401) {
-            // this.$router.push('/login')
-            window.location.href = '/login';
+						// this.$router.push('/login')
+						window.location.href = "/login";
 					} else {
 						// throw error and go to catch block
 					}
-        })
-        .catch(error => {});
-		},
+				})
+				.catch(error => {});
+		}
+	},
+	computed: {
 	}
 };
 </script>

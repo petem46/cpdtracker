@@ -2102,6 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+      userid: document.querySelector('meta[name="user-id"]').getAttribute("content"),
       primaryDrawer: {
         model: null,
         clipped: false,
@@ -2110,17 +2111,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  mounted: function mounted() {
+    this.$store.commit("setUserId", this.userid);
+    console.log("Store userid = " + this.$store.getters.getUserId);
+  },
   methods: {
     logout: function logout() {
       axios.post("/logout").then(function (response) {
         if (response.status === 302 || 401) {
           // this.$router.push('/login')
-          window.location.href = '/login';
+          window.location.href = "/login";
         } else {// throw error and go to catch block
         }
       })["catch"](function (error) {});
     }
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -2387,6 +2393,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      // csrf: document
+      // 	.querySelector('meta[name="csrf-token"]')
+      //   .getAttribute("content"),
+      // userid: document
+      // 	.querySelector('meta[name="user-id"]')
+      //   .getAttribute("content"),
       colors: ["indigo", "warning", "pink darken-2", "red lighten-1", "deep-purple accent-4"],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       courses: [],
@@ -2448,18 +2460,25 @@ __webpack_require__.r(__webpack_exports__);
     checkUserProgress: function checkUserProgress(courseprogress) {
       var state = 0;
       var length = courseprogress.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
 
-      for (var i = 0; i < length; i++) {
-        if (courseprogress[i].state_id === 1 && courseprogress[i].user_id === 1) {
-          state = 1;
-        }
+      if (length > 0) {
+        for (var i = 0; i < length; i = i + 1) {
+          if (courseprogress[i].state_id == 1 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 1;
+          }
 
-        if (courseprogress[i].state_id === 2 && courseprogress[i].user_id === 1) {
-          state = 2;
-        }
+          if (courseprogress[i].state_id == 2 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 2;
+          }
 
-        if (courseprogress[i].state_id === 3 && courseprogress[i].user_id === 1) {
-          state = 3;
+          if (courseprogress[i].state_id == 3 && courseprogress[i].user_id == userid) {
+            console.log('A MATCH!');
+            state = 3;
+          }
         }
 
         return state;
@@ -2468,9 +2487,13 @@ __webpack_require__.r(__webpack_exports__);
     getUserRating: function getUserRating(courserating) {
       var usercourserating = 0;
       var length = courserating.length;
+      var userid = 0;
+      userid = this.$store.getters.getUserId;
 
       for (var i = 0; i < length; i++) {
-        if (courserating[i].user_id === 1) {
+        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
+
+        if (courserating[i].user_id == userid) {
           usercourserating += parseFloat(courserating[i].rating);
           console.log('Your rating');
         }
@@ -2490,7 +2513,11 @@ __webpack_require__.r(__webpack_exports__);
       return courserating.avgRating;
     }
   },
-  computed: {}
+  computed: {
+    userid: function userid() {
+      return this.$store.getters.getUserId;
+    }
+  }
 });
 
 /***/ }),
@@ -2619,6 +2646,11 @@ __webpack_require__.r(__webpack_exports__);
     randomTile: function randomTile() {
       return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
     }
+  },
+  computed: {
+    userid: function userid() {
+      return this.$store.getters.getUserid;
+    }
   }
 });
 
@@ -2670,6 +2702,11 @@ __webpack_require__.r(__webpack_exports__);
     tileClick: function tileClick($id, $name) {
       alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
     }
+  },
+  computed: {
+    userid: function userid() {
+      return this.$store.getters.getUserid;
+    }
   }
 });
 
@@ -2716,6 +2753,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     randomTile: function randomTile() {
       return "https://picsum.photos/295/165/?random=" + Math.floor(Math.random() * 250);
+    }
+  },
+  computed: {
+    userid: function userid() {
+      return this.$store.getters.getUserid;
     }
   }
 });
@@ -39397,7 +39439,7 @@ var render = function() {
                                   attrs: {
                                     exact: "",
                                     "exact-active-class": "teal--yellow",
-                                    to: "/c/all"
+                                    to: { name: "courselist" }
                                   }
                                 },
                                 [_vm._v("Find A Course")]
@@ -39981,19 +40023,29 @@ var render = function() {
                                             staticStyle: { height: "100%" }
                                           },
                                           [
-                                            _c("div", { staticClass: "pa-3" }, [
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\t" +
-                                                  _vm._s(course.description) +
-                                                  "\n\t\t\t\t\t\t\t\t\t"
-                                              ),
-                                              _c("br"),
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\tLength: " +
-                                                  _vm._s(course.length) +
-                                                  " time\n\t\t\t\t\t\t\t\t"
-                                              )
-                                            ])
+                                            _c(
+                                              "div",
+                                              { staticClass: "pa-3" },
+                                              [
+                                                _vm._v(
+                                                  "\n\t\t\t\t\t\t\t\t\t" +
+                                                    _vm._s(course.description) +
+                                                    "\n\t\t\t\t\t\t\t\t\t"
+                                                ),
+                                                _c("br"),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-btn",
+                                                  {
+                                                    staticClass:
+                                                      "mx-auto my-2 teal--text",
+                                                    attrs: { color: "white" }
+                                                  },
+                                                  [_vm._v("Course Details")]
+                                                )
+                                              ],
+                                              1
+                                            )
                                           ]
                                         )
                                       : _vm._e()
@@ -40010,7 +40062,7 @@ var render = function() {
                     )
                   }),
                   _vm._v(" "),
-                  _vm.checkUserProgress(course.courseprogress) === 0
+                  !_vm.checkUserProgress(course.courseprogress)
                     ? _c(
                         "div",
                         {
@@ -99628,12 +99680,23 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', __webp
 
 
 
+ // Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {},
-  mutations: {},
+  state: {
+    userid: null
+  },
+  mutations: {
+    setUserId: function setUserId(state, id) {
+      state.userid = id;
+    }
+  },
   actions: {},
-  getters: {}
+  getters: {
+    getUserId: function getUserId(state) {
+      return state.userid;
+    }
+  }
 });
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   // mode: 'history',
