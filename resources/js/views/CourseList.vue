@@ -43,9 +43,13 @@
 						</v-expand-transition>
 					</v-img>
 				</v-hover>
-				<div id="course-details-container" class="black darken-3">
+				<!-- SHOW IF COURSE NOT ON ANY LIST -->
+				<div
+					id="course-details-container"
+					class="black darken-3"
+					v-if="checkUserProgress(course.courseprogress) === 0"
+				>
 					<v-card-text class="pt-6 pb-1" style="position: relative;">
-						<!-- @click="addToMyCourses(course.id)" -->
 						<v-btn
 							@click="addtosheet = true; setaddcoursedata(course.id, course.name)"
 							absolute
@@ -64,12 +68,139 @@
 					>{{ course.name }}</v-card-text>
 					<v-card-text class="py-2">
 						<v-row align="center" class="mx-0">
-							<v-rating :value="getRatings(course.courserating)" color="amber" dense half-increments readonly size="14"></v-rating>
+							<v-rating
+								:value="getAverageRating(course.courserating)"
+								color="amber"
+								dense
+								half-increments
+                background-color="grey lighten-1"
+								readonly
+							></v-rating>
 							<div class="grey--text ml-4">
 								<div v-if="course.courserating.length">({{course.courserating.length }})</div>
 							</div>
 						</v-row>
 						<div class="my-1 caption text-left">Cost: {{ course.cost }}</div>
+					</v-card-text>
+				</div>
+				<!-- SHOW IF COURSE COMPLETED -->
+				<div
+					id="course-details-container"
+					class="black darken-3"
+					v-if="checkUserProgress(course.courseprogress) === 2"
+				>
+					<v-card-text class="pt-6 pb-1" style="position: relative;">
+						<v-btn
+							@click="addtosheet = true; setaddcoursedata(course.id, course.name)"
+							absolute
+							color="green darken-2"
+							class="white--text"
+							fab
+							right
+							top
+						>
+							<v-icon>mdi-check</v-icon>
+						</v-btn>
+					</v-card-text>
+					<v-card-text
+						class="subtitle-1 py-1 grey--text text--lighten-1"
+						style="word-break: break-word; min-height: 100px"
+					>{{ course.name }}</v-card-text>
+					<v-card-text class="py-2">
+						<v-row align="center" class="mx-0">
+							<v-rating
+								:value="getUserRating(course.courserating)"
+                length="5"
+								color="green"
+								dense
+								half-increments
+                background-color="grey lighten-1"
+							></v-rating>
+							<div class="grey--text ml-4">
+								<div v-if="course.courserating.length"></div>
+							</div>
+						</v-row>
+            <div class="my-1 caption green--text text-left">You have completed this course</div>
+					</v-card-text>
+				</div>
+				<!-- SHOW IF COURSE IN-PROGRESS -->
+				<div
+					id="course-details-container"
+					class="black darken-3"
+					v-if="checkUserProgress(course.courseprogress) === 1"
+				>
+					<v-card-text class="pt-6 pb-1" style="position: relative;">
+						<v-btn
+							@click="addtosheet = true; setaddcoursedata(course.id, course.name)"
+							absolute
+							color="blue darken-2"
+							class="white--text"
+							fab
+							right
+							top
+						>
+							<v-icon>mdi-play</v-icon>
+						</v-btn>
+					</v-card-text>
+					<v-card-text
+						class="subtitle-1 py-1 grey--text text--lighten-1"
+						style="word-break: break-word; min-height: 100px"
+					>{{ course.name }}</v-card-text>
+					<v-card-text class="py-2">
+						<v-row align="center" class="mx-0">
+							<v-rating
+								:value="getAverageRating(course.courserating)"
+								color="amber"
+								dense
+								half-increments
+                background-color="grey lighten-1"
+								readonly
+							></v-rating>
+							<div class="grey--text ml-4">
+								<div v-if="course.courserating.length">({{course.courserating.length }})</div>
+							</div>
+						</v-row>
+						<div class="my-1 caption blue--text text-left">You have started this course</div>
+					</v-card-text>
+				</div>
+				<!-- SHOW IF COURSE SHORTLISTED -->
+				<div
+					id="course-details-container"
+					class="black darken-3"
+					v-if="checkUserProgress(course.courseprogress) === 3"
+				>
+					<v-card-text class="pt-6 pb-1" style="position: relative;">
+						<v-btn
+							@click="addtosheet = true; setaddcoursedata(course.id, course.name)"
+							absolute
+							color="pink"
+							class="white--text"
+							fab
+							right
+							top
+						>
+							<v-icon>mdi-heart</v-icon>
+						</v-btn>
+					</v-card-text>
+					<v-card-text
+						class="subtitle-1 py-1 grey--text text--lighten-1"
+						style="word-break: break-word; min-height: 100px"
+					>{{ course.name }}</v-card-text>
+					<v-card-text class="py-2">
+						<v-row align="center" class="mx-0">
+							<v-rating
+								:value="getAverageRating(course.courserating)"
+								color="amber"
+								dense
+								half-increments
+                background-color="grey lighten-1"
+								readonly
+							></v-rating>
+							<div class="grey--text ml-4">
+								<div v-if="course.courserating.length">({{course.courserating.length }})</div>
+							</div>
+						</v-row>
+						<div class="my-1 caption text-left">You have shortlisted this course</div>
 					</v-card-text>
 				</div>
 			</v-col>
@@ -169,7 +300,44 @@ export default {
 			this.addtocoursename = $name;
 			return true;
 		},
-		getRatings(courserating) {
+		checkUserProgress(courseprogress) {
+			var state = 0;
+			var length = courseprogress.length;
+			for (var i = 0; i < length; i++) {
+				if (
+					courseprogress[i].state_id === 1 &&
+					courseprogress[i].user_id === 1
+				) {
+					state = 1;
+				}
+				if (
+					courseprogress[i].state_id === 2 &&
+					courseprogress[i].user_id === 1
+				) {
+					state = 2;
+				}
+				if (
+					courseprogress[i].state_id === 3 &&
+					courseprogress[i].user_id === 1
+				) {
+					state = 3;
+				}
+				return state;
+			}
+		},
+		getUserRating(courserating) {
+			var usercourserating = 0;
+			var length = courserating.length;
+
+			for (var i = 0; i < length; i++) {
+				if (courserating[i].user_id === 1) {
+          usercourserating += parseFloat(courserating[i].rating);
+          console.log('Your rating');
+				}
+			}
+			return usercourserating;
+		},
+		getAverageRating(courserating) {
 			var total = 0,
 				length = courserating.length;
 
