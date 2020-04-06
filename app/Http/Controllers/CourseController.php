@@ -33,11 +33,31 @@ class CourseController extends Controller
 
   public function addToMyCourses($course_id, $state_id)
   {
-    $mycourse = CourseProgress::create([
-      'course_id'   => $course_id,
-      'user_id'     => Auth::id(),
-      'state_id'    => $state_id,
-    ]);
+    $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    if ($mycourse) {
+      $mycourse->state_id = $state_id;
+      $mycourse->touch();
+      $mycourse->save();
+    } else {
+      $mycourse = CourseProgress::create([
+        'course_id'   => $course_id,
+        'user_id'     => Auth::id(),
+        'state_id'    => $state_id,
+      ]);
+    }
+    return response(null, Response::HTTP_OK);
+  }
+
+  public function deleteFromMyCourses($course_id)
+  {
+    $myprogress = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    if ($myprogress) {
+      $myprogress->delete();
+    }
+    $myrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    if ($myrating) {
+      $myrating->delete();
+    }
     return response(null, Response::HTTP_OK);
   }
 

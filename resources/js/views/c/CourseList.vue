@@ -234,6 +234,16 @@
 					</v-list-item-avatar>
 					<v-list-item-title>{{ tile.title }}</v-list-item-title>
 				</v-list-item>
+				<v-list-item
+					@click="addtosheet = false; deleteFromMyCourses()"
+				>
+					<v-list-item-avatar>
+						<v-avatar size="32px" tile>
+							<img :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${deleteFromShortlist.img}`" :alt="deleteFromShortlist.title" />
+						</v-avatar>
+					</v-list-item-avatar>
+					<v-list-item-title>{{ deleteFromShortlist.title }}</v-list-item-title>
+				</v-list-item>
 			</v-list>
 		</v-bottom-sheet>
 	</div>
@@ -282,7 +292,12 @@ export default {
 					action: "addtocompleted",
 					stateid: 2
 				}
-			]
+			],
+			deleteFromShortlist: {
+					img: "hangouts.png",
+					title: "Delete From Shortlist",
+					action: "delete",
+				},
 		};
 	},
 	created() {},
@@ -300,7 +315,14 @@ export default {
 			axios
 				.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
-					// this.updated = true;
+					this.fetch();
+        });
+    },
+		deleteFromMyCourses() {
+			axios
+				.delete("/u/deleteFromMyCourses/" + this.addtocourseid)
+				.then(() => {
+					this.fetch();
 				});
 		},
 		randomTile($courseid) {

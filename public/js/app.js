@@ -2688,6 +2688,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2721,7 +2731,12 @@ __webpack_require__.r(__webpack_exports__);
         title: "Add To Completed Courses",
         action: "addtocompleted",
         stateid: 2
-      }]
+      }],
+      deleteFromShortlist: {
+        img: "hangouts.png",
+        title: "Delete From Shortlist",
+        action: "delete"
+      }
     };
   },
   created: function created() {},
@@ -2738,8 +2753,18 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToMyCourses: function addToMyCourses($action, $state_id) {
+      var _this2 = this;
+
       console.log("Course ID: " + this.addtocourseid);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {// this.updated = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id).then(function () {
+        _this2.fetch();
+      });
+    },
+    deleteFromMyCourses: function deleteFromMyCourses() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/u/deleteFromMyCourses/" + this.addtocourseid).then(function () {
+        _this3.fetch();
       });
     },
     randomTile: function randomTile($courseid) {
@@ -2810,11 +2835,11 @@ __webpack_require__.r(__webpack_exports__);
       return courserating.avgRating;
     },
     addRating: function addRating(value, id) {
-      var _this2 = this;
+      var _this4 = this;
 
       console.log("Rating Added: " + value + " Course ID: " + id);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addRating/" + id + "/" + value).then(function ($res) {
-        _this2.fetch();
+        _this4.fetch();
       });
     }
   },
@@ -41858,7 +41883,42 @@ var render = function() {
                   ],
                   1
                 )
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.addtosheet = false
+                      _vm.deleteFromMyCourses()
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "v-list-item-avatar",
+                    [
+                      _c("v-avatar", { attrs: { size: "32px", tile: "" } }, [
+                        _c("img", {
+                          attrs: {
+                            src:
+                              "https://cdn.vuetifyjs.com/images/bottom-sheets/" +
+                              _vm.deleteFromShortlist.img,
+                            alt: _vm.deleteFromShortlist.title
+                          }
+                        })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-list-item-title", [
+                    _vm._v(_vm._s(_vm.deleteFromShortlist.title))
+                  ])
+                ],
+                1
+              )
             ],
             2
           )
