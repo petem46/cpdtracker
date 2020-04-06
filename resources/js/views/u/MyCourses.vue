@@ -113,17 +113,24 @@
 						<v-row align="center" class="mx-0">
 							<v-rating
 								:value="getUserRating(course.courserating)"
-                length="5"
 								color="green"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
+								@input="addRating($event, course.id)"
 							></v-rating>
 							<div class="grey--text ml-4">
 								<div v-if="course.courserating.length"></div>
 							</div>
 						</v-row>
-            <div class="my-1 caption green--text text-left">You have completed this course</div>
+						<div
+							v-if="getUserRating(course.courserating) === 0"
+							class="my-1 caption red--text text-left"
+						>Please rate this course</div>
+						<div
+							v-if="getUserRating(course.courserating) > 0"
+							class="my-1 caption green--text text-left"
+						>You have completed this course</div>
 					</v-card-text>
 				</div>
 				<!-- SHOW IF COURSE IN-PROGRESS -->
@@ -142,7 +149,7 @@
 							right
 							top
 						>
-							<v-icon>mdi-play</v-icon>
+							<v-icon>mdi-alarm-snooze</v-icon>
 						</v-btn>
 					</v-card-text>
 					<v-card-text
@@ -324,17 +331,24 @@
 						<v-row align="center" class="mx-0">
 							<v-rating
 								:value="getUserRating(course.courserating)"
-                length="5"
 								color="green"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
+								@input="addRating($event, course.id)"
 							></v-rating>
 							<div class="grey--text ml-4">
 								<div v-if="course.courserating.length"></div>
 							</div>
 						</v-row>
-            <div class="my-1 caption green--text text-left">You have completed this course</div>
+						<div
+							v-if="getUserRating(course.courserating) === 0"
+							class="my-1 caption red--text text-left"
+						>Please rate this course</div>
+						<div
+							v-if="getUserRating(course.courserating) > 0"
+							class="my-1 caption green--text text-left"
+						>You have completed this course</div>
 					</v-card-text>
 				</div>
 				<!-- SHOW IF COURSE IN-PROGRESS -->
@@ -353,7 +367,7 @@
 							right
 							top
 						>
-							<v-icon>mdi-play</v-icon>
+							<v-icon>mdi-alarm-snooze</v-icon>
 						</v-btn>
 					</v-card-text>
 					<v-card-text
@@ -535,17 +549,24 @@
 						<v-row align="center" class="mx-0">
 							<v-rating
 								:value="getUserRating(course.courserating)"
-                length="5"
 								color="green"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
+								@input="addRating($event, course.id)"
 							></v-rating>
 							<div class="grey--text ml-4">
 								<div v-if="course.courserating.length"></div>
 							</div>
 						</v-row>
-            <div class="my-1 caption green--text text-left">You have completed this course</div>
+						<div
+							v-if="getUserRating(course.courserating) === 0"
+							class="my-1 caption red--text text-left"
+						>Please rate this course</div>
+						<div
+							v-if="getUserRating(course.courserating) > 0"
+							class="my-1 caption green--text text-left"
+						>You have completed this course</div>
 					</v-card-text>
 				</div>
 				<!-- SHOW IF COURSE IN-PROGRESS -->
@@ -564,7 +585,7 @@
 							right
 							top
 						>
-							<v-icon>mdi-play</v-icon>
+							<v-icon>mdi-alarm-snooze</v-icon>
 						</v-btn>
 					</v-card-text>
 					<v-card-text
@@ -741,6 +762,12 @@ export default {
 
 			courserating.avgRating = total / length;
 			return courserating.avgRating;
+		},
+		addRating(value, id) {
+			console.log("Rating Added: " + value + " Course ID: " + id);
+			axios.put("/u/addRating/" + id + "/" + value).then(($res) => {
+				this.fetch();
+			});
 		},
     update() {},
   },

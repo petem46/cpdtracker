@@ -12,11 +12,11 @@
 
 		<v-row v-for="category in courses" v-bind="category" :key="category.id">
 			<h1 class="col-12 font-weight-light">{{ category.name }}</h1>
-      <!-- <CourseTile
+			<!-- <CourseTile
 				v-for="course in category.courses"
 				v-bind="course"
 				:key="course.id"
-      ></CourseTile> -->
+			></CourseTile>-->
 			<!--
         -- Course Tile Start --
 			-->
@@ -41,7 +41,7 @@
 								<div class="pa-3">
 									{{ course.description }}
 									<br />
-                <v-btn class="mx-auto my-2 teal--text" color="white">Course Details</v-btn>
+									<v-btn class="mx-auto my-2 teal--text" color="white">Course Details</v-btn>
 								</div>
 							</div>
 						</v-expand-transition>
@@ -77,7 +77,7 @@
 								color="amber"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
 								readonly
 							></v-rating>
 							<div class="grey--text ml-4">
@@ -114,17 +114,24 @@
 						<v-row align="center" class="mx-0">
 							<v-rating
 								:value="getUserRating(course.courserating)"
-                length="5"
 								color="green"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
+								@input="addRating($event, course.id)"
 							></v-rating>
 							<div class="grey--text ml-4">
 								<div v-if="course.courserating.length"></div>
 							</div>
 						</v-row>
-            <div class="my-1 caption green--text text-left">You have completed this course</div>
+						<div
+							v-if="getUserRating(course.courserating) === 0"
+							class="my-1 caption red--text text-left"
+						>Please rate this course</div>
+						<div
+							v-if="getUserRating(course.courserating) > 0"
+							class="my-1 caption green--text text-left"
+						>You have completed this course</div>
 					</v-card-text>
 				</div>
 				<!-- SHOW IF COURSE IN-PROGRESS -->
@@ -143,7 +150,7 @@
 							right
 							top
 						>
-							<v-icon>mdi-play</v-icon>
+							<v-icon>mdi-alarm-snooze</v-icon>
 						</v-btn>
 					</v-card-text>
 					<v-card-text
@@ -157,7 +164,7 @@
 								color="amber"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
 								readonly
 							></v-rating>
 							<div class="grey--text ml-4">
@@ -197,7 +204,7 @@
 								color="amber"
 								dense
 								half-increments
-                background-color="grey lighten-1"
+								background-color="grey lighten-1"
 								readonly
 							></v-rating>
 							<div class="grey--text ml-4">
@@ -236,13 +243,13 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-		// csrf: document
-		// 	.querySelector('meta[name="csrf-token"]')
-    //   .getAttribute("content"),
-    // userid: document
-		// 	.querySelector('meta[name="user-id"]')
-    //   .getAttribute("content"),
-    colors: [
+			// csrf: document
+			// 	.querySelector('meta[name="csrf-token"]')
+			//   .getAttribute("content"),
+			// userid: document
+			// 	.querySelector('meta[name="user-id"]')
+			//   .getAttribute("content"),
+			colors: [
 				"indigo",
 				"warning",
 				"pink darken-2",
@@ -278,8 +285,7 @@ export default {
 			]
 		};
 	},
-	created() {
-  },
+	created() {},
 	mounted() {
 		this.fetch();
 	},
@@ -313,52 +319,48 @@ export default {
 		},
 		checkUserProgress(courseprogress) {
 			var state = 0;
-      var length = courseprogress.length;
-      var userid = 0;
+			var length = courseprogress.length;
+			var userid = 0;
 
-      userid = this.$store.getters.getUserId;
-      if (length > 0) {
-      for (
-        var i = 0;
-        i < length;
-        i = i+1) {
-        if (
-					courseprogress[i].state_id == 1 &&
-					courseprogress[i].user_id == userid
-				) {
-          console.log('A MATCH!');
-					state = 1;
+			userid = this.$store.getters.getUserId;
+			if (length > 0) {
+				for (var i = 0; i < length; i = i + 1) {
+					if (
+						courseprogress[i].state_id == 1 &&
+						courseprogress[i].user_id == userid
+					) {
+						console.log("A MATCH!");
+						state = 1;
+					}
+					if (
+						courseprogress[i].state_id == 2 &&
+						courseprogress[i].user_id == userid
+					) {
+						console.log("A MATCH!");
+						state = 2;
+					}
+					if (
+						courseprogress[i].state_id == 3 &&
+						courseprogress[i].user_id == userid
+					) {
+						console.log("A MATCH!");
+						state = 3;
+					}
 				}
-				if (
-          courseprogress[i].state_id == 2 &&
-					courseprogress[i].user_id == userid
-				) {
-          console.log('A MATCH!');
-					state = 2;
-				}
-				if (
-          courseprogress[i].state_id == 3 &&
-					courseprogress[i].user_id == userid
-				) {
-          console.log('A MATCH!');
-					state = 3;
-        }
-        }
 				return state;
 			}
 		},
 		getUserRating(courserating) {
 			var usercourserating = 0;
-      var length = courserating.length;
-      var userid = 0;
+			var length = courserating.length;
+			var userid = 0;
 
-      userid = this.$store.getters.getUserId;
+			userid = this.$store.getters.getUserId;
 
 			for (var i = 0; i < length; i++) {
-        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
 				if (courserating[i].user_id == userid) {
-          usercourserating += parseFloat(courserating[i].rating);
-          console.log('Your rating');
+					usercourserating += parseFloat(courserating[i].rating);
+					console.log("Your rating");
 				}
 			}
 			return usercourserating;
@@ -373,13 +375,19 @@ export default {
 
 			courserating.avgRating = total / length;
 			return courserating.avgRating;
-		}
+		},
+		addRating(value, id) {
+			console.log("Rating Added: " + value + " Course ID: " + id);
+			axios.put("/u/addRating/" + id + "/" + value).then(($res) => {
+				this.fetch();
+			});
+		},
 	},
-  computed: {
-    userid() {
-      return this.$store.getters.getUserId;
-    }
-  },
+	computed: {
+		userid() {
+			return this.$store.getters.getUserId;
+		}
+	}
 };
 </script>
 <style>

@@ -2681,6 +2681,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2758,17 +2765,17 @@ __webpack_require__.r(__webpack_exports__);
       if (length > 0) {
         for (var i = 0; i < length; i = i + 1) {
           if (courseprogress[i].state_id == 1 && courseprogress[i].user_id == userid) {
-            console.log('A MATCH!');
+            console.log("A MATCH!");
             state = 1;
           }
 
           if (courseprogress[i].state_id == 2 && courseprogress[i].user_id == userid) {
-            console.log('A MATCH!');
+            console.log("A MATCH!");
             state = 2;
           }
 
           if (courseprogress[i].state_id == 3 && courseprogress[i].user_id == userid) {
-            console.log('A MATCH!');
+            console.log("A MATCH!");
             state = 3;
           }
         }
@@ -2783,11 +2790,9 @@ __webpack_require__.r(__webpack_exports__);
       userid = this.$store.getters.getUserId;
 
       for (var i = 0; i < length; i++) {
-        console.log('Course uID: ' + courserating[i].user_id + ' User ID: ' + userid);
-
         if (courserating[i].user_id == userid) {
           usercourserating += parseFloat(courserating[i].rating);
-          console.log('Your rating');
+          console.log("Your rating");
         }
       }
 
@@ -2803,6 +2808,14 @@ __webpack_require__.r(__webpack_exports__);
 
       courserating.avgRating = total / length;
       return courserating.avgRating;
+    },
+    addRating: function addRating(value, id) {
+      var _this2 = this;
+
+      console.log("Rating Added: " + value + " Course ID: " + id);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addRating/" + id + "/" + value).then(function ($res) {
+        _this2.fetch();
+      });
     }
   },
   computed: {
@@ -2825,6 +2838,27 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3559,6 +3593,14 @@ __webpack_require__.r(__webpack_exports__);
 
       courserating.avgRating = total / length;
       return courserating.avgRating;
+    },
+    addRating: function addRating(value, id) {
+      var _this2 = this;
+
+      console.log("Rating Added: " + value + " Course ID: " + id);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/u/addRating/" + id + "/" + value).then(function ($res) {
+        _this2.fetch();
+      });
     },
     update: function update() {}
   },
@@ -41472,11 +41514,15 @@ var render = function() {
                                       value: _vm.getUserRating(
                                         course.courserating
                                       ),
-                                      length: "5",
                                       color: "green",
                                       dense: "",
                                       "half-increments": "",
                                       "background-color": "grey lighten-1"
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        return _vm.addRating($event, course.id)
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -41493,14 +41539,27 @@ var render = function() {
                                 1
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "my-1 caption green--text text-left"
-                                },
-                                [_vm._v("You have completed this course")]
-                              )
+                              _vm.getUserRating(course.courserating) === 0
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "my-1 caption red--text text-left"
+                                    },
+                                    [_vm._v("Please rate this course")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.getUserRating(course.courserating) > 0
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "my-1 caption green--text text-left"
+                                    },
+                                    [_vm._v("You have completed this course")]
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -41545,7 +41604,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_c("v-icon", [_vm._v("mdi-play")])],
+                                [_c("v-icon", [_vm._v("mdi-alarm-snooze")])],
                                 1
                               )
                             ],
@@ -42130,11 +42189,15 @@ var render = function() {
                                     value: _vm.getUserRating(
                                       course.courserating
                                     ),
-                                    length: "5",
                                     color: "green",
                                     dense: "",
                                     "half-increments": "",
                                     "background-color": "grey lighten-1"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.addRating($event, course.id)
+                                    }
                                   }
                                 }),
                                 _vm._v(" "),
@@ -42147,14 +42210,27 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "my-1 caption green--text text-left"
-                              },
-                              [_vm._v("You have completed this course")]
-                            )
+                            _vm.getUserRating(course.courserating) === 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption red--text text-left"
+                                  },
+                                  [_vm._v("Please rate this course")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.getUserRating(course.courserating) > 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption green--text text-left"
+                                  },
+                                  [_vm._v("You have completed this course")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )
@@ -42196,7 +42272,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              [_c("v-icon", [_vm._v("mdi-alarm-snooze")])],
                               1
                             )
                           ],
@@ -42677,11 +42753,15 @@ var render = function() {
                                     value: _vm.getUserRating(
                                       course.courserating
                                     ),
-                                    length: "5",
                                     color: "green",
                                     dense: "",
                                     "half-increments": "",
                                     "background-color": "grey lighten-1"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.addRating($event, course.id)
+                                    }
                                   }
                                 }),
                                 _vm._v(" "),
@@ -42694,14 +42774,27 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "my-1 caption green--text text-left"
-                              },
-                              [_vm._v("You have completed this course")]
-                            )
+                            _vm.getUserRating(course.courserating) === 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption red--text text-left"
+                                  },
+                                  [_vm._v("Please rate this course")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.getUserRating(course.courserating) > 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption green--text text-left"
+                                  },
+                                  [_vm._v("You have completed this course")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )
@@ -42743,7 +42836,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              [_c("v-icon", [_vm._v("mdi-alarm-snooze")])],
                               1
                             )
                           ],
@@ -43224,11 +43317,15 @@ var render = function() {
                                     value: _vm.getUserRating(
                                       course.courserating
                                     ),
-                                    length: "5",
                                     color: "green",
                                     dense: "",
                                     "half-increments": "",
                                     "background-color": "grey lighten-1"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.addRating($event, course.id)
+                                    }
                                   }
                                 }),
                                 _vm._v(" "),
@@ -43241,14 +43338,27 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "my-1 caption green--text text-left"
-                              },
-                              [_vm._v("You have completed this course")]
-                            )
+                            _vm.getUserRating(course.courserating) === 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption red--text text-left"
+                                  },
+                                  [_vm._v("Please rate this course")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.getUserRating(course.courserating) > 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "my-1 caption green--text text-left"
+                                  },
+                                  [_vm._v("You have completed this course")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )
@@ -43290,7 +43400,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_c("v-icon", [_vm._v("mdi-play")])],
+                              [_c("v-icon", [_vm._v("mdi-alarm-snooze")])],
                               1
                             )
                           ],

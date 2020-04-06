@@ -19,7 +19,7 @@ class CreateCourseRatingTable extends Migration
           // $table->foreignId('user_id')->constrained();
           // $table->integer('course_id');
           $table->integer('user_id');
-          $table->integer('rating');
+          $table->float('rating');
           $table->timestamps();
 
           $table->unique(['course_id','user_id']);

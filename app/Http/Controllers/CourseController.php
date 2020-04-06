@@ -41,6 +41,24 @@ class CourseController extends Controller
     return response(null, Response::HTTP_OK);
   }
 
+  public function addRating($course_id, $rating)
+  {
+    $oldrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+
+    if ($oldrating) {
+      $oldrating->rating = $rating;
+      $oldrating->touch();
+      $oldrating->save();
+    } else {
+      $newrating = CourseRating::create([
+        'course_id'   => $course_id,
+        'user_id'     => Auth::id(),
+        'rating'    => $rating,
+      ]);
+    }
+    return response(null, Response::HTTP_OK);
+  }
+
   public function getMyCourses()
   {
     $uid = Auth::id();
