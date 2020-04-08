@@ -9,7 +9,7 @@ use App\CourseProgress;
 use App\CourseRating;
 
 use App\Http\Resources\CategoriesResource;
-use App\Http\Resources\MyCompletedCoursesResource;
+use App\Http\Resources\MyCoursesResource;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -29,6 +29,24 @@ class CourseController extends Controller
   public function courselist()
   {
     return new CategoriesResource(Category::get());
+  }
+
+  public function getMyCourses()
+  {
+    $uid = Auth::id();
+    $uid = 1;
+    $data = [
+      'completed' => new MyCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('state_id', '=', 2)->where('user_id', '=', $uid);
+      })->get()),
+      'inprogress' => new MyCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('state_id', '=', 1)->where('user_id', '=', $uid);
+      })->get()),
+      'shortlisted' => new MyCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('state_id', '=', 3)->where('user_id', '=', $uid);
+      })->get()),
+    ];
+    return $data;
   }
 
   public function addToMyCourses($course_id, $state_id)
@@ -77,24 +95,6 @@ class CourseController extends Controller
       ]);
     }
     return response(null, Response::HTTP_OK);
-  }
-
-  public function getMyCourses()
-  {
-    $uid = Auth::id();
-    $uid = 1;
-    $data = [
-      'completed' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('state_id', '=', 2)->where('user_id', '=', $uid);
-      })->get()),
-      'inprogress' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('state_id', '=', 1)->where('user_id', '=', $uid);
-      })->get()),
-      'shortlisted' => new MyCompletedCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('state_id', '=', 3)->where('user_id', '=', $uid);
-      })->get()),
-    ];
-    return $data;
   }
 
   public function dashboarddata($user_id)

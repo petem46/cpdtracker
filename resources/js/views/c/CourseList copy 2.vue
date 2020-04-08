@@ -1,27 +1,19 @@
 <template>
 	<div>
 		<h1 v-if="loading">
-			LOADING COURSES...
+			LOADING... {{this.name}}
 			<v-progress-linear indeterminate color="teal"></v-progress-linear>
 		</h1>
 		<div v-if="!loading">
-			<v-expand-transition>
-				<v-carousel
-					v-show="showbanner"
-					cycle
-					height="400"
-					hide-delimiter-background
-					show-arrows-on-hover
-				>
-					<v-carousel-item v-for="(slide, i) in slides" :key="i">
-						<v-sheet :color="colors[i]" height="100%">
-							<v-row class="fill-height" align="center" justify="center">
-								<div class="display-3">{{ slide }} Course</div>
-							</v-row>
-						</v-sheet>
-					</v-carousel-item>
-				</v-carousel>
-			</v-expand-transition>
+			<v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
+				<v-carousel-item v-for="(slide, i) in slides" :key="i">
+					<v-sheet :color="colors[i]" height="100%">
+						<v-row class="fill-height" align="center" justify="center">
+							<div class="display-3">{{ slide }} Course</div>
+						</v-row>
+					</v-sheet>
+				</v-carousel-item>
+			</v-carousel>
 
 			<v-row v-for="category in courses" v-bind="category" :key="category.id">
 				<h1 class="col-12 font-weight-light">{{ category.name }}</h1>
@@ -65,19 +57,7 @@
 <script>
 import axios from "axios";
 export default {
-	props: ["name", "id"],
-	watch: {
-		$route: function() {
-			if (this.$route.path === "/c/all") {
-				this.endpoint = "/c";
-				this.showbanner = true;
-			} else {
-				this.endpoint = "/cat/" + this.name;
-				this.showbanner = false;
-			}
-			this.fetch();
-		}
-	},
+  props: ['name', 'id'],
 	data() {
 		return {
 			// csrf: document
@@ -86,9 +66,7 @@ export default {
 			// userid: document
 			// 	.querySelector('meta[name="user-id"]')
 			//   .getAttribute("content"),
-			showbanner: true,
 			loading: true,
-			loadingtiles: true,
 			colors: [
 				"indigo",
 				"warning",
@@ -140,15 +118,15 @@ export default {
 	},
 	methods: {
 		fetch() {
-			this.loadingtiles = true;
 			axios
 				.get(this.endpoint)
 				.then(({ data }) => {
 					this.courses = data.data.category_courses;
 				})
 				.then(() => {
-					this.loading = false;
-					this.loadingtiles = false;
+					setTimeout(() => {
+						this.loading = false;
+					}, 1000);
 				});
 		},
 		addToMyCourses($action, $state_id) {

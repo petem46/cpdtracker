@@ -19,7 +19,7 @@ class CategoryResource extends Resource
                               ->where('category_id', $this->id)
                               ->get(),
           'links'         => [
-              'self' => route('cc.show', ['cc' => $this->id]),
+              // 'self' => route('cc.show', ['cc' => $this->id]),
           ],
       ];
   }

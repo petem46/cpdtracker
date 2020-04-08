@@ -5,13 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class MyCompletedCoursesResource extends ResourceCollection
+class MyCoursesResource extends ResourceCollection
 {
   public function toArray($request)
   {
     // return parent::toArray($request);
     return [
-      'courses' => MyCompletedCourseResource::collection($this->collection),
+      'courses' => MyCourseResource::collection($this->collection),
     ];
   }
 }

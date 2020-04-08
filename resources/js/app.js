@@ -36,7 +36,7 @@ import Home from './views/Home'
 
 import CourseDetails from './views/c/CourseDetails'
 import CourseList from './views/c/CourseList'
-import CourseTile from './components/c/CourseTile'
+import FilteredCourseList from './views/c/FilteredCourseList'
 
 import UserCompleted from './views/u/UserCompleted'
 import UserDashboard from './views/u/UserDashboard'
@@ -65,17 +65,17 @@ const store = new Vuex.Store({
 });
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     {
       path: '/home',
       name: 'landing',
-      component: Home
+      component: MyCourses
     },
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: MyCourses
     },
     {
       path: '/c/details',
@@ -86,6 +86,12 @@ const router = new VueRouter({
       path: '/c/all',
       name: 'courselist',
       component: CourseList
+    },
+    {
+      path: '/c/:name',
+      name: 'courselist',
+      component: CourseList,
+      props: true
     },
     {
       path: '/u/dashboard',

@@ -9,7 +9,7 @@ use App\CourseReview;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\Resource;
 
-class MyCompletedCourseResource extends Resource
+class MyCourseResource extends Resource
 {
     public function toArray($request)
     {
@@ -19,11 +19,11 @@ class MyCompletedCourseResource extends Resource
         'type'          =>  'course',
         'id'            =>  (string) $this->id,
         'name'          => $this->name,
-        'courseprogress'      => CourseProgress::where('course_id', $this->id)->where('user_id', $uid)->get(),
-        'courserating'        => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->get(),
-        'coursereview'        => CourseReview::where('course_id', $this->id)->where('user_id', $uid)->get(),
+        'courseprogress'      => CourseProgress::where('course_id', $this->id)->get(),
+        'courserating'        => CourseRating::where('course_id', $this->id)->get(),
+        'coursereview'        => CourseReview::where('course_id', $this->id)->get(),
         'links'         => [
-            'self' => $uid,
+            // 'self' => $uid,
         ],
     ];
     }

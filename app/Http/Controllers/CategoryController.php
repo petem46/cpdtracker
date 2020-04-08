@@ -16,11 +16,17 @@ class CategoryController extends Controller
     return new CategoriesResource(Category::get());
   }
 
-  public function show($category)
+  public function list()
   {
-    $category = Category::find($category);
-    CategoryResource::withoutWrapping();
-    return new CategoryResource($category);
+    CategoriesResource::withoutWrapping();
+    return new CategoriesResource(Category::orderBy('name')->get());
+
+  }
+
+  public function show($name)
+  {
+    CategoriesResource::withoutWrapping();
+    return new CategoriesResource(Category::where('name', $name)->get());
   }
 
 }

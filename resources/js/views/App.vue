@@ -8,9 +8,10 @@
 			app
 			dark
 			overflow
+			dense
 		>
-			<v-list shaped>
-				<v-subheader class="font-weight-light">MY CPD</v-subheader>
+			<v-list shaped dense>
+				<!-- <v-subheader class="font-weight-light">MY CPD</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
@@ -32,7 +33,7 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-				</v-list-item-group>
+				</v-list-item-group>-->
 				<v-subheader>COURSES</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -41,7 +42,11 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">Find A Course</router-link>
+								<router-link
+									exact
+									exact-active-class="teal--yellow"
+									:to="{ name: 'courselist' }"
+								>Find A Course</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -88,17 +93,37 @@
 				</v-list-item-group>
 				<v-subheader>CATEGORIES</v-subheader>
 				<v-list-item-group>
-					<v-list-item>
+				 <v-list-item>
 						<v-list-item-icon>
 							<v-icon color="green lighten-2">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c">Pastoral Wellbeing</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/c/all">All</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item>
+					<v-list-item
+						v-for="category in categories.category_courses"
+						v-bind="categories"
+						:key="category.id"
+					>
+						<v-list-item-icon>
+							<!-- <v-icon :color="getlabelcolour(category.id)">mdi-label</v-icon> -->
+							<v-icon color="white">mdi-label</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+
+							<v-list-item-title>
+                <router-link exact exact-active-class="teal--yellow" :to="{ path: '/c/' + category.name, params:{ name: category.name}}">
+                {{category.name}}
+                </router-link>
+
+              </v-list-item-title>
+							<!-- <v-list-item-title @click="filterCourses(category)">{{category.name}}</v-list-item-title> -->
+						</v-list-item-content>
+					</v-list-item>
+					<!-- <v-list-item>
 						<v-list-item-icon>
 							<v-icon color="orange darken-2">mdi-label</v-icon>
 						</v-list-item-icon>
@@ -137,7 +162,7 @@
 								<router-link exact exact-active-class="teal--yellow" to="/u/tostart">STEM</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
-					</v-list-item>
+					</v-list-item>-->
 				</v-list-item-group>
 			</v-list>
 		</v-navigation-drawer>
@@ -160,22 +185,60 @@ export default {
 	data: () => ({
 		csrf: document
 			.querySelector('meta[name="csrf-token"]')
-      .getAttribute("content"),
-    userid: document
+			.getAttribute("content"),
+		userid: document
 			.querySelector('meta[name="user-id"]')
-      .getAttribute("content"),
+			.getAttribute("content"),
 		primaryDrawer: {
 			model: null,
 			clipped: false,
 			floating: false,
 			mini: false
-		}
+		},
+		categories: [],
+		labelcolors: [
+			"green lighten-2",
+			"orange darken-2",
+			"red darken-2",
+			"purple lighten-1",
+			"blue lighten-3",
+			"teal darken-2",
+			"pink darken-1",
+			"indigo darken-4",
+			"deep-purple darken-1",
+			"deep-purple lighten-3",
+			"deep-purple accent-4",
+			"light-blue lighten-1",
+			"light-green accent-3",
+			"lime accent-2",
+			"yellow accent-2",
+			"yellow accent-4"
+		]
 	}),
 	mounted() {
-    this.$store.commit("setUserId", this.userid);
-    console.log("Store userid = " + this.$store.getters.getUserId);
+		this.$store.commit("setUserId", this.userid);
+		console.log("Store userid = " + this.$store.getters.getUserId);
+		this.getCategories();
 	},
 	methods: {
+		getCategories() {
+			axios.get("/cat/list").then(({ data }) => {
+				this.categories = data.data;
+			});
+		},
+		randomItem(items) {
+			return items[Math.floor(Math.random() * items.length)];
+		},
+		getlabelcolour(id) {
+			return this.randomItem(this.labelcolors);
+		},
+		filterCourses(value) {
+      alert("Course: " + value.name);
+      this.$router.push({
+				name: "filtercourselist",
+				params: { id: value.id, name: value.name }
+			});
+		},
 		logout() {
 			axios
 				.post("/logout")
@@ -190,7 +253,6 @@ export default {
 				.catch(error => {});
 		}
 	},
-	computed: {
-	}
+	computed: {}
 };
 </script>

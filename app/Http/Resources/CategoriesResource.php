@@ -18,7 +18,7 @@ class CategoriesResource extends ResourceCollection
   {
       return [
           'links'    => [
-              'self' => route('cc.index'),
+              // 'self' => route('c.index'),
           ],
       ];
   }
