@@ -38,11 +38,15 @@ class User extends Authenticatable
     ];
 
     public function courserating() {
-      return $this->hasOne('App\CourseRating');
+      return $this->hasMany('App\CourseRating');
     }
 
-    public function couresprogress() {
-      return $this->hasOne('App\CourseProgress');
+    public function courseprogress() {
+      return $this->hasMany('App\CourseProgress');
+    }
+
+    public function coursereview() {
+      return $this->hasMany('App\CourseReview');
     }
 
     public static function getGoogleSchool($gmail) {

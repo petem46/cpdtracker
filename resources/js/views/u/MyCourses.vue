@@ -192,7 +192,7 @@ export default {
 		},
 		addRating(value, id) {
 			console.log("Rating Added: " + value + " Course ID: " + id);
-			axios.put("/u/addRating/" + id + "/" + value).then($res => {
+			axios.put("/put/u/addRating/" + id + "/" + value).then($res => {
 				this.fetch();
 			});
 		}

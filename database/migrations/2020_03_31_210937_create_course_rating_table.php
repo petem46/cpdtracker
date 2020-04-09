@@ -21,6 +21,7 @@ class CreateCourseRatingTable extends Migration
           $table->integer('user_id');
           $table->float('rating');
           $table->timestamps();
+          $table->softDeletes();
 
           $table->unique(['course_id','user_id']);
 

@@ -86,7 +86,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/tostart">To Start</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/u/shortlist">Shortlist</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -171,55 +171,86 @@
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>FCAT CPD Tracker</v-toolbar-title>
 			<v-spacer />
-			<v-menu
-        bottom
-				left
-				close-on-content-click
-				offset-y
-			>
+			<v-menu bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn v-on="on" tile text>
-						<v-icon left dark>mdi-apps</v-icon>
-            User Menu
+						<v-icon left>fas fa-cog</v-icon>
 					</v-btn>
 				</template>
 				<v-card>
 					<v-card-text>
 						<v-list>
-              <v-list-item @click="gotoMyProfile" class="ml-0 pl-0">
-                <v-list-item-title>
-                  <v-avatar>
-                    <v-icon dark>mdi-account</v-icon>
-                  </v-avatar>
-                  My Profile
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
-                <v-list-item-title>
-                  <v-avatar>
-                    <v-icon dark>mdi-folder-account-outline</v-icon>
-                  </v-avatar>
-                  My Courses
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
-                <v-list-item-title>
-                  <v-avatar>
-                    <v-icon dark>mdi-lan</v-icon>
-                  </v-avatar>
-                  My Reviews
-                </v-list-item-title>
-              </v-list-item>
-              <v-divider></v-divider>
-              <v-list-item @click="logout" class="ml-0 pl-0">
-                <v-list-item-title class="red--text">
-                  <v-avatar>
-                    <v-icon dark color="red">mdi-logout-variant</v-icon>
-                  </v-avatar>
-                  Log Out
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
+							<v-list-item @click="gotoManageUsers" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>fas fa-users-cog</v-icon>
+									</v-avatar>Manage Users
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>far fa-folder-open</v-icon>
+									</v-avatar>Manage Courses
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>far fa-comment-dots</v-icon>
+									</v-avatar>Manage Reviews
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="logout" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>fas fa-tags</v-icon>
+									</v-avatar>Manage Categories
+								</v-list-item-title>
+							</v-list-item>
+						</v-list>
+					</v-card-text>
+				</v-card>
+			</v-menu>
+			<v-menu bottom left close-on-content-click offset-y>
+				<template v-slot:activator="{ on }">
+					<v-btn v-on="on" tile text>
+						<v-icon left>mdi-account-circle</v-icon>
+					</v-btn>
+				</template>
+				<v-card>
+					<v-card-text>
+						<v-list>
+							<v-list-item @click="gotoMyProfile" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>mdi-account</v-icon>
+									</v-avatar>My Profile
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>mdi-folder-account-outline</v-icon>
+									</v-avatar>My Courses
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>mdi-lan</v-icon>
+									</v-avatar>My Reviews
+								</v-list-item-title>
+							</v-list-item>
+							<v-divider></v-divider>
+							<v-list-item @click="logout" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>mdi-logout-variant</v-icon>
+									</v-avatar>Log Out
+								</v-list-item-title>
+							</v-list-item>
+						</v-list>
 					</v-card-text>
 				</v-card>
 			</v-menu>
@@ -233,6 +264,7 @@
 	</v-app>
 </template>
 <script>
+import { mdiCog } from "@mdi/js";
 export default {
 	data: () => ({
 		csrf: document
@@ -284,15 +316,18 @@ export default {
 		getlabelcolour(id) {
 			return this.randomItem(this.labelcolors);
 		},
-    gotoMyCourses() {
-      this.$router.push('/u/mycourses');
-      },
-    gotoMyProfile() {
-      this.$router.push('/u/myprofile');
-    },
-    gotoMyReviews() {
-      this.$router.push('/u/myreviews');
-    },
+		gotoManageUsers() {
+			this.$router.push("/a/manageusers");
+		},
+		gotoMyCourses() {
+			this.$router.push("/u/mycourses");
+		},
+		gotoMyProfile() {
+			this.$router.push("/u/myprofile");
+		},
+		gotoMyReviews() {
+			this.$router.push("/u/myreviews");
+		},
 		logout() {
 			axios
 				.post("/logout")

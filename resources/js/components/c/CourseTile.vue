@@ -86,10 +86,9 @@
 				<v-row align="center" class="mx-0">
 					<v-rating
 						:value="getUserRating(this.courserating)"
+						background-color="grey lighten-1"
 						color="green"
 						dense
-						half-increments
-						background-color="grey lighten-1"
 						@input="addRating($event, id)"
 					></v-rating>
 					<div class="grey--text ml-4">
@@ -246,7 +245,7 @@ export default {
 		addToMyCourses($action, $state_id) {
 			// console.log("Course ID: " + this.addtocourseid);
 			axios
-				.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
         });

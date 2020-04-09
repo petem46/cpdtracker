@@ -17,6 +17,7 @@ class CreateCoursestatesTable extends Migration
             $table->id();
             $table->string('state');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

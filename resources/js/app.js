@@ -14,6 +14,9 @@ export default new Vuetify({
   theme: {
     dark: true,
   },
+  icons: {
+    iconfont: 'fa',
+  },
 });
 
 require('./bootstrap');
@@ -45,7 +48,9 @@ import MyProfile from './views/u/MyProfile'
 import MyReviews from './views/u/MyReviews'
 
 import UserInProgress from './views/u/UserInProgress'
-import UserToStart from './views/u/UserToStart'
+import UserShortlist from './views/u/UserShortlist'
+
+import ManageUsers from './views/a/ManageUsers'
 
 // Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
@@ -79,6 +84,11 @@ const router = new VueRouter({
       path: '/',
       name: 'home',
       component: MyCourses
+    },
+    {
+      path: '/a/manageusers',
+      name: 'manageusers',
+      component: ManageUsers
     },
     {
       path: '/c/details',
@@ -127,9 +137,9 @@ const router = new VueRouter({
       component: UserInProgress
     },
     {
-      path: '/u/tostart',
-      name: 'usertostart',
-      component: UserToStart
+      path: '/u/shortlist',
+      name: 'usershortlist',
+      component: UserShortlist
     },
   ],
 });

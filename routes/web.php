@@ -37,6 +37,10 @@ Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating
 Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
 Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
 
+/*
+|- MANAGE USERS ROUTES
+*/
+Route::get('/get/u/all', 'UsersController@overview');
 // Route::resource('cc', 'CategoryController');
 // Route::resource('c', 'CourseController');
 

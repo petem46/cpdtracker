@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('usergroup_id');
             $table->integer('role_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

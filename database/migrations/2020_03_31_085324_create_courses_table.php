@@ -24,6 +24,7 @@ class CreateCoursesTable extends Migration
             $table->text('access_details');
             $table->float('rating');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

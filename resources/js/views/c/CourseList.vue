@@ -157,7 +157,7 @@ export default {
 		addToMyCourses($action, $state_id) {
 			// console.log("Course ID: " + this.addtocourseid);
 			axios
-				.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});
