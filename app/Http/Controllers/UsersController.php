@@ -10,7 +10,7 @@ class UsersController extends Controller
     public function overview()
     {
         $data = [
-          'users' => User::with('courseprogress')->with('courserating')->with('coursereview')->orderBy('updated_at')->get(),
+          'users' => User::with('courseprogress')->with('courserating')->with('coursereview')->orderBy('updated_at', 'DESC')->get(),
         ];
         return $data;
     }
