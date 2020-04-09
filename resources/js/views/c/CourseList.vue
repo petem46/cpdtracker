@@ -70,7 +70,7 @@ export default {
 		$route: function() {
 			if (this.$route.path === "/c/all") {
 				this.endpoint = "/get/c";
-				this.showbanner = true;
+				this.loading = true;
 			} else {
 				this.endpoint = "/get/cat/" + this.name;
 				this.showbanner = false;
@@ -148,7 +148,10 @@ export default {
 				})
 				.then(() => {
 					this.loading = false;
-					this.loadingtiles = false;
+          this.loadingtiles = false;
+          if(this.$route.path === "/c/all") {
+            this.showbanner = true;
+          }
 				});
 		},
 		addToMyCourses($action, $state_id) {

@@ -12,7 +12,8 @@
 						<div class="pa-3">
 							{{ description }}
 							<br />
-							<v-btn class="mx-auto my-2 teal--text" color="white">Course Details</v-btn>
+							<v-btn class="mx-auto mb-1 teal--text" color="white">Course Details</v-btn>
+							<v-btn outlined class="mx-auto" color="white">Write Review</v-btn>
 						</div>
 					</div>
 				</v-expand-transition>
@@ -264,7 +265,7 @@ export default {
 			alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
 		},
 		addcourse($action, $state) {
-			alert("You Cllicked " + $action + " with a state_id of " + $state);
+			alert("You Clicked " + $action + " with a state_id of " + $state);
 		},
 		setaddcoursedata($id, $name) {
 			this.addtocourseid = $id;

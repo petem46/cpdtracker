@@ -39,7 +39,11 @@ import CourseList from './views/c/CourseList'
 
 import UserCompleted from './views/u/UserCompleted'
 import UserDashboard from './views/u/UserDashboard'
+
 import MyCourses from './views/u/MyCourses'
+import MyProfile from './views/u/MyProfile'
+import MyReviews from './views/u/MyReviews'
+
 import UserInProgress from './views/u/UserInProgress'
 import UserToStart from './views/u/UserToStart'
 
@@ -101,6 +105,16 @@ const router = new VueRouter({
       path: '/u/mycourses',
       name: 'usermycourses',
       component: MyCourses
+    },
+    {
+      path: '/u/myprofile',
+      name: 'usermyprofile',
+      component: MyProfile
+    },
+    {
+      path: '/u/myreviews',
+      name: 'usermyreviews',
+      component: MyReviews
     },
     {
       path: '/u/completed',

@@ -10,7 +10,7 @@
 			overflow
 			dense
 		>
-			<v-list shaped dense>
+			<v-list shaped dense flat>
 				<!-- <v-subheader class="font-weight-light">MY CPD</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -93,7 +93,7 @@
 				</v-list-item-group>
 				<v-subheader>CATEGORIES</v-subheader>
 				<v-list-item-group>
-				 <v-list-item>
+					<v-list-item>
 						<v-list-item-icon>
 							<v-icon color="green lighten-2">mdi-label</v-icon>
 						</v-list-item-icon>
@@ -113,13 +113,13 @@
 							<v-icon color="white">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
-
 							<v-list-item-title>
-                <router-link exact exact-active-class="teal--yellow" :to="{ path: '/c/' + category.name, params:{ name: category.name}}">
-                {{category.name}}
-                </router-link>
-
-              </v-list-item-title>
+								<router-link
+									exact
+									exact-active-class="teal--yellow"
+									:to="{ path: '/c/' + category.name, params:{ name: category.name}}"
+								>{{category.name}}</router-link>
+							</v-list-item-title>
 							<!-- <v-list-item-title @click="filterCourses(category)">{{category.name}}</v-list-item-title> -->
 						</v-list-item-content>
 					</v-list-item>
@@ -171,7 +171,59 @@
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>FCAT CPD Tracker</v-toolbar-title>
 			<v-spacer />
-			<v-icon @click="logout">mdi-logout</v-icon>
+			<v-menu
+        bottom
+				left
+				close-on-content-click
+				offset-y
+			>
+				<template v-slot:activator="{ on }">
+					<v-btn v-on="on" tile text>
+						<v-icon left dark>mdi-apps</v-icon>
+            User Menu
+					</v-btn>
+				</template>
+				<v-card>
+					<v-card-text>
+						<v-list>
+              <v-list-item @click="gotoMyProfile" class="ml-0 pl-0">
+                <v-list-item-title>
+                  <v-avatar>
+                    <v-icon dark>mdi-account</v-icon>
+                  </v-avatar>
+                  My Profile
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+                <v-list-item-title>
+                  <v-avatar>
+                    <v-icon dark>mdi-folder-account-outline</v-icon>
+                  </v-avatar>
+                  My Courses
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
+                <v-list-item-title>
+                  <v-avatar>
+                    <v-icon dark>mdi-lan</v-icon>
+                  </v-avatar>
+                  My Reviews
+                </v-list-item-title>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item @click="logout" class="ml-0 pl-0">
+                <v-list-item-title class="red--text">
+                  <v-avatar>
+                    <v-icon dark color="red">mdi-logout-variant</v-icon>
+                  </v-avatar>
+                  Log Out
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+					</v-card-text>
+				</v-card>
+			</v-menu>
+			<!-- <v-icon @click="logout">mdi-logout</v-icon> -->
 		</v-app-bar>
 		<v-content>
 			<v-container fluid>
@@ -232,13 +284,15 @@ export default {
 		getlabelcolour(id) {
 			return this.randomItem(this.labelcolors);
 		},
-		filterCourses(value) {
-      alert("Course: " + value.name);
-      this.$router.push({
-				name: "filtercourselist",
-				params: { id: value.id, name: value.name }
-			});
-		},
+    gotoMyCourses() {
+      this.$router.push('/u/mycourses');
+      },
+    gotoMyProfile() {
+      this.$router.push('/u/myprofile');
+    },
+    gotoMyReviews() {
+      this.$router.push('/u/myreviews');
+    },
 		logout() {
 			axios
 				.post("/logout")
