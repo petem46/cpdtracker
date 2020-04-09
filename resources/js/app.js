@@ -51,6 +51,7 @@ import UserInProgress from './views/u/UserInProgress'
 import UserShortlist from './views/u/UserShortlist'
 
 import ManageUsers from './views/a/ManageUsers'
+import ManageCourses from './views/a/ManageCourses'
 
 // Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
@@ -89,6 +90,11 @@ const router = new VueRouter({
       path: '/a/manageusers',
       name: 'manageusers',
       component: ManageUsers
+    },
+    {
+      path: '/a/managecourses',
+      name: 'managecourses',
+      component: ManageCourses
     },
     {
       path: '/c/details',

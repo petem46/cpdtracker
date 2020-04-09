@@ -187,7 +187,7 @@
 									</v-avatar>Manage Users
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+							<v-list-item @click="gotoManageCourses" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>far fa-folder-open</v-icon>
@@ -318,6 +318,9 @@ export default {
 		},
 		gotoManageUsers() {
 			this.$router.push("/a/manageusers");
+		},
+		gotoManageCourses() {
+			this.$router.push("/a/managecourses");
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");

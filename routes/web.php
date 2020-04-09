@@ -41,6 +41,9 @@ Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
 |- MANAGE USERS ROUTES
 */
 Route::get('/get/u/all', 'UsersController@overview');
+Route::get('/get/c/all', 'CourseController@overview');
+
+
 // Route::resource('cc', 'CategoryController');
 // Route::resource('c', 'CourseController');
 

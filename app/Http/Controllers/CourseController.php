@@ -10,7 +10,7 @@ use App\CourseRating;
 
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
-
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +24,14 @@ class CourseController extends Controller
       'category_courses' => Category::with('course')->get()->toArray(),
     ];
     return response()->json($data);
+  }
+
+  public function overview()
+  {
+    $data = [
+      'courses' => Course::with('category')->with('courseprogress')->with('courserating')->with('coursereview')->get(),
+    ];
+    return $data;
   }
 
   public function courselist()
