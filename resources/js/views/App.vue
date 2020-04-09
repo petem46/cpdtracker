@@ -222,7 +222,7 @@ export default {
 	},
 	methods: {
 		getCategories() {
-			axios.get("/cat/list").then(({ data }) => {
+			axios.get("/get/cat/list").then(({ data }) => {
 				this.categories = data.data;
 			});
 		},

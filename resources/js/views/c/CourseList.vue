@@ -69,10 +69,10 @@ export default {
 	watch: {
 		$route: function() {
 			if (this.$route.path === "/c/all") {
-				this.endpoint = "/c";
+				this.endpoint = "/get/c";
 				this.showbanner = true;
 			} else {
-				this.endpoint = "/cat/" + this.name;
+				this.endpoint = "/get/cat/" + this.name;
 				this.showbanner = false;
 			}
 			this.fetch();
@@ -98,7 +98,7 @@ export default {
 			],
 			slides: ["First", "Second", "Third", "Fourth", "Fifth"],
 			courses: [],
-			endpoint: "/c",
+			endpoint: "/get/c",
 			// rating: 4.5,
 			addtocoursename: "",
 			addtocourseid: "",
@@ -160,7 +160,7 @@ export default {
 				});
 		},
 		deleteFromMyCourses() {
-			axios.delete("/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
+			axios.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
 				this.fetch();
 			});
 		},
@@ -176,7 +176,7 @@ export default {
 		},
 		addRating(value, id) {
 			// console.log("Rating Added: " + value + " Course ID: " + id);
-			axios.put("/u/addRating/" + id + "/" + value).then($res => {
+			axios.put("/put/u/addRating/" + id + "/" + value).then($res => {
 				this.fetch();
 			});
 		}

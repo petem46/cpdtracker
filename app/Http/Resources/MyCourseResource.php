@@ -7,9 +7,9 @@ use App\CourseRating;
 use App\CourseReview;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class MyCourseResource extends Resource
+class MyCourseResource extends JsonResource
 {
     public function toArray($request)
     {

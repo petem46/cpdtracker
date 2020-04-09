@@ -110,7 +110,7 @@ export default {
 	data() {
 		return {
 			loading: true,
-			endpoint: "/u/getMyCourses",
+			endpoint: "/get/u/getMyCourses",
 			mycompletedcourses: [],
 			myinprogresscourses: [],
 			myshortlistedcourses: [],
@@ -170,13 +170,13 @@ export default {
 		addToMyCourses($action, $state_id) {
 			console.log("Course ID: " + this.addtocourseid);
 			axios
-				.put("/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});
 		},
 		deleteFromMyCourses() {
-			axios.delete("/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
+			axios.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
 				this.fetch();
 			});
 		},

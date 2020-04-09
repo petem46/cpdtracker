@@ -36,7 +36,6 @@ import Home from './views/Home'
 
 import CourseDetails from './views/c/CourseDetails'
 import CourseList from './views/c/CourseList'
-import FilteredCourseList from './views/c/FilteredCourseList'
 
 import UserCompleted from './views/u/UserCompleted'
 import UserDashboard from './views/u/UserDashboard'

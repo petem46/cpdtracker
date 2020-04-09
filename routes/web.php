@@ -16,26 +16,26 @@ use Illuminate\Support\Facades\Route;
 /*
 |- COURSE ROUTES
 */
-Route::get('/courselist', 'CategoryController@index');
-Route::get('/c', 'CategoryController@index');
+Route::get('/get/courselist', 'CategoryController@index');
+Route::get('/get/c', 'CategoryController@index');
 
 /*
 |- CATEGORY ROUTES
 */
-Route::get('/cc', 'CategoryController@list');
-Route::get('/cats', 'CategoryController@list');
-Route::get('/cat/list', 'CategoryController@list');
-Route::get('/cc/list', 'CategoryController@list');
-Route::get('/cat/{catname}', 'CategoryController@show');
+Route::get('/get/cc', 'CategoryController@list');
+Route::get('/get/cats', 'CategoryController@list');
+Route::get('/get/cat/list', 'CategoryController@list');
+Route::get('/get/cc/list', 'CategoryController@list');
+Route::get('/get/cat/{catname}', 'CategoryController@show');
 
 /*
 |- USER ROUTES
 */
-Route::get('/u/getMyCourses', 'CourseController@getMyCourses');
-Route::put('/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
-Route::put('/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
-Route::delete('/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
-Route::get('/u/getdashboarddata', 'CourseController@dashboarddata');
+Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
+Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
+Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
+Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
+Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
 
 // Route::resource('cc', 'CategoryController');
 // Route::resource('c', 'CourseController');

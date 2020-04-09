@@ -252,7 +252,7 @@ export default {
     },
 		deleteFromMyCourses() {
 			axios
-				.delete("/u/deleteFromMyCourses/" + this.addtocourseid)
+				.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
 				.then(() => {
 					this.fetch();
 				});

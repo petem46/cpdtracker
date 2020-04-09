@@ -17,7 +17,7 @@ export default {
 			],
 			slides: ["First", "Second", "Third", "Fourth", "Fifth"],
 			courses: [],
-			endpoint: "/u/dashboarddata",
+			endpoint: "/get/u/dashboarddata",
 			rating: 4.5
 		};
 	},
