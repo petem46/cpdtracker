@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use \DB;
 use App\Course;
 use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
-
+use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Query\Builder;
 
 class CourseController extends Controller
 {
@@ -28,10 +25,7 @@ class CourseController extends Controller
 
   public function overview()
   {
-    $data = [
-      'courses' => Course::with('category')->with('courseprogress')->with('courserating')->with('coursereview')->get(),
-    ];
-    return $data;
+      return new ManageCoursesResource(Course::with('category')->get());
   }
 
   public function courselist()
