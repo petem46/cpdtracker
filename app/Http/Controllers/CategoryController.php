@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoriesFilterResource;
 use App\Http\Resources\CategoriesResource;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class CategoryController extends Controller
 {
@@ -14,6 +17,11 @@ class CategoryController extends Controller
   {
     CategoriesResource::withoutWrapping();
     return new CategoriesResource(Category::get());
+  }
+
+  public function catfilter()
+  {
+    return $data = ['categories' => Category::orderBy('name')->get()];
   }
 
   public function list()

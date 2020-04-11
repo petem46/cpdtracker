@@ -258,7 +258,7 @@
 		</v-app-bar>
 		<v-content>
 			<v-container fluid>
-				<router-view></router-view>
+				<router-view @closeappdrawer="closeappdrawer"></router-view>
 			</v-container>
 		</v-content>
 	</v-app>
@@ -277,7 +277,8 @@ export default {
 			model: null,
 			clipped: false,
 			floating: false,
-			mini: false
+      mini: false,
+      drawer: false,
 		},
 		categories: [],
 		labelcolors: [
@@ -330,7 +331,11 @@ export default {
 		},
 		gotoMyReviews() {
 			this.$router.push("/u/myreviews");
-		},
+    },
+    closeappdrawer() {
+      // this.primaryDrawer.model = !this.primaryDrawer.model
+      this.primaryDrawer.model = !this.primaryDrawer.model
+    },
 		logout() {
 			axios
 				.post("/logout")

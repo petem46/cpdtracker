@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/get/courselist', 'CategoryController@index');
 Route::get('/get/c', 'CategoryController@index');
+Route::get('/get/c/details/{name}', 'CourseController@details');
 
 /*
 |- CATEGORY ROUTES
 */
+Route::get('/get/cc/catfilter', 'CategoryController@catfilter');
 Route::get('/get/cc', 'CategoryController@list');
 Route::get('/get/cats', 'CategoryController@list');
 Route::get('/get/cat/list', 'CategoryController@list');

@@ -8,17 +8,37 @@
 			:items="courses"
 			:search="search"
 			fixed-header
-			multi-sort
+			:multi-sort="multisort"
+			:items-per-page="100"
 		>
+			<template v-slot:top>
+				<v-text-field v-model="search" append-icon="fa-search" label="Search" class="mx-4 mt-4"></v-text-field>
+			</template>
+			<template v-slot:top>
+				<v-row class="px-3">
+					<v-col cols="4">
+						<v-text-field
+							v-model="search"
+							append-icon="mdi-account-search"
+							label="Search"
+							single-line
+							hide-details
+						></v-text-field>
+					</v-col>
+					<v-col cols="4">
+						<v-select v-model="category" :items="categories" label="Category Filter"></v-select>
+					</v-col>
+				</v-row>
+			</template>
 			<template v-slot:item.avgrating="{ item }">
-				<v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating>
+				<!-- <v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating> -->
+				<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon>
+				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 			<template v-slot:item.actions="{ item }">
-				<v-btn small color="blue">Edit</v-btn>
-				<v-btn small color="red">Delete</v-btn>
+				<v-btn @click="buttonclicker('details')" small outlined color>Details</v-btn>
 			</template>
 		</v-data-table>
-		<p></p>
 	</div>
 </template>
 <script>
@@ -28,19 +48,29 @@ export default {
 		return {
 			loading: true,
 			courses: [],
+			category: "All",
+			categories: [],
 			search: "",
+			multisort: false,
 			datatableheaders: [
 				{
 					text: "Name",
 					align: "left",
 					sortable: true,
-					value: "name"
+					value: "name",
+					width: "45%"
 				},
 				{
 					text: "Category",
 					align: "left",
 					sortable: true,
-					value: "category"
+					value: "category",
+					filter: value => {
+						if (this.category === "All") return true;
+						if (!this.category) return true;
+						return value === this.category;
+					},
+					width: "20%"
 				},
 				{
 					text: "Completed",
@@ -62,9 +92,10 @@ export default {
 				},
 				{
 					text: "Avg Rating",
-					align: "center",
+					align: "left",
 					sortable: true,
-					value: "avgrating"
+					value: "avgrating",
+					width: "100px"
 				},
 				{
 					text: "Ratings",
@@ -79,9 +110,9 @@ export default {
 					value: "reviews"
 				},
 				{
-					text: "Actions",
+					text: "",
 					align: "center",
-					sortable: true,
+					sortable: false,
 					value: "actions"
 				}
 			]
@@ -89,6 +120,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
+		this.getCatFilters();
 	},
 	methods: {
 		fetch() {
@@ -96,7 +128,6 @@ export default {
 				.get("/get/c/all")
 				.then(({ data }) => {
 					this.courses = data.data.courses;
-					console.log(this.courses);
 				})
 				.then(() => {
 					setTimeout(() => {
@@ -104,11 +135,43 @@ export default {
 					}, 1000);
 				});
 		},
+		getCatFilters() {
+			axios
+				.get("/get/cc/catfilter")
+				.then(({ data }) => {
+					this.categories = data.categories.map(categories => categories.name);
+				})
+				.then(() => {
+					this.categories.unshift("All");
+				});
+		},
 		checkrow(value) {
-			alert(value.name);
+			this.$emit("closeappdrawer");
+			this.$router.push("/c/details/" + value.name);
 		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green dark-2";
+			}
+			if (value > 3.5) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange darken-4";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
+		},
+		buttonclicker(value) {
+			this.$emit("closeappdrawer");
+			this.$router.push("/c/details/" + value.name);
 		}
 	}
 };

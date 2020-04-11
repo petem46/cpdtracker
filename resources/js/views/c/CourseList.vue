@@ -68,13 +68,7 @@ export default {
 	props: ["name", "id"],
 	watch: {
 		$route: function() {
-			if (this.$route.path === "/c/all") {
-				this.endpoint = "/get/c";
-				this.loading = true;
-			} else {
-				this.endpoint = "/get/cat/" + this.name;
-				this.showbanner = false;
-			}
+			this.checkroute();
 			this.fetch();
 		}
 	},
@@ -136,9 +130,19 @@ export default {
 	},
 	created() {},
 	mounted() {
+		this.checkroute();
 		this.fetch();
 	},
 	methods: {
+		checkroute() {
+			if (this.$route.path === "/c/all") {
+				this.endpoint = "/get/c";
+				this.loading = true;
+			} else {
+				this.endpoint = "/get/cat/" + this.name;
+				this.showbanner = false;
+			}
+		},
 		fetch() {
 			this.loadingtiles = true;
 			axios
@@ -148,10 +152,10 @@ export default {
 				})
 				.then(() => {
 					this.loading = false;
-          this.loadingtiles = false;
-          if(this.$route.path === "/c/all") {
-            this.showbanner = true;
-          }
+					this.loadingtiles = false;
+					if (this.$route.path === "/c/all") {
+						this.showbanner = true;
+					}
 				});
 		},
 		addToMyCourses($action, $state_id) {
@@ -163,9 +167,11 @@ export default {
 				});
 		},
 		deleteFromMyCourses() {
-			axios.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
-				this.fetch();
-			});
+			axios
+				.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
+				.then(() => {
+					this.fetch();
+				});
 		},
 		randomTile($courseid) {
 			return "https://picsum.photos/295/165/?random=" + $courseid;

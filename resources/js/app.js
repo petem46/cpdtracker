@@ -97,9 +97,10 @@ const router = new VueRouter({
       component: ManageCourses
     },
     {
-      path: '/c/details',
+      path: '/c/details/:name',
       name: 'coursedetails',
-      component: CourseDetails
+      component: CourseDetails,
+      props: true
     },
     {
       path: '/c/all',

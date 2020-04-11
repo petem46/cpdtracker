@@ -7,6 +7,7 @@ use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
 use App\Http\Resources\ManageCoursesResource;
+use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class CourseController extends Controller
 
   public function overview()
   {
-      return new ManageCoursesResource(Course::with('category')->get());
+      return new ManageCoursesResource(Course::with('category')->orderBy('name')->get());
   }
 
   public function courselist()
@@ -99,28 +100,11 @@ class CourseController extends Controller
     return response(null, Response::HTTP_OK);
   }
 
-  public function dashboarddata($user_id)
+  public function details($course)
   {
-    $data = [
-      'category_courses' => Category::with('course')->get(),
-    ];
-    // dump($data);
-    return $data;
-  }
-
-  public function create()
-  {
-    //
-  }
-
-  public function store(Request $request)
-  {
-    //
-  }
-
-  public function show(Course $course)
-  {
-    //
+    // ManageCourseDetails1Resource::withoutWrapping();
+    return new ManageCourseDetails1Resource(Course::where('name', $course)->get());
+    // return $data = [Course::where('name', $course)->get()];
   }
 
   public function edit(Course $course)
