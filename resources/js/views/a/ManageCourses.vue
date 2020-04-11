@@ -36,7 +36,7 @@
 				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 			<template v-slot:item.actions="{ item }">
-				<v-btn @click="buttonclicker('details')" small outlined color>Details</v-btn>
+				<!-- <v-btn @click="courseDetails(course.name)" small outlined color>Details</v-btn> -->
 			</template>
 		</v-data-table>
 	</div>
@@ -169,7 +169,7 @@ export default {
 				return "black";
 			}
 		},
-		buttonclicker(value) {
+		courseDetails(value) {
 			this.$emit("closeappdrawer");
 			this.$router.push("/c/details/" + value.name);
 		}

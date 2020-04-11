@@ -12,8 +12,8 @@
 						<div class="pa-3">
 							{{ description }}
 							<br />
-							<v-btn class="mx-auto mb-1 teal--text" color="white">Course Details</v-btn>
-							<v-btn outlined class="mx-auto" color="white">Write Review</v-btn>
+							<v-btn @click="courseDetails(name);" class="mx-auto mb-1 teal--text" color="white">Course Details</v-btn>
+							<v-btn @click="clickCheck()" outlined class="mx-auto" color="white">Write Review</v-btn>
 						</div>
 					</div>
 				</v-expand-transition>
@@ -242,6 +242,7 @@ export default {
     // console.log("Course ID: " + this.id);
 	},
 	methods: {
+    clickCheck(value) {alert('CLICK:' + value)},
 		addToMyCourses($action, $state_id) {
 			// console.log("Course ID: " + this.addtocourseid);
 			axios
@@ -337,6 +338,10 @@ export default {
 		addRating(value, id) {
       console.log("Rating Added: " + value + " Course ID: " + id);
       this.$emit('addRating', value, id);
+    },
+		courseDetails(value) {
+			this.$emit("closeappdrawer");
+			this.$router.push("/c/details/" + value);
 		},
 	},
 	computed: {
