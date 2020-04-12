@@ -24,6 +24,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'completed'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->get(),
       'inprogress'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->get(),
       'shortlisted'   => CourseProgress::where('course_id', $this->id)->where('state_id', 3)->get(),
+      'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
       'ratings'       => CourseRating::where('course_id', $this->id)->get(),
       'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
       'oneratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 1)->count(),
@@ -31,7 +32,6 @@ class ManageCourseDetails2Resource extends JsonResource
       'threeratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 3)->count(),
       'fourratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 4)->count(),
       'fiveratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 5)->count(),
-      'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
       'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->get(),
       'reviewcount'       => CourseReview::where('course_id', $this->id)->count(),
       // 'links'         => [

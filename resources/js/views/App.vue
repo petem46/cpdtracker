@@ -95,11 +95,11 @@
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="green lighten-2">mdi-label</v-icon>
+							<v-icon color="green accent-3">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c/all">All</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/c/all">All Courses</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>

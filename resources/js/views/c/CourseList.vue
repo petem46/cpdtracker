@@ -90,7 +90,7 @@ export default {
 				"red lighten-1",
 				"deep-purple accent-4"
 			],
-			slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+			slides: ["GDPR Training", "Level 2 Safeguarding", "Third", "Fourth", "Fifth"],
 			courses: [],
 			endpoint: "/get/c",
 			// rating: 4.5,
