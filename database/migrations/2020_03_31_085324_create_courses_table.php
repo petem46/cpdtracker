@@ -23,6 +23,7 @@ class CreateCoursesTable extends Migration
             $table->string('cost');
             $table->text('access_details');
             $table->float('rating');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
