@@ -1,9 +1,11 @@
 <template>
 	<div>
-		<!-- <h1>Manage Courses</h1> -->
+		<h1>
+			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage Courses
+		</h1>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<v-data-table
-			@click:row="editItem"
+			click:row="editItem"
 			:headers="datatableheaders"
 			:items="courses"
 			:search="search"
@@ -11,72 +13,8 @@
 			:multi-sort="multisort"
 			:items-per-page="100"
 		>
+			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
-				<v-toolbar flat>
-					<v-toolbar-title>
-						<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage Courses
-					</v-toolbar-title>
-					<v-divider class="mx-4" inset vertical></v-divider>
-					<v-spacer></v-spacer>
-					<v-dialog v-model="dialog" max-width="50%">
-						<template v-slot:activator="{ on }">
-							<v-btn color="primary" dark class="mb-2" v-on="on">Add Course</v-btn>
-						</template>
-						<v-card>
-							<v-card-title>
-								<span class="headline">{{ formTitle }}</span>
-							</v-card-title>
-
-							<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col cols="12">
-											<v-text-field
-												v-model="editedItem.name"
-												label="Course name"
-												:rules="rules"
-												hide-details="auto"
-											></v-text-field>
-										</v-col>
-										<v-col cols="12">
-											<v-select :items="categories" v-model="editedItem.category" label="Category"></v-select>
-										</v-col>
-										<v-col cols="12">
-											<v-text-field v-model="editedItem.access_details" label="Access Details"></v-text-field>
-										</v-col>
-										<v-col cols="6">
-											<v-text-field v-model="editedItem.cost" label="Cost"></v-text-field>
-										</v-col>
-										<v-col cols="12">
-											<v-switch v-model="editedItem.active" label="Active"></v-switch>
-										</v-col>
-									</v-row>
-								</v-container>
-							</v-card-text>
-
-							<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-								<v-btn color="blue darken-1" text @click="save">Save</v-btn>
-							</v-card-actions>
-						</v-card>
-					</v-dialog>
-				</v-toolbar>
-			</template>
-			<template v-slot:item.actions="{ item }">
-				<v-avatar>
-					<v-icon class="mr-2"  @click="editItem(item)">mdi-pencil</v-icon>
-				</v-avatar>
-				<v-btn @click="courseDetails(item)" outlined text >Details
-        </v-btn>
-			</template>
-			<template v-slot:no-data>
-				<v-btn color="primary" @click="this.fetch()">Reset</v-btn>
-				<!-- </template> -->
-				<!-- <template v-slot:top>
-				<v-text-field v-model="search" append-icon="fa-search" label="Search" class="mx-4 mt-4"></v-text-field>
-				</template>-->
-				<!-- <template v-slot:top> -->
 				<v-row class="px-3">
 					<v-col cols="4">
 						<v-text-field
@@ -88,9 +26,67 @@
 						></v-text-field>
 					</v-col>
 					<v-col cols="4">
-						<v-select v-model="category" :items="categories" label="Category Filter"></v-select>
+						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories" ></v-select>
+					</v-col>
+					<v-col>
+						<v-spacer></v-spacer>
+						<v-dialog v-model="dialog" max-width="50%">
+							<template v-slot:activator="{ on }">
+								<v-btn color="primary" right dark class="mb-2" v-on="on">Add Course</v-btn>
+							</template>
+							<v-card>
+								<v-card-title>
+									<span class="headline">{{ formTitle }}</span>
+								</v-card-title>
+
+								<v-card-text>
+									<v-container>
+										<v-row>
+											<v-col cols="12">
+												<v-text-field
+													v-model="editedItem.name"
+													label="Course name"
+													:rules="rules"
+													hide-details="auto"
+												></v-text-field>
+											</v-col>
+											<v-col cols="12">
+												<v-select :items="categories" v-model="editedItem.category" label="Category"></v-select>
+											</v-col>
+											<v-col cols="12">
+												<v-text-field v-model="editedItem.access_details" label="Access Details"></v-text-field>
+											</v-col>
+											<v-col cols="6">
+												<v-text-field v-model="editedItem.cost" label="Cost"></v-text-field>
+											</v-col>
+											<v-col cols="12">
+												<v-switch v-model="editedItem.active" label="Active"></v-switch>
+											</v-col>
+										</v-row>
+									</v-container>
+								</v-card-text>
+
+								<v-card-actions>
+									<v-spacer></v-spacer>
+									<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+									<v-btn color="blue darken-1" text @click="save">Save</v-btn>
+								</v-card-actions>
+							</v-card>
+						</v-dialog>
 					</v-col>
 				</v-row>
+			</template>
+			<template v-slot:item.actions="{ item }">
+				<v-avatar>
+					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+				</v-avatar>
+				<v-btn @click="courseDetails(item)" outlined text>Details</v-btn>
+			</template>
+			<template v-slot:item.category="{ item }">
+				<v-chip outlined class="mr-2" @click="filterCategory(item)">
+					<v-icon left color="amber">mdi-label</v-icon>
+					{{ item.category }}
+				</v-chip>
 			</template>
 			<template v-slot:item.avgrating="{ item }">
 				<!-- <v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating> -->
@@ -136,7 +132,7 @@ export default {
 					width: "45%"
 				},
 				{
-					text: "Category",
+					text: "",
 					align: "left",
 					sortable: true,
 					value: "category",
@@ -267,7 +263,18 @@ export default {
 			this.dialog = true;
 		},
 		deleteItem(item) {},
-		save() {}
+		save() {},
+		clickCheck(item) {
+			alert("you clicked me: " + item);
+		},
+		filterCategory(item) {
+			if (item.category == this.category) {
+				this.category = "All";
+			} else {
+				this.category = item.category;
+			}
+			return true;
+		}
 	},
 	computed: {
 		formTitle() {

@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<h1>Course Details</h1>
+		<h1>
+			<v-icon class="mr-2" @click="back(-1)">fas fa-arrow-left</v-icon>Course Details
+		</h1>
 		<h1 class="display-3">{{ this.name }}</h1>
 		<h1>Access Details</h1>
 		<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
@@ -26,7 +28,7 @@
 				<v-card>
 					<v-card-text>
 						<v-row>
-							<v-col cols="4">
+							<v-col cols="4" class="pb-1">
 								<v-rating
 									:value="this.course.avgrating"
 									readonly
@@ -35,15 +37,9 @@
 									size="1rem"
 									dense
 								></v-rating>
-							</v-col>
-							<v-col cols="8" class="my-auto">
-								<div
-									v-if="this.course.ratingscount > 0"
-									class="my-auto"
-								>{{roundOff(this.course.avgrating, 1)}} out of 5</div>
+								<div v-if="this.course.ratingscount > 0">{{roundOff(this.course.avgrating, 1)}} out of 5</div>
 							</v-col>
 							<v-col cols="12" class="headline">{{ this.course.ratingscount }} staff reviews</v-col>
-
 							<v-col cols="12">
 								<table class="table" width="100%">
 									<tr>
@@ -135,6 +131,9 @@ export default {
 		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+		},
+		back(val) {
+			this.$router.go(val);
 		}
 	},
 	computed: {
