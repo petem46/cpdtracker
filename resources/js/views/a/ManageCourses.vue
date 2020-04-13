@@ -26,51 +26,62 @@
 						></v-text-field>
 					</v-col>
 					<v-col cols="4">
-						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories" ></v-select>
+						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories"></v-select>
 					</v-col>
-					<v-col>
+					<v-col cols="4">
 						<v-spacer></v-spacer>
 						<v-dialog v-model="dialog" max-width="50%">
 							<template v-slot:activator="{ on }">
-								<v-btn color="primary" right dark class="mb-2" v-on="on">Add Course</v-btn>
+								<v-btn color="primary" dark class="mb-2 float-right" v-on="on">Add Course</v-btn>
 							</template>
 							<v-card>
 								<v-card-title>
 									<span class="headline">{{ formTitle }}</span>
 								</v-card-title>
+								<form @submit.prevent="submit">
+									<v-card-text>
+										<v-container>
+											<v-row>
+												<v-col cols="12">
+													<v-text-field
+														id="name"
+														v-model="editedItem.name"
+														label="Course name"
+														:rules="rules"
+														hide-details="auto"
+													></v-text-field>
+												</v-col>
+												<v-col cols="12">
+													<v-select
+														id="category"
+														:items="categories"
+														v-model="editedItem.category"
+														label="Category"
+													></v-select>
+												</v-col>
+												<v-col cols="12">
+													<v-text-field
+														id="access_details"
+														v-model="editedItem.access_details"
+														label="Access Details"
+													></v-text-field>
+												</v-col>
+												<v-col cols="6">
+													<v-text-field id="cost" v-model="editedItem.cost" label="Cost"></v-text-field>
+												</v-col>
+												<v-col cols="12">
+													<v-switch id="active" v-model="editedItem.active" label="Active"></v-switch>
+												</v-col>
+											</v-row>
+										</v-container>
+									</v-card-text>
 
-								<v-card-text>
-									<v-container>
-										<v-row>
-											<v-col cols="12">
-												<v-text-field
-													v-model="editedItem.name"
-													label="Course name"
-													:rules="rules"
-													hide-details="auto"
-												></v-text-field>
-											</v-col>
-											<v-col cols="12">
-												<v-select :items="categories" v-model="editedItem.category" label="Category"></v-select>
-											</v-col>
-											<v-col cols="12">
-												<v-text-field v-model="editedItem.access_details" label="Access Details"></v-text-field>
-											</v-col>
-											<v-col cols="6">
-												<v-text-field v-model="editedItem.cost" label="Cost"></v-text-field>
-											</v-col>
-											<v-col cols="12">
-												<v-switch v-model="editedItem.active" label="Active"></v-switch>
-											</v-col>
-										</v-row>
-									</v-container>
-								</v-card-text>
-
-								<v-card-actions>
-									<v-spacer></v-spacer>
-									<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-									<v-btn color="blue darken-1" text @click="save">Save</v-btn>
-								</v-card-actions>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+										<v-btn type="submit" color="blue darken-1" text>Save</v-btn>
+									</v-card-actions>
+								</form>
 							</v-card>
 						</v-dialog>
 					</v-col>
@@ -94,6 +105,22 @@
 				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 		</v-data-table>
+
+    <!--
+    ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
+    -->
+    <v-snackbar
+			v-model="snackbar.show"
+			:color="snackbar.color"
+			:timeout="snackbar.timeout"
+      multi-line
+      bottom
+		>
+			{{ snackbar.text }}
+			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
+		</v-snackbar>
+
+
 	</div>
 </template>
 <script>
@@ -122,6 +149,15 @@ export default {
 				fat: 0,
 				carbs: 0,
 				protein: 0
+			},
+			snackbar: {
+				color: "",
+				mode: "",
+				show: false,
+				text: "",
+				timeout: 3000,
+				x: null,
+				y: "top"
 			},
 			datatableheaders: [
 				{
@@ -196,7 +232,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
-		this.getCatFilters();
+    this.getCatFilters();
 	},
 	methods: {
 		fetch() {
@@ -263,7 +299,40 @@ export default {
 			this.dialog = true;
 		},
 		deleteItem(item) {},
-		save() {},
+		submit() {
+			this.errors = {};
+			axios
+				.post("/post/c/savecourse", this.editedItem)
+				.then(response => {
+					this.dialog = false;
+					this.fetch();
+          this.snackbar.color = 'success'
+          this.snackbar.text = response.data
+          this.snackbar.show = true
+
+
+          // console.log(response);
+					// alert(response.data);
+				})
+				.catch(error => {
+					if (error.response.status === 422) {
+						this.errors = error.response.data.errors || {};
+					}
+				});
+		},
+		save() {
+			// console.log(this.editedItem)
+			this.coursedata.name = this.editedItem.name;
+			this.coursedata.category = this.editedItem.category;
+			this.coursedata.access_details = this.editedItem.access_details;
+			this.coursedata.cost = this.editedItem.cost;
+			this.coursedata.active = this.editedItem.active;
+			console.log(this.coursedata);
+
+			axios.put("/put/c/savecourse/" + this.coursedata).then(() => {
+				this.fetch();
+			});
+		},
 		clickCheck(item) {
 			alert("you clicked me: " + item);
 		},

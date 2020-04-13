@@ -107,9 +107,25 @@ class CourseController extends Controller
     // return $data = [Course::where('name', $course)->get()];
   }
 
-  public function edit(Course $course)
-  {
-    //
+  public function savecourse(Request $request) {
+
+    // return $data;
+    $course_id = $request->get('id');
+    $category_id = Category::select('id')->where('name', $request->get('category'))->first();
+    $course = Course::where('id', $course_id)->first();
+    if($course) {
+      $course->name = $request->get('name');
+      $course->category_id = $category_id->id;
+      $course->access_details = $request->get('access_details');
+      $course->cost = $request->get('cost');
+      $course->active = $request->get('active');
+      $course->touch();
+      $course->save();
+      return response('Course Update Successfully', Response::HTTP_OK);
+    } else {
+      return response('Course Added Successfully', Response::HTTP_OK);
+    }
+    return response('COURSE UPDATED', Response::HTTP_OK);
   }
 
   public function update(Request $request, Course $course)

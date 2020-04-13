@@ -43,7 +43,12 @@ Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
 |- MANAGE USERS ROUTES
 */
 Route::get('/get/u/all', 'UsersController@overview');
+
+/*
+|- MANAGE COURSES ROUTES
+*/
 Route::get('/get/c/all', 'CourseController@overview');
+Route::post('/post/c/savecourse', 'CourseController@savecourse');
 
 
 // Route::resource('cc', 'CategoryController');
