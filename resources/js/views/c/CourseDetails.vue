@@ -1,27 +1,49 @@
 <template>
 	<div>
-		<h1>
-			<v-icon class="mr-2" @click="back(-1)">fas fa-arrow-left</v-icon>Course Details
-		</h1>
-		<h1 class="display-3">{{ this.name }}</h1>
-		<h1>Access Details</h1>
-		<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
-		<h1>Current Status</h1>
-		<div>
-			<v-chip label class="mr-4" color="green" text-color="white">
-				Completed
-				<v-avatar right color="white" class="green--text">{{this.course.completedcount}}</v-avatar>
-			</v-chip>
-			<v-chip label class="mr-4" color="indigo" text-color="white">
-				InProgress
-				<v-avatar right color="white" class="indigo--text">{{this.course.inprogresscount}}</v-avatar>
-			</v-chip>
-			<v-chip label class="mr-4" color="blue" text-color="white">
-				Shortlisted
-				<v-avatar right color="white" class="blue--text">{{this.course.shortlistedcount}}</v-avatar>
-			</v-chip>
-		</div>
+		<v-row class="mt--3">
+			<v-toolbar dense flat>
+				<v-avatar>
+					<v-icon small class="mr-5" @click="back(-1)">fas fa-arrow-left</v-icon>
+				</v-avatar>
 
+				<v-chip
+					label
+					:outlined="checkmystate(this.course.mystate,2)"
+					class="mr-4"
+					color="green"
+					text-color="white"
+				>
+					Completed
+					<v-avatar right color="white" class="green--text">{{this.course.completedcount}}</v-avatar>
+				</v-chip>
+
+				<v-chip
+					label
+					:outlined="checkmystate(this.course.mystate,1)"
+					class="mr-4"
+					color="blue"
+					text-color="white"
+				>
+					InProgress
+					<v-avatar right color="white" class="indigo--text">{{this.course.inprogresscount}}</v-avatar>
+				</v-chip>
+
+				<v-chip
+					label
+					:outlined="checkmystate(this.course.mystate,3)"
+					class="mr-4"
+					color="pink"
+					text-color="white"
+				>
+					Shortlisted
+					<v-avatar right color="white" class="pink--text">{{this.course.shortlistedcount}}</v-avatar>
+				</v-chip>
+			</v-toolbar>
+		</v-row>
+		<!-- <h1>Course Details</h1> -->
+		<h1 class="display-3">{{ this.name }}</h1>
+		<!-- <h1>Access Details</h1> -->
+		<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
 		<v-row class>
 			<v-col cols="12" md="4">
 				<h1>Ratings</h1>
@@ -132,6 +154,13 @@ export default {
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
+		checkmystate(mystate, state) {
+			if (mystate === state) {
+				return false;
+			} else {
+				return true;
+			}
+		},
 		back(val) {
 			this.$router.go(val);
 		}
@@ -174,5 +203,8 @@ h1 {
 	/* letter-spacing: 0.125rem !important; */
 	font-size: 2.125rem !important;
 	line-height: 2.5rem;
+}
+.mt--3 {
+	margin-top: -1rem !important;
 }
 </style>

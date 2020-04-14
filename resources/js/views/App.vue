@@ -7,8 +7,6 @@
 			:mini-variant="primaryDrawer.mini"
 			app
 			dark
-			overflow
-			dense
 		>
 			<v-list shaped dense flat>
 				<!-- <v-subheader class="font-weight-light">MY CPD</v-subheader>
@@ -167,9 +165,13 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark>
+		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat>
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
-			<v-toolbar-title>FCAT CPD Tracker</v-toolbar-title>
+			<v-toolbar-title>
+				<v-avatar tile class="mr-5">
+					<img src="/images/Chalkboard.png">
+				</v-avatar>FCAT CPD Tracker
+			</v-toolbar-title>
 			<v-spacer />
 			<v-menu bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on }">
@@ -277,8 +279,8 @@ export default {
 			model: null,
 			clipped: false,
 			floating: false,
-      mini: false,
-      drawer: false,
+			mini: false,
+			drawer: false
 		},
 		categories: [],
 		labelcolors: [
@@ -331,11 +333,11 @@ export default {
 		},
 		gotoMyReviews() {
 			this.$router.push("/u/myreviews");
-    },
-    closeappdrawer() {
-      // this.primaryDrawer.model = !this.primaryDrawer.model
-      this.primaryDrawer.model = !this.primaryDrawer.model
-    },
+		},
+		closeappdrawer() {
+			// this.primaryDrawer.model = !this.primaryDrawer.model
+			this.primaryDrawer.model = !this.primaryDrawer.model;
+		},
 		logout() {
 			axios
 				.post("/logout")

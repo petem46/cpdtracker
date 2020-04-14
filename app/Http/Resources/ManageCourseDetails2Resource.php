@@ -5,12 +5,15 @@ namespace App\Http\Resources;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ManageCourseDetails2Resource extends JsonResource
 {
   public function toArray($request)
   {
+    $mystate = CourseProgress::select('state_id')->where('course_id', $this->id)->first();
     return [
       'type'          =>  'course',
       'id'            =>  (string) $this->id,
@@ -18,6 +21,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'category'      => $this->category['name'],
       'access_details'      => $this->access_details,
       'cost'          => $this->cost,
+      'mystate' =>  $mystate->state_id,
       'completedcount'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->count(),
       'inprogresscount'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->count(),
       'shortlistedcount'   => CourseProgress::where('course_id', $this->id)->where('state_id', 3)->count(),
