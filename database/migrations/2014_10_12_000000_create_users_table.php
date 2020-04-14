@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('avatar');
             $table->integer('usergroup_id');
-            $table->integer('role_id');
+            $table->integer('role_id')->default(3);
             $table->timestamps();
             $table->softDeletes();
         });

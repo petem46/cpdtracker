@@ -13,7 +13,8 @@
 							{{ description }}
 							<br />
 							<v-btn @click="courseDetails(name);" class="mx-auto mb-1 teal--text" color="white">Course Details</v-btn>
-							<v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" outlined class="mx-auto" color="white">Write Review</v-btn>
+							<!-- <v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" outlined class="mx-auto" color="white">Leave Feedback</v-btn> -->
+							<v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" outlined class="mx-auto" color="white">Leave Review</v-btn>
 						</div>
 					</div>
 				</v-expand-transition>

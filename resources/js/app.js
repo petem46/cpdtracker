@@ -59,16 +59,23 @@ const store = new Vuex.Store({
 
   state: {
     userid: null,
+    roleid: null,
   },
   mutations: {
     setUserId(state, id) {
       state.userid = id;
+    },
+    setRoleId(state, id) {
+      state.roleid = id;
     },
   },
   actions: {},
   getters: {
     getUserId(state) {
       return state.userid;
+    },
+    getRoleId(state) {
+      return state.roleid;
     },
   },
 });

@@ -14,7 +14,7 @@ class MyCourseResource extends JsonResource
     public function toArray($request)
     {
       $uid = Auth::id();
-      $uid = 1;
+      // $uid = 1;
       return [
         'type'          =>  'course',
         'id'            =>  (string) $this->id,

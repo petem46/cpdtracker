@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourseProgress extends Model
 {
-  use SoftDeletes;
+  // use SoftDeletes;
 
   protected $table = 'course_progress';
   protected $fillable = ['course_id', 'user_id', 'state_id'];

@@ -18,6 +18,7 @@ class CreateCourseReviewTable extends Migration
           $table->integer('course_id');
           $table->integer('user_id');
           $table->text('review');
+          $table->boolean('public')->default(0);
           $table->timestamps();
           $table->softDeletes();
 

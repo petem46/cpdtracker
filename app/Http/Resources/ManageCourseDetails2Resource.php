@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -13,7 +14,13 @@ class ManageCourseDetails2Resource extends JsonResource
 {
   public function toArray($request)
   {
-    $mystate = CourseProgress::select('state_id')->where('course_id', $this->id)->first();
+    $mystateid = 0;
+    try {
+      $mystate = CourseProgress::select('state_id')->where('course_id', $this->id)->where('user_id', Auth::id())->firstOrFail();
+      $mystateid = $mystate->state_id;
+    } catch (ModelNotFoundException $exception) {
+    }
+
     return [
       'type'          =>  'course',
       'id'            =>  (string) $this->id,
@@ -21,7 +28,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'category'      => $this->category['name'],
       'access_details'      => $this->access_details,
       'cost'          => $this->cost,
-      'mystate' =>  $mystate->state_id,
+      'mystate' =>  $mystateid,
       'completedcount'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->count(),
       'inprogresscount'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->count(),
       'shortlistedcount'   => CourseProgress::where('course_id', $this->id)->where('state_id', 3)->count(),
@@ -36,6 +43,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'threeratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 3)->count(),
       'fourratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 4)->count(),
       'fiveratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 5)->count(),
+      // 'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 1)->get(),
       'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->get(),
       'reviewcount'       => CourseReview::where('course_id', $this->id)->count(),
       // 'links'         => [

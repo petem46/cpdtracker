@@ -169,11 +169,11 @@
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5">
-					<img src="/images/Chalkboard.png">
+					<img src="/images/layers-icon.png" />
 				</v-avatar>FCAT CPD Tracker
 			</v-toolbar-title>
 			<v-spacer />
-			<v-menu bottom left close-on-content-click offset-y>
+			<v-menu v-if="this.roleid === 1" bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn v-on="on" tile text>
 						<v-icon left>fas fa-cog</v-icon>
@@ -268,12 +268,10 @@
 <script>
 import { mdiCog } from "@mdi/js";
 export default {
+  props: ['userid', 'roleid'],
 	data: () => ({
 		csrf: document
 			.querySelector('meta[name="csrf-token"]')
-			.getAttribute("content"),
-		userid: document
-			.querySelector('meta[name="user-id"]')
 			.getAttribute("content"),
 		primaryDrawer: {
 			model: null,
@@ -304,7 +302,9 @@ export default {
 	}),
 	mounted() {
 		this.$store.commit("setUserId", this.userid);
+		this.$store.commit("setRoleId", this.roleid);
 		console.log("Store userid = " + this.$store.getters.getUserId);
+		console.log("Store roleid = " + this.$store.getters.getRoleId);
 		this.getCategories();
 	},
 	methods: {

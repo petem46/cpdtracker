@@ -28,6 +28,6 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'avatar' => 'https://www.placecage.com/295/165',
         'usergroup_id' => $faker->randomDigit($min = 1, $max = 5),
-        'role_id' => $faker->randomDigit($min = 1, $max = 5),
+        'role_id' => $faker->randomDigit($min = 1, $max = 3),
     ];
 });

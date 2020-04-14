@@ -28,6 +28,14 @@ class SocialGoogleAccountService
         $account->save();
         return $user;
       } else {
+        $user->name = $providerUser->getName();
+        $user->school = User::getGoogleSchool($providerUser->getEmail());
+        $user->avatar = $providerUser->getAvatar();
+        $user->password = md5(rand(1, 10000));
+        $user->touch();
+        $user->save();
+        $account->user()->associate($user);
+        $account->save();
         return $account->user;
       }
     } else {
@@ -45,7 +53,7 @@ class SocialGoogleAccountService
           'school' => User::getGoogleSchool($providerUser->getEmail()),
           'password' => md5(rand(1, 10000)),
           'usergroup_id' => '5',
-          'role_id' => '1',
+          'role_id' => '3',
         ]);
       }
       $account->user()->associate($user);

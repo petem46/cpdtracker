@@ -2,7 +2,7 @@
 
 @section('content')
 
-<app>
+<app :userid={{Auth::id()}} :roleid={{Auth::user()->role_id}}>
 </app>
 
 @endsection

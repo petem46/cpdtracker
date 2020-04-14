@@ -37,7 +37,6 @@ class CourseController extends Controller
   public function getMyCourses()
   {
     $uid = Auth::id();
-    $uid = 1;
     $data = [
       'completed' => new MyCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('state_id', '=', 2)->where('user_id', '=', $uid);
@@ -75,10 +74,10 @@ class CourseController extends Controller
     if ($myprogress) {
       $myprogress->delete();
     }
-    $myrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
-    if ($myrating) {
-      $myrating->delete();
-    }
+    // $myrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    // if ($myrating) {
+    //   $myrating->delete();
+    // }
     return response(null, Response::HTTP_OK);
   }
 
@@ -102,9 +101,7 @@ class CourseController extends Controller
 
   public function details($course)
   {
-    // ManageCourseDetails1Resource::withoutWrapping();
     return new ManageCourseDetails1Resource(Course::where('name', $course)->get());
-    // return $data = [Course::where('name', $course)->get()];
   }
 
   public function savecourse(Request $request) {
@@ -121,11 +118,11 @@ class CourseController extends Controller
       $course->active = $request->get('active');
       $course->touch();
       $course->save();
-      return response('Course Update Successfully', Response::HTTP_OK);
+      return response('Course Updated Successfully', Response::HTTP_OK);
     } else {
       return response('Course Added Successfully', Response::HTTP_OK);
     }
-    return response('COURSE UPDATED', Response::HTTP_OK);
+    return response(null, Response::HTTP_OK);
   }
 
   public function update(Request $request, Course $course)
