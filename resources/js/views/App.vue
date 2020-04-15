@@ -1,8 +1,8 @@
 <template>
 	<v-app id="cpdtrackerapp">
 		<v-navigation-drawer
-			v-model="primaryDrawer.model"
-			:clipped="primaryDrawer.clipped"
+			v-model="falsearyDrawer.model"
+falseclipped="primaryDrawer.clipped"
 			:floating="primaryDrawer.floating"
 			:mini-variant="primaryDrawer.mini"
 			app
@@ -166,8 +166,7 @@
 		</v-navigation-drawer>
 
 		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat>
-			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
-			<v-toolbar-title>
+			<v-app-bar-nav-icon @click.stop="primaryDrawer.model =falseimaryDrawer.model" false		<v-toolbar-title>
 				<v-avatar tile class="mr-5">
 					<img src="/images/layers-icon.png" />
 				</v-avatar>FCAT CPD Tracker
@@ -304,7 +303,7 @@ export default {
 			.querySelector('meta[name="csrf-token"]')
 			.getAttribute("content"),
 		primaryDrawer: {
-			model: null,
+			model: false,
 			clipped: false,
 			floating: false,
 			mini: false,
@@ -372,9 +371,9 @@ export default {
 			this.$router.push("/u/myreviews");
 		},
 		closeappdrawer() {
-			// this.primaryDrawer.model = !this.primaryDrawer.model
-			this.primaryDrawer.model = !this.primaryDrawer.model;
-		},
+			// this.primaryDrawer.model =falseis.primaryDrawer.model
+	falseis.primaryDrawer.model =falseis.primaryDrawer.model;
+false
 		logout() {
 			axios
 				.post("/logout")
