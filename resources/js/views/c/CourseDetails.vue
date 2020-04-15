@@ -187,7 +187,7 @@ export default {
 		checkmystate(mystate, state) {
 			console.log("CHECKING..... state:" + state + " = mystate:" + mystate);
 
-			if (state === this.mystate) {
+			if (state == this.mystate) {
 				console.log("WE HAVE A MATCH:" + this.mystate);
 				return false;
 			} else {
