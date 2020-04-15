@@ -1,8 +1,8 @@
 <template>
 	<v-app id="cpdtrackerapp">
 		<v-navigation-drawer
-			v-model="falsearyDrawer.model"
-falseclipped="primaryDrawer.clipped"
+			v-model="primaryDrawer.model"
+			:clipped="primaryDrawer.clipped"
 			:floating="primaryDrawer.floating"
 			:mini-variant="primaryDrawer.mini"
 			app
@@ -166,7 +166,8 @@ falseclipped="primaryDrawer.clipped"
 		</v-navigation-drawer>
 
 		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat>
-			<v-app-bar-nav-icon @click.stop="primaryDrawer.model =falseimaryDrawer.model" false		<v-toolbar-title>
+			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
+			<v-toolbar-title>
 				<v-avatar tile class="mr-5">
 					<img src="/images/layers-icon.png" />
 				</v-avatar>FCAT CPD Tracker
@@ -371,9 +372,9 @@ export default {
 			this.$router.push("/u/myreviews");
 		},
 		closeappdrawer() {
-			// this.primaryDrawer.model =falseis.primaryDrawer.model
-	falseis.primaryDrawer.model =falseis.primaryDrawer.model;
-false
+			// this.primaryDrawer.model = !this.primaryDrawer.model
+			this.primaryDrawer.model = !this.primaryDrawer.model;
+		},
 		logout() {
 			axios
 				.post("/logout")
