@@ -6,11 +6,6 @@ use Illuminate\Database\Seeder;
 
 class CourseReviewSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
   public function run()
   {
     $count = 500;
