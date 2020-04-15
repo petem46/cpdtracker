@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
   public function catfilter()
   {
-    return $data = ['categories' => Category::orderBy('name')->get()];
+    return ['categories' => Category::orderBy('name')->get()];
   }
 
   public function list()

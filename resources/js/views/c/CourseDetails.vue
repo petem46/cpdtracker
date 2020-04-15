@@ -10,9 +10,9 @@
 
 					<v-chip
 						label
-						:outlined="checkmystate(this.course.mystate,2)"
+						:outlined="checkmystate(this.mystate,2)"
 						class="mr-4"
-						color="green"
+						:color="statechipcolour(2)"
 						text-color="white"
 						@click="changestate(2)"
 					>
@@ -22,9 +22,9 @@
 
 					<v-chip
 						label
-						:outlined="checkmystate(this.course.mystate,1)"
+						:outlined="checkmystate(this.mystate,1)"
 						class="mr-4"
-						color="blue"
+						:color="statechipcolour(1)"
 						text-color="white"
 						@click="changestate(1)"
 					>
@@ -34,9 +34,9 @@
 
 					<v-chip
 						label
-						:outlined="checkmystate(this.course.mystate,3)"
+						:outlined="checkmystate(this.mystate,3)"
 						class="mr-4"
-						color="pink"
+						:color="statechipcolour(3)"
 						text-color="white"
 						@click="changestate(3)"
 					>
@@ -139,7 +139,7 @@
 							v-for="review in privatereviews"
 							v-bind="review"
 							:key="review.id"
-              color="grey darken-3"
+							color="grey darken-3"
 						>
 							<v-card-text>
 								{{ review.review }}
@@ -162,7 +162,8 @@ export default {
 			addtocoursename: "",
 			addtocourseid: "",
 			course: [],
-			endpoint: "/get/c/details/" + this.name
+			endpoint: "/get/c/details/" + this.name,
+			mystate: 0
 		};
 	},
 	mounted() {
@@ -174,6 +175,7 @@ export default {
 				.get(this.endpoint)
 				.then(({ data }) => {
 					this.course = data.data.course[0];
+					this.mystate = this.course.mystate;
 				})
 				.then(() => {
 					this.loading = false;
@@ -185,18 +187,26 @@ export default {
 		checkmystate(mystate, state) {
 			console.log("CHECKING..... state:" + state + " = mystate:" + mystate);
 
-			if (state === this.course.mystate) {
-				console.log("WE HAVE A MATCH:" + this.course.mystate);
+			if (state === this.mystate) {
+				console.log("WE HAVE A MATCH:" + this.mystate);
 				return false;
 			} else {
 				return true;
 			}
-		},
+    },
+    statechipcolour(state) {
+      if(this.mystate == 0) {return '';}
+      if(this.mystate == state) {
+        if(state == 1) {return 'blue'}
+        if(state == 2) {return 'green'}
+        if(state == 3) {return 'pink'}
+      }
+    },
 		changestate(state) {
 			console.log(
-				"CHANGING....  state:" + state + " = mystate:" + this.course.mystate
+				"CHANGING....  state:" + state + " = mystate:" + this.mystate
 			);
-			if (this.course.mystate == state) {
+			if (this.mystate == state) {
 				this.deleteFromMyCourses();
 			} else {
 				this.addToMyCourses(state);

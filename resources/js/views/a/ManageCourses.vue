@@ -145,10 +145,10 @@ export default {
 			},
 			defaultItem: {
 				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
+				category: "",
+				access_details: "",
+				cost: 0,
+				active: 0
 			},
 			snackbar: {
 				color: "",

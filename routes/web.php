@@ -50,6 +50,13 @@ Route::get('/get/u/all', 'UsersController@overview');
 Route::get('/get/c/all', 'CourseController@overview');
 Route::post('/post/c/savecourse', 'CourseController@savecourse');
 
+/*
+|- MANAGE REVIEWS ROUTES
+*/
+Route::get('/get/r/all', 'ReviewController@overview');
+Route::get('/get/r/reviewers', 'ReviewController@reviewers');
+Route::post('/post/r/savereview', 'ReviewController@savereview');
+
 
 // Route::resource('cc', 'CategoryController');
 // Route::resource('c', 'CourseController');

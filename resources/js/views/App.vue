@@ -173,11 +173,37 @@
 				</v-avatar>FCAT CPD Tracker
 			</v-toolbar-title>
 			<v-spacer />
-			<v-menu v-if="this.roleid === 1" bottom left close-on-content-click offset-y>
+			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn v-on="on" tile text>
-						<v-icon left>fas fa-cog</v-icon>
+					<v-btn tile text v-on="on">
+						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'home' }">
+							<v-icon>mdi-folder-account-outline</v-icon>
+						</router-link>
 					</v-btn>
+				</template>
+				<span>My Courses</span>
+			</v-tooltip>
+			<v-tooltip bottom>
+				<template v-slot:activator="{ on }">
+					<v-btn tile text v-on="on">
+				<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
+					<v-icon>mdi-book-search-outline</v-icon>
+				</router-link>
+					</v-btn>
+				</template>
+				<span>Find A Course</span>
+			</v-tooltip>
+
+      <v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
+				<template v-slot:activator="{ on: onMenu }">
+          <v-tooltip bottom>
+            <template #activator="{ on: onTooltip }">
+          <v-btn v-on="{ ...onMenu, ...onTooltip }" tile text>
+						<v-icon>fas fa-cog</v-icon>
+					</v-btn>
+            </template>
+            <span>Admin Menu</span>
+          </v-tooltip>
 				</template>
 				<v-card>
 					<v-card-text>
@@ -196,14 +222,14 @@
 									</v-avatar>Manage Courses
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
+							<v-list-item @click="gotoManageReviews" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>far fa-comment-dots</v-icon>
 									</v-avatar>Manage Reviews
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="logout" class="ml-0 pl-0">
+							<v-list-item @click="gotoManageReviews" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>fas fa-tags</v-icon>
@@ -214,10 +240,14 @@
 					</v-card-text>
 				</v-card>
 			</v-menu>
+			<v-divider class="mx-4" vertical inset></v-divider>
 			<v-menu bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn v-on="on" tile text>
-						<v-icon left>mdi-account-circle</v-icon>
+						<v-avatar size="36" class="mr-3">
+							<img :src="avatar" />
+						</v-avatar>
+						<span>{{name}}</span>
 					</v-btn>
 				</template>
 				<v-card>
@@ -268,7 +298,7 @@
 <script>
 import { mdiCog } from "@mdi/js";
 export default {
-  props: ['userid', 'roleid'],
+	props: ["userid", "roleid", "avatar", "name"],
 	data: () => ({
 		csrf: document
 			.querySelector('meta[name="csrf-token"]')
@@ -301,10 +331,14 @@ export default {
 		]
 	}),
 	mounted() {
+		this.$store.commit("setName", this.name);
 		this.$store.commit("setUserId", this.userid);
 		this.$store.commit("setRoleId", this.roleid);
+		this.$store.commit("setAvatar", this.avatar);
+		console.log("Store name = " + this.$store.getters.getName);
 		console.log("Store userid = " + this.$store.getters.getUserId);
 		console.log("Store roleid = " + this.$store.getters.getRoleId);
+		console.log("Store avatar = " + this.$store.getters.getAvatar);
 		this.getCategories();
 	},
 	methods: {
@@ -324,6 +358,9 @@ export default {
 		},
 		gotoManageCourses() {
 			this.$router.push("/a/managecourses");
+		},
+		gotoManageReviews() {
+			this.$router.push("/a/managereviews");
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");
@@ -355,3 +392,9 @@ export default {
 	computed: {}
 };
 </script>
+<style>
+.v-toolbar__content a {
+	color: white !important;
+	text-decoration: none !important;
+}
+</style>

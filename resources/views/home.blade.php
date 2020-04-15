@@ -2,7 +2,16 @@
 
 @section('content')
 
-<app :userid={{Auth::id()}} :roleid={{Auth::user()->role_id}}>
+@php
+    $avatar = '' . Auth::user()->avatar . '';
+@endphp
+
+<app
+  userid="{{ Auth::id() }}"
+  roleid="{{ Auth::user()->role_id }}"
+  avatar="{{ Auth::user()->avatar }}"
+  name="{{ Auth::user()->name }}"
+>
 </app>
 
 @endsection
