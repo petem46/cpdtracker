@@ -111,7 +111,7 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on">
-						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'home' }">
+						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
 							<v-icon>mdi-folder-account-outline</v-icon>
 						</router-link>
 					</v-btn>
