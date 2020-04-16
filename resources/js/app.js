@@ -99,14 +99,14 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/c/all',
+      path: '/',
       name: 'landing',
       component: CourseList
     },
     {
-      path: '/',
+      path: '/home',
       name: 'home',
-      component: MyCourses
+      component: CourseList
     },
     {
       path: '/a/manageusers',
