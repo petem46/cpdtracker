@@ -7,6 +7,7 @@
 					<v-avatar>
 						<v-icon small class="mr-5" @click="back(-1)">fas fa-arrow-left</v-icon>
 					</v-avatar>
+					<v-divider class="mr-4" vertical inset></v-divider>
 
 					<v-chip
 						label

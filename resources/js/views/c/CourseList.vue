@@ -123,7 +123,7 @@ export default {
 			deleteFromShortlist: {
 				buttoncolor: "red",
 				icon: "mdi-delete-alert",
-				title: "Remove from my shortlist",
+				title: "Remove from my lists",
 				action: "delete"
 			}
 		};
