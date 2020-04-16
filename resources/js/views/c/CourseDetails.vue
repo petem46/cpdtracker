@@ -43,6 +43,35 @@
 						Shortlisted
 						<v-avatar right color="white" class="pink--text">{{this.course.shortlistedcount}}</v-avatar>
 					</v-chip>
+
+					<v-divider class="mr-4" vertical inset></v-divider>
+
+					<v-tooltip bottom>
+						<template v-slot:activator="{ on }">
+							<v-chip v-on="on" label outlined class="mr-4" text-color="amber">
+								<v-icon>mdi-star</v-icon>
+							</v-chip>
+						</template>
+						<span>You have rated this course</span>
+					</v-tooltip>
+
+					<v-tooltip bottom>
+						<template v-slot:activator="{ on }">
+							<v-chip v-on="on" label outlined class="mr-4" text-color="green">
+								<v-icon>mdi-check</v-icon>
+							</v-chip>
+						</template>
+						<span>You have reviewed this course</span>
+					</v-tooltip>
+					<v-tooltip bottom>
+						<template v-slot:activator="{ on }">
+							<v-chip v-on="on" label outlined class="mr-4" text-color="white" @click="changestate(2)">
+								<v-icon>mdi-pencil</v-icon>
+							</v-chip>
+						</template>
+						<span>Edit your review</span>
+					</v-tooltip>
+					<v-divider class="mr-4" vertical inset></v-divider>
 				</v-toolbar>
 			</v-row>
 			<!-- <h1>Course Details</h1> -->
