@@ -44,7 +44,8 @@ class ManageCourseDetails2Resource extends JsonResource
       'fourratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 4)->count(),
       'fiveratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 5)->count(),
       // 'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 1)->get(),
-      'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->get(),
+      'publicreviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 1)->get(),
+      'privatereviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 0)->get(),
       'reviewcount'       => CourseReview::where('course_id', $this->id)->count(),
       // 'links'         => [
       // 'self' => route('cc.show', ['cc' => $this->id]),

@@ -120,7 +120,7 @@
 					<v-row>
 						<v-card
 							class="col-12 col-md-5 mb-3 mr-3"
-							v-for="review in publicreviews"
+							v-for="review in this.publicreviews"
 							v-bind="review"
 							:key="review.id"
 						>
@@ -136,7 +136,7 @@
 						</v-col>
 						<v-card
 							class="col-12 col-md-5 mb-3 mr-3"
-							v-for="review in privatereviews"
+							v-for="review in this.privatereviews"
 							v-bind="review"
 							:key="review.id"
 							color="grey darken-3"
@@ -163,7 +163,9 @@ export default {
 			addtocourseid: "",
 			course: [],
 			endpoint: "/get/c/details/" + this.name,
-			mystate: 0
+			mystate: 0,
+			publicreviews: [],
+			privatereviews: []
 		};
 	},
 	mounted() {
@@ -176,6 +178,8 @@ export default {
 				.then(({ data }) => {
 					this.course = data.data.course[0];
 					this.mystate = this.course.mystate;
+					this.publicreviews = this.course.publicreviews;
+					this.privatereviews = this.course.privatereviews;
 				})
 				.then(() => {
 					this.loading = false;
@@ -194,15 +198,23 @@ export default {
 				console.log("WE HAVE NO MATCH:" + mystate);
 				return true;
 			}
-    },
-    statechipcolour(state) {
-      if(this.mystate == 0) {return '';}
-      if(this.mystate == state) {
-        if(state == 1) {return 'blue'}
-        if(state == 2) {return 'green'}
-        if(state == 3) {return 'pink'}
-      }
-    },
+		},
+		statechipcolour(state) {
+			if (this.mystate == 0) {
+				return "";
+			}
+			if (this.mystate == state) {
+				if (state == 1) {
+					return "blue";
+				}
+				if (state == 2) {
+					return "green";
+				}
+				if (state == 3) {
+					return "pink";
+				}
+			}
+		},
 		changestate(state) {
 			console.log(
 				"CHANGING....  state:" + state + " = mystate:" + this.mystate
@@ -260,18 +272,8 @@ export default {
 			counter = (this.course.oneratingscount / this.course.ratingscount) * 100;
 			return counter;
 		},
-		publicreviews: function() {
-			var reviews = this.course.reviews;
-			console.log(reviews.filter(r => r.public === 1));
-			return reviews.filter(r => r.public === 1);
-		},
-		privatereviews() {
-			var reviews = this.course.reviews;
-			console.log(reviews.filter(r => r.public === 0));
-			return reviews.filter(r => r.public === 0);
-		},
 		adminuser() {
-			if (this.$store.getters.getRoleId === 1) {
+			if (this.$store.getters.getRoleId == 1) {
 				return true;
 			} else {
 				return false;
