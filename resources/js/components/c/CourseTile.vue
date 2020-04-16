@@ -21,7 +21,7 @@
 							<br />
 							<v-btn
 								v-if="checkUserProgress(courseprogress) === 2"
-								@click="clickCheck()"
+								@click="addReview(id)"
 								min-width="100px"
 								outlined
 								class="mx-auto"
@@ -285,6 +285,9 @@ export default {
 			this.$emit("addcoursedata", this.addtocourseid, this.addtocoursename);
 			return true;
 		},
+    addReview(id) {
+      this.$router.push("/r/add/" + id);
+    },
 		checkUserProgress(courseprogress) {
 			var state = 0;
 			var length = courseprogress.length;

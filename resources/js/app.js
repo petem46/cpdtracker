@@ -40,6 +40,8 @@ import Home from './views/Home'
 import CourseDetails from './views/c/CourseDetails'
 import CourseList from './views/c/CourseList'
 
+import AddReview from './views/r/AddReview'
+
 import UserCompleted from './views/u/UserCompleted'
 import UserDashboard from './views/u/UserDashboard'
 
@@ -138,6 +140,18 @@ const router = new VueRouter({
       path: '/c/:name',
       name: 'courselist',
       component: CourseList,
+      props: true
+    },
+    {
+      path: '/r/add',
+      name: 'addreview',
+      component: AddReview,
+      props: true
+    },
+    {
+      path: '/r/add/:courseid',
+      name: 'addreview',
+      component: AddReview,
       props: true
     },
     {

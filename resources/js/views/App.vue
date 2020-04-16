@@ -111,6 +111,16 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on">
+						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermyreviews' }">
+							<v-icon>mdi-file-star-outline</v-icon>
+						</router-link>
+					</v-btn>
+				</template>
+				<span>My Reviews</span>
+			</v-tooltip>
+			<v-tooltip bottom>
+				<template v-slot:activator="{ on }">
+					<v-btn tile text v-on="on">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
 							<v-icon>mdi-folder-account-outline</v-icon>
 						</router-link>
@@ -205,7 +215,7 @@
 							<v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
-										<v-icon>mdi-lan</v-icon>
+										<v-icon>mdi-file-star-outline</v-icon>
 									</v-avatar>My Reviews
 								</v-list-item-title>
 							</v-list-item>

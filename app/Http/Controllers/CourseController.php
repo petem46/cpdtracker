@@ -29,6 +29,10 @@ class CourseController extends Controller
       return new ManageCoursesResource(Course::with('category')->orderBy('name')->get());
   }
 
+  public function getname($id) {
+    return ['course' => Course::select('name')->where('id', $id)->get()];
+  }
+
   public function courselist()
   {
     return new CategoriesResource(Category::get());

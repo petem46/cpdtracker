@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/courselist', 'CategoryController@index');
   Route::get('/get/c', 'CategoryController@index');
   Route::get('/get/c/details/{name}', 'CourseController@details');
+  Route::get('/get/c/{id}', 'CourseController@getname');
 
   /*
 |- CATEGORY ROUTES
