@@ -9,29 +9,6 @@
 			dark
 		>
 			<v-list shaped dense flat>
-				<!-- <v-subheader class="font-weight-light">MY CPD</v-subheader>
-				<v-list-item-group>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon>mdi-account-details</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/dashboard">My Profile</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon>mdi-book-plus-multiple</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/dashboard">Add A Course</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-				</v-list-item-group>-->
 				<v-subheader>COURSES</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -107,7 +84,6 @@
 						:key="category.id"
 					>
 						<v-list-item-icon>
-							<!-- <v-icon :color="getlabelcolour(category.id)">mdi-label</v-icon> -->
 							<v-icon color="white">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
@@ -118,49 +94,8 @@
 									:to="{ path: '/c/' + category.name, params:{ name: category.name}}"
 								>{{category.name}}</router-link>
 							</v-list-item-title>
-							<!-- <v-list-item-title @click="filterCourses(category)">{{category.name}}</v-list-item-title> -->
 						</v-list-item-content>
 					</v-list-item>
-					<!-- <v-list-item>
-						<v-list-item-icon>
-							<v-icon color="orange darken-2">mdi-label</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c">SEN</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon color="red darken-1">mdi-label</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/completed">Ed Tech</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon color="purple lighten-1">mdi-label</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/inprogress">Leadership</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon color="blue lighten-3">mdi-label</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/tostart">STEM</router-link>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>-->
 				</v-list-item-group>
 			</v-list>
 		</v-navigation-drawer>
@@ -186,24 +121,24 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on">
-				<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
-					<v-icon>mdi-book-search-outline</v-icon>
-				</router-link>
+						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
+							<v-icon>mdi-book-search-outline</v-icon>
+						</router-link>
 					</v-btn>
 				</template>
 				<span>Find A Course</span>
 			</v-tooltip>
 
-      <v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
+			<v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on: onMenu }">
-          <v-tooltip bottom>
-            <template #activator="{ on: onTooltip }">
-          <v-btn v-on="{ ...onMenu, ...onTooltip }" tile text>
-						<v-icon>fas fa-cog</v-icon>
-					</v-btn>
-            </template>
-            <span>Admin Menu</span>
-          </v-tooltip>
+					<v-tooltip bottom>
+						<template #activator="{ on: onTooltip }">
+							<v-btn v-on="{ ...onMenu, ...onTooltip }" tile text>
+								<v-icon>fas fa-cog</v-icon>
+							</v-btn>
+						</template>
+						<span>Admin Menu</span>
+					</v-tooltip>
 				</template>
 				<v-card>
 					<v-card-text>
@@ -286,7 +221,6 @@
 					</v-card-text>
 				</v-card>
 			</v-menu>
-			<!-- <v-icon @click="logout">mdi-logout</v-icon> -->
 		</v-app-bar>
 		<v-content>
 			<v-container fluid>
@@ -335,10 +269,6 @@ export default {
 		this.$store.commit("setUserId", this.userid);
 		this.$store.commit("setRoleId", this.roleid);
 		this.$store.commit("setAvatar", this.avatar);
-		console.log("Store name = " + this.$store.getters.getName);
-		console.log("Store userid = " + this.$store.getters.getUserId);
-		console.log("Store roleid = " + this.$store.getters.getRoleId);
-		console.log("Store avatar = " + this.$store.getters.getAvatar);
 		this.getCategories();
 	},
 	methods: {
@@ -372,7 +302,6 @@ export default {
 			this.$router.push("/u/myreviews");
 		},
 		closeappdrawer() {
-			// this.primaryDrawer.model = !this.primaryDrawer.model
 			this.primaryDrawer.model = !this.primaryDrawer.model;
 		},
 		logout() {
@@ -380,7 +309,6 @@ export default {
 				.post("/logout")
 				.then(response => {
 					if (response.status === 302 || 401) {
-						// this.$router.push('/login')
 						window.location.href = "/login";
 					} else {
 						// throw error and go to catch block

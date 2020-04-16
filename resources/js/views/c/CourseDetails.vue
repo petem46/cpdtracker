@@ -189,13 +189,9 @@ export default {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
 		checkmystate(mystate, state) {
-			console.log("CHECKING..... state:" + state + " = mystate:" + mystate);
-
 			if (state == mystate) {
-				console.log("WE HAVE A MATCH:" + mystate);
 				return false;
 			} else {
-				console.log("WE HAVE NO MATCH:" + mystate);
 				return true;
 			}
 		},
@@ -216,9 +212,6 @@ export default {
 			}
 		},
 		changestate(state) {
-			console.log(
-				"CHANGING....  state:" + state + " = mystate:" + this.mystate
-			);
 			if (this.mystate == state) {
 				this.deleteFromMyCourses();
 			} else {
@@ -226,7 +219,6 @@ export default {
 			}
 		},
 		addToMyCourses(state) {
-			console.log("addToMyCourses");
 			axios
 				.put("/put/u/addToMyCourses/" + this.course.id + "/" + state)
 				.then(() => {
@@ -234,7 +226,6 @@ export default {
 				});
 		},
 		deleteFromMyCourses() {
-			console.log("deleteFromMyCourses");
 			axios
 				.delete("/delete/u/deleteFromMyCourses/" + this.course.id)
 				.then(() => {

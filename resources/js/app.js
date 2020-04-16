@@ -35,7 +35,6 @@ require('./bootstrap');
 Vue.component('course-tile', require('./components/c/CourseTile.vue').default);
 
 import App from './views/App'
-import Home from './views/Home'
 
 import CourseDetails from './views/c/CourseDetails'
 import CourseList from './views/c/CourseList'
@@ -100,12 +99,12 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'landing',
+      name: 'courselist',
       component: CourseList
     },
     {
       path: '/home',
-      name: 'home',
+      name: 'courselist',
       component: CourseList
     },
     {

@@ -12,9 +12,21 @@
 						<div class="pa-3">
 							{{ description }}
 							<br />
-							<v-btn @click="courseDetails(name);" min-width="100px" class="mx-auto mb-1 teal--text" color="white">Details</v-btn>
+							<v-btn
+								@click="courseDetails(name);"
+								min-width="100px"
+								class="mx-auto mb-1 teal--text"
+								color="white"
+							>Details</v-btn>
 							<br />
-							<v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" min-width="100px" outlined class="mx-auto" color="white">Review</v-btn>
+							<v-btn
+								v-if="checkUserProgress(courseprogress) === 2"
+								@click="clickCheck()"
+								min-width="100px"
+								outlined
+								class="mx-auto"
+								color="white"
+							>Review</v-btn>
 						</div>
 					</div>
 				</v-expand-transition>
@@ -232,26 +244,25 @@ export default {
 				}
 			],
 			deleteFromShortlist: {
-					img: "hangouts.png",
-					title: "Delete From Shortlist",
-					action: "delete",
-				},
+				img: "hangouts.png",
+				title: "Delete From Shortlist",
+				action: "delete"
+			}
 		};
 	},
 	created() {},
-	mounted() {
-    // console.log("Course ID: " + this.id);
-	},
+	mounted() {},
 	methods: {
-    clickCheck(value) {alert('CLICK:' + value)},
+		clickCheck(value) {
+			alert("CLICK:" + value);
+		},
 		addToMyCourses($action, $state_id) {
-			// console.log("Course ID: " + this.addtocourseid);
 			axios
 				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
-        });
-    },
+				});
+		},
 		deleteFromMyCourses() {
 			axios
 				.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
@@ -270,13 +281,9 @@ export default {
 		},
 		setaddcoursedata($id, $name) {
 			this.addtocourseid = $id;
-      this.addtocoursename = $name;
-      console.log('EMIT id:' + $id + ' Name: ' + $name);
-      this.$emit('addcoursedata',
-        this.addtocourseid,
-        this.addtocoursename,
-      );
-      return true;
+			this.addtocoursename = $name;
+			this.$emit("addcoursedata", this.addtocourseid, this.addtocoursename);
+			return true;
 		},
 		checkUserProgress(courseprogress) {
 			var state = 0;
@@ -290,21 +297,18 @@ export default {
 						courseprogress[i].state_id == 1 &&
 						courseprogress[i].user_id == userid
 					) {
-						// console.log("A MATCH!");
 						state = 1;
 					}
 					if (
 						courseprogress[i].state_id == 2 &&
 						courseprogress[i].user_id == userid
 					) {
-						// console.log("A MATCH!");
 						state = 2;
 					}
 					if (
 						courseprogress[i].state_id == 3 &&
 						courseprogress[i].user_id == userid
 					) {
-						// console.log("A MATCH!");
 						state = 3;
 					}
 				}
@@ -337,18 +341,17 @@ export default {
 			return courserating.avgRating;
 		},
 		addRating(value, id) {
-      console.log("Rating Added: " + value + " Course ID: " + id);
-      this.$emit('addRating', value, id);
-    },
+			this.$emit("addRating", value, id);
+		},
 		courseDetails(value) {
 			this.$emit("closeappdrawer");
 			this.$router.push("/c/details/" + value);
-		},
+		}
 	},
 	computed: {
 		userid() {
 			return this.$store.getters.getUserId;
-		},
+		}
 	}
 };
 </script>
