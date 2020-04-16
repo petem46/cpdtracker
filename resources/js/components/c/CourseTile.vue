@@ -6,15 +6,15 @@
 				<v-expand-transition>
 					<div
 						v-if="hover"
-						class="d-flex transition-fast-in-fast-out teal v-card--reveal white--text"
+						class="d-flex transition-fast-in-fast-out teal v-card--reveal white--text justify-center"
 						style="height: 100%;"
 					>
 						<div class="pa-3">
 							{{ description }}
 							<br />
-							<v-btn @click="courseDetails(name);" class="mx-auto mb-1 teal--text" color="white">Course Details</v-btn>
-							<!-- <v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" outlined class="mx-auto" color="white">Leave Feedback</v-btn> -->
-							<v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" outlined class="mx-auto" color="white">Leave Review</v-btn>
+							<v-btn @click="courseDetails(name);" min-width="100px" class="mx-auto mb-1 teal--text" color="white">Details</v-btn>
+							<br />
+							<v-btn v-if="checkUserProgress(courseprogress) === 2" @click="clickCheck()" min-width="100px" outlined class="mx-auto" color="white">Review</v-btn>
 						</div>
 					</div>
 				</v-expand-transition>
