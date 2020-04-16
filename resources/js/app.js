@@ -100,12 +100,12 @@ const router = new VueRouter({
   routes: [
     {
       path: '/home',
-      name: 'landing',
+      name: 'home',
       component: CourseList
     },
     {
       path: '/',
-      name: 'home',
+      name: 'landing',
       component: CourseList
     },
     {

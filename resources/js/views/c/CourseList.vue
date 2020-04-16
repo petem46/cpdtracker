@@ -135,7 +135,7 @@ export default {
 	},
 	methods: {
 		checkroute() {
-			if (this.$route.path === "/c/all") {
+			if (this.$route.path === "/c/all" || this.$route.path === "/" || this.$route.path === "/home" ) {
 				this.endpoint = "/get/c";
 				this.loading = true;
 			} else {
@@ -153,7 +153,7 @@ export default {
 				.then(() => {
 					this.loading = false;
 					this.loadingtiles = false;
-					if (this.$route.path === "/c/all") {
+					if (this.$route.path === "/c/all" || this.$route.path === "/" || this.$route.path === "/home" ) {
 						this.showbanner = true;
 					}
 				});
