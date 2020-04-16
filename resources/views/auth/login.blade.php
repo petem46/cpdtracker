@@ -1,81 +1,97 @@
 @extends('layouts.vue')
 
 @section('content')
-<div class="v-container v-content">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="v-card">
-        <div class="v-card-header">{{ __('Login') }}</div>
 
-        <div class="v-card-body">
+<template>
+  <v-app id="inspire">
+    <v-content>
+      <v-container
+        {{-- class="fill-height" --}}
+        fluid
+      >
+
+          <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col
+            cols="12"
+            sm="8"
+            md="4"
+          >
           <form method="POST" action="{{ route('login') }}">
-            @csrf
+            <v-card class="elevation-12">
+              <v-toolbar
+                color="teal darken-2"
+                dark
+                flat
+              >
+                <v-toolbar-title>
+                  FCAT CPD TRACKER: SIGN IN
+                </v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                    @csrf
 
-            <div class="v-form-group row">
-              <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                  <v-text-field
+                    id="email"
+                    label="Email"
+                    name="login"
+                    prepend-icon="mdi-account"
+                    type="email"
+                  ></v-text-field>
 
-              <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                  <v-text-field
+                    id="password"
+                    label="Password"
+                    name="password"
+                    prepend-icon="mdi-lock"
+                    type="password"
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-row>
+                  <v-col>
+                    <v-btn disabled type="submit" class="mr-5" outlined>Login</v-btn>
+                  </v-col>
+                  <v-col>
 
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-              <div class="col-md-6">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-md-6 offset-md-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                  <label class="form-check-label" for="remember">
-                    {{ __('Remember Me') }}
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row mb-0">
-              <div class="col-md-8 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                  {{ __('Login') }}
-                </button>
-
-                @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                  {{ __('Forgot Your Password?') }}
-                </a>
-                @endif
-              </div>
-              <br />
-              <p style="margin-left:265px">OR</p>
-              <br />
-              <div class="form-group">
-                <div class="col-md-8 col-md-offset-4">
-                  <a href="{{url('/redirect')}}" class="btn btn-primary">Login with Google</a>
-                </div>
-              </div>
-            </div>
+                    <v-btn href="{{url('/redirect')}}" color="teal darken-2">
+                      <v-icon class="mr-3">mdi-google</v-icon>
+                      FCAT Sign In With Google
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-actions>
+            </v-card>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          </v-col>
+        </v-row>
+        <v-row
+        align="center"
+        justify="center"
+        >
+        <v-col
+        cols="6"
+        sm="4"
+        md="2"
+        >
+        <v-img src="/images/fcat-logo-inverted.png">
+            </v-col>
+          </v-row>
+      </v-container>
+    </v-content>
+  </v-app>
+</template>
+
+<script>
+  export default {
+    props: {
+      source: String,
+    },
+  }
+</script>
+
 @endsection
