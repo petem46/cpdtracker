@@ -99,9 +99,9 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/home',
+      path: '/c/all',
       name: 'landing',
-      component: MyCourses
+      component: CourseList
     },
     {
       path: '/',
