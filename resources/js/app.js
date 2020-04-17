@@ -33,6 +33,7 @@ require('./bootstrap');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('course-tile', require('./components/c/CourseTile.vue').default);
+Vue.component('course-details', require('./views/c/CourseDetails.vue').default);
 
 import App from './views/App'
 import Home from './views/Home'

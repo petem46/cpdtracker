@@ -9,6 +9,9 @@ class CourseReview extends Model
 {
   use SoftDeletes;
 
+  protected $table = 'course_reviews';
+  protected $fillable = ['course_id', 'user_id', 'review'];
+
   public function course() {
     return $this->belongsTo('App\Course');
   }

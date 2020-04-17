@@ -124,6 +124,17 @@ class CourseController extends Controller
       $course->save();
       return response('Course Updated Successfully', Response::HTTP_OK);
     } else {
+      $course = Course::create([
+        'name' => $request->get('name'),
+        'slug' => $request->get('name'),
+        'description' => $request->get('description'),
+        'category_id' => $category_id->id,
+        'access_details' => $request->get('access_details'),
+        'cost' => $request->get('cost'),
+        'length' => $request->get('length'),
+        'active' => $request->get('active'),
+        ]);
+
       return response('Course Added Successfully', Response::HTTP_OK);
     }
     return response(null, Response::HTTP_OK);

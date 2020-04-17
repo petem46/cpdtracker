@@ -1,5 +1,6 @@
 <?php
 
+use App\CourseReview;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ Auth::routes();
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
+
+Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -72,4 +75,3 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 });
-

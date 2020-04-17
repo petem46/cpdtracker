@@ -144,6 +144,7 @@ export default {
 				description: "",
 				access_details: "",
 				cost: 0,
+				length: 0,
 				active: 1
 			},
 			defaultItem: {
@@ -152,6 +153,7 @@ export default {
 				description: "",
 				access_details: "",
 				cost: 0,
+				length: 0,
 				active: 0
 			},
 			snackbar: {
@@ -308,13 +310,14 @@ export default {
 			axios
 				.post("/post/c/savecourse", this.editedItem)
 				.then(response => {
+					console.log(this.editedItem);
 					this.dialog = false;
 					this.fetch();
 					this.snackbar.color = "success";
 					this.snackbar.text = response.data;
 					this.snackbar.show = true;
+          this.close();
 
-					// console.log(response);
 					// alert(response.data);
 				})
 				.catch(error => {

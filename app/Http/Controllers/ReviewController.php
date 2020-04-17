@@ -18,9 +18,16 @@ class ReviewController extends Controller
       return new ManageReviewsResource(CourseReview::with('course')->orderBy('id')->get());
   }
 
+  public function getMyReview($cid)
+  {
+      return ['myreview' => CourseReview::where('course_id', $cid)->where('user_id', Auth::id())->get()];
+      // return ['myreview' => CourseReview::where('course_id', $cid)->get()];
+      // return Auth::id();
+  }
+
   public function getMyReviews()
   {
-      return new ManageMyReviewsResource(CourseReview::with('course')->where('user_id', Auth::id())->orderBy('id')->get());
+      return new ManageMyReviewsResource(CourseReview::with('course')->where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->get());
   }
 
   public function reviewers()
@@ -30,9 +37,7 @@ class ReviewController extends Controller
 
   public function savereview(Request $request) {
 
-    // return $data;
     $review_id = $request->get('id');
-    // $category_id = Category::select('id')->where('name', $request->get('category'))->first();
     $review = CourseReview::where('id', $review_id)->first();
     if($review) {
       $review->review = $request->get('review');
@@ -41,6 +46,11 @@ class ReviewController extends Controller
       $review->save();
       return response('Review Updated Successfully', Response::HTTP_OK);
     } else {
+      $review = CourseReview::create([
+        'course_id' => $request->get('courseid'),
+        'review' => $request->get('review'),
+        'user_id' => Auth::id()
+      ]);
       return response('Review Added Successfully', Response::HTTP_OK);
     }
     return response(null, Response::HTTP_OK);

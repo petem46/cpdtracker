@@ -145,11 +145,10 @@ export default {
 				public: 1
 			},
 			defaultItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
+				review: "",
+				course: "",
+				reviewer: "",
+				public: 1
 			},
 			snackbar: {
 				color: "",

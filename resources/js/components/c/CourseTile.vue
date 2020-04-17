@@ -21,7 +21,7 @@
 							<br />
 							<v-btn
 								v-if="checkUserProgress(courseprogress) === 2"
-								@click="addReview(id)"
+								@click="addReview(id, 1)"
 								min-width="100px"
 								outlined
 								class="mx-auto"
@@ -348,7 +348,7 @@ export default {
 		},
 		courseDetails(value) {
 			this.$emit("closeappdrawer");
-			this.$router.push("/c/details/" + value);
+			this.$router.push({ path: "/c/details/" + value, params: {review: true}});
 		}
 	},
 	computed: {

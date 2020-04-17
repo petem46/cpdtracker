@@ -77,8 +77,8 @@
 			</v-row>
 
 			<h1 class="display-3">{{ this.name }}</h1>
-      <v-subheader v-if="this.course.description">{{ this.course.description}}  </v-subheader>
-      <v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
+			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
+			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
 			<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
 			<v-row class>
 				<v-col cols="12" md="4">
@@ -155,13 +155,13 @@
 							v-bind="review"
 							:key="review.id"
 						>
-							<v-card-text>
+							<v-card-text class="prewrap">
 								{{ review.review }}
 								<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader>
 							</v-card-text>
 						</v-card>
 					</v-row>
-					<v-row id="private_reviews" v-if="adminuser">
+					<v-row id="private_reviews" v-if="adminuser && this.privatereviews.length > 0">
 						<v-col cols="12">
 							<h1>Private Reviews</h1>
 						</v-col>
@@ -181,15 +181,31 @@
 				</v-col>
 			</v-row>
 		</section>
+
+		<!--
+    ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
+		-->
+		<v-snackbar
+			v-if="snackbar"
+			v-model="snackbar.show"
+			:color="this.snackbar.color"
+			:timeout="this.snackbar.timeout"
+			multi-line
+			bottom
+		>
+			{{ snackbar.text }}
+			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
+		</v-snackbar>
 	</div>
 </template>
 <script>
 import axios from "axios";
 export default {
-	props: ["name"],
+	props: ["name", "review", "snackbar"],
 	data() {
 		return {
 			loading: true,
+			addreview: this.review,
 			addtocoursename: "",
 			addtocourseid: "",
 			course: [],
@@ -304,7 +320,7 @@ export default {
 	}
 };
 </script>
-<style>
+<style scoped>
 h1 {
 	font-weight: 100 !important;
 	margin-top: 12px !important;
@@ -315,5 +331,9 @@ h1 {
 }
 .mt--3 {
 	margin-top: -1rem !important;
+}
+.v-card >>> .v-card__text {
+	white-space: pre-line !important;
+  padding: 0 !important;
 }
 </style>

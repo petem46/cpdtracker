@@ -25,8 +25,11 @@
 							hide-details
 						></v-text-field>
 					</v-col>
-					<v-col cols="12" md="4" class="offset-md-2">
+					<v-col cols="12" md="4">
 						<v-select hint="Course Filter" persistent-hint v-model="course" :items="courses"></v-select>
+					</v-col>
+					<v-col right cols="12" md="2" class="text-right pt-10">
+						<v-btn @click="addReview()" color="blue">Add Review</v-btn>
 					</v-col>
 				</v-row>
 			</template>
@@ -64,13 +67,11 @@
 							<v-row>
 								<v-col cols="12">
 									<v-select
-										readonly
-										disabled
 										id="course"
 										:items="courses"
 										v-model="editedItem.course"
 										label="Course"
-										hint="Non-editable"
+										hint="Select Course"
 										persistent-hint
 									></v-select>
 								</v-col>
@@ -86,8 +87,6 @@
 										label="Reviewer"
 										:rules="rules"
 										hide-details="auto"
-										hint="Non-editable"
-										persistent-hint
 									></v-text-field>
 								</v-col>
 								<v-col cols="12">
@@ -138,15 +137,14 @@ export default {
 			editedItem: {
 				review: "",
 				course: "",
-				reviewer: "",
+				reviewer: this.getUserName,
 				public: 1
 			},
 			defaultItem: {
-				name: "",
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
+				review: "",
+				course: "",
+				reviewer: this.getUserName,
+				public: 1
 			},
 			snackbar: {
 				color: "",
@@ -228,6 +226,8 @@ export default {
 					this.reviews = data.data.reviews;
 				})
 				.then(() => {
+          this.editedItem.reviewer = this.getUserName;
+          this.defaultItem.reviewer = this.getUserName;
 					setTimeout(() => {
 						this.loading = false;
 					}, 1000);
@@ -284,6 +284,10 @@ export default {
 		editItem(item) {
 			this.editedIndex = this.reviews.indexOf(item);
 			this.editedItem = Object.assign({}, item);
+			this.dialog = true;
+		},
+		addReview() {
+      this.editedItem.reviewer = this.getUserName;
 			this.dialog = true;
 		},
 		deleteItem(item) {},
@@ -346,9 +350,11 @@ export default {
 	},
 	computed: {
 		formTitle() {
-			console.log(this.editedIndex);
 			return this.editedIndex === -1 ? "Add Review" : "Manage Review";
-		}
+    },
+    getUserName() {
+      return this.$store.getters.getName;
+    }
 	}
 };
 </script>
@@ -356,7 +362,7 @@ export default {
 .v-data-table >>> td {
 	padding-top: 0.5rem !important;
 	padding-bottom: 1.5rem !important;
-  vertical-align: top !important;
-  white-space: pre-wrap;
+	vertical-align: top !important;
+	white-space: pre-wrap;
 }
 </style>
