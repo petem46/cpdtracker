@@ -18,7 +18,7 @@ Auth::routes();
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
 
-// Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
   /*
 |- COURSE ROUTES
@@ -71,5 +71,5 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
   // Route::resource('c', 'CourseController');
 
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-// });
+});
 
