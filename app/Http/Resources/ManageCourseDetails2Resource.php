@@ -26,6 +26,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'id'            =>  (string) $this->id,
       'name'          => $this->name,
       'category'      => $this->category['name'],
+      'description'      => $this->description,
       'access_details'      => $this->access_details,
       'cost'          => $this->cost,
       'mystate' =>  $mystateid,

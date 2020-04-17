@@ -371,9 +371,11 @@ export default {
 	}
 };
 </script>
-<style>
-.v-data-table td {
+<style scoped>
+.v-data-table >>> td {
 	padding-top: 0.5rem !important;
 	padding-bottom: 1.5rem !important;
+  vertical-align: top !important;
+  white-space: pre-wrap;
 }
 </style>

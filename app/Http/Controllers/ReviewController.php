@@ -6,6 +6,7 @@ use App\User;
 Use App\CourseReview;
 
 use App\Http\Resources\ManageReviewsResource;
+use App\Http\Resources\ManageMyReviewsResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,11 @@ class ReviewController extends Controller
   public function overview()
   {
       return new ManageReviewsResource(CourseReview::with('course')->orderBy('id')->get());
+  }
+
+  public function getMyReviews()
+  {
+      return new ManageMyReviewsResource(CourseReview::with('course')->where('user_id', Auth::id())->orderBy('id')->get());
   }
 
   public function reviewers()

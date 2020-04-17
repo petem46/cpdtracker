@@ -75,9 +75,10 @@
 					<v-divider class="mr-4" vertical inset></v-divider>
 				</v-toolbar>
 			</v-row>
-			<!-- <h1>Course Details</h1> -->
+
 			<h1 class="display-3">{{ this.name }}</h1>
-			<!-- <h1>Access Details</h1> -->
+      <v-subheader v-if="this.course.description">{{ this.course.description}}  </v-subheader>
+      <v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
 			<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
 			<v-row class>
 				<v-col cols="12" md="4">

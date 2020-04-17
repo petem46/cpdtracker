@@ -5,6 +5,7 @@
 		</h1>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<v-data-table
+			id="testid"
 			click:row="editItem"
 			:headers="datatableheaders"
 			:items="courses"
@@ -60,6 +61,9 @@
 													></v-select>
 												</v-col>
 												<v-col cols="12">
+													<v-textarea id="description" v-model="editedItem.description" label="Description"></v-textarea>
+												</v-col>
+												<v-col cols="12">
 													<v-text-field
 														id="access_details"
 														v-model="editedItem.access_details"
@@ -106,21 +110,19 @@
 			</template>
 		</v-data-table>
 
-    <!--
+		<!--
     ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
-    -->
-    <v-snackbar
+		-->
+		<v-snackbar
 			v-model="snackbar.show"
 			:color="snackbar.color"
 			:timeout="snackbar.timeout"
-      multi-line
-      bottom
+			multi-line
+			bottom
 		>
 			{{ snackbar.text }}
 			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
 		</v-snackbar>
-
-
 	</div>
 </template>
 <script>
@@ -139,6 +141,7 @@ export default {
 			editedItem: {
 				name: "",
 				category: "",
+				description: "",
 				access_details: "",
 				cost: 0,
 				active: 1
@@ -146,6 +149,7 @@ export default {
 			defaultItem: {
 				name: "",
 				category: "",
+				description: "",
 				access_details: "",
 				cost: 0,
 				active: 0
@@ -232,7 +236,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
-    this.getCatFilters();
+		this.getCatFilters();
 	},
 	methods: {
 		fetch() {
@@ -306,12 +310,11 @@ export default {
 				.then(response => {
 					this.dialog = false;
 					this.fetch();
-          this.snackbar.color = 'success'
-          this.snackbar.text = response.data
-          this.snackbar.show = true
+					this.snackbar.color = "success";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
 
-
-          // console.log(response);
+					// console.log(response);
 					// alert(response.data);
 				})
 				.catch(error => {
@@ -353,3 +356,4 @@ export default {
 	}
 };
 </script>
+

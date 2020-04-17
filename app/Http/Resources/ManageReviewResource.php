@@ -2,9 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\CourseProgress;
-use App\CourseRating;
-use App\CourseReview;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ManageReviewResource extends JsonResource

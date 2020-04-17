@@ -46,6 +46,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
+  Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
 
   /*
 |- MANAGE USERS ROUTES
