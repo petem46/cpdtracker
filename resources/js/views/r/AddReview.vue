@@ -49,7 +49,7 @@ export default {
 		};
 	},
 	mounted() {
-		axios.get("/get/c/" + this.courseid).then(({ data }) => {
+		axios.get("/get/c/name/" + this.courseid).then(({ data }) => {
 			console.log(data.course);
 			this.coursename = data.course[0].name;
 		});

@@ -18,8 +18,7 @@ Auth::routes();
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
 
-
-Route::group(['middleware' => ['auth']], function () {
+// Route::group(['middleware' => ['auth']], function () {
 
   /*
 |- COURSE ROUTES
@@ -27,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/courselist', 'CategoryController@index');
   Route::get('/get/c', 'CategoryController@index');
   Route::get('/get/c/details/{name}', 'CourseController@details');
-  Route::get('/get/c/{id}', 'CourseController@getname');
+  Route::get('/get/c/name/{id}', 'CourseController@getname');
 
   /*
 |- CATEGORY ROUTES
@@ -60,8 +59,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('/post/c/savecourse', 'CourseController@savecourse');
 
   /*
-|- MANAGE REVIEWS ROUTES
-*/
+  |- MANAGE REVIEWS ROUTES
+  */
   Route::get('/get/r/all', 'ReviewController@overview');
   Route::get('/get/r/reviewers', 'ReviewController@reviewers');
   Route::post('/post/r/savereview', 'ReviewController@savereview');
@@ -71,4 +70,5 @@ Route::group(['middleware' => ['auth']], function () {
   // Route::resource('c', 'CourseController');
 
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-});
+// });
+
