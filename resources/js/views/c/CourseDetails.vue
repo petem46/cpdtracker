@@ -3,12 +3,12 @@
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<section v-if="!loading">
 			<v-row class="mt--3">
-				<v-toolbar dense flat>
+				<v-toolbar dense flat >
 					<v-avatar>
 						<v-icon small class="mr-5" @click="back(-1)">fas fa-arrow-left</v-icon>
 					</v-avatar>
 					<v-divider class="mr-4" vertical inset></v-divider>
-
+          <section v-if="!$vuetify.breakpoint.smAndDown">
 					<v-chip
 						label
 						:outlined="checkmystate(this.mystate,2)"
@@ -44,8 +44,11 @@
 						Shortlisted
 						<v-avatar right color="white" class="pink--text">{{this.course.shortlistedcount}}</v-avatar>
 					</v-chip>
+          </section>
 
-					<v-divider class="mr-4" vertical inset></v-divider>
+					<v-divider v-if="!$vuetify.breakpoint.smAndDown" class="mr-4" vertical inset></v-divider>
+
+          <section>
 
 					<v-tooltip bottom>
 						<template v-slot:activator="{ on }">
@@ -73,13 +76,16 @@
 						<span>Edit your review</span>
 					</v-tooltip>
 					<v-divider class="mr-4" vertical inset></v-divider>
+          </section>
 				</v-toolbar>
 			</v-row>
 
-			<h1 class="display-3">{{ this.name }}</h1>
+			<h1 class="">{{ this.name }}</h1>
 			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
 			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
-			<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
+			<v-subheader>
+      <a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
+			</v-subheader>
 			<v-row class>
 				<v-col cols="12" md="4">
 					<h1>Course Ratings</h1>
@@ -154,11 +160,7 @@
 							v-for="review in this.publicreviews"
 							v-bind="review"
 							:key="review.id"
-						>
-							<v-card-text class="prewrap">
-								{{ review.review }}
-								<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader>
-							</v-card-text>
+						><v-card-text class="prewrap">{{ review.review }}<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader></v-card-text>
 						</v-card>
 					</v-row>
 					<v-row id="private_reviews" v-if="adminuser && this.privatereviews.length > 0">
@@ -171,11 +173,7 @@
 							v-bind="review"
 							:key="review.id"
 							color="grey darken-3"
-						>
-							<v-card-text>
-								{{ review.review }}
-								<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader>
-							</v-card-text>
+						><v-card-text>{{ review.review }}<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader></v-card-text>
 						</v-card>
 					</v-row>
 				</v-col>
@@ -280,7 +278,8 @@ export default {
 				});
 		},
 		back(val) {
-			this.$router.go(val);
+      console.log(this.$router.go(val) )
+			// this.$router.go(val);
 		}
 	},
 	computed: {
@@ -334,6 +333,9 @@ h1 {
 }
 .v-card >>> .v-card__text {
 	white-space: pre-line !important;
-  padding: 0 !important;
+  /* padding: 0 !important; */
+}
+div >>> .v-subheader {
+  padding: 0px !important;
 }
 </style>

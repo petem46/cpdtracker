@@ -35,7 +35,7 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item>
+					<v-list-item class="d-none">
 						<v-list-item-icon>
 							<v-icon color="light-green accent-3">mdi-playlist-check</v-icon>
 						</v-list-item-icon>
@@ -45,7 +45,7 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item>
+					<v-list-item class="d-none">
 						<v-list-item-icon>
 							<v-icon color="amber">mdi-playlist-play</v-icon>
 						</v-list-item-icon>
@@ -55,7 +55,7 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item>
+					<v-list-item class="d-none">
 						<v-list-item-icon>
 							<v-icon color="yellow accent-2">mdi-playlist-star</v-icon>
 						</v-list-item-icon>
@@ -103,14 +103,14 @@
 		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat>
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>
-				<v-avatar tile class="mr-5">
+				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">
 					<img src="/images/layers-icon.png" />
 				</v-avatar>FCAT CPD Tracker
 			</v-toolbar-title>
 			<v-spacer />
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on">
+					<v-btn tile text v-on="on" class="d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermyreviews' }">
 							<v-icon>mdi-file-star-outline</v-icon>
 						</router-link>
@@ -120,7 +120,7 @@
 			</v-tooltip>
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on">
+					<v-btn tile text v-on="on" class="d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
 							<v-icon>mdi-folder-account-outline</v-icon>
 						</router-link>
@@ -130,7 +130,7 @@
 			</v-tooltip>
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on">
+					<v-btn tile text v-on="on" class="d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
 							<v-icon>mdi-book-search-outline</v-icon>
 						</router-link>
@@ -139,7 +139,13 @@
 				<span>Find A Course</span>
 			</v-tooltip>
 
-			<v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
+			<v-menu
+				v-if="this.roleid == 1 && !$vuetify.breakpoint.xsOnly"
+				bottom
+				left
+				close-on-content-click
+				offset-y
+			>
 				<template v-slot:activator="{ on: onMenu }">
 					<v-tooltip bottom>
 						<template #activator="{ on: onTooltip }">
@@ -174,7 +180,7 @@
 									</v-avatar>Manage Reviews
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoManageReviews" class="ml-0 pl-0">
+							<v-list-item disabled @click="gotoManageReviews" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>fas fa-tags</v-icon>
@@ -192,13 +198,13 @@
 						<v-avatar size="36" class="mr-3">
 							<img :src="avatar" />
 						</v-avatar>
-						<span>{{name}}</span>
+						<span class="d-none d-md-block">{{name}}</span>
 					</v-btn>
 				</template>
 				<v-card>
 					<v-card-text>
 						<v-list>
-							<v-list-item @click="gotoMyProfile" class="ml-0 pl-0">
+							<v-list-item disabled @click="gotoMyProfile" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>mdi-account</v-icon>
@@ -237,6 +243,20 @@
 				<router-view @closeappdrawer="closeappdrawer"></router-view>
 			</v-container>
 		</v-content>
+		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
+			<v-btn @click="gotoMyReviews()" tile text>
+				<span>My Reviews</span>
+				<v-icon>mdi-file-star-outline</v-icon>
+			</v-btn>
+			<v-btn @click="gotoMyCourses()" tile text>
+				<span>My Courses</span>
+				<v-icon>mdi-folder-account-outline</v-icon>
+			</v-btn>
+			<v-btn @click="gotoAllCourses()" tile text>
+				<span>All Courses</span>
+				<v-icon>mdi-book-search-outline</v-icon>
+			</v-btn>
+		</v-bottom-navigation>
 	</v-app>
 </template>
 <script>
@@ -311,6 +331,9 @@ export default {
 		gotoMyReviews() {
 			this.$router.push("/u/myreviews");
 		},
+		gotoAllCourses() {
+			this.$router.push("/c/all");
+		},
 		closeappdrawer() {
 			this.primaryDrawer.model = !this.primaryDrawer.model;
 		},
@@ -334,5 +357,8 @@ export default {
 .v-toolbar__content a {
 	color: white !important;
 	text-decoration: none !important;
+}
+.fa-sm {
+  font-size: small !important;
 }
 </style>

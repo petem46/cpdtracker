@@ -29,7 +29,7 @@
 					v-for="course in category.courses"
 					v-bind="course"
 					:key="course.id"
-					class="col-md-4 col-lg-3 col-xl-2 col-6"
+					class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
 					@addcoursedata="addcoursedata"
 					@addRating="addRating"
 				></course-tile>

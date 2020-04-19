@@ -2,14 +2,14 @@
 	<div>
 		<div v-if="loading">LODAING....</div>
 		<div v-if="!loading">
-			<course-details :name="coursename" :review="true"></course-details>
+			<course-details :name="coursename" :review="fromreview"></course-details>
 
-			<v-dialog v-model="review" persistent max-width="600px">
+			<v-dialog v-model="review" persistent max-width="600px" :fullscreen="$vuetify.breakpoint.xsOnly">
 				<template v-slot:activator="{ on }">
 					<v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
 				</template>
 				<v-card>
-					<v-card-title>Add Course Review / Feedback</v-card-title>
+					<v-card-title>Add Course Review</v-card-title>
 					<v-card-subtitle>{{ this.coursename }}</v-card-subtitle>
 					<form @submit.prevent="submit">
 						<v-card-text>
@@ -40,7 +40,8 @@ export default {
 	data() {
 		return {
 			loading: true,
-			coursename: "",
+      coursename: "",
+      fromreview: true,
 			review: {
 				courseid: this.courseid,
 				review: "",
@@ -72,7 +73,9 @@ export default {
 		getMyReview() {
 			axios.get("/get/u/myreview/" + this.courseid).then(({ data }) => {
 				console.log(data.myreview);
-				this.review = data.myreview[0];
+				if (data.myreview.length > 0) {
+					this.review = data.myreview[0];
+				}
 			});
 		},
 		submit() {

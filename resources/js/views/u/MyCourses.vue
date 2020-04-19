@@ -23,7 +23,7 @@
 				v-for="course in myinprogresscourses.courses"
 				v-bind="course"
 				:key="course.id"
-				class="col-md-4 col-lg-3 col-xl-2 col-6"
+				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
 				@addcoursedata="addcoursedata"
 				@addRating="addRating"
 			></course-tile>
@@ -48,7 +48,7 @@
 				v-for="course in myshortlistedcourses.courses"
 				v-bind="course"
 				:key="course.id"
-				class="col-md-4 col-lg-3 col-xl-2 col-6"
+				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
 				@addcoursedata="addcoursedata"
 				@addRating="addRating"
 			></course-tile>
@@ -72,7 +72,7 @@
 				v-for="course in mycompletedcourses.courses"
 				v-bind="course"
 				:key="course.id"
-				class="col-md-4 col-lg-3 col-xl-2 col-6"
+				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
 				@addcoursedata="addcoursedata"
 				@addRating="addRating"
 			></course-tile>

@@ -20,7 +20,7 @@
 					<v-col cols="4">
 						<v-text-field
 							v-model="search"
-							append-icon="mdi-account-search"
+							append-icon="fas fa-search fa-sm"
 							label="Search"
 							single-line
 							hide-details

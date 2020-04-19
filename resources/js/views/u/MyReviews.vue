@@ -16,34 +16,27 @@
 			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
 				<v-row class="px-3">
-					<v-col cols="12" md="6">
+					<v-col cols="12" md="6" order="">
 						<v-text-field
 							v-model="search"
-							append-icon="mdi-account-search"
+							append-icon="fas fa-search fa-sm"
 							label="Search"
 							single-line
 							hide-details
 						></v-text-field>
 					</v-col>
-					<v-col cols="12" md="4">
-						<v-select hint="Course Filter" persistent-hint v-model="course" :items="courses"></v-select>
-					</v-col>
-					<v-col right cols="12" md="2" class="text-right pt-10">
+					<v-col right cols="12" md="6" class="text-right" order="">
 						<v-btn @click="addReview()" color="blue">Add Review</v-btn>
 					</v-col>
 				</v-row>
 			</template>
-			<template v-slot:item.review="{ item }">
-				<span class="review">{{ item.review }}</span>
-			</template>
-			<template v-slot:item.course="{ item }">
-				<v-chip outlined small @click="filterCourse(item)">{{ item.course }}</v-chip>
-			</template>
+			<template v-slot:item.review="{ item }"><span class="review">{{ item.review }}</span></template>
+			<template v-slot:item.course="{ item }">{{ item.course }}</template>
 			<template v-slot:item.actions="{ item }">
 				<v-avatar>
 					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
 				</v-avatar>
-				<v-btn @click="reviewDetails(item)" outlined text>Details</v-btn>
+				<!-- <v-btn @click="reviewDetails(item)" outlined text>Details</v-btn> -->
 			</template>
 			<template v-slot:item.public="{ item }">
 				<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
@@ -56,7 +49,7 @@
 			</template>
 		</v-data-table>
 
-		<v-dialog v-model="dialog" max-width="50%">
+		<v-dialog v-model="dialog" max-width="600px" :fullscreen="$vuetify.breakpoint.xsOnly">
 			<v-card>
 				<v-card-title class="pb-1">
 					<span class="headline">{{ formTitle }}</span>
@@ -180,13 +173,6 @@ export default {
 						if (!this.course) return true;
 						return value === this.course;
 					}
-				},
-				{
-					text: "Reviewer",
-					align: "left",
-					sortable: true,
-					value: "reviewer",
-					width: "10%"
 				},
 				{
 					text: "Date",
@@ -364,5 +350,17 @@ export default {
 	padding-bottom: 1.5rem !important;
 	vertical-align: top !important;
 	white-space: pre-wrap;
+}
+.v-data-table >>> .v-data-table__mobile-row__header {
+  padding-right: 2.5rem;
+  color: grey;
+}
+.v-data-table >>> .v-data-table__mobile-row__cell {
+    text-align: left !important;
+    white-space: normal;
+}
+.v-data-table >>> span.review {
+  text-align: left !important;
+  /* padding-left: 3rem !important; */
 }
 </style>
