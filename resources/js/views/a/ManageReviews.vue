@@ -16,7 +16,7 @@
 			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
 				<v-row class="px-3">
-					<v-col cols="4">
+					<v-col cols="12" md="4">
 						<v-text-field
 							v-model="search"
 							append-icon="fas fa-search fa-sm"
@@ -25,26 +25,59 @@
 							hide-details
 						></v-text-field>
 					</v-col>
-					<v-col cols="4">
+					<v-col cols="12" md="4">
 						<v-select hint="Course Filter" persistent-hint v-model="course" :items="courses"></v-select>
 					</v-col>
-					<v-col cols="4">
+					<v-col cols="12" md="4">
 						<v-select hint="Reviewer Filter" persistent-hint v-model="reviewer" :items="reviewers"></v-select>
 					</v-col>
 				</v-row>
 			</template>
+			<template v-slot:item.review="{ item }">
+				<span class="review">{{ item.review }}</span>
+			</template>
 			<template v-slot:item.course="{ item }">
-				<v-chip outlined small @click="filterCourse(item)">{{ item.course }}</v-chip>
+				<v-chip
+					v-if="!$vuetify.breakpoint.xsOnly"
+					outlined
+					small
+					@click="filterCourse(item)"
+				>{{ item.course }}</v-chip>
+				<span v-if="$vuetify.breakpoint.xsOnly" @click="filterCourse(item)">{{ item.course }}</span>
 			</template>
 			<template v-slot:item.reviewer="{ item }">
 				<v-chip outlined color="white" small @click="filterReviewer(item)">{{ item.reviewer }}</v-chip>
 			</template>
 			<template v-slot:item.actions="{ item }">
-				<v-avatar>
-					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-				</v-avatar>
-				<v-btn @click="reviewDetails(item)" outlined text>Details</v-btn>
+				<v-menu offset-y bottom left>
+					<template v-slot:activator="{ on }">
+						<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
+							<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
+						</v-btn>
+						<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
+					</template>
+					<v-list>
+						<v-list-item @click="editItem(item)">
+							<v-avatar>
+								<v-icon class="mr-2">mdi-pencil</v-icon>
+							</v-avatar>Edit Review
+						</v-list-item>
+						<v-list-item @click="gotoCourse(item)">
+							<v-avatar>
+								<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
+							</v-avatar>View Course
+						</v-list-item>
+						<v-list-item disabled>
+							<v-avatar>
+								<v-icon class="mr-2" @click="editItem(item)">mdi-account-search-outline</v-icon>
+							</v-avatar>View User
+						</v-list-item>
+					</v-list>
+				</v-menu>
 			</template>
+			<template
+				v-slot:item.date="{ item }"
+			>{{ item.date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
 			<template v-slot:item.public="{ item }">
 				<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
 				<v-chip v-if="!publicchip(item)" x-small color="red" class="mr-2">Private</v-chip>
@@ -56,7 +89,7 @@
 			</template>
 		</v-data-table>
 
-		<v-dialog v-model="dialog" max-width="50%">
+		<v-dialog :fullscreen="$vuetify.breakpoint.xsOnly" v-model="dialog" max-width="50%">
 			<v-card>
 				<v-card-title class="pb-1">
 					<span class="headline">{{ formTitle }}</span>
@@ -160,8 +193,14 @@ export default {
 				y: "top"
 			},
 			datatableheaders: [
+				// {
+				// 	text: "",
+				// 	align: "center",
+				// 	sortable: false,
+				// 	value: "mobileactions"
+				// },
 				{
-					text: "",
+					text: "Visibility",
 					align: "center",
 					sortable: false,
 					value: "public"
@@ -203,18 +242,17 @@ export default {
 					sortable: true,
 					value: "date"
 				},
-				{
-					text: "Updated",
-					align: "center",
-					sortable: true,
-					value: "updated"
-				},
+				// {
+				// 	text: "Updated",
+				// 	align: "center",
+				// 	sortable: true,
+				// 	value: "updated"
+				// },
 				{
 					text: "",
 					align: "right",
 					sortable: false,
-					value: "actions",
-					width: "200px"
+					value: "actions"
 				}
 			],
 			rules: [
@@ -304,6 +342,13 @@ export default {
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
+		gotoCourse(item) {
+			this.editedIndex = this.reviews.indexOf(item);
+			this.editedItem = Object.assign({}, item);
+			console.log(item);
+			// this.dialog = true;
+			this.$router.push("/c/details/" + this.editedItem.course);
+		},
 		deleteItem(item) {},
 		submit() {
 			this.errors = {};
@@ -374,7 +419,19 @@ export default {
 .v-data-table >>> td {
 	padding-top: 0.5rem !important;
 	padding-bottom: 1.5rem !important;
-  vertical-align: top !important;
-  white-space: pre-wrap;
+	vertical-align: top !important;
+	white-space: pre-wrap;
+}
+.v-data-table >>> .v-data-table__mobile-row__header {
+	padding-right: 2.5rem;
+	color: grey;
+}
+.v-data-table >>> .v-data-table__mobile-row__cell {
+	text-align: left !important;
+	white-space: normal;
+}
+.v-data-table >>> span.review {
+	text-align: left !important;
+	/* padding-left: 3rem !important; */
 }
 </style>

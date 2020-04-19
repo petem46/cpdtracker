@@ -4,11 +4,13 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
 import VueFilterDateFormat from 'vue-filter-date-format'
+import VueFilterDateParse from 'vue-filter-date-parse'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Vuetify)
 Vue.use(VueFilterDateFormat)
+Vue.use(VueFilterDateParse)
 
 export default new Vuetify({
   theme: {

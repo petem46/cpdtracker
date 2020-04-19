@@ -16,7 +16,7 @@
 			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
 				<v-row class="px-3">
-					<v-col cols="12" md="6" order="">
+					<v-col cols="12" md="9" class="order-md-1 order-last">
 						<v-text-field
 							v-model="search"
 							append-icon="fas fa-search fa-sm"
@@ -25,27 +25,25 @@
 							hide-details
 						></v-text-field>
 					</v-col>
-					<v-col right cols="12" md="6" class="text-right" order="">
+					<v-col right cols="12" md="3" class="text-right order-first order-md-2">
 						<v-btn @click="addReview()" color="blue">Add Review</v-btn>
 					</v-col>
 				</v-row>
 			</template>
-			<template v-slot:item.review="{ item }"><span class="review">{{ item.review }}</span></template>
-			<template v-slot:item.course="{ item }">{{ item.course }}</template>
-			<template v-slot:item.actions="{ item }">
-				<v-avatar>
-					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-				</v-avatar>
-				<!-- <v-btn @click="reviewDetails(item)" outlined text>Details</v-btn> -->
+			<template v-slot:item.review="{ item }">
+				<span class="review">{{ item.review }}</span>
 			</template>
 			<template v-slot:item.public="{ item }">
 				<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
 				<v-chip v-if="!publicchip(item)" x-small color="red" class="mr-2">Private</v-chip>
 			</template>
-			<template v-slot:item.avgrating="{ item }">
-				<!-- <v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating> -->
-				<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon>
-				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
+			<template v-slot:item.course="{ item }">{{ item.course }}</template>
+			<template v-slot:item.date="{ item }">{{ item.date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template v-slot:item.updated="{ item }">{{ item.updated | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template v-slot:item.actions="{ item }">
+				<v-avatar>
+					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+				</v-avatar>
 			</template>
 		</v-data-table>
 
@@ -114,6 +112,7 @@
 </template>
 <script>
 import Axios from "axios";
+import VueFilterDateParse from "vue-filter-date-format";
 export default {
 	data() {
 		return {
@@ -156,23 +155,18 @@ export default {
 					value: "public"
 				},
 				{
+					text: "Course",
+					align: "left",
+					sortable: true,
+					value: "course",
+					width: "20%"
+				},
+				{
 					text: "Review",
 					align: "left",
 					sortable: true,
 					value: "review",
 					width: "30%"
-				},
-				{
-					text: "Course",
-					align: "left",
-					sortable: true,
-					value: "course",
-					width: "20%",
-					filter: value => {
-						if (this.course === "All") return true;
-						if (!this.course) return true;
-						return value === this.course;
-					}
 				},
 				{
 					text: "Date",
@@ -212,8 +206,8 @@ export default {
 					this.reviews = data.data.reviews;
 				})
 				.then(() => {
-          this.editedItem.reviewer = this.getUserName;
-          this.defaultItem.reviewer = this.getUserName;
+					this.editedItem.reviewer = this.getUserName;
+					this.defaultItem.reviewer = this.getUserName;
 					setTimeout(() => {
 						this.loading = false;
 					}, 1000);
@@ -273,7 +267,7 @@ export default {
 			this.dialog = true;
 		},
 		addReview() {
-      this.editedItem.reviewer = this.getUserName;
+			this.editedItem.reviewer = this.getUserName;
 			this.dialog = true;
 		},
 		deleteItem(item) {},
@@ -337,10 +331,10 @@ export default {
 	computed: {
 		formTitle() {
 			return this.editedIndex === -1 ? "Add Review" : "Manage Review";
-    },
-    getUserName() {
-      return this.$store.getters.getName;
-    }
+		},
+		getUserName() {
+			return this.$store.getters.getName;
+		}
 	}
 };
 </script>
@@ -352,15 +346,15 @@ export default {
 	white-space: pre-wrap;
 }
 .v-data-table >>> .v-data-table__mobile-row__header {
-  padding-right: 2.5rem;
-  color: grey;
+	padding-right: 2.5rem;
+	color: grey;
 }
 .v-data-table >>> .v-data-table__mobile-row__cell {
-    text-align: left !important;
-    white-space: normal;
+	text-align: left !important;
+	white-space: normal;
 }
 .v-data-table >>> span.review {
-  text-align: left !important;
-  /* padding-left: 3rem !important; */
+	text-align: left !important;
+	/* padding-left: 3rem !important; */
 }
 </style>
