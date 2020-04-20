@@ -295,7 +295,7 @@ export default {
 		},
 		submit() {
       this.errors = {};
-      console.log(this.editedItem);
+      // console.log(this.editedItem);
 			axios
 				.post("/post/r/savereview", this.editedItem)
 				.then(response => {
