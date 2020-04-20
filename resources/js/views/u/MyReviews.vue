@@ -38,8 +38,12 @@
 				<v-chip v-if="!publicchip(item)" x-small color="red" class="mr-2">Private</v-chip>
 			</template>
 			<template v-slot:item.course="{ item }">{{ item.course }}</template>
-			<template v-slot:item.date="{ item }">{{ item.date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
-			<template v-slot:item.updated="{ item }">{{ item.updated | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template
+				v-slot:item.date="{ item }"
+			>{{ item.date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template
+				v-slot:item.updated="{ item }"
+			>{{ item.updated | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
 			<template v-slot:item.actions="{ item }">
 				<v-avatar>
 					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -87,9 +91,10 @@
 						</v-container>
 					</v-card-text>
 					<v-card-actions>
+						<v-btn v-if="formDelete" color="red darken-1" text @click="deleteReview()">Delete</v-btn>
 						<v-spacer></v-spacer>
-						<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-						<v-btn type="submit" color="blue darken-1" text>Save</v-btn>
+						<v-btn text @click="close">Cancel</v-btn>
+						<v-btn type="submit" color="green accent-3" text>Save</v-btn>
 					</v-card-actions>
 				</form>
 			</v-card>
@@ -127,16 +132,20 @@ export default {
 			multisort: false,
 			editedIndex: -1,
 			editedItem: {
-				review: "",
+				id: "",
+        review: "",
 				course: "",
+				courseid: "",
 				reviewer: this.getUserName,
-				public: 1
+				public: true
 			},
 			defaultItem: {
+				id: "",
 				review: "",
 				course: "",
+				courseid: "",
 				reviewer: this.getUserName,
-				public: 1
+				public: true
 			},
 			snackbar: {
 				color: "",
@@ -262,7 +271,7 @@ export default {
 			}, 300);
 		},
 		editItem(item) {
-			this.editedIndex = this.reviews.indexOf(item);
+      this.editedIndex = this.reviews.indexOf(item);
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -270,13 +279,32 @@ export default {
 			this.editedItem.reviewer = this.getUserName;
 			this.dialog = true;
 		},
-		deleteItem(item) {},
+		deleteReview() {
+      axios.delete("/delete/r/deleteMyReview/" + this.editedItem.id)
+      .then(response => {
+				this.dialog = false;
+				this.fetch();
+				this.snackbar.color = "danger";
+				this.snackbar.text = response.data;
+				this.snackbar.show = true;
+				setTimeout(() => {
+					this.editedItem = Object.assign({}, this.defaultItem);
+					this.editedIndex = -1;
+				}, 300);
+			});
+		},
 		submit() {
-			this.errors = {};
+      this.errors = {};
+      console.log(this.editedItem);
 			axios
 				.post("/post/r/savereview", this.editedItem)
 				.then(response => {
 					this.dialog = false;
+					setTimeout(() => {
+						this.editedItem = Object.assign({}, this.defaultItem);
+						this.editedIndex = -1;
+					}, 300);
+
 					this.fetch();
 					this.snackbar.color = "success";
 					this.snackbar.text = response.data;
@@ -331,6 +359,9 @@ export default {
 	computed: {
 		formTitle() {
 			return this.editedIndex === -1 ? "Add Review" : "Manage Review";
+		},
+		formDelete() {
+			return this.editedIndex === -1 ? false : true;
 		},
 		getUserName() {
 			return this.$store.getters.getName;

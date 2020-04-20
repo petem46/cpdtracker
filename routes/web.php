@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
+  Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
 
   /*
 |- MANAGE USERS ROUTES

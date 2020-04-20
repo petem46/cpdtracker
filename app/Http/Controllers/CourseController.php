@@ -140,12 +140,7 @@ class CourseController extends Controller
     return response(null, Response::HTTP_OK);
   }
 
-  public function update(Request $request, Course $course)
-  {
-    //
-  }
-
-  public function destroy(Course $course)
+  public function delete($id)
   {
     //
   }
