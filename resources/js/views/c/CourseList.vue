@@ -7,7 +7,7 @@
 		<div v-if="!loading">
 			<v-expand-transition>
 				<v-carousel
-					v-show="showbanner"
+					v-show="showbanner && $vuetify.breakpoint.xlOnly && $vuetify.breakpoint.xsOnly"
 					cycle
 					height="400"
 					hide-delimiter-background
