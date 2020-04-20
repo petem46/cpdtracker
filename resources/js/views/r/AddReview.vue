@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div v-if="loading">LODAING....</div>
+		<h1 v-if="loading">LOADING....</h1>
+		<v-progress-linear indeterminate v-if="loading"></v-progress-linear>
 		<div v-if="!loading">
 			<course-details :name="coursename" :review="fromreview"></course-details>
 
@@ -40,11 +41,11 @@ export default {
 	data() {
 		return {
 			loading: true,
-      coursename: "",
-      fromreview: true,
+			coursename: "",
+			fromreview: true,
 			review: {
 				courseid: this.courseid,
-				course: this.coursename,
+				course: "",
 				review: "",
 				public: false
 			},
@@ -61,15 +62,17 @@ export default {
 	},
 	mounted() {
 		this.fetch();
+		this.review.course = this.coursename;
 	},
 	methods: {
 		fetch() {
 			axios.get("/get/c/name/" + this.courseid).then(({ data }) => {
 				console.log(data.course);
-        this.coursename = data.course[0].name;
-        this.review.course = this.coursename;
+				this.coursename = data.course[0].name;
 				this.getMyReview();
-				this.loading = false;
+				// this.review.course = this.cname;
+        this.review.course = this.coursename;
+        this.loading = false;
 			});
 		},
 		getMyReview() {
@@ -77,13 +80,15 @@ export default {
 				console.log(data.myreview);
 				if (data.myreview.length > 0) {
 					this.review = data.myreview[0];
+					this.review.course = this.cname;
 				}
+				// this.review.course = this.cname;
 			});
 		},
 		submit() {
-      this.errors = {};
-      axios.post("/post/r/savereview", this.review)
-      .then(response => {
+			this.errors = {};
+			// this.review.course = this.cname;
+			axios.post("/post/r/savereview", this.review).then(response => {
 				this.dialog = false;
 
 				this.snackbar.color = "success";
@@ -103,11 +108,15 @@ export default {
 			});
 		}
 	},
-	computed: {}
+	computed: {
+		cname() {
+			this.review.course = this.coursename;
+		}
+	}
 };
 </script>
 <style>
 .v-card__title {
-  word-break: normal !important;
+	word-break: normal !important;
 }
 </style>
