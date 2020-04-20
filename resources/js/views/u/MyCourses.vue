@@ -5,57 +5,8 @@
 			<v-progress-linear indeterminate color="teal"></v-progress-linear>
 		</h1>
 		<v-row v-if="!loading">
-			<h3 class="col-12 font-weight-light">
-				My In-Progress Courses
-				<v-chip v-if="!myinprogresscourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
-				<h3
-					v-if="!myinprogresscourses"
-					class="font-weight-light orange--text"
-				>You have no in-progress courses.</h3>
-				<v-chip
-					v-if="myinprogresscourses"
-					class="ma-2"
-					color="teal"
-					text-color="white"
-				>{{ myinprogresscourses.courses.length }}</v-chip>
-			</h3>
-			<course-tile
-				v-for="course in myinprogresscourses.courses"
-				v-bind="course"
-				:key="course.id"
-				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
-				@addcoursedata="addcoursedata"
-				@addRating="addRating"
-			></course-tile>
-		</v-row>
-
-		<v-row v-if="!loading">
-			<h3 class="col-12 font-weight-light">
-				My Shortlisted Courses
-				<v-chip v-if="!myshortlistedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
-				<h3
-					v-if="!myshortlistedcourses"
-					class="font-weight-light orange--text"
-				>You have no shortlisted courses.</h3>
-				<v-chip
-					v-if="myshortlistedcourses"
-					class="ma-2"
-					color="teal"
-					text-color="white"
-				>{{ myshortlistedcourses.courses.length }}</v-chip>
-			</h3>
-			<course-tile
-				v-for="course in myshortlistedcourses.courses"
-				v-bind="course"
-				:key="course.id"
-				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
-				@addcoursedata="addcoursedata"
-				@addRating="addRating"
-			></course-tile>
-		</v-row>
-		<v-row v-if="!loading">
-			<h3 class="col-12 font-weight-light">
-				My Completed Courses
+			<h1 class="col-12 font-weight-light">
+				Completed
 				<v-chip v-if="!mycompletedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
 				<h3
 					v-if="!mycompletedcourses"
@@ -67,9 +18,58 @@
 					color="teal"
 					text-color="white"
 				>{{ mycompletedcourses.courses.length }}</v-chip>
-			</h3>
+			</h1>
 			<course-tile
 				v-for="course in mycompletedcourses.courses"
+				v-bind="course"
+				:key="course.id"
+				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
+				@addcoursedata="addcoursedata"
+				@addRating="addRating"
+			></course-tile>
+		</v-row>
+		<v-row v-if="!loading">
+			<h1 class="col-12 font-weight-light">
+				In-Progress
+				<v-chip v-if="!myinprogresscourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
+				<h3
+					v-if="!myinprogresscourses"
+					class="font-weight-light orange--text"
+				>You have no in-progress courses.</h3>
+				<v-chip
+					v-if="myinprogresscourses"
+					class="ma-2"
+					color="teal"
+					text-color="white"
+				>{{ myinprogresscourses.courses.length }}</v-chip>
+			</h1>
+			<course-tile
+				v-for="course in myinprogresscourses.courses"
+				v-bind="course"
+				:key="course.id"
+				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
+				@addcoursedata="addcoursedata"
+				@addRating="addRating"
+			></course-tile>
+		</v-row>
+
+		<v-row v-if="!loading">
+			<h1 class="col-12 font-weight-light">
+				Shortlisted
+				<v-chip v-if="!myshortlistedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
+				<h3
+					v-if="!myshortlistedcourses"
+					class="font-weight-light orange--text"
+				>You have no shortlisted courses.</h3>
+				<v-chip
+					v-if="myshortlistedcourses"
+					class="ma-2"
+					color="teal"
+					text-color="white"
+				>{{ myshortlistedcourses.courses.length }}</v-chip>
+			</h1>
+			<course-tile
+				v-for="course in myshortlistedcourses.courses"
 				v-bind="course"
 				:key="course.id"
 				class="col-sm-6 col-md-4 col-lg-3 col-xl-2 col-12"
