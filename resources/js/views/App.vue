@@ -1,5 +1,5 @@
 <template>
-	<v-app id="cpdtrackerapp">
+	<v-app id="fcatcpdapp">
 		<v-navigation-drawer
 			v-model="primaryDrawer.model"
 			:clipped="primaryDrawer.clipped"
@@ -105,7 +105,7 @@
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">
 					<img src="/images/layers-icon.png" />
-				</v-avatar>FCAT CPD Tracker
+				</v-avatar>FCAT CPD
 			</v-toolbar-title>
 			<v-spacer />
 			<v-tooltip bottom>
