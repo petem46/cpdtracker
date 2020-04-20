@@ -12,8 +12,6 @@
 						<div class="pa-3">
 							{{ description }}
 							<br />
-							Cost: {{ cost }}
-							<br />
 							<v-btn
 								@click="courseDetails(name);"
 								min-width="100px"
@@ -29,6 +27,8 @@
 								class="mx-auto"
 								color="white"
 							>Review</v-btn>
+							<br />
+							Cost: {{ cost }}
 						</div>
 					</div>
 				</v-expand-transition>
