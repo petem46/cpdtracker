@@ -70,8 +70,8 @@ class UserSeeder extends Seeder
           'role_id' => 1,
         ),
       ));
-      $count = 49;
-      factory(User::class, $count)->create();
+      // $count = 49;
+      // factory(User::class, $count)->create();
 
     }
 }
