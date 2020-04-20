@@ -153,7 +153,7 @@
 					</v-card>
 				</v-col>
 				<v-col cols="12" md="8" class>
-					<h1>Public Reviews</h1>
+					<h1>Reviews</h1>
 					<v-row>
 						<v-card
 							class="col-12 col-md-5 mb-3 mr-3"
