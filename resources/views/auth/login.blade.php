@@ -12,7 +12,7 @@
 							@csrf
 							<v-card class="elevation-12">
 								<v-toolbar color="teal darken-2" dark flat>
-									<v-toolbar-title>FCAT CPD TOOL: SIGN IN</v-toolbar-title>
+									<v-toolbar-title>FCAT CPD</v-toolbar-title>
 								</v-toolbar>
 								<v-card-text>
 									<v-text-field
