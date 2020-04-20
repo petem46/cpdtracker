@@ -78,10 +78,10 @@ class CourseController extends Controller
     if ($myprogress) {
       $myprogress->delete();
     }
-    // $myrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
-    // if ($myrating) {
-    //   $myrating->delete();
-    // }
+    $myrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    if ($myrating) {
+      $myrating->delete();
+    }
     return response(null, Response::HTTP_OK);
   }
 
