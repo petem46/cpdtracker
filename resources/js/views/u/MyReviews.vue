@@ -284,7 +284,7 @@ export default {
       .then(response => {
 				this.dialog = false;
 				this.fetch();
-				this.snackbar.color = "danger";
+				this.snackbar.color = "red";
 				this.snackbar.text = response.data;
 				this.snackbar.show = true;
 				setTimeout(() => {
