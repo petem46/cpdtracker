@@ -9,8 +9,8 @@
 					<v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
 				</template>
 				<v-card>
-					<v-card-title>Add Course Review</v-card-title>
-					<v-card-subtitle>{{ this.coursename }}</v-card-subtitle>
+					<v-card-title class="subtitle-2 pb-0 grey--text">Add Course Review</v-card-title>
+					<v-card-title class="pt-1">{{ this.coursename }}</v-card-title>
 					<form @submit.prevent="submit">
 						<v-card-text>
 							<v-textarea
@@ -25,7 +25,7 @@
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn text @click="close()">Close</v-btn>
-							<v-btn type="submit" color="blue darken-1" text>Save</v-btn>
+							<v-btn type="submit" color="green accent-3" text>Save</v-btn>
 						</v-card-actions>
 					</form>
 				</v-card>
@@ -104,4 +104,7 @@ export default {
 };
 </script>
 <style>
+.v-card__title {
+  word-break: normal !important;
+}
 </style>
