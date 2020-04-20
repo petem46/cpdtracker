@@ -100,7 +100,7 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat>
+		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat :hide-on-scroll="$vuetify.breakpoint.smAndDown">
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">

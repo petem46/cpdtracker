@@ -44,6 +44,7 @@ export default {
       fromreview: true,
 			review: {
 				courseid: this.courseid,
+				course: this.coursename,
 				review: "",
 				public: false
 			},
@@ -65,7 +66,8 @@ export default {
 		fetch() {
 			axios.get("/get/c/name/" + this.courseid).then(({ data }) => {
 				console.log(data.course);
-				this.coursename = data.course[0].name;
+        this.coursename = data.course[0].name;
+        this.review.course = this.coursename;
 				this.getMyReview();
 				this.loading = false;
 			});
@@ -79,8 +81,9 @@ export default {
 			});
 		},
 		submit() {
-			this.errors = {};
-			axios.post("/post/r/savereview", this.review).then(response => {
+      this.errors = {};
+      axios.post("/post/r/savereview", this.review)
+      .then(response => {
 				this.dialog = false;
 
 				this.snackbar.color = "success";
@@ -89,7 +92,7 @@ export default {
 
 				this.$router.push({
 					path: "/c/details/" + this.coursename,
-					params: { snackbar: snackbar, review: false }
+					params: { snackbar: this.snackbar, review: false }
 				});
 			});
 		},

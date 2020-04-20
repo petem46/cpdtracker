@@ -46,9 +46,9 @@
 					</v-chip>
           </section>
 
-					<v-divider v-if="!$vuetify.breakpoint.smAndDown" class="mr-4" vertical inset></v-divider>
 
-          <section>
+          <section v-if="!$vuetify.breakpoint.smAndDown && $vuetify.breakpoint.smAndDown">
+					<v-divider class="mr-4" vertical inset></v-divider>
 
 					<v-tooltip bottom>
 						<template v-slot:activator="{ on }">
