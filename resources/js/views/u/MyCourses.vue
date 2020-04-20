@@ -5,7 +5,7 @@
 			<v-progress-linear indeterminate color="teal"></v-progress-linear>
 		</h1>
 		<v-row v-if="!loading">
-			<h1 class="col-12 font-weight-light">
+			<h3 class="col-12 font-weight-light">
 				My In-Progress Courses
 				<v-chip v-if="!myinprogresscourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
 				<h3
@@ -18,7 +18,7 @@
 					color="teal"
 					text-color="white"
 				>{{ myinprogresscourses.courses.length }}</v-chip>
-			</h1>
+			</h3>
 			<course-tile
 				v-for="course in myinprogresscourses.courses"
 				v-bind="course"
@@ -30,7 +30,7 @@
 		</v-row>
 
 		<v-row v-if="!loading">
-			<h1 class="col-12 font-weight-light">
+			<h3 class="col-12 font-weight-light">
 				My Shortlisted Courses
 				<v-chip v-if="!myshortlistedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
 				<h3
@@ -43,7 +43,7 @@
 					color="teal"
 					text-color="white"
 				>{{ myshortlistedcourses.courses.length }}</v-chip>
-			</h1>
+			</h3>
 			<course-tile
 				v-for="course in myshortlistedcourses.courses"
 				v-bind="course"
@@ -54,7 +54,7 @@
 			></course-tile>
 		</v-row>
 		<v-row v-if="!loading">
-			<h1 class="col-12 font-weight-light">
+			<h3 class="col-12 font-weight-light">
 				My Completed Courses
 				<v-chip v-if="!mycompletedcourses" class="ma-2" color="red darken-4" text-color="white">0</v-chip>
 				<h3
@@ -67,7 +67,7 @@
 					color="teal"
 					text-color="white"
 				>{{ mycompletedcourses.courses.length }}</v-chip>
-			</h1>
+			</h3>
 			<course-tile
 				v-for="course in mycompletedcourses.courses"
 				v-bind="course"
