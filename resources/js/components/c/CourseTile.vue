@@ -12,6 +12,8 @@
 						<div class="pa-3">
 							{{ description }}
 							<br />
+							Cost: {{ cost }}
+							<br />
 							<v-btn
 								@click="courseDetails(name);"
 								min-width="100px"
