@@ -17,7 +17,7 @@
 			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
 				<v-row class="px-3">
-					<v-col cols="4">
+					<v-col cols="12" md="4" class="order-md-1 order-last">
 						<v-text-field
 							v-model="search"
 							append-icon="fas fa-search fa-sm"
@@ -26,14 +26,15 @@
 							hide-details
 						></v-text-field>
 					</v-col>
-					<v-col cols="4">
+					<v-col cols="12" md="4" class="order-md-2 order-8">
 						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories"></v-select>
 					</v-col>
-					<v-col cols="4">
+					<v-col cols="12" md="4" class="order-md-last order-first">
 						<v-spacer></v-spacer>
 						<v-dialog v-model="dialog" max-width="50%">
 							<template v-slot:activator="{ on }">
-								<v-btn color="primary" dark class="mb-2 float-right" v-on="on">Add Course</v-btn>
+								<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add Course</v-btn>
+								<v-btn color="primary" dark class="d-md-none btn-block mb-2 float-left" v-on="on">Add Course</v-btn>
 							</template>
 							<v-card>
 								<v-card-title>
@@ -73,8 +74,13 @@
 												<v-col cols="6">
 													<v-text-field id="cost" v-model="editedItem.cost" label="Cost"></v-text-field>
 												</v-col>
-												<v-col cols="6">
-													<v-text-field type="number" id="viewcounter" v-model="editedItem.viewcounter" label="View Counter"></v-text-field>
+												<v-col v-if="editedIndex > -1" cols="6">
+													<v-text-field
+														type="number"
+														id="viewcounter"
+														v-model="editedItem.viewcounter"
+														label="View Counter"
+													></v-text-field>
 												</v-col>
 												<v-col cols="12">
 													<v-switch id="active" v-model="editedItem.active" label="Active"></v-switch>
@@ -84,9 +90,10 @@
 									</v-card-text>
 
 									<v-card-actions>
+										<v-btn v-if="formDelete" color="red darken-1" text @click="deleteCourse()">Delete</v-btn>
 										<v-spacer></v-spacer>
-										<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-										<v-btn type="submit" color="blue darken-1" text>Save</v-btn>
+										<v-btn text @click="close">Cancel</v-btn>
+										<v-btn type="submit" color="green accent-2" text>Save</v-btn>
 									</v-card-actions>
 								</form>
 							</v-card>
@@ -275,7 +282,6 @@ export default {
 				});
 		},
 		checkrow(value) {
-			// this.$emit("closeappdrawer");
 			this.$router.push("/c/details/" + value.name);
 		},
 		roundOff(value, decimals) {
@@ -315,7 +321,21 @@ export default {
 			console.log(this.editedItem);
 			this.dialog = true;
 		},
-		deleteItem(item) {},
+		deleteCourse() {
+			axios
+				.delete("/delete/c/deleteCourse/" + this.editedItem.id)
+				.then(response => {
+					this.dialog = false;
+					this.fetch();
+					this.snackbar.color = "red";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
+					setTimeout(() => {
+						this.editedItem = Object.assign({}, this.defaultItem);
+						this.editedIndex = -1;
+					}, 300);
+				});
+		},
 		submit() {
 			this.errors = {};
 			axios
@@ -327,7 +347,7 @@ export default {
 					this.snackbar.color = "success";
 					this.snackbar.text = response.data;
 					this.snackbar.show = true;
-          this.close();
+					this.close();
 
 					// alert(response.data);
 				})
@@ -336,19 +356,6 @@ export default {
 						this.errors = error.response.data.errors || {};
 					}
 				});
-		},
-		save() {
-			// console.log(this.editedItem)
-			this.coursedata.name = this.editedItem.name;
-			this.coursedata.category = this.editedItem.category;
-			this.coursedata.access_details = this.editedItem.access_details;
-			this.coursedata.cost = this.editedItem.cost;
-			this.coursedata.active = this.editedItem.active;
-			console.log(this.coursedata);
-
-			axios.put("/put/c/savecourse/" + this.coursedata).then(() => {
-				this.fetch();
-			});
 		},
 		clickCheck(item) {
 			alert("you clicked me: " + item);
@@ -366,8 +373,10 @@ export default {
 		formTitle() {
 			console.log(this.editedIndex);
 			return this.editedIndex === -1 ? "New Course" : "Edit Course";
+		},
+		formDelete() {
+			return this.editedIndex === -1 ? false : true;
 		}
 	}
 };
 </script>
-

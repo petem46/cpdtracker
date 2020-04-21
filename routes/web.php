@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/c/details/{name}', 'CourseController@details');
   Route::get('/get/c/name/{id}', 'CourseController@getname');
   Route::put('/put/c/updateViewCounter/{id}', 'CourseController@updateViewCounter');
+  Route::delete('/delete/c/deleteCourse/{id}', 'CourseController@deleteCourse');
 
   /*
 |- CATEGORY ROUTES

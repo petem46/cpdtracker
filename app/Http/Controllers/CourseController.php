@@ -26,10 +26,11 @@ class CourseController extends Controller
 
   public function overview()
   {
-      return new ManageCoursesResource(Course::with('category')->orderBy('name')->get());
+    return new ManageCoursesResource(Course::with('category')->orderBy('name')->get());
   }
 
-  public function getname($id) {
+  public function getname($id)
+  {
     return ['course' => Course::select('name')->where('id', $id)->get()];
   }
 
@@ -117,13 +118,14 @@ class CourseController extends Controller
     return new ManageCourseDetails1Resource(Course::where('name', $course)->get());
   }
 
-  public function savecourse(Request $request) {
+  public function savecourse(Request $request)
+  {
 
     // return $data;
     $course_id = $request->get('id');
     $category_id = Category::select('id')->where('name', $request->get('category'))->first();
     $course = Course::where('id', $course_id)->first();
-    if($course) {
+    if ($course) {
       $course->name = $request->get('name');
       $course->category_id = $category_id->id;
       $course->access_details = $request->get('access_details');
@@ -144,15 +146,20 @@ class CourseController extends Controller
         'cost' => $request->get('cost'),
         'length' => $request->get('length'),
         'active' => $request->get('active'),
-        ]);
+      ]);
 
       return response('Course Added Successfully', Response::HTTP_OK);
     }
     return response(null, Response::HTTP_OK);
   }
 
-  public function delete($id)
+  public function deleteCourse($id)
   {
-    //
+    $course = Course::find($id);
+    if ($course) {
+      $course->delete();
+    }
+
+    return response('Course Deleted Successfully', Response::HTTP_OK);
   }
 }

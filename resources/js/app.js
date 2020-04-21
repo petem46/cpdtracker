@@ -102,6 +102,9 @@ const store = new Vuex.Store({
 
 const router = new VueRouter({
   mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   routes: [
     {
       path: '/home',

@@ -35,13 +35,13 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item>
+					<v-list-item disabled>
 						<v-list-item-icon>
 							<v-icon color="light-green accent-3">mdi-playlist-plus</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/mycourses">Suggest A Course</router-link>
+							<v-list-item-title class="disabled">
+								<router-link exact exact-active-class="teal--yellow" class="disabled" id="disabled" to="/u/mycourses">Suggest A Course</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -100,7 +100,13 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat :hide-on-scroll="$vuetify.breakpoint.smAndDown">
+		<v-app-bar
+			:clipped-left="primaryDrawer.clipped"
+			app
+			dark
+			flat
+			:hide-on-scroll="$vuetify.breakpoint.smAndDown"
+		>
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">
@@ -240,7 +246,9 @@
 		</v-app-bar>
 		<v-content>
 			<v-container fluid>
-				<router-view @closeappdrawer="closeappdrawer"></router-view>
+				<transition name="fade" mode="out-in">
+					<router-view @closeappdrawer="closeappdrawer"></router-view>
+				</transition>
 			</v-container>
 		</v-content>
 		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
@@ -359,6 +367,27 @@ export default {
 	text-decoration: none !important;
 }
 .fa-sm {
-  font-size: small !important;
+	font-size: small !important;
+}
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 1s ease;
+}
+
+.fade-leave {}
+
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+#id a, .disabled a  {
+  color: grey !important;
 }
 </style>
