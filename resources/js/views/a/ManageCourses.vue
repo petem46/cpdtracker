@@ -31,7 +31,7 @@
 					</v-col>
 					<v-col cols="12" md="4" class="order-md-last order-first">
 						<v-spacer></v-spacer>
-						<v-dialog v-model="dialog" max-width="50%">
+						<v-dialog v-model="dialog" max-width="600px" :fullscreen="$vuetify.breakpoint.smAndDown">
 							<template v-slot:activator="{ on }">
 								<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add Course</v-btn>
 								<v-btn color="primary" dark class="d-md-none btn-block mb-2 float-left" v-on="on">Add Course</v-btn>
