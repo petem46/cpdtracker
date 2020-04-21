@@ -85,6 +85,15 @@ class CourseController extends Controller
     return response(null, Response::HTTP_OK);
   }
 
+  public function updateViewCounter($id)
+  {
+    $course = Course::where('id', $id)->first();
+    $viewCounter = $course->viewcounter + 1;
+    $course->viewcounter = $viewCounter;
+    $course->touch();
+    $course->save();
+  }
+
   public function addRating($course_id, $rating)
   {
     $oldrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
@@ -120,6 +129,7 @@ class CourseController extends Controller
       $course->access_details = $request->get('access_details');
       $course->cost = $request->get('cost');
       $course->active = $request->get('active');
+      $course->viewcounter = $request->get('viewcounter');
       $course->touch();
       $course->save();
       return response('Course Updated Successfully', Response::HTTP_OK);
@@ -130,6 +140,7 @@ class CourseController extends Controller
         'description' => $request->get('description'),
         'category_id' => $category_id->id,
         'access_details' => $request->get('access_details'),
+        'viewcounter' => $request->get('viewcounter'),
         'cost' => $request->get('cost'),
         'length' => $request->get('length'),
         'active' => $request->get('active'),

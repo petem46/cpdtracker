@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes([
-  // 'register' => false,
+  'register' => false,
   'reset' => false,
   'verify' => false
 ]);
@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/c', 'CategoryController@index');
   Route::get('/get/c/details/{name}', 'CourseController@details');
   Route::get('/get/c/name/{id}', 'CourseController@getname');
+  Route::put('/put/c/updateViewCounter/{id}', 'CourseController@updateViewCounter');
 
   /*
 |- CATEGORY ROUTES

@@ -73,6 +73,9 @@
 												<v-col cols="6">
 													<v-text-field id="cost" v-model="editedItem.cost" label="Cost"></v-text-field>
 												</v-col>
+												<v-col cols="6">
+													<v-text-field type="number" id="viewcounter" v-model="editedItem.viewcounter" label="View Counter"></v-text-field>
+												</v-col>
 												<v-col cols="12">
 													<v-switch id="active" v-model="editedItem.active" label="Active"></v-switch>
 												</v-col>
@@ -143,6 +146,7 @@ export default {
 				category: "",
 				description: "",
 				access_details: "",
+				viewcounter: 0,
 				cost: 0,
 				length: 0,
 				active: 1
@@ -152,6 +156,7 @@ export default {
 				category: "",
 				description: "",
 				access_details: "",
+				viewcounter: 0,
 				cost: 0,
 				length: 0,
 				active: 0
@@ -221,6 +226,12 @@ export default {
 					align: "center",
 					sortable: true,
 					value: "reviews"
+				},
+				{
+					text: "Views",
+					align: "center",
+					sortable: true,
+					value: "viewcounter"
 				},
 				{
 					text: "",

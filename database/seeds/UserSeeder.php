@@ -59,8 +59,8 @@ class UserSeeder extends Seeder
           'role_id' => 1,
         ),
         array(
-          'name' => 'Jane McCumisky',
-          'email' => 'jane.mccumisky@fcat.org.uk',
+          'name' => 'Jane McCumiskey',
+          'email' => 'jane.mccumiskey@fcat.org.uk',
           'school' => 'FCAT',
           'email_verified_at' => now(),
           'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

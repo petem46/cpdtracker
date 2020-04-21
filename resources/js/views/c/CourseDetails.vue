@@ -3,88 +3,92 @@
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<section v-if="!loading">
 			<v-row class="mt--3">
-				<v-toolbar dense flat >
+				<v-toolbar dense flat>
 					<v-avatar>
 						<v-icon small class="mr-5" @click="back(-1)">fas fa-arrow-left</v-icon>
 					</v-avatar>
 					<v-divider class="mr-4" vertical inset></v-divider>
-          <section v-if="!$vuetify.breakpoint.smAndDown">
-					<v-chip
-						label
-						:outlined="checkmystate(this.mystate,2)"
-						class="mr-4"
-						:color="statechipcolour(2)"
-						text-color="white"
-						@click="changestate(2)"
-					>
-						Completed
-						<v-avatar right color="white" class="green--text">{{this.course.completedcount}}</v-avatar>
+					<v-chip label outlined class="mr-4">
+						Views
+						<v-avatar v-model="this.course.viewcounter" right>{{this.course.viewcounter}}</v-avatar>
 					</v-chip>
-
-					<v-chip
-						label
-						:outlined="checkmystate(this.mystate,1)"
-						class="mr-4"
-						:color="statechipcolour(1)"
-						text-color="white"
-						@click="changestate(1)"
-					>
-						InProgress
-						<v-avatar right color="white" class="indigo--text">{{this.course.inprogresscount}}</v-avatar>
-					</v-chip>
-
-					<v-chip
-						label
-						:outlined="checkmystate(this.mystate,3)"
-						class="mr-4"
-						:color="statechipcolour(3)"
-						text-color="white"
-						@click="changestate(3)"
-					>
-						Shortlisted
-						<v-avatar right color="white" class="pink--text">{{this.course.shortlistedcount}}</v-avatar>
-					</v-chip>
-          </section>
-
-
-          <section v-if="!$vuetify.breakpoint.smAndDown && $vuetify.breakpoint.smAndDown">
 					<v-divider class="mr-4" vertical inset></v-divider>
+					<section v-if="!$vuetify.breakpoint.smAndDown">
+						<v-chip
+							label
+							:outlined="checkmystate(this.mystate,2)"
+							class="mr-4"
+							:color="statechipcolour(2)"
+							text-color="white"
+							@click="changestate(2)"
+						>
+							Completed
+							<v-avatar right color="white" class="green--text">{{this.course.completedcount}}</v-avatar>
+						</v-chip>
 
-					<v-tooltip bottom>
-						<template v-slot:activator="{ on }">
-							<v-chip v-on="on" label outlined class="mr-4" text-color="amber">
-								<v-icon>mdi-star</v-icon>
-							</v-chip>
-						</template>
-						<span>You have rated this course</span>
-					</v-tooltip>
+						<v-chip
+							label
+							:outlined="checkmystate(this.mystate,1)"
+							class="mr-4"
+							:color="statechipcolour(1)"
+							text-color="white"
+							@click="changestate(1)"
+						>
+							InProgress
+							<v-avatar right color="white" class="indigo--text">{{this.course.inprogresscount}}</v-avatar>
+						</v-chip>
 
-					<v-tooltip bottom>
-						<template v-slot:activator="{ on }">
-							<v-chip v-on="on" label outlined class="mr-4" text-color="green">
-								<v-icon>mdi-check</v-icon>
-							</v-chip>
-						</template>
-						<span>You have reviewed this course</span>
-					</v-tooltip>
-					<v-tooltip bottom>
-						<template v-slot:activator="{ on }">
-							<v-chip v-on="on" label outlined class="mr-4" text-color="white" @click="changestate(2)">
-								<v-icon>mdi-pencil</v-icon>
-							</v-chip>
-						</template>
-						<span>Edit your review</span>
-					</v-tooltip>
-					<v-divider class="mr-4" vertical inset></v-divider>
-          </section>
+						<v-chip
+							label
+							:outlined="checkmystate(this.mystate,3)"
+							class="mr-4"
+							:color="statechipcolour(3)"
+							text-color="white"
+							@click="changestate(3)"
+						>
+							Shortlisted
+							<v-avatar right color="white" class="pink--text">{{this.course.shortlistedcount}}</v-avatar>
+						</v-chip>
+					</section>
+
+					<section v-if="!$vuetify.breakpoint.smAndDown && $vuetify.breakpoint.smAndDown">
+						<v-divider class="mr-4" vertical inset></v-divider>
+
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-chip v-on="on" label outlined class="mr-4" text-color="amber">
+									<v-icon>mdi-star</v-icon>
+								</v-chip>
+							</template>
+							<span>You have rated this course</span>
+						</v-tooltip>
+
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-chip v-on="on" label outlined class="mr-4" text-color="green">
+									<v-icon>mdi-check</v-icon>
+								</v-chip>
+							</template>
+							<span>You have reviewed this course</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-chip v-on="on" label outlined class="mr-4" text-color="white" @click="changestate(2)">
+									<v-icon>mdi-pencil</v-icon>
+								</v-chip>
+							</template>
+							<span>Edit your review</span>
+						</v-tooltip>
+						<v-divider class="mr-4" vertical inset></v-divider>
+					</section>
 				</v-toolbar>
 			</v-row>
 
-			<h1 class="">{{ this.name }}</h1>
+			<h1 class>{{ this.name }}</h1>
 			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
 			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
 			<v-subheader>
-      <a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
+				<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
 			</v-subheader>
 			<v-row class>
 				<v-col cols="12" md="4">
@@ -160,7 +164,11 @@
 							v-for="review in this.publicreviews"
 							v-bind="review"
 							:key="review.id"
-						><v-card-text class="prewrap">{{ review.review }}<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader></v-card-text>
+						>
+							<v-card-text class="prewrap">
+								{{ review.review }}
+								<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader>
+							</v-card-text>
 						</v-card>
 					</v-row>
 					<v-row id="private_reviews" v-if="adminuser && this.privatereviews.length > 0">
@@ -173,7 +181,11 @@
 							v-bind="review"
 							:key="review.id"
 							color="grey darken-3"
-						><v-card-text>{{ review.review }}<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader></v-card-text>
+						>
+							<v-card-text>
+								{{ review.review }}
+								<v-subheader>{{review.user.name}} - {{review.user.school}}</v-subheader>
+							</v-card-text>
 						</v-card>
 					</v-row>
 				</v-col>
@@ -210,7 +222,8 @@ export default {
 			endpoint: "/get/c/details/" + this.name,
 			mystate: 0,
 			publicreviews: [],
-			privatereviews: []
+			privatereviews: [],
+			viewcountupdated: 0,
 		};
 	},
 	mounted() {
@@ -228,6 +241,9 @@ export default {
 				})
 				.then(() => {
 					this.loading = false;
+					if (this.viewcountupdated == 0) {
+						this.updateViewCounter();
+					}
 				});
 		},
 		roundOff(value, decimals) {
@@ -277,8 +293,15 @@ export default {
 					this.fetch();
 				});
 		},
+		updateViewCounter() {
+				this.course.viewcounter = this.course.viewcounter + 1;
+				axios.put("/put/c/updateViewCounter/" + this.course.id).then(() => {
+          this.viewcountupdated = 1;
+					this.fetch();
+        });
+		},
 		back(val) {
-      console.log(this.$router.go(val) )
+			console.log(this.$router.go(val));
 			// this.$router.go(val);
 		}
 	},
@@ -333,9 +356,9 @@ h1 {
 }
 .v-card >>> .v-card__text {
 	white-space: pre-line !important;
-  /* padding: 0 !important; */
+	/* padding: 0 !important; */
 }
 div >>> .v-subheader {
-  padding: 0px !important;
+	padding: 0px !important;
 }
 </style>

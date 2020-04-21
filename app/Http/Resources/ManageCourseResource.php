@@ -19,6 +19,7 @@ class ManageCourseResource extends JsonResource
         'cost'      => $this->cost,
         'description'      => $this->description,
         'access_details'      => $this->access_details,
+        'viewcounter'      => $this->viewcounter,
         'active'      => $this->active,
         'completed'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->count(),
         'inprogress'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->count(),

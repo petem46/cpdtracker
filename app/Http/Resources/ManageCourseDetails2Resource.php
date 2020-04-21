@@ -28,6 +28,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'category'      => $this->category['name'],
       'description'      => $this->description,
       'access_details'      => $this->access_details,
+      'viewcounter'      => $this->viewcounter,
       'cost'          => $this->cost,
       'mystate' =>  $mystateid,
       'completedcount'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->count(),

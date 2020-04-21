@@ -35,13 +35,13 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item class="d-none">
+					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="light-green accent-3">mdi-playlist-check</v-icon>
+							<v-icon color="light-green accent-3">mdi-playlist-plus</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/completed">Completed</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/u/mycourses">Suggest A Course</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
