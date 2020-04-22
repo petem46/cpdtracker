@@ -10,7 +10,7 @@ class Course extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'name', 'slug', 'category_id', 'description', 'length', 'cost', 'access_details', 'viewcounter'
+    'name', 'slug', 'category_id', 'description', 'length', 'cost', 'access_details', 'viewcounter', 'active'
   ];
 
   public function category()

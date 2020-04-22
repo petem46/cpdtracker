@@ -142,7 +142,7 @@ class CourseController extends Controller
         'description' => $request->get('description'),
         'category_id' => $category_id->id,
         'access_details' => $request->get('access_details'),
-        'viewcounter' => $request->get('viewcounter'),
+        'viewcounter' => 0,
         'cost' => $request->get('cost'),
         'length' => $request->get('length'),
         'active' => $request->get('active'),
@@ -151,6 +151,24 @@ class CourseController extends Controller
       return response('Course Added Successfully', Response::HTTP_OK);
     }
     return response(null, Response::HTTP_OK);
+  }
+
+  public function suggestcourse(Request $request)
+  {
+
+    $category_id = Category::select('id')->where('name', $request->get('category'))->first();
+      $course = Course::create([
+        'name' => $request->get('name'),
+        'slug' => $request->get('name'),
+        'description' => $request->get('description'),
+        'category_id' => $category_id->id,
+        'access_details' => $request->get('access_details'),
+        'viewcounter' => 0,
+        'cost' => $request->get('cost'),
+        'length' => $request->get('length'),
+        'active' => 0,
+      ]);
+      return response('Course Suggestion Submitted', Response::HTTP_OK);
   }
 
   public function deleteCourse($id)

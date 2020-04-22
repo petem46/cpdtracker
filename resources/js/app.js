@@ -36,9 +36,11 @@ require('./bootstrap');
 
 Vue.component('course-tile', require('./components/c/CourseTile.vue').default);
 Vue.component('course-details', require('./views/c/CourseDetails.vue').default);
+Vue.component('suggest-course-form', require('./components/c/SuggestCourseForm.vue').default);
 
 import App from './views/App'
 import Home from './views/Home'
+import SuggestCourseForm from './components/c/SuggestCourseForm'
 
 import CourseDetails from './views/c/CourseDetails'
 import CourseList from './views/c/CourseList'
@@ -179,6 +181,11 @@ const router = new VueRouter({
       path: '/u/myreviews',
       name: 'usermyreviews',
       component: MyReviews
+    },
+    {
+      path: '/u/suggestcourseform',
+      name: 'suggestcourseform',
+      component: SuggestCourseForm
     },
     {
       path: '/u/completed',

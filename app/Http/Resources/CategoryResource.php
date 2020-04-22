@@ -17,6 +17,7 @@ class CategoryResource extends JsonResource
         ->with('courseprogress')
         ->with('coursereview')
         ->where('category_id', $this->id)
+        ->where('active', 1)
         ->get(),
       'links'         => [
         // 'self' => route('cc.show', ['cc' => $this->id]),
