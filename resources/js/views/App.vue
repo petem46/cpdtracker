@@ -109,7 +109,7 @@
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">
 					<img src="/images/layers-icon.png" />
-				</v-avatar>FCAT CPD
+				</v-avatar>FCAT CPD Portal
 			</v-toolbar-title>
 			<v-spacer />
 			<v-tooltip bottom>
@@ -418,7 +418,7 @@ export default {
 	text-decoration: none !important;
 }
 .fa-sm {
-	font-size: small !important;
+	font-size: 1.2rem !important;
 }
 .fade-enter {
 	opacity: 0;

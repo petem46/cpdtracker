@@ -132,6 +132,8 @@ class CourseController extends Controller
       $course->cost = $request->get('cost');
       $course->active = $request->get('active');
       $course->viewcounter = $request->get('viewcounter');
+      $course->startdate = $request->get('startdate');
+      $course->enddate = $request->get('enddate');
       $course->touch();
       $course->save();
       return response('Course Updated Successfully', Response::HTTP_OK);
@@ -145,6 +147,8 @@ class CourseController extends Controller
         'viewcounter' => 0,
         'cost' => $request->get('cost'),
         'length' => $request->get('length'),
+        'startdate' => $request->get('startdate'),
+        'enddate' => $request->get('enddate'),
         'active' => $request->get('active'),
       ]);
 
@@ -166,6 +170,8 @@ class CourseController extends Controller
         'viewcounter' => 0,
         'cost' => $request->get('cost'),
         'length' => $request->get('length'),
+        'startdate' => $request->get('startdate'),
+        'enddate' => $request->get('enddate'),
         'active' => 0,
       ]);
       return response('Course Suggestion Submitted', Response::HTTP_OK);

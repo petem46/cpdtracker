@@ -12,14 +12,15 @@
 				</v-toolbar-items>-->
 			</v-toolbar>
 			<v-form @submit.prevent="submit" ref="form" lazy-validation>
-				<v-card-text>
-					<v-container>
+				<v-container>
+					<v-card-text>
 						<v-row>
 							<v-col cols="12">
 								<v-text-field
 									id="name"
 									v-model="suggested.name"
 									label="Course name"
+									prepend-icon="far fa-bookmark"
 									:rules="rules"
 									hide-details="auto"
 								></v-text-field>
@@ -30,6 +31,7 @@
 									:items="categories"
 									v-model="suggested.category"
 									label="Category"
+									prepend-icon="fa-tags"
 									:rules="rules"
 								></v-select>
 							</v-col>
@@ -38,7 +40,9 @@
 									id="description"
 									v-model="suggested.description"
 									label="Description"
+									prepend-icon="fa-info-circle"
 									:rules="rules"
+									hint="Brief oultine of course details"
 								></v-textarea>
 							</v-col>
 							<v-col cols="12">
@@ -46,41 +50,82 @@
 									id="access_details"
 									v-model="suggested.access_details"
 									label="Access Details"
+									prepend-icon="fa-external-link-alt"
 									:rules="rules"
-									hint="URL or Link to course website"
-									persistent-hint
+									hint="How to access the course materials and/or link to course website"
 								></v-text-field>
 							</v-col>
-							<v-col cols="6">
+							<v-col cols="6" lg="12">
+								<v-menu
+									v-model="startdatepicker"
+									:close-on-content-click="false"
+									transition="scale-transition"
+									offset-y
+									:nudge-right="50"
+									min-width="290px"
+								>
+									<template v-slot:activator="{ on }">
+										<v-text-field
+											v-model="suggested.startdate"
+											label="Course Start Date"
+											prepend-icon="far fa-calendar-check"
+											readonly
+											v-on="on"
+											hint="Leave blank if date not known"
+											persistent-hint
+											clearable
+										></v-text-field>
+									</template>
+									<v-date-picker v-model="suggested.startdate" scrollable @input="startdatepicker = false"></v-date-picker>
+								</v-menu>
+							</v-col>
+							<v-col cols="6" lg="12">
+								<v-menu
+									v-model="enddatepicker"
+									:close-on-content-click="false"
+									transition="scale-transition"
+									offset-y
+									:nudge-right="50"
+									min-width="290px"
+								>
+									<template v-slot:activator="{ on }">
+										<v-text-field
+											v-model="suggested.enddate"
+											label="Course End Date"
+											prepend-icon="far fa-calendar-alt"
+											readonly
+											v-on="on"
+											hint="Leave blank if date not known"
+											persistent-hint
+											clearable
+										></v-text-field>
+									</template>
+									<v-date-picker v-model="suggested.enddate" scrollable @input="enddatepicker = false"></v-date-picker>
+								</v-menu>
+							</v-col>
+							<v-col cols="12" md="12">
 								<v-text-field
 									id="cost"
 									v-model="suggested.cost"
-									label="Cost"
-									hint="If no cost, enter 'Free'"
-									persistent-hint
-								></v-text-field>
-							</v-col>
-							<v-col cols="6" class="d-none">
-								<v-text-field
-									type="number"
-									id="viewcounter"
-									v-model="suggested.viewcounter"
-									label="View Counter"
+									label="Cost of Course"
+									prepend-icon="fa-pound-sign"
+									hint="Details of costs invovled, if no costs please enter 'Free'"
 								></v-text-field>
 							</v-col>
 							<v-col cols="12" class="d-none">
 								<v-switch id="active" v-model="suggested.active" label="Active"></v-switch>
 							</v-col>
 						</v-row>
-					</v-container>
-				</v-card-text>
-
-				<v-card-actions d-none>
-					<v-btn text color="orange accent-3" @click="reset">Reset</v-btn>
-					<v-spacer></v-spacer>
-					<!-- <v-btn text @click="close">Cancel</v-btn> -->
-					<v-btn type="submit" color="green accent-3" text>Submit</v-btn>
-				</v-card-actions>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn outlined text color="orange accent-3" class="ml-10" @click="reset">
+							<v-icon class="mr-3">far fa-times-circle</v-icon>Reset
+						</v-btn>
+						<v-spacer></v-spacer>
+						<!-- <v-btn text @click="close">Cancel</v-btn> -->
+						<v-btn type="submit" color="green accent-3" class text>Submit</v-btn>
+					</v-card-actions>
+				</v-container>
 			</v-form>
 		</v-card>
 	</v-dialog>
@@ -92,13 +137,17 @@ export default {
 		return {
 			// dialog: true,
 			categories: [],
+			startdatepicker: false,
+			enddatepicker: false,
 			suggested: {
 				name: "",
 				category: "",
 				description: "",
 				access_details: "",
+				startdate: "",
+				enddate: "",
 				viewcounter: 0,
-				cost: 0,
+				cost: "",
 				length: 0,
 				active: 0
 			},
@@ -107,8 +156,10 @@ export default {
 				category: "",
 				description: "",
 				access_details: "",
+				startdate: "",
+				enddate: "",
 				viewcounter: 0,
-				cost: 0,
+				cost: "",
 				length: 0,
 				active: 0
 			},
@@ -149,17 +200,17 @@ export default {
 		},
 		submit() {
 			this.$refs.form.validate();
-			if(this.$refs.form.validate()) {
-        axios.post("/post/c/savecourse", this.suggested).then(response => {
-            console.log(this.suggested);
-			    this.snackbar.color = "success";
+			if (this.$refs.form.validate()) {
+				axios.post("/post/c/savecourse", this.suggested).then(response => {
+					console.log(this.suggested);
+					this.snackbar.color = "success";
 					this.snackbar.text = "Course Suggestion Submitted";
 					this.snackbar.show = true;
-			  this.$emit('suggestedsnackbarupdate', this.snackbar);
-			  this.reset();
-			  this.close();
-			});
-      };
+					this.$emit("suggestedsnackbarupdate", this.snackbar);
+					this.reset();
+					this.close();
+				});
+			}
 		},
 		reset() {
 			this.$refs.form.reset();
