@@ -29,17 +29,29 @@
 					<v-col cols="12" md="4" class="order-md-2 order-8">
 						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories"></v-select>
 					</v-col>
-					<v-col cols="12" md="4" class="order-md-last order-first">
+					<v-col cols="12" md="2" class="order-md-3 order-9">
+						<v-select hint="Type Filter" persistent-hint v-model="type" :items="types"></v-select>
+					</v-col>
+					<v-col cols="12" md="2" class="order-md-last order-first">
 						<v-spacer></v-spacer>
-						<v-dialog v-model="dialog" max-width="600px" :fullscreen="$vuetify.breakpoint.smAndDown">
+						<!-- <v-dialog v-model="dialog" max-width="800px" :fullscreen="$vuetify.breakpoint.smAndDown"> -->
+						<v-dialog v-model="dialog" fullscreen>
 							<template v-slot:activator="{ on }">
 								<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add Course</v-btn>
 								<v-btn color="primary" dark class="d-md-none btn-block mb-2 float-left" v-on="on">Add Course</v-btn>
 							</template>
 							<v-card>
-								<v-card-title>
-									<span class="headline">{{ formTitle }}</span>
-								</v-card-title>
+								<v-toolbar color="primary">
+									<v-btn icon @click="close">
+										<v-icon>mdi-close</v-icon>
+									</v-btn>
+									<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
+									<v-spacer></v-spacer>
+									<v-toolbar-items>
+										<v-btn text @click="submit">Save</v-btn>
+									</v-toolbar-items>
+								</v-toolbar>
+                <v-container>
 								<form @submit.prevent="submit">
 									<v-card-text>
 										<v-container>
@@ -83,40 +95,73 @@
 													></v-text-field>
 												</v-col>
 												<v-col cols="12">
-													<v-switch id="active" v-model="editedItem.active" label="Active"></v-switch>
+													<v-radio-group v-model="editedItem.type" column label="Course Status">
+														<v-radio label="Active" color="green accent-3" value="active"></v-radio>
+														<v-radio label="Inactive" color="grey" value="inactive"></v-radio>
+														<v-radio label="Suggested" color="orange accent-3" value="suggested"></v-radio>
+													</v-radio-group>
 												</v-col>
 											</v-row>
 										</v-container>
 									</v-card-text>
 
 									<v-card-actions>
-										<v-btn v-if="formDelete" color="red darken-1" text @click="deleteCourse()">Delete</v-btn>
+										<v-btn v-if="formDelete" outlined color="red darken-1" text @click="deleteCourse()">Delete</v-btn>
 										<v-spacer></v-spacer>
 										<v-btn text @click="close">Cancel</v-btn>
-										<v-btn type="submit" color="green accent-2" text>Save</v-btn>
+										<v-btn type="submit" outlined color="green accent-2" text>Save</v-btn>
 									</v-card-actions>
 								</form>
+                </v-container>
 							</v-card>
 						</v-dialog>
 					</v-col>
 				</v-row>
 			</template>
+			<!--
+      SLOT modifier for course name column
+      include type/status icon
+			-->
+			<template v-slot:item.type="{ item }">
+				<span class="d-none"></span>
+			</template>
+			<template v-slot:item.name="{ item }">
+				<v-avatar v-if="item.type == 'suggested'">
+					<v-icon @click="editItem(item)" color="orange accent-3" class="px-0">far fa-question-circle</v-icon>
+				</v-avatar>
+				<v-avatar v-if="item.type == 'active'">
+					<v-icon @click="editItem(item)" color="green accent-3" class="px-0">fa-power-off</v-icon>
+				</v-avatar>
+				<v-avatar v-if="item.type == 'inactive'">
+					<v-icon @click="editItem(item)" color="grey" class="px-0">fa-power-off</v-icon>
+				</v-avatar>
+				{{ item.name }}
+			</template>
+			<!--
+      SLOT modifier for category column
+			-->
+			<template v-slot:item.category="{ item }">
+				<v-chip small outlined class="mr-2" @click="filterCategory(item)">
+					<v-icon left color="amber">mdi-label</v-icon>
+					{{ item.category }}
+				</v-chip>
+			</template>
+			<!--
+      SLOT modifier for average rating column
+			-->
+			<template v-slot:item.avgrating="{ item }">
+				<!-- <v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating> -->
+				<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon>
+				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
+			</template>
+			<!--
+      SLOT modifier for action buttons
+			-->
 			<template v-slot:item.actions="{ item }">
 				<v-avatar>
 					<v-icon class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
 				</v-avatar>
 				<v-btn @click="courseDetails(item)" outlined text>Details</v-btn>
-			</template>
-			<template v-slot:item.category="{ item }">
-				<v-chip outlined class="mr-2" @click="filterCategory(item)">
-					<v-icon left color="amber">mdi-label</v-icon>
-					{{ item.category }}
-				</v-chip>
-			</template>
-			<template v-slot:item.avgrating="{ item }">
-				<!-- <v-rating :value="roundOff(item.avgrating, 1)" half-increments color="amber" size="1rem"></v-rating> -->
-				<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon>
-				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 		</v-data-table>
 
@@ -145,6 +190,8 @@ export default {
 			courses: [],
 			category: "All",
 			categories: [],
+			type: "Any",
+			types: ["Any", "Active", "Inactive", "Suggested"],
 			search: "",
 			multisort: false,
 			editedIndex: -1,
@@ -156,7 +203,14 @@ export default {
 				viewcounter: 0,
 				cost: 0,
 				length: 0,
-				active: 1
+				startdate: "",
+				enddate: "",
+				active: 1,
+				type: "",
+				suggested_by: "",
+				suggested_date: "",
+				approved_by: "",
+				approved_date: ""
 			},
 			defaultItem: {
 				name: "",
@@ -166,7 +220,14 @@ export default {
 				viewcounter: 0,
 				cost: 0,
 				length: 0,
-				active: 0
+				startdate: "",
+				enddate: "",
+				active: 0,
+				type: "inactive",
+				suggested_by: "",
+				suggested_date: "",
+				approved_by: "",
+				approved_date: ""
 			},
 			snackbar: {
 				color: "",
@@ -178,6 +239,19 @@ export default {
 				y: "top"
 			},
 			datatableheaders: [
+				{
+					text: "",
+					class: "hide",
+					align: "center",
+					sortable: false,
+					value: "type",
+					width: "0%",
+					filter: value => {
+						if (this.type === "Any") return true;
+						if (!this.type) return true;
+						return value === this.type.toLowerCase();
+					}
+				},
 				{
 					text: "Name",
 					align: "left",
@@ -380,3 +454,12 @@ export default {
 	}
 };
 </script>
+<style scoped>
+.v-data-table tr >>> th.hide {
+	width: 1px !important;
+	padding: 0 !important;
+}
+.v-data-table >>> td {
+	padding-left: 0rem !important;
+}
+</style>

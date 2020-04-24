@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
 class CourseController extends Controller
 {
   public function index()
@@ -120,12 +122,35 @@ class CourseController extends Controller
 
   public function savecourse(Request $request)
   {
-
-    // return $data;
-    $course_id = $request->get('id');
+    // get categoryid from request category name
     $category_id = Category::select('id')->where('name', $request->get('category'))->first();
+
+    // CHECK IF THE COURSE EXISTS AND UPDATE FIELDS
+    $course_id = $request->get('id');
     $course = Course::where('id', $course_id)->first();
+    $message = 'Course Added Successfully';
     if ($course) {
+      $message = 'Course Details Updated Successfully';
+
+      // UPDATE FIELDS BASED ON $request type
+      // SUGGSETED COURSES HAVE SUGGESTED FIELDS ETC
+      if ($request->get('type') === 'active' && $course->type === 'suggested') {
+        $course->type = $request->get('type');
+        $course->approved_by = Auth::user()->name;
+        $course->approved_date = now();
+        $message = 'Suggested Course Approved by ' . Auth::user()->name;
+      }
+      if ($request->get('type') === 'suggested' && $course->type === 'suggested') {
+        $message = 'Suggested Course Details Updated by ' . Auth::user()->name;
+      }
+      if ($request->get('type') === 'inactive' && $course->type === 'active') {
+        $message = 'Course set to INACTIVE by ' . Auth::user()->name;
+      }
+      if ($request->get('type') === 'active' && $course->type === 'inactive') {
+        $message = 'Course set to ACTIVE by ' . Auth::user()->name;
+      }
+
+      // UPDATE COMMON COURSE FIELDS
       $course->name = $request->get('name');
       $course->category_id = $category_id->id;
       $course->access_details = $request->get('access_details');
@@ -134,47 +159,79 @@ class CourseController extends Controller
       $course->viewcounter = $request->get('viewcounter');
       $course->startdate = $request->get('startdate');
       $course->enddate = $request->get('enddate');
+      $course->type = $request->get('type');
       $course->touch();
       $course->save();
-      return response('Course Updated Successfully', Response::HTTP_OK);
+      return response($message, Response::HTTP_OK);
     } else {
-      $course = Course::create([
-        'name' => $request->get('name'),
-        'slug' => $request->get('name'),
-        'description' => $request->get('description'),
-        'category_id' => $category_id->id,
-        'access_details' => $request->get('access_details'),
-        'viewcounter' => 0,
-        'cost' => $request->get('cost'),
-        'length' => $request->get('length'),
-        'startdate' => $request->get('startdate'),
-        'enddate' => $request->get('enddate'),
-        'active' => $request->get('active'),
-      ]);
-
-      return response('Course Added Successfully', Response::HTTP_OK);
+      // CREATE NEW COURSE
+      // IF SUGGESTED SET SUGGESTED FIELDS AND LEAVE APPROVED FIELDS null
+      if ($request->get('type') === 'suggested') {
+        $course = Course::create([
+          'name' => $request->get('name'),
+          'slug' => $request->get('name'),
+          'description' => $request->get('description'),
+          'category_id' => $category_id->id,
+          'access_details' => $request->get('access_details'),
+          'viewcounter' => 0,
+          'cost' => $request->get('cost'),
+          'length' => $request->get('length'),
+          'startdate' => $request->get('startdate'),
+          'enddate' => $request->get('enddate'),
+          'active' => $request->get('active'),
+          'type' => $request->get('type'),
+          'suggested_by' => Auth::user()->name,
+          'suggested_date' => now(),
+        ]);
+        return response('Suggested Course Submitted Successfully', Response::HTTP_OK);
+      } else {
+        $approved_by = null;
+        $approved_date = null;
+        // IF NOT SUGGESTED CREATE A NEW ACTIVE || INACTIVE COURSE
+        if ($request->get('type') === 'active') {
+          $approved_by = Auth::user()->name;
+          $approved_date = now();
+        }
+        $course = Course::create([
+          'name' => $request->get('name'),
+          'slug' => $request->get('name'),
+          'description' => $request->get('description'),
+          'category_id' => $category_id->id,
+          'access_details' => $request->get('access_details'),
+          'viewcounter' => 0,
+          'cost' => $request->get('cost'),
+          'length' => $request->get('length'),
+          'startdate' => $request->get('startdate'),
+          'enddate' => $request->get('enddate'),
+          'active' => $request->get('active'),
+          'type' => $request->get('type'),
+          'approved_by' => $approved_by || null,
+          'approved_date' => $approved_date || null,
+        ]);
+        return response('Suggested Course Added Successfully', Response::HTTP_OK);
+      }
     }
-    return response(null, Response::HTTP_OK);
+    return response('This should not be here', Response::HTTP_OK);
   }
 
   public function suggestcourse(Request $request)
   {
 
     $category_id = Category::select('id')->where('name', $request->get('category'))->first();
-      $course = Course::create([
-        'name' => $request->get('name'),
-        'slug' => $request->get('name'),
-        'description' => $request->get('description'),
-        'category_id' => $category_id->id,
-        'access_details' => $request->get('access_details'),
-        'viewcounter' => 0,
-        'cost' => $request->get('cost'),
-        'length' => $request->get('length'),
-        'startdate' => $request->get('startdate'),
-        'enddate' => $request->get('enddate'),
-        'active' => 0,
-      ]);
-      return response('Course Suggestion Submitted', Response::HTTP_OK);
+    $course = Course::create([
+      'name' => $request->get('name'),
+      'slug' => $request->get('name'),
+      'description' => $request->get('description'),
+      'category_id' => $category_id->id,
+      'access_details' => $request->get('access_details'),
+      'viewcounter' => 0,
+      'cost' => $request->get('cost'),
+      'length' => $request->get('length'),
+      'startdate' => $request->get('startdate'),
+      'enddate' => $request->get('enddate'),
+      'active' => 0,
+    ]);
+    return response('Course Suggestion Submitted', Response::HTTP_OK);
   }
 
   public function deleteCourse($id)

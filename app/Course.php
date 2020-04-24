@@ -21,10 +21,9 @@ class Course extends Model
     'active',
     'startdate',
     'enddate',
-    'suggested',
+    'type',
     'suggested_by',
     'suggested_date',
-    'approved',
     'approved_by',
     'approved_date'
   ];

@@ -14,7 +14,7 @@ class AddViewcounterToCoursesTable extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->integer('viewcounter')->after('access_details');
+            $table->integer('viewcounter')->after('access_details')->default(0);
         });
     }
 

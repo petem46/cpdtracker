@@ -16,10 +16,9 @@ class AddSuggestApproveFieldsToCoursesTable extends Migration
     Schema::table('courses', function (Blueprint $table) {
       $table->date('approved_date')->after('enddate')->nullable();
       $table->string('approved_by')->after('enddate')->nullable();
-      $table->boolean('approved')->after('enddate')->default(1);
       $table->date('suggested_date')->after('enddate')->nullable();
       $table->string('suggested_by')->after('enddate')->nullable();
-      $table->boolean('suggested')->after('enddate')->default(0);
+      $table->string('type')->after('enddate')->default('inactive');
     });
   }
 
@@ -31,8 +30,7 @@ class AddSuggestApproveFieldsToCoursesTable extends Migration
   public function down()
   {
     Schema::table('courses', function (Blueprint $table) {
-      $table->dropColumn('suggested');
-      $table->dropColumn('approved');
+      $table->dropColumn('type');
       $table->dropColumn('suggested_by');
       $table->dropColumn('approved_by');
       $table->dropColumn('suggested_date');

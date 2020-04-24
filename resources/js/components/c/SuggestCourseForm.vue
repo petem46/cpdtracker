@@ -21,7 +21,7 @@
 									v-model="suggested.name"
 									label="Course name"
 									prepend-icon="far fa-bookmark"
-									:rules="rules"
+									:rules="nameRules"
 									hide-details="auto"
 								></v-text-field>
 							</v-col>
@@ -32,7 +32,7 @@
 									v-model="suggested.category"
 									label="Category"
 									prepend-icon="fa-tags"
-									:rules="rules"
+									:rules="categoryRules"
 								></v-select>
 							</v-col>
 							<v-col cols="12">
@@ -41,7 +41,7 @@
 									v-model="suggested.description"
 									label="Description"
 									prepend-icon="fa-info-circle"
-									:rules="rules"
+									:rules="descriptionRules"
 									hint="Brief oultine of course details"
 								></v-textarea>
 							</v-col>
@@ -51,7 +51,7 @@
 									v-model="suggested.access_details"
 									label="Access Details"
 									prepend-icon="fa-external-link-alt"
-									:rules="rules"
+									:rules="accessRules"
 									hint="How to access the course materials and/or link to course website"
 								></v-text-field>
 							</v-col>
@@ -110,6 +110,7 @@
 									label="Cost of Course"
 									prepend-icon="fa-pound-sign"
 									hint="Details of costs invovled, if no costs please enter 'Free'"
+                  :rules="costRules"
 								></v-text-field>
 							</v-col>
 							<v-col cols="12" class="d-none">
@@ -147,6 +148,7 @@ export default {
 				startdate: "",
 				enddate: "",
 				viewcounter: 0,
+        type: "suggested",
 				cost: "",
 				length: 0,
 				active: 0
@@ -159,6 +161,7 @@ export default {
 				startdate: "",
 				enddate: "",
 				viewcounter: 0,
+        type: "suggested",
 				cost: "",
 				length: 0,
 				active: 0
@@ -172,10 +175,27 @@ export default {
 				x: null,
 				y: "top"
 			},
-			rules: [
-				value => !!value || "Required.",
+			nameRules: [
+				value => !!value || "A course NAME is required.",
+				value => (value && value.length >= 3) || "Min 2 characters"
+			],
+			categoryRules: [
+				value => !!value || "Please select a CATEGORY.",
 				value => (value && value.length >= 3) || "Min 3 characters"
-			]
+			],
+			descriptionRules: [
+				value => !!value || "Please provide a DESCRIPTION of this course.",
+				value => (value && value.length >= 3) || "Min 3 characters"
+			],
+			accessRules: [
+				value => !!value || "Please provide a ACCESS DETAILS for this course.",
+				value => (value && value.length >= 3) || "Min 3 characters"
+      ],
+			costRules: [
+				value => !!value || "Details of COSTs invovled, if no costs please enter 'Free'.",
+				value => (value && value.length >= 1) || "Min 1 characters"
+      ],
+
 		};
 	},
 	mounted() {
