@@ -301,8 +301,8 @@ export default {
         });
 		},
 		back(val) {
-			console.log(this.$router.go(val));
-			// this.$router.go(val);
+			// console.log(this.$router.go(val));
+			this.$router.go(val);
 		}
 	},
 	computed: {
