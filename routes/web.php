@@ -25,7 +25,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
 
 Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
 
-// Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
   /*
 |- COURSE ROUTES
@@ -82,4 +82,4 @@ Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
   // Route::resource('c', 'CourseController');
 
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-// });
+});
