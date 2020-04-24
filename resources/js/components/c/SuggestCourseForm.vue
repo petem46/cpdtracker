@@ -55,7 +55,7 @@
 									hint="How to access the course materials and/or link to course website"
 								></v-text-field>
 							</v-col>
-							<v-col cols="6" lg="12">
+							<v-col cols="12">
 								<v-menu
 									v-model="startdatepicker"
 									:close-on-content-click="false"
@@ -79,7 +79,7 @@
 									<v-date-picker v-model="suggested.startdate" scrollable @input="startdatepicker = false"></v-date-picker>
 								</v-menu>
 							</v-col>
-							<v-col cols="6" lg="12">
+							<v-col cols="12">
 								<v-menu
 									v-model="enddatepicker"
 									:close-on-content-click="false"
