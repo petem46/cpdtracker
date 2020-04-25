@@ -78,7 +78,11 @@
     </div>
   </nav> --}}
 
+<<<<<<< HEAD
   <main class="py-4" style="padding-bottom: 56px !important; background-color: #121212;">
+=======
+  <main class="py-4" style="padding-bottom: 56px !important; background-color: #121212 !important">
+>>>>>>> master
     @yield('content')
   </main>
 </div>

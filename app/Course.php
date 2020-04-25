@@ -10,24 +10,41 @@ class Course extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'name', 'slug', 'category_id', 'description', 'length', 'cost', 'access_details'
+    'name',
+    'slug',
+    'category_id',
+    'description',
+    'length',
+    'cost',
+    'access_details',
+    'viewcounter',
+    'active',
+    'startdate',
+    'enddate',
+    'type',
+    'suggested_by',
+    'suggested_date',
+    'approved_by',
+    'approved_date'
   ];
 
-  public function category() {
+  public function category()
+  {
     return $this->belongsTo('App\Category');
   }
 
-  public function courserating() {
+  public function courserating()
+  {
     return $this->hasMany('App\CourseRating');
   }
 
-  public function courseprogress() {
+  public function courseprogress()
+  {
     return $this->hasMany('App\CourseProgress');
   }
 
-  public function coursereview() {
+  public function coursereview()
+  {
     return $this->hasMany('App\CourseReview');
   }
-
-
 }

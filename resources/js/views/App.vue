@@ -35,14 +35,12 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item class="d-none">
+					<v-list-item :disabled="this.checkroute()" @click="dialog = true">
 						<v-list-item-icon>
-							<v-icon color="light-green accent-3">mdi-playlist-check</v-icon>
+							<v-icon color="light-green accent-3">mdi-playlist-plus</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
-							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/completed">Completed</router-link>
-							</v-list-item-title>
+							<v-list-item-title>Suggest A Course</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 					<v-list-item class="d-none">
@@ -100,12 +98,18 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<v-app-bar :clipped-left="primaryDrawer.clipped" app dark flat :hide-on-scroll="$vuetify.breakpoint.smAndDown">
+		<v-app-bar
+			:clipped-left="primaryDrawer.clipped"
+			app
+			dark
+			flat
+			:hide-on-scroll="$vuetify.breakpoint.smAndDown"
+		>
 			<v-app-bar-nav-icon @click.stop="primaryDrawer.model = !primaryDrawer.model" />
 			<v-toolbar-title>
 				<v-avatar tile class="mr-5" v-if="!$vuetify.breakpoint.xsOnly">
 					<img src="/images/layers-icon.png" />
-				</v-avatar>FCAT CPD
+				</v-avatar>FCAT CPD Portal
 			</v-toolbar-title>
 			<v-spacer />
 			<v-tooltip bottom>
@@ -240,7 +244,9 @@
 		</v-app-bar>
 		<v-content>
 			<v-container fluid>
-				<router-view @closeappdrawer="closeappdrawer"></router-view>
+				<transition name="fade" mode="out-in">
+					<router-view @closeappdrawer="closeappdrawer"></router-view>
+				</transition>
 			</v-container>
 		</v-content>
 		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
@@ -257,12 +263,34 @@
 				<v-icon>mdi-book-search-outline</v-icon>
 			</v-btn>
 		</v-bottom-navigation>
+		<template>
+			<suggest-course-form :dialog="dialog" @suggestedsnackbarupdate="suggestedsnackbarupdate" @close="closeSuggestForm"></suggest-course-form>
+		</template>
+		<!--
+    ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
+		-->
+		<v-snackbar
+			v-model="suggestedsnackbar.show"
+			:color="suggestedsnackbar.color"
+			:timeout="suggestedsnackbar.timeout"
+			multi-line
+			bottom
+		>
+			{{ suggestedsnackbar.text }}
+			<v-btn text @click="suggestedsnackbar.show = false">Close</v-btn>
+		</v-snackbar>
 	</v-app>
 </template>
 <script>
 import { mdiCog } from "@mdi/js";
+import SuggestCourseForm from "../components/c/SuggestCourseForm";
 export default {
 	props: ["userid", "roleid", "avatar", "name"],
+	watch: {
+		$route: function() {
+			this.checkroute();
+		}
+	},
 	data: () => ({
 		csrf: document
 			.querySelector('meta[name="csrf-token"]')
@@ -274,7 +302,17 @@ export default {
 			mini: false,
 			drawer: false
 		},
+		dialog: false,
 		categories: [],
+		suggestedsnackbar: {
+			color: "",
+			mode: "",
+			show: false,
+			text: "",
+			timeout: 3000,
+			x: null,
+			y: "top"
+		},
 		labelcolors: [
 			"green lighten-2",
 			"orange darken-2",
@@ -306,7 +344,7 @@ export default {
 			axios.get("/get/cat/list").then(({ data }) => {
 				this.categories = data.data;
 			});
-		},
+    },
 		randomItem(items) {
 			return items[Math.floor(Math.random() * items.length)];
 		},
@@ -337,6 +375,9 @@ export default {
 		closeappdrawer() {
 			this.primaryDrawer.model = !this.primaryDrawer.model;
 		},
+		closeSuggestForm() {
+			this.dialog = false;
+		},
 		logout() {
 			axios
 				.post("/logout")
@@ -348,9 +389,27 @@ export default {
 					}
 				})
 				.catch(error => {});
-		}
+		},
+		checkroute() {
+			if (this.$route.path.indexOf("/a/") >= 0) {
+				return true;
+			} else {
+				return false;
+			}
+    },
+    suggestedsnackbarupdate(sb) {
+      this.suggestedsnackbar = sb;
+    }
 	},
-	computed: {}
+	computed: {
+		// isDisabled() {
+		// 	if (this.$router.currentRoute.name == "managecourses") {
+		// 		return true;
+		// 	} else {
+		// 		return false;
+		// 	}
+		// }
+	}
 };
 </script>
 <style>
@@ -359,6 +418,29 @@ export default {
 	text-decoration: none !important;
 }
 .fa-sm {
-  font-size: small !important;
+	font-size: 1.2rem !important;
+}
+.fade-enter {
+	opacity: 0;
+}
+
+.fade-enter-active {
+	transition: opacity 1s ease;
+}
+
+.fade-leave {
+}
+
+.fade-leave-active {
+	transition: opacity 0.5s ease;
+	opacity: 0;
+}
+.btn-block {
+	display: block;
+	width: 100%;
+}
+#id a,
+.disabled a {
+	color: grey !important;
 }
 </style>

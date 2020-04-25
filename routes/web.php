@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/c', 'CategoryController@index');
   Route::get('/get/c/details/{name}', 'CourseController@details');
   Route::get('/get/c/name/{id}', 'CourseController@getname');
+  Route::put('/put/c/updateViewCounter/{id}', 'CourseController@updateViewCounter');
+  Route::delete('/delete/c/deleteCourse/{id}', 'CourseController@deleteCourse');
 
   /*
 |- CATEGORY ROUTES
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
+  Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
 
   /*
 |- MANAGE USERS ROUTES
