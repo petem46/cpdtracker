@@ -22,4 +22,16 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(CategoryCourseSeeder::class);
     }
-}
+
+    // insert into category_course
+    // select null, category_id, id as course_id, null, null, null from courses;
+
+    // update courses set approved_date = '2020-04-01' where approved_date is null
+    // ALTER TABLE `courses` CHANGE `category_id` `category_id` INT(11) NULL;
+    // update courses set category_id = null;
+
+
+  }
+
+
+
