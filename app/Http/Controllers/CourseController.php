@@ -205,8 +205,8 @@ class CourseController extends Controller
           'enddate' => $request->get('enddate'),
           'active' => $request->get('active'),
           'type' => $request->get('type'),
-          'approved_by' => $approved_by || null,
-          'approved_date' => $approved_date || null,
+          'approved_by' => $approved_by,
+          'approved_date' => $approved_date,
         ]);
         return response('Suggested Course Added Successfully', Response::HTTP_OK);
       }
