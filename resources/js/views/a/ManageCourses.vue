@@ -51,68 +51,74 @@
 										<v-btn text @click="submit">Save</v-btn>
 									</v-toolbar-items>
 								</v-toolbar>
-                <v-container>
-								<form @submit.prevent="submit">
-									<v-card-text>
-										<v-container>
-											<v-row>
-												<v-col cols="12">
-													<v-text-field
-														id="name"
-														v-model="editedItem.name"
-														label="Course name"
-														:rules="rules"
-														hide-details="auto"
-													></v-text-field>
-												</v-col>
-												<v-col cols="12">
-													<v-select
-														id="category"
-														:items="categories"
-														v-model="editedItem.category"
-														label="Category"
-													></v-select>
-												</v-col>
-												<v-col cols="12">
-													<v-textarea id="description" v-model="editedItem.description" label="Description"></v-textarea>
-												</v-col>
-												<v-col cols="12">
-													<v-text-field
-														id="access_details"
-														v-model="editedItem.access_details"
-														label="Access Details"
-													></v-text-field>
-												</v-col>
-												<v-col cols="6">
-													<v-text-field id="cost" v-model="editedItem.cost" label="Cost"></v-text-field>
-												</v-col>
-												<v-col v-if="editedIndex > -1" cols="6">
-													<v-text-field
-														type="number"
-														id="viewcounter"
-														v-model="editedItem.viewcounter"
-														label="View Counter"
-													></v-text-field>
-												</v-col>
-												<v-col cols="12">
-													<v-radio-group v-model="editedItem.type" column label="Course Status">
-														<v-radio label="Active" color="green accent-3" value="active"></v-radio>
-														<v-radio label="Inactive" color="grey" value="inactive"></v-radio>
-														<v-radio label="Suggested" color="orange accent-3" value="suggested"></v-radio>
-													</v-radio-group>
-												</v-col>
-											</v-row>
-										</v-container>
-									</v-card-text>
+								<v-container>
+									<form @submit.prevent="submit">
+										<v-card-text>
+											<v-container>
+												<v-row>
+													<v-col cols="12">
+														<v-text-field
+															id="name"
+															v-model="editedItem.name"
+															label="Course name"
+															:rules="rules"
+															hide-details="auto"
+														></v-text-field>
+													</v-col>
+													<v-col cols="12">
+														<v-select
+															id="category"
+															:items="categories"
+															v-model="editedItem.category"
+															label="Category"
+														></v-select>
+													</v-col>
+													<v-col cols="12">
+														<v-textarea id="description" v-model="editedItem.description" label="Description"></v-textarea>
+													</v-col>
+													<v-col cols="12">
+														<v-text-field
+															id="access_details"
+															v-model="editedItem.access_details"
+															label="Access Details"
+														></v-text-field>
+													</v-col>
+													<v-col cols="6">
+														<v-text-field id="cost" v-model="editedItem.cost" label="Cost"></v-text-field>
+													</v-col>
+													<v-col v-if="editedIndex > -1" cols="6">
+														<v-text-field
+															type="number"
+															id="viewcounter"
+															v-model="editedItem.viewcounter"
+															label="View Counter"
+														></v-text-field>
+													</v-col>
+													<v-col cols="12">
+														<v-radio-group v-model="editedItem.type" column label="Course Status">
+															<v-radio label="Active" color="green accent-3" value="active"></v-radio>
+															<v-radio label="Inactive" color="grey" value="inactive"></v-radio>
+															<v-radio label="Suggested" color="orange accent-3" value="suggested"></v-radio>
+														</v-radio-group>
+													</v-col>
+												</v-row>
+											</v-container>
+										</v-card-text>
 
-									<v-card-actions>
-										<v-btn v-if="formDelete" outlined color="red darken-1" text @click="deleteCourse()">Delete</v-btn>
-										<v-spacer></v-spacer>
-										<v-btn text @click="close">Cancel</v-btn>
-										<v-btn type="submit" outlined color="green accent-2" text>Save</v-btn>
-									</v-card-actions>
-								</form>
-                </v-container>
+										<v-card-actions>
+											<v-btn
+												v-if="formDelete"
+												outlined
+												color="red darken-1"
+												text
+												@click="deleteCourse()"
+											>Delete</v-btn>
+											<v-spacer></v-spacer>
+											<v-btn text @click="close">Cancel</v-btn>
+											<v-btn type="submit" outlined color="green accent-2" text>Save</v-btn>
+										</v-card-actions>
+									</form>
+								</v-container>
 							</v-card>
 						</v-dialog>
 					</v-col>
@@ -141,9 +147,17 @@
       SLOT modifier for category column
 			-->
 			<template v-slot:item.category="{ item }">
-				<v-chip small outlined class="mr-2" @click="filterCategory(item)">
+				<v-chip
+					v-for="category in item.category"
+					v-bind="category"
+					:key="category.id"
+					small
+					outlined
+					class="mr-2"
+					@click="filterCategory(category.name)"
+				>
 					<v-icon left color="amber">mdi-label</v-icon>
-					{{ item.category }}
+					{{ category.name }}
 				</v-chip>
 			</template>
 			<!--
@@ -267,9 +281,9 @@ export default {
 					filter: value => {
 						if (this.category === "All") return true;
 						if (!this.category) return true;
-						return value === this.category;
+						return value.name === this.category;
 					},
-					width: "20%"
+					width: "15%"
 				},
 				{
 					text: "Completed",
@@ -434,11 +448,12 @@ export default {
 		clickCheck(item) {
 			alert("you clicked me: " + item);
 		},
-		filterCategory(item) {
-			if (item.category == this.category) {
+		filterCategory(category) {
+      console.log(category)
+			if (category == this.category) {
 				this.category = "All";
 			} else {
-				this.category = item.category;
+				this.category = category;
 			}
 			return true;
 		}

@@ -13,12 +13,14 @@ class CreateCategoriesCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_courses', function (Blueprint $table) {
+        Schema::create('category_course', function (Blueprint $table) {
             $table->id();
             $table->integer('category_id');
             $table->integer('course_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['category_id','course_id']);
         });
     }
 
@@ -29,6 +31,7 @@ class CreateCategoriesCoursesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('category_course');
         Schema::dropIfExists('categories_courses');
     }
 }

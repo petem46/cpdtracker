@@ -16,7 +16,7 @@ class CategoryResource extends JsonResource
       'courses'       => Course::with('courserating')
         ->with('courseprogress')
         ->with('coursereview')
-        ->where('category_id', $this->id)
+        ->whereHas('category',  function($q) { $q->where('category_id', $this->id); })
         ->where('type', 'active')
         ->orderBy('name')
         ->get(),
