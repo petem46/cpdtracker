@@ -122,16 +122,12 @@ class CourseController extends Controller
 
   public function savecourse(Request $request)
   {
-    // get categoryid from request category name
-    $category_id = Category::select('id')->where('name', $request->get('category'))->first();
+    $message = 'Course Added Successfully';
 
     // CHECK IF THE COURSE EXISTS AND UPDATE FIELDS
-    $course_id = $request->get('id');
-    $course = Course::where('id', $course_id)->first();
-    $message = 'Course Added Successfully';
-    if ($course) {
-      $message = 'Course Details Updated Successfully';
+    $course = Course::where('id', $request->get('id'))->first();
 
+    if ($course) {
       // UPDATE FIELDS BASED ON $request type
       // SUGGSETED COURSES HAVE SUGGESTED FIELDS ETC
       if ($request->get('type') === 'active' && $course->type === 'suggested') {
@@ -152,7 +148,6 @@ class CourseController extends Controller
 
       // UPDATE COMMON COURSE FIELDS
       $course->name = $request->get('name');
-      $course->category_id = $category_id->id;
       $course->access_details = $request->get('access_details');
       $course->cost = $request->get('cost');
       $course->active = $request->get('active');
@@ -162,6 +157,14 @@ class CourseController extends Controller
       $course->type = $request->get('type');
       $course->touch();
       $course->save();
+
+      $course->category()->detach();
+      if ($request->get('category')) {
+        foreach ($request->get('category') as $category_id) {
+          $course->category()->attach($category_id);
+        }
+      }
+
       return response($message, Response::HTTP_OK);
     } else {
       // CREATE NEW COURSE
@@ -171,7 +174,6 @@ class CourseController extends Controller
           'name' => $request->get('name'),
           'slug' => $request->get('name'),
           'description' => $request->get('description'),
-          'category_id' => $category_id->id,
           'access_details' => $request->get('access_details'),
           'viewcounter' => 0,
           'cost' => $request->get('cost'),
@@ -183,6 +185,14 @@ class CourseController extends Controller
           'suggested_by' => Auth::user()->name,
           'suggested_date' => now(),
         ]);
+
+        $course->category()->detach();
+        if (!empty($request->get('category'))) {
+          foreach ($request->get('category') as $category_id) {
+            $course->category()->attach($category_id);
+          }
+        }
+
         return response('Suggested Course Submitted Successfully', Response::HTTP_OK);
       } else {
         $approved_by = null;
@@ -196,7 +206,6 @@ class CourseController extends Controller
           'name' => $request->get('name'),
           'slug' => $request->get('name'),
           'description' => $request->get('description'),
-          'category_id' => $category_id->id,
           'access_details' => $request->get('access_details'),
           'viewcounter' => 0,
           'cost' => $request->get('cost'),
@@ -208,30 +217,18 @@ class CourseController extends Controller
           'approved_by' => $approved_by,
           'approved_date' => $approved_date,
         ]);
+
+        $course->category()->detach();
+        if (!empty($request->get('category'))) {
+          foreach ($request->get('category') as $category_id) {
+            $course->category()->attach($category_id);
+          }
+        }
+
         return response('Suggested Course Added Successfully', Response::HTTP_OK);
       }
     }
     return response('This should not be here', Response::HTTP_OK);
-  }
-
-  public function suggestcourse(Request $request)
-  {
-
-    $category_id = Category::select('id')->where('name', $request->get('category'))->first();
-    $course = Course::create([
-      'name' => $request->get('name'),
-      'slug' => $request->get('name'),
-      'description' => $request->get('description'),
-      'category_id' => $category_id->id,
-      'access_details' => $request->get('access_details'),
-      'viewcounter' => 0,
-      'cost' => $request->get('cost'),
-      'length' => $request->get('length'),
-      'startdate' => $request->get('startdate'),
-      'enddate' => $request->get('enddate'),
-      'active' => 0,
-    ]);
-    return response('Course Suggestion Submitted', Response::HTTP_OK);
   }
 
   public function deleteCourse($id)

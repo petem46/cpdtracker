@@ -17,20 +17,22 @@
 			<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 			<template v-slot:top>
 				<v-row class="px-3">
-					<v-col cols="12" md="4" class="order-md-1 order-last">
+					<v-col cols="12" md="6" class="order-md-1 order-last">
 						<v-text-field
 							v-model="search"
-							append-icon="fas fa-search fa-sm"
-							label="Search"
+							prepend-icon="fas fa-search fa-sm"
 							single-line
-							hide-details
-						></v-text-field>
+							hint="Search by course name or category"
+							persistent-hint
+							clearable
+						>
+							<template v-slot:label>
+								Search
+							</template>
+						</v-text-field>
 					</v-col>
-					<v-col cols="12" md="4" class="order-md-2 order-8">
-						<v-select hint="Category Filter" persistent-hint v-model="category" :items="categories"></v-select>
-					</v-col>
-					<v-col cols="12" md="2" class="order-md-3 order-9">
-						<v-select hint="Type Filter" persistent-hint v-model="type" :items="types"></v-select>
+					<v-col cols="12" md="4" class="order-md-3 order-9">
+						<v-select prepend-icon="fa-power-off fa-sm" hint="Type Filter" persistent-hint v-model="type" :items="types"></v-select>
 					</v-col>
 					<v-col cols="12" md="2" class="order-md-last order-first">
 						<v-spacer></v-spacer>
@@ -68,9 +70,12 @@
 													<v-col cols="12">
 														<v-select
 															id="category"
-															:items="categories"
+															:items="categorynames"
 															v-model="editedItem.category"
+															item-text="name"
+															item-value="id"
 															label="Category"
+															multiple
 														></v-select>
 													</v-col>
 													<v-col cols="12">
@@ -133,13 +138,13 @@
 			</template>
 			<template v-slot:item.name="{ item }">
 				<v-avatar v-if="item.type == 'suggested'">
-					<v-icon @click="editItem(item)" color="orange accent-3" class="px-0">far fa-question-circle</v-icon>
+					<v-icon @click="filterType(item)" color="orange accent-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="item.type == 'active'">
-					<v-icon @click="editItem(item)" color="green accent-3" class="px-0">fa-power-off</v-icon>
+					<v-icon @click="filterType(item)" color="green accent-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="item.type == 'inactive'">
-					<v-icon @click="editItem(item)" color="grey" class="px-0">fa-power-off</v-icon>
+					<v-icon @click="filterType(item)" color="grey" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				{{ item.name }}
 			</template>
@@ -148,17 +153,20 @@
 			-->
 			<template v-slot:item.category="{ item }">
 				<v-chip
-					v-for="category in item.category"
-					v-bind="category"
+					v-for="category in item.categorylabel"
+					v-bind="categorylabel"
 					:key="category.id"
 					small
 					outlined
-					class="mr-2"
+					class="mr-2 mb-2"
 					@click="filterCategory(category.name)"
 				>
 					<v-icon left color="amber">mdi-label</v-icon>
 					{{ category.name }}
 				</v-chip>
+			</template>
+			<template v-slot:item.categorylabel="{ item }">
+				<span v-if="item.categorylabel">{{gotest(item.categorylabel)}}</span>
 			</template>
 			<!--
       SLOT modifier for average rating column
@@ -202,16 +210,21 @@ export default {
 			loading: true,
 			dialog: false,
 			courses: [],
-			category: "All",
+			categoryfilter: "All",
+			categorylabel: [],
+			categorynames: [],
 			categories: [],
+			test: [],
+			coursefiltertest: [],
 			type: "Any",
 			types: ["Any", "Active", "Inactive", "Suggested"],
 			search: "",
+			catfilter: "",
 			multisort: false,
 			editedIndex: -1,
 			editedItem: {
 				name: "",
-				category: "",
+				category: [],
 				description: "",
 				access_details: "",
 				viewcounter: 0,
@@ -228,7 +241,7 @@ export default {
 			},
 			defaultItem: {
 				name: "",
-				category: "",
+				category: [],
 				description: "",
 				access_details: "",
 				viewcounter: 0,
@@ -256,7 +269,7 @@ export default {
 				{
 					text: "",
 					class: "hide",
-					align: "center",
+					align: " d-none",
 					sortable: false,
 					value: "type",
 					width: "0%",
@@ -271,19 +284,21 @@ export default {
 					align: "left",
 					sortable: true,
 					value: "name",
-					width: "45%"
+					width: "30%"
 				},
 				{
 					text: "",
 					align: "left",
 					sortable: true,
 					value: "category",
-					filter: value => {
-						if (this.category === "All") return true;
-						if (!this.category) return true;
-						return value.name === this.category;
-					},
-					width: "15%"
+					width: "10%"
+				},
+				{
+					text: "",
+					align: " d-none",
+					sortable: true,
+					value: "categorylabel1",
+					width: "10%"
 				},
 				{
 					text: "Completed",
@@ -329,11 +344,18 @@ export default {
 					value: "viewcounter"
 				},
 				{
+					text: "Date Added",
+					align: "left",
+					sortable: true,
+					value: "approved_date",
+					width: "120px"
+				},
+				{
 					text: "",
 					align: "right",
 					sortable: false,
 					value: "actions",
-					width: "200px"
+					width: "170px"
 				}
 			],
 			rules: [
@@ -344,6 +366,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
+		this.getCategoryNames();
 		this.getCatFilters();
 	},
 	methods: {
@@ -357,6 +380,19 @@ export default {
 					setTimeout(() => {
 						this.loading = false;
 					}, 1000);
+				});
+		},
+		getCategoryNames() {
+			axios
+				.get("/get/cc/catfilter")
+				.then(({ data }) => {
+					this.categorynames = data.categories.map(
+						categorynames => categorynames
+					);
+					// this.test = data.categories.map(categorynames => categorynames.name);
+				})
+				.then(() => {
+					// console.log(this.test);
 				});
 		},
 		getCatFilters() {
@@ -406,7 +442,6 @@ export default {
 		editItem(item) {
 			this.editedIndex = this.courses.indexOf(item);
 			this.editedItem = Object.assign({}, item);
-			console.log(this.editedItem);
 			this.dialog = true;
 		},
 		deleteCourse() {
@@ -425,19 +460,15 @@ export default {
 				});
 		},
 		submit() {
-			this.errors = {};
 			axios
 				.post("/post/c/savecourse", this.editedItem)
 				.then(response => {
-					console.log(this.editedItem);
 					this.dialog = false;
 					this.fetch();
 					this.snackbar.color = "success";
 					this.snackbar.text = response.data;
 					this.snackbar.show = true;
 					this.close();
-
-					// alert(response.data);
 				})
 				.catch(error => {
 					if (error.response.status === 422) {
@@ -449,18 +480,47 @@ export default {
 			alert("you clicked me: " + item);
 		},
 		filterCategory(category) {
-      console.log(category)
-			if (category == this.category) {
-				this.category = "All";
+			console.log(category + this.search);
+			if (category == this.search) {
+				this.search = "";
 			} else {
-				this.category = category;
+				this.search = category;
 			}
 			return true;
+		},
+		filterType(type) {
+			if (type.type == this.type.toLowerCase()) {
+				this.type = "Any";
+			} else {
+				this.type = this.capitalize(type.type);
+				console.log(type.type);
+			}
+			return true;
+		},
+		gotest(item) {
+			item = item.map(item => item.name);
+			item = item.toString();
+			return item;
+		},
+		wiggle(test) {
+			console.log("TEST::: " + test);
+			var i = 0;
+			var length = test.length;
+			var wiggle = [];
+			for (var i = 0; i < length; i++) {
+				wiggle.push(test.lenth[i].name);
+			}
+			console.log(wiggle);
+			return true;
+		},
+		capitalize(string) {
+			if (!string) return "";
+			string.toString();
+			return string.charAt(0).toUpperCase() + string.slice(1);
 		}
 	},
 	computed: {
 		formTitle() {
-			console.log(this.editedIndex);
 			return this.editedIndex === -1 ? "New Course" : "Edit Course";
 		},
 		formDelete() {

@@ -30,9 +30,10 @@
 									id="category"
 									:items="categories"
 									v-model="suggested.category"
+									item-text="name"
+									item-value="id"
 									label="Category"
-									prepend-icon="fa-tags"
-									:rules="categoryRules"
+									multiple
 								></v-select>
 							</v-col>
 							<v-col cols="12">
@@ -110,7 +111,7 @@
 									label="Cost of Course"
 									prepend-icon="fa-pound-sign"
 									hint="Details of costs invovled, if no costs please enter 'Free'"
-                  :rules="costRules"
+									:rules="costRules"
 								></v-text-field>
 							</v-col>
 							<v-col cols="12" class="d-none">
@@ -148,7 +149,7 @@ export default {
 				startdate: "",
 				enddate: "",
 				viewcounter: 0,
-        type: "suggested",
+				type: "suggested",
 				cost: "",
 				length: 0,
 				active: 0
@@ -161,7 +162,7 @@ export default {
 				startdate: "",
 				enddate: "",
 				viewcounter: 0,
-        type: "suggested",
+				type: "suggested",
 				cost: "",
 				length: 0,
 				active: 0
@@ -190,12 +191,13 @@ export default {
 			accessRules: [
 				value => !!value || "Please provide a ACCESS DETAILS for this course.",
 				value => (value && value.length >= 3) || "Min 3 characters"
-      ],
+			],
 			costRules: [
-				value => !!value || "Details of COSTs invovled, if no costs please enter 'Free'.",
+				value =>
+					!!value ||
+					"Details of COSTs invovled, if no costs please enter 'Free'.",
 				value => (value && value.length >= 1) || "Min 1 characters"
-      ],
-
+			]
 		};
 	},
 	mounted() {
@@ -206,10 +208,10 @@ export default {
 			axios
 				.get("/get/cc/catfilter")
 				.then(({ data }) => {
-					this.categories = data.categories.map(categories => categories.name);
+					this.categories = data.categories.map(categories => categories);
 				})
 				.then(() => {
-					this.categories.unshift("All");
+					// this.categories.unshift("All");
 				});
 		},
 		close() {

@@ -22,7 +22,7 @@ class ManageCourseDetails2Resource extends JsonResource
     }
 
     return [
-      'type'          =>  'course',
+      'type'          =>  $this->type,
       'id'            =>  (string) $this->id,
       'name'          => $this->name,
       'categories'      => $this->category,

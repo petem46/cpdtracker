@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
@@ -11,11 +12,21 @@ class ManageCourseResource extends JsonResource
 {
   public function toArray($request)
   {
+    $id = $this->id;
     return [
       'type'          =>  'course',
       'id'            =>  (string) $this->id,
       'name'          => $this->name,
-      'category'      => $this->category,
+      // 'categories'      => $this->category,
+      'category'      => Category::select('id')->whereHas('course', function ($q) use ($id) {
+        $q->where('course_id', '=', $id);
+      })->get(),
+      'categorylabel'      => Category::select('name')->whereHas('course', function ($q) use ($id) {
+        $q->where('course_id', '=', $id);
+      })->get(),
+      'categorylabel1'      => (string) Category::select('name')->whereHas('course', function ($q) use ($id) {
+        $q->where('course_id', '=', $id);
+      })->get(),
       'cost'      => $this->cost,
       'description'      => $this->description,
       'access_details'      => $this->access_details,

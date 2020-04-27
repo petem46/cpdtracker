@@ -84,7 +84,29 @@
 				</v-toolbar>
 			</v-row>
 
-			<h1 class>{{ this.name }}</h1>
+			<h1 class>
+				<v-avatar v-if="this.course.type == 'suggested'">
+					<v-icon color="orange accent-3" class="px-0">fa-power-off</v-icon>
+				</v-avatar>
+				<v-avatar v-if="this.course.type == 'active'">
+					<v-icon color="green accent-3" class="px-0">fa-power-off</v-icon>
+				</v-avatar>
+				<v-avatar v-if="this.course.type == 'inactive'">
+					<v-icon color="grey" class="px-0">fa-power-off</v-icon>
+				</v-avatar>
+				{{ this.name }}
+			</h1>
+			<v-chip
+				v-for="category in this.course.categories"
+				v-bind="category"
+				:key="category.id"
+				small
+				outlined
+				class="mr-2"
+			>
+				<v-icon left color="amber">mdi-label</v-icon>
+				{{ category.name }}
+			</v-chip>
 			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
 			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
 			<v-subheader>
@@ -223,7 +245,7 @@ export default {
 			mystate: 0,
 			publicreviews: [],
 			privatereviews: [],
-			viewcountupdated: 0,
+			viewcountupdated: 0
 		};
 	},
 	mounted() {
@@ -294,11 +316,11 @@ export default {
 				});
 		},
 		updateViewCounter() {
-				this.course.viewcounter = this.course.viewcounter + 1;
-				axios.put("/put/c/updateViewCounter/" + this.course.id).then(() => {
-          this.viewcountupdated = 1;
-					this.fetch();
-        });
+			this.course.viewcounter = this.course.viewcounter + 1;
+			axios.put("/put/c/updateViewCounter/" + this.course.id).then(() => {
+				this.viewcountupdated = 1;
+				this.fetch();
+			});
 		},
 		back(val) {
 			// console.log(this.$router.go(val));
