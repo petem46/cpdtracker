@@ -361,7 +361,7 @@ export default {
 			}
 		},
 		publicPrivateLabel(item) {
-      if(item) {return "Public"} else {return "Private"}
+      if(item.public == 1) {return "Public"} else {return "Private"}
     }
 	},
 	computed: {
