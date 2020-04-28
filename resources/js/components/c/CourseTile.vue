@@ -10,13 +10,15 @@
 						style="height: 100%;"
 					>
 						<div class="pa-3">
-							<!-- {{ description }} -->
-							<br />
+							<div class="module fade">
+								<p class="cpation">{{ description }}</p>
+							</div>
 							<v-btn
 								@click="courseDetails(name);"
 								min-width="100px"
 								class="mx-auto mb-1 teal--text"
 								color="white"
+                small
 							>Details</v-btn>
 							<br />
 							<v-btn
@@ -26,9 +28,10 @@
 								outlined
 								class="mx-auto"
 								color="white"
+                small
 							>Review</v-btn>
-							<br />
-							Cost: {{ cost }}
+							<!-- <br />
+							Cost: {{ cost }}-->
 						</div>
 					</div>
 				</v-expand-transition>
@@ -287,9 +290,9 @@ export default {
 			this.$emit("addcoursedata", this.addtocourseid, this.addtocoursename);
 			return true;
 		},
-    addReview(id) {
-      this.$router.push("/r/add/" + id);
-    },
+		addReview(id) {
+			this.$router.push("/r/add/" + id);
+		},
 		checkUserProgress(courseprogress) {
 			var state = 0;
 			var length = courseprogress.length;
@@ -350,7 +353,10 @@ export default {
 		},
 		courseDetails(value) {
 			this.$emit("closeappdrawer");
-			this.$router.push({ path: "/c/details/" + value, params: {review: true}});
+			this.$router.push({
+				path: "/c/details/" + value,
+				params: { review: true }
+			});
 		}
 	},
 	computed: {
@@ -360,3 +366,18 @@ export default {
 	}
 };
 </script>
+<style>
+.module {
+  width: 250px;
+  margin: 0 0 1em 0;
+  overflow: hidden;
+}
+.module p {
+  margin: 0;
+}
+.fade {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+</style>
