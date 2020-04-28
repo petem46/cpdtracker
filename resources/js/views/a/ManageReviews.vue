@@ -127,7 +127,7 @@
 									></v-text-field>
 								</v-col>
 								<v-col cols="12">
-									<v-switch id="public" v-model="editedItem.public" label="Public"></v-switch>
+									<v-switch id="public" v-model="editedItem.public" :label="publicPrivateLabel(editedItem.public)"></v-switch>
 								</v-col>
 							</v-row>
 						</v-container>
@@ -412,7 +412,10 @@ export default {
 			} else {
 				return false;
 			}
-		}
+    },
+		publicPrivateLabel(item) {
+      if(item) {return "Public"} else {return "Private"}
+    }
 	},
 	computed: {
 		formTitle() {
