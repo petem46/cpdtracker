@@ -137,7 +137,7 @@ export default {
 				course: "",
 				courseid: "",
 				reviewer: this.getUserName,
-				public: true
+				public: ""
 			},
 			defaultItem: {
 				id: "",
@@ -145,7 +145,7 @@ export default {
 				course: "",
 				courseid: "",
 				reviewer: this.getUserName,
-				public: true
+				public: ""
 			},
 			snackbar: {
 				color: "",
