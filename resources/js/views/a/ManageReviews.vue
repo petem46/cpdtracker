@@ -339,7 +339,14 @@ export default {
 		},
 		editItem(item) {
 			this.editedIndex = this.reviews.indexOf(item);
-			this.editedItem = Object.assign({}, item);
+      this.editedItem = Object.assign({}, item);
+
+      if (this.editedItem.public == 1) {
+				this.editedItem.public = true;
+			} else {
+				this.editedItem.public = false;
+      }
+
 			this.dialog = true;
 		},
 		gotoCourse(item) {
