@@ -148,6 +148,7 @@ class CourseController extends Controller
 
       // UPDATE COMMON COURSE FIELDS
       $course->name = $request->get('name');
+      $course->description = $request->get('description');
       $course->access_details = $request->get('access_details');
       $course->cost = $request->get('cost');
       $course->active = $request->get('active');
