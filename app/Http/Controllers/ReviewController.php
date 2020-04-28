@@ -42,14 +42,21 @@ class ReviewController extends Controller
     // $review = CourseReview::where('course_id', $course_id->id)->where('user_id', Auth::id())->first();
 
     if ($request->get('id')) {
+
       $review = CourseReview::where('id', $request->get('id'))->where('user_id', Auth::id())->first();
+
     } elseif ($request->get('course_id')) {
+
       $course_id = $request->get('course_id');
       $review = CourseReview::where('course_id', $request->get('course_id'))->where('user_id', Auth::id())->first();
+
     } elseif ($request->get('course')) {
-      $course = Course::where('name', $request->get('course'))->where('user_id', Auth::id())->first();
+
+      $course = Course::where('name', $request->get('course'))->first();
       $course_id = $course->id;
-      $review = CourseReview::where('course_id', $request->get('course_id'))->where('user_id', Auth::id())->first();
+
+      $review = CourseReview::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+
     }
 
     if ($review) {

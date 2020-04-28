@@ -86,7 +86,7 @@ export default {
 			});
 		},
 		submit() {
-			this.errors = {};
+			// this.errors = {};
 			// this.review.course = this.cname;
 			axios.post("/post/r/savereview", this.review).then(response => {
 				this.dialog = false;
