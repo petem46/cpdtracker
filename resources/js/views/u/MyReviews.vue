@@ -85,7 +85,11 @@
 									></v-text-field>
 								</v-col>
 								<v-col cols="12">
-									<v-switch id="public" v-model="editedItem.public" label="Public"></v-switch>
+									<v-switch
+										id="public"
+										v-model="editedItem.public"
+										:label="publicPrivateLabel(editedItem.public)"
+									></v-switch>
 								</v-col>
 							</v-row>
 						</v-container>
@@ -133,7 +137,7 @@ export default {
 			editedIndex: -1,
 			editedItem: {
 				id: "",
-        review: "",
+				review: "",
 				course: "",
 				courseid: "",
 				reviewer: this.getUserName,
@@ -145,7 +149,7 @@ export default {
 				course: "",
 				courseid: "",
 				reviewer: this.getUserName,
-				public: ""
+				public: false
 			},
 			snackbar: {
 				color: "",
@@ -271,7 +275,7 @@ export default {
 			}, 300);
 		},
 		editItem(item) {
-      this.editedIndex = this.reviews.indexOf(item);
+			this.editedIndex = this.reviews.indexOf(item);
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -280,22 +284,23 @@ export default {
 			this.dialog = true;
 		},
 		deleteReview() {
-      axios.delete("/delete/r/deleteMyReview/" + this.editedItem.id)
-      .then(response => {
-				this.dialog = false;
-				this.fetch();
-				this.snackbar.color = "red";
-				this.snackbar.text = response.data;
-				this.snackbar.show = true;
-				setTimeout(() => {
-					this.editedItem = Object.assign({}, this.defaultItem);
-					this.editedIndex = -1;
-				}, 300);
-			});
+			axios
+				.delete("/delete/r/deleteMyReview/" + this.editedItem.id)
+				.then(response => {
+					this.dialog = false;
+					this.fetch();
+					this.snackbar.color = "red";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
+					setTimeout(() => {
+						this.editedItem = Object.assign({}, this.defaultItem);
+						this.editedIndex = -1;
+					}, 300);
+				});
 		},
 		submit() {
-      this.errors = {};
-      // console.log(this.editedItem);
+			this.errors = {};
+			// console.log(this.editedItem);
 			axios
 				.post("/post/r/savereview", this.editedItem)
 				.then(response => {
@@ -354,7 +359,10 @@ export default {
 			} else {
 				return false;
 			}
-		}
+		},
+		publicPrivateLabel(item) {
+      if(item) {return "Public"} else {return "Private"}
+    }
 	},
 	computed: {
 		formTitle() {
