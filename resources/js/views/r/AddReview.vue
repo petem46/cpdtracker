@@ -71,8 +71,8 @@ export default {
 				this.coursename = data.course[0].name;
 				this.getMyReview();
 				// this.review.course = this.cname;
-        this.review.course = this.coursename;
-        this.loading = false;
+				this.review.course = this.coursename;
+				this.loading = false;
 			});
 		},
 		getMyReview() {
@@ -81,6 +81,11 @@ export default {
 				if (data.myreview.length > 0) {
 					this.review = data.myreview[0];
 					this.review.course = this.cname;
+					if (this.review.public == 1) {
+						this.review.public = true;
+					} else {
+						this.review.public = false;
+					}
 				}
 				// this.review.course = this.cname;
 			});
@@ -108,8 +113,12 @@ export default {
 			});
 		},
 		publicPrivateLabel(item) {
-      if(item) {return "Public"} else {return "Private"}
-    }
+			if (item) {
+				return "Public";
+			} else {
+				return "Private";
+			}
+		}
 	},
 	computed: {
 		cname() {

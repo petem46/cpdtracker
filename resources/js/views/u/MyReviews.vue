@@ -277,6 +277,13 @@ export default {
 		editItem(item) {
 			this.editedIndex = this.reviews.indexOf(item);
 			this.editedItem = Object.assign({}, item);
+
+      if (this.editedItem.public == 1) {
+				this.editedItem.public = true;
+			} else {
+				this.editedItem.public = false;
+			}
+
 			this.dialog = true;
 		},
 		addReview() {
@@ -361,7 +368,7 @@ export default {
 			}
 		},
 		publicPrivateLabel(item) {
-      if(item.public == 1) {return "Public"} else {return "Private"}
+      if(item) {return "Public"} else {return "Private"}
     }
 	},
 	computed: {
