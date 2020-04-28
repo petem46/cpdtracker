@@ -10,7 +10,7 @@
 						style="height: 100%;"
 					>
 						<div class="pa-3">
-							{{ description }}
+							<!-- {{ description }} -->
 							<br />
 							<v-btn
 								@click="courseDetails(name);"
