@@ -21,7 +21,7 @@
 								auto-grow
 								counter="500"
 							></v-textarea>
-							<v-switch id="public" v-model="review.public" label="Public"></v-switch>
+							<v-switch id="public" v-model="review.public" :label="publicPrivateLabel(review.public)"></v-switch>
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
@@ -106,7 +106,10 @@ export default {
 				path: "/c/details/" + this.coursename,
 				params: { review: false }
 			});
-		}
+		},
+		publicPrivateLabel(item) {
+      if(item) {return "Public"} else {return "Private"}
+    }
 	},
 	computed: {
 		cname() {
