@@ -58,6 +58,7 @@ import UserInProgress from './views/u/UserInProgress'
 import UserShortlist from './views/u/UserShortlist'
 
 import ManageUsers from './views/a/ManageUsers'
+import ManageCategories from './views/a/ManageCategories'
 import ManageCourses from './views/a/ManageCourses'
 import ManageReviews from './views/a/ManageReviews'
 
@@ -122,6 +123,11 @@ const router = new VueRouter({
       path: '/a/manageusers',
       name: 'manageusers',
       component: ManageUsers
+    },
+    {
+      path: '/a/managecategories',
+      name: 'managecategories',
+      component: ManageCategories
     },
     {
       path: '/a/managecourses',

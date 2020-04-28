@@ -25,7 +25,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
 
 Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
 
-Route::group(['middleware' => ['auth']], function () {
+// Route::group(['middleware' => ['auth']], function () {
 
   /*
 |- COURSE ROUTES
@@ -38,14 +38,15 @@ Route::group(['middleware' => ['auth']], function () {
   Route::delete('/delete/c/deleteCourse/{id}', 'CourseController@deleteCourse');
 
   /*
-|- CATEGORY ROUTES
-*/
+  |- CATEGORY ROUTES
+  */
   Route::get('/get/cc/catfilter', 'CategoryController@catfilter');
   Route::get('/get/cc', 'CategoryController@list');
   Route::get('/get/cats', 'CategoryController@list');
   Route::get('/get/cat/list', 'CategoryController@list');
   Route::get('/get/cc/list', 'CategoryController@list');
   Route::get('/get/cat/{catname}', 'CategoryController@show');
+  Route::delete('/delete/cc/deleteCategory/{id}', 'CategoryController@deleteCategory');
 
   /*
 |- USER ROUTES
@@ -77,9 +78,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/r/reviewers', 'ReviewController@reviewers');
   Route::post('/post/r/savereview', 'ReviewController@savereview');
 
+  /*
+  |- MANAGE CATEGORIES ROUTES
+  */
+  Route::post('/post/cc/savecategory', 'CategoryController@saveCategory');
 
   // Route::resource('cc', 'CategoryController');
   // Route::resource('c', 'CourseController');
 
   Route::get('/{any}', 'SpaController@index')->where('any', '.*');
-});
+// });

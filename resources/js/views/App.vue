@@ -184,7 +184,7 @@
 									</v-avatar>Manage Reviews
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item disabled @click="gotoManageReviews" class="ml-0 pl-0">
+							<v-list-item @click="gotoManageCategories" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>fas fa-tags</v-icon>
@@ -359,6 +359,9 @@ export default {
 		},
 		gotoManageReviews() {
 			this.$router.push("/a/managereviews");
+		},
+		gotoManageCategories() {
+			this.$router.push("/a/managecategories");
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");
