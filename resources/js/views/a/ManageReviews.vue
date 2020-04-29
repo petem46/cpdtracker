@@ -46,7 +46,7 @@
 				<span v-if="$vuetify.breakpoint.xsOnly" @click="filterCourse(item)">{{ item.course }}</span>
 			</template>
 			<template v-slot:item.reviewer="{ item }">
-				<v-chip outlined color="white" small @click="filterReviewer(item)">{{ item.reviewer }}</v-chip>
+				<v-chip outlined small @click="filterReviewer(item)">{{ item.reviewer }}</v-chip>
 			</template>
 			<template v-slot:item.actions="{ item }">
 				<v-menu offset-y bottom left>

@@ -31,7 +31,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/mycourses">My CPD Record</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/u/mycpdrecord">My CPD Record</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -521,5 +521,36 @@ export default {
 #id a,
 .disabled a {
 	color: grey !important;
+}
+
+html {
+	--scrollbarBG: #272727;
+	--thumbBG: #121212;
+}
+body::-webkit-scrollbar {
+	width: 11px;
+}
+body {
+	scrollbar-width: thin;
+	scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+	background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+	background-color: var(--thumbBG);
+	border-radius: 6px;
+	border: 3px solid var(--scrollbarBG);
+}
+
+.v-navigation-drawer {
+	overflow: hidden;
+}
+
+.v-navigation-drawer__content {
+	margin-bottom: -50px; /* maximum width of scrollbar */
+	padding-bottom: 50px; /* maximum width of scrollbar */
+	margin-right: -50px; /* maximum width of scrollbar */
+	padding-right: 50px; /* maximum width of scrollbar */
 }
 </style>

@@ -10,6 +10,7 @@ use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
+use App\Http\Resources\MyCPDCoursesResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,17 @@ class CourseController extends Controller
       })->get()),
       'shortlisted' => new MyCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('state_id', '=', 3)->where('user_id', '=', $uid);
+      })->get()),
+    ];
+    return $data;
+  }
+
+  public function getMyCPD()
+  {
+    $uid = Auth::id();
+    $data = [
+      'mycpd' => new MyCPDCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('user_id', '=', $uid);
       })->get()),
     ];
     return $data;
