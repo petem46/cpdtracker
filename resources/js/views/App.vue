@@ -27,11 +27,11 @@
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon>mdi-folder-account-outline</v-icon>
+							<v-icon color="yellow accent-3">mdi-folder-account-outline</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/mycourses">My Courses</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/u/mycpdrecord">My CPD Record</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -64,6 +64,71 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
+				<v-subheader>GOV.UK - National Careers Service</v-subheader>
+				<v-list-item-group>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a
+									href="https://nationalcareers.service.gov.uk/find-a-course/the-skills-toolkit"
+									target="_blank"
+								>The Skills Toolkit</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a
+									href="https://nationalcareers.service.gov.uk/find-a-course/where-to-find-free-online-learning"
+									target="_blank"
+								>Free Online Learning</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a
+									href="https://nationalcareers.service.gov.uk/find-a-course/search"
+									target="_blank"
+								>ESFA Find a Course</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
+				<v-subheader>External Offers</v-subheader>
+				<v-list-item-group>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a href="#" target="_blank">Randstad</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a href="#" target="_blank">Hays</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
 				<v-subheader>CATEGORIES</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -82,7 +147,7 @@
 						:key="category.id"
 					>
 						<v-list-item-icon>
-							<v-icon color="white">mdi-label</v-icon>
+							<v-icon :color="tagcolor(category.name)">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -264,7 +329,11 @@
 			</v-btn>
 		</v-bottom-navigation>
 		<template>
-			<suggest-course-form :dialog="dialog" @suggestedsnackbarupdate="suggestedsnackbarupdate" @close="closeSuggestForm"></suggest-course-form>
+			<suggest-course-form
+				:dialog="dialog"
+				@suggestedsnackbarupdate="suggestedsnackbarupdate"
+				@close="closeSuggestForm"
+			></suggest-course-form>
 		</template>
 		<!--
     ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
@@ -344,9 +413,16 @@ export default {
 			axios.get("/get/cat/list").then(({ data }) => {
 				this.categories = data.data;
 			});
-    },
+		},
 		randomItem(items) {
 			return items[Math.floor(Math.random() * items.length)];
+		},
+		tagcolor(tag) {
+			if (tag === "Compulsory") {
+				return "yellow accent-3";
+			} else {
+				return "white";
+			}
 		},
 		getlabelcolour(id) {
 			return this.randomItem(this.labelcolors);
@@ -399,10 +475,10 @@ export default {
 			} else {
 				return false;
 			}
-    },
-    suggestedsnackbarupdate(sb) {
-      this.suggestedsnackbar = sb;
-    }
+		},
+		suggestedsnackbarupdate(sb) {
+			this.suggestedsnackbar = sb;
+		}
 	},
 	computed: {
 		// isDisabled() {
@@ -445,5 +521,36 @@ export default {
 #id a,
 .disabled a {
 	color: grey !important;
+}
+
+html {
+	--scrollbarBG: #272727;
+	--thumbBG: #121212;
+}
+body::-webkit-scrollbar {
+	width: 11px;
+}
+body {
+	scrollbar-width: thin;
+	scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+	background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+	background-color: var(--thumbBG);
+	border-radius: 6px;
+	border: 3px solid var(--scrollbarBG);
+}
+
+.v-navigation-drawer {
+	overflow: hidden;
+}
+
+.v-navigation-drawer__content {
+	margin-bottom: -50px; /* maximum width of scrollbar */
+	padding-bottom: 50px; /* maximum width of scrollbar */
+	margin-right: -50px; /* maximum width of scrollbar */
+	padding-right: 50px; /* maximum width of scrollbar */
 }
 </style>

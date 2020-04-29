@@ -26,13 +26,17 @@
 							persistent-hint
 							clearable
 						>
-							<template v-slot:label>
-								Search
-							</template>
+							<template v-slot:label>Search</template>
 						</v-text-field>
 					</v-col>
 					<v-col cols="12" md="4" class="order-md-3 order-9">
-						<v-select prepend-icon="fa-power-off fa-sm" hint="Type Filter" persistent-hint v-model="type" :items="types"></v-select>
+						<v-select
+							prepend-icon="fa-power-off fa-sm"
+							hint="Type Filter"
+							persistent-hint
+							v-model="type"
+							:items="types"
+						></v-select>
 					</v-col>
 					<v-col cols="12" md="2" class="order-md-last order-first">
 						<v-spacer></v-spacer>
@@ -177,6 +181,12 @@
 				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 			<!--
+      SLOT modifier for average rating column
+			-->
+			<template
+				v-slot:item.approved_date="{ item }"
+			>{{ item.approved_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<!--
       SLOT modifier for action buttons
 			-->
 			<template v-slot:item.actions="{ item }">
@@ -204,6 +214,8 @@
 </template>
 <script>
 import Axios from "axios";
+import VueFilterDateParse from "vue-filter-date-format";
+
 export default {
 	data() {
 		return {

@@ -50,6 +50,7 @@ import AddReview from './views/r/AddReview'
 import UserCompleted from './views/u/UserCompleted'
 import UserDashboard from './views/u/UserDashboard'
 
+import MyCPDRecord from './views/u/MyCPDRecord'
 import MyCourses from './views/u/MyCourses'
 import MyProfile from './views/u/MyProfile'
 import MyReviews from './views/u/MyReviews'
@@ -105,7 +106,7 @@ const store = new Vuex.Store({
 
 const router = new VueRouter({
   mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
   },
   routes: [
@@ -172,6 +173,11 @@ const router = new VueRouter({
       path: '/u/dashboard',
       name: 'userdashboard',
       component: UserDashboard
+    },
+    {
+      path: '/u/mycpdrecord',
+      name: 'usermycpdrecord',
+      component: MyCPDRecord
     },
     {
       path: '/u/mycourses',
