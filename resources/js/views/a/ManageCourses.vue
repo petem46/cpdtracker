@@ -183,9 +183,11 @@
 			<!--
       SLOT modifier for average rating column
 			-->
-			<template
-				v-slot:item.approved_date="{ item }"
-			>{{ item.approved_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template v-slot:item.approved_date="{ item }">
+				<div
+					v-if="item.approved_date"
+				>{{ item.approved_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+			</template>
 			<!--
       SLOT modifier for action buttons
 			-->
