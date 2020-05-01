@@ -24,7 +24,7 @@
 			</v-expand-transition>
 
 			<v-row v-for="category in courses" v-bind="category" :key="category.id">
-				<h1 v-if="category.courses.length == 0 && endpoint != '/get/c'" class="col-12 font-weight-light">No {{ category.name }} courses available</h1>
+				<h1 v-if="category.courses.length == 0 && endpoint != '/get/c'" class="col-12 font-weight-light">No {{ category.name }} courses available at the moment</h1>
 				<h1 v-if="category.courses.length > 0" class="col-12 font-weight-light">{{ category.name }}</h1>
 				<course-tile
 					v-for="course in category.courses"

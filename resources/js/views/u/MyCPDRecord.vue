@@ -7,31 +7,49 @@
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 			<v-data-table :headers="datatableheaders" :items="mycpd" :search="search">
 				<template v-slot:item.myprogress="{ item }">
-					<v-chip v-if="item.myprogress == 1" small outlined class="mr-2 white--text">
-						<v-icon color="blue lighten-3">fa-user-clock fa-sm</v-icon>
+					<v-avatar v-if="item.myprogress == 1" size="36">
+						<v-icon color="blue">mdi-alarm</v-icon>
+					</v-avatar>
+					<v-avatar v-if="item.myprogress == 2" size="36">
+						<v-icon color="green">mdi-check</v-icon>
+					</v-avatar>
+					<v-avatar v-if="item.myprogress == 3" size="36">
+						<v-icon color="pink">mdi-heart</v-icon>
+					</v-avatar>
+					<!-- <v-chip v-if="item.myprogress == 1" outlined class="">
+						<v-icon class="mr-2" color="blue">mdi-alarm</v-icon>
+            Started
 					</v-chip>
-					<v-chip v-if="item.myprogress == 2" small outlined class="mr-2 white--text">
-						<v-icon color="green accent-3">fa-user-check fa-sm</v-icon>
+					<v-chip v-if="item.myprogress == 2" outlined class="">
+						<v-icon class="mr-2" color="green">mdi-check</v-icon>
+            Completed
 					</v-chip>
-					<v-chip v-if="item.myprogress == 3" small outlined class="mr-2 white--text">
-						<v-icon color="amber">fa-user-plus fa-sm</v-icon>
-					</v-chip>
+					<v-chip v-if="item.myprogress == 3" outlined class="">
+						<v-icon class="mr-2" color="pink">mdi-heart</v-icon>
+            Shortlisted
+					</v-chip> -->
+				</template>
+
+				<template v-slot:item.start_date="{ item }">
+					<div
+						v-if="item.start_date"
+					>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+				</template>
+				<template v-slot:item.completed_date="{ item }">
+					<div
+						v-if="item.completed_date"
+					>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
 				</template>
 
 				<template v-slot:item.myrating="{ item }">
-					<v-icon v-if="item.myrating" color="amber accent-3" class="mr-2">fa-star fa-sm</v-icon>
+					<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
 					{{ item.myrating }}
 				</template>
 				<template v-slot:item.avgrating="{ item }">
-					<v-icon v-if="item.avgrating" color="amber accent-3" class="mr-2">fa-star fa-sm</v-icon>
+					<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
 					{{ roundOff(item.avgrating, 1) }}
 				</template>
-				<template
-					v-slot:item.startdate="{ item }"
-				>{{ item.startdate | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
-				<template
-					v-slot:item.enddate="{ item }"
-				>{{ item.enddate | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+
 				<template v-slot:item.actions="{ item }">
 					<v-menu offset-y bottom left>
 						<template v-slot:activator="{ on }">
@@ -41,20 +59,25 @@
 							<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
 						</template>
 						<v-list>
-							<v-list-item @click="editItem(item)">
-								<v-avatar>
-									<v-icon class="mr-2">mdi-pencil</v-icon>
-								</v-avatar>Edit Details
-							</v-list-item>
 							<v-list-item @click="gotoCourse(item)">
 								<v-avatar>
 									<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
 								</v-avatar>View Course
 							</v-list-item>
-							<v-list-item disabled>
+							<v-list-item @click="changestate(item, 2)">
 								<v-avatar>
-									<v-icon class="mr-2">mdi-account-search-outline</v-icon>
-								</v-avatar>Menu Item
+									<v-icon color="green accent-3" class="mr-2">fa-user-check fa-sm</v-icon>
+								</v-avatar>Set Completed
+							</v-list-item>
+							<v-list-item @click="changestate(item, 1)">
+								<v-avatar>
+									<v-icon color="blue lighten-3" class="mr-2">fa-user-clock fa-sm</v-icon>
+								</v-avatar>Set Started
+							</v-list-item>
+							<v-list-item @click="changestate(item, 3)">
+								<v-avatar>
+									<v-icon color="amber" class="mr-2">fa-user-plus fa-sm</v-icon>
+								</v-avatar>Set Shortlisted
 							</v-list-item>
 						</v-list>
 					</v-menu>
@@ -76,7 +99,8 @@ export default {
 				{
 					text: "",
 					align: "left",
-					value: "myprogress"
+          value: "myprogress",
+          width: "40px"
 				},
 				{
 					text: "Course",
@@ -84,14 +108,14 @@ export default {
 					value: "name"
 				},
 				{
-					text: "Provider",
+					text: "Start Date",
 					align: "left",
-					value: "provider"
+					value: "start_date"
 				},
 				{
-					text: "Method",
+					text: "Completed Date",
 					align: "left",
-					value: "method"
+					value: "completed_date"
 				},
 				{
 					text: "My Rating",
@@ -107,7 +131,7 @@ export default {
 					text: "Review",
 					align: "left",
 					value: "myreview",
-					width: "50%"
+					width: "25%"
 				},
 				{
 					text: "",
@@ -136,11 +160,36 @@ export default {
 		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
-    },
-		gotoCourse(item) {
-      this.$router.push("/c/details/" + item.name);
 		},
-
+		gotoCourse(item) {
+			this.$router.push("/c/details/" + item.name);
+		},
+		changestate(item, state) {
+			if (this.myprogress == state) {
+				return true;
+			} else {
+				axios.put("/put/u/addToMyCourses/" + item.id + "/" + state).then(() => {
+					this.fetch();
+				});
+			}
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green";
+			}
+			if (value > 3) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange darken-4";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
+		}
 	}
 };
 </script>

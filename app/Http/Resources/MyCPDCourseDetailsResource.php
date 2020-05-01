@@ -22,8 +22,9 @@ class MyCPDCourseDetailsResource extends JsonResource
         'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
         'myrating'       => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->max('rating'),
         'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
-
         'myprogress'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('state_id'),
+        'start_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('start_date'),
+        'completed_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('completed_date'),
         'myreview'        => CourseReview::where('user_id', $uid)->where('course_id', $this->id)->max('review'),
     ];
     }

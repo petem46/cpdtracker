@@ -72,16 +72,29 @@ class CourseController extends Controller
 
   public function addToMyCourses($course_id, $state_id)
   {
+    $completed_date = null;
+    $start_date = null;
+    if ($state_id == 2 || $state_id == 1) {
+      $start_date = now();
+    }
+    if ($state_id == 2) {
+      $completed_date = now();
+    }
+
     $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
     if ($mycourse) {
       $mycourse->state_id = $state_id;
+      $mycourse->start_date = $start_date;
+      $mycourse->completed_date = $completed_date;
       $mycourse->touch();
       $mycourse->save();
     } else {
       $mycourse = CourseProgress::create([
-        'course_id'   => $course_id,
-        'user_id'     => Auth::id(),
-        'state_id'    => $state_id,
+        'course_id'      => $course_id,
+        'user_id'        => Auth::id(),
+        'state_id'       => $state_id,
+        'start_date'     => $start_date,
+        'completed_date' => $completed_date,
       ]);
     }
     return response(null, Response::HTTP_OK);
