@@ -7,14 +7,17 @@
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 			<v-data-table :headers="datatableheaders" :items="mycpd" :search="search">
 				<template v-slot:item.myprogress="{ item }">
-					<v-chip v-if="item.myprogress == 1" small outlined class="mr-2 white--text">
-						<v-icon color="blue lighten-3">fa-user-clock fa-sm</v-icon>
+					<v-chip v-if="item.myprogress == 1" outlined class="">
+						<v-icon class="mr-2" color="blue">mdi-alarm</v-icon>
+            Started
 					</v-chip>
-					<v-chip v-if="item.myprogress == 2" small outlined class="mr-2 white--text">
-						<v-icon color="green accent-3">fa-user-check fa-sm</v-icon>
+					<v-chip v-if="item.myprogress == 2" outlined class="">
+						<v-icon class="mr-2" color="green">mdi-check</v-icon>
+            Completed
 					</v-chip>
-					<v-chip v-if="item.myprogress == 3" small outlined class="mr-2 white--text">
-						<v-icon color="amber">fa-user-plus fa-sm</v-icon>
+					<v-chip v-if="item.myprogress == 3" outlined class="">
+						<v-icon class="mr-2" color="pink">mdi-heart</v-icon>
+            Shortlisted
 					</v-chip>
 				</template>
 
@@ -87,7 +90,8 @@ export default {
 				{
 					text: "",
 					align: "left",
-					value: "myprogress"
+          value: "myprogress",
+          width: "40px"
 				},
 				{
 					text: "Course",
