@@ -18,20 +18,26 @@
 					</v-chip>
 				</template>
 
+				<template v-slot:item.start_date="{ item }">
+					<div
+						v-if="item.start_date"
+					>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+				</template>
+				<template v-slot:item.completed_date="{ item }">
+					<div
+						v-if="item.completed_date"
+					>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+				</template>
+
 				<template v-slot:item.myrating="{ item }">
-					<v-icon v-if="item.myrating" color="amber accent-3" class="mr-2">fa-star fa-sm</v-icon>
+					<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
 					{{ item.myrating }}
 				</template>
 				<template v-slot:item.avgrating="{ item }">
-					<v-icon v-if="item.avgrating" color="amber accent-3" class="mr-2">fa-star fa-sm</v-icon>
+					<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
 					{{ roundOff(item.avgrating, 1) }}
 				</template>
-				<template
-					v-slot:item.startdate="{ item }"
-				>{{ item.startdate | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
-				<template
-					v-slot:item.enddate="{ item }"
-				>{{ item.enddate | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+
 				<template v-slot:item.actions="{ item }">
 					<v-menu offset-y bottom left>
 						<template v-slot:activator="{ on }">
@@ -41,20 +47,25 @@
 							<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
 						</template>
 						<v-list>
-							<v-list-item @click="editItem(item)">
-								<v-avatar>
-									<v-icon class="mr-2">mdi-pencil</v-icon>
-								</v-avatar>Edit Details
-							</v-list-item>
 							<v-list-item @click="gotoCourse(item)">
 								<v-avatar>
 									<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
 								</v-avatar>View Course
 							</v-list-item>
-							<v-list-item disabled>
+							<v-list-item @click="changestate(item, 2)">
 								<v-avatar>
-									<v-icon class="mr-2">mdi-account-search-outline</v-icon>
-								</v-avatar>Menu Item
+									<v-icon color="green accent-3" class="mr-2">fa-user-check fa-sm</v-icon>
+								</v-avatar>Set Completed
+							</v-list-item>
+							<v-list-item @click="changestate(item, 1)">
+								<v-avatar>
+									<v-icon color="blue lighten-3" class="mr-2">fa-user-clock fa-sm</v-icon>
+								</v-avatar>Set Started
+							</v-list-item>
+							<v-list-item @click="changestate(item, 3)">
+								<v-avatar>
+									<v-icon color="amber" class="mr-2">fa-user-plus fa-sm</v-icon>
+								</v-avatar>Set Shortlisted
 							</v-list-item>
 						</v-list>
 					</v-menu>
@@ -84,14 +95,14 @@ export default {
 					value: "name"
 				},
 				{
-					text: "Provider",
+					text: "Start Date",
 					align: "left",
-					value: "provider"
+					value: "start_date"
 				},
 				{
-					text: "Method",
+					text: "Completed Date",
 					align: "left",
-					value: "method"
+					value: "completed_date"
 				},
 				{
 					text: "My Rating",
@@ -107,7 +118,7 @@ export default {
 					text: "Review",
 					align: "left",
 					value: "myreview",
-					width: "50%"
+					width: "25%"
 				},
 				{
 					text: "",
@@ -136,11 +147,36 @@ export default {
 		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
-    },
-		gotoCourse(item) {
-      this.$router.push("/c/details/" + item.name);
 		},
-
+		gotoCourse(item) {
+			this.$router.push("/c/details/" + item.name);
+		},
+		changestate(item, state) {
+			if (this.myprogress == state) {
+				return true;
+			} else {
+				axios.put("/put/u/addToMyCourses/" + item.id + "/" + state).then(() => {
+					this.fetch();
+				});
+			}
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green";
+			}
+			if (value > 3) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange darken-4";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
+		}
 	}
 };
 </script>

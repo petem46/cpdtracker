@@ -121,7 +121,7 @@ export default {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
 		getStarColor(value) {
-			if (value >= 4) {
+			if (value > 4) {
 				return "green";
 			}
 			if (value > 3) {
