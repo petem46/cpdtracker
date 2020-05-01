@@ -7,7 +7,16 @@
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 			<v-data-table :headers="datatableheaders" :items="mycpd" :search="search">
 				<template v-slot:item.myprogress="{ item }">
-					<v-chip v-if="item.myprogress == 1" outlined class="">
+					<v-avatar v-if="item.myprogress == 1" size="36">
+						<v-icon color="blue">mdi-alarm</v-icon>
+					</v-avatar>
+					<v-avatar v-if="item.myprogress == 2" size="36">
+						<v-icon color="green">mdi-check</v-icon>
+					</v-avatar>
+					<v-avatar v-if="item.myprogress == 3" size="36">
+						<v-icon color="pink">mdi-heart</v-icon>
+					</v-avatar>
+					<!-- <v-chip v-if="item.myprogress == 1" outlined class="">
 						<v-icon class="mr-2" color="blue">mdi-alarm</v-icon>
             Started
 					</v-chip>
@@ -18,7 +27,7 @@
 					<v-chip v-if="item.myprogress == 3" outlined class="">
 						<v-icon class="mr-2" color="pink">mdi-heart</v-icon>
             Shortlisted
-					</v-chip>
+					</v-chip> -->
 				</template>
 
 				<template v-slot:item.start_date="{ item }">
