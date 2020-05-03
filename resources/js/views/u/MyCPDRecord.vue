@@ -6,6 +6,153 @@
 		<div id="mycpdcourses" class="mb-10">
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 			<v-data-table :headers="datatableheaders" :items="mycpd" :search="search">
+				<template v-slot:top>
+					<v-row>
+						<v-col>
+							<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="50%">
+								<template v-slot:activator="{ on }">
+									<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add CPD</v-btn>
+									<v-btn
+										color="primary"
+										dark
+										class="d-md-none btn-block mb-2 float-left"
+										v-on="on"
+									>Add Course</v-btn>
+								</template>
+								<v-card>
+									<v-toolbar color="primary">
+										<v-btn icon @click="close">
+											<v-icon>mdi-close</v-icon>
+										</v-btn>
+										<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
+										<v-spacer></v-spacer>
+										<v-toolbar-items>
+											<v-btn text @click="submit">Save</v-btn>
+										</v-toolbar-items>
+									</v-toolbar>
+									<v-container>
+										<form @submit.prevent="submit">
+											<v-card-text>
+												<v-container>
+													<v-row>
+														<v-col cols="12">
+															<v-text-field
+																id="name"
+																v-model="editedItem.name"
+																label="Course Name"
+																hide-details="auto"
+																prepend-icon="far fa-calendar-alt"
+																:disabled="formDelete"
+															></v-text-field>
+														</v-col>
+														<v-col cols="6">
+															<v-menu
+																v-model="start_datepicker"
+																:close-on-content-click="false"
+																transition="scale-transition"
+																:nudge-right="50"
+																min-width="290px"
+															>
+																<template v-slot:activator="{ on }">
+																	<v-text-field
+																		:value="formatedCompletedDate"
+																		label="Course Start Date"
+																		prepend-icon="far fa-calendar-alt"
+																		readonly
+																		v-on="on"
+																		hint="Leave blank if couse not yet started"
+																		persistent-hint
+																		clearable
+																	></v-text-field>
+																</template>
+																<v-date-picker
+																	v-model="editedItem.start_date"
+																	scrollable
+																	@input="start_datepicker = false"
+																></v-date-picker>
+															</v-menu>
+														</v-col>
+
+														<v-col cols="6">
+															<v-menu
+																v-model="completed_datepicker"
+																:close-on-content-click="false"
+																transition="scale-transition"
+																:nudge-right="50"
+																min-width="290px"
+															>
+																<template v-slot:activator="{ on }">
+																	<v-text-field
+																		:value="formatedStartDate"
+																		label="Course Completed Date"
+																		prepend-icon="far fa-calendar-alt"
+																		readonly
+																		v-on="on"
+																		hint="Leave blank if couse not yet completed"
+																		persistent-hint
+																		clearable
+																	></v-text-field>
+																</template>
+																<v-date-picker
+																	v-model="editedItem.completed_date"
+																	scrollable
+																	@input="completed_datepicker = false"
+																></v-date-picker>
+															</v-menu>
+														</v-col>
+														<v-col cols="12">
+															<div id="myrating" class="text-center">
+																<v-rating
+																	id="myrating"
+																	v-model="editedItem.myrating"
+																	dense
+																	readonly
+																	half-increments
+																	:color="getStarColor(editedItem.myrating)"
+																	full-icon="fas fa-star"
+																	half-icon="fa-star-half-alt"
+																	empty-icon="far fa-star"
+																	background-color="grey"
+																></v-rating>
+															</div>
+														</v-col>
+														<v-col cols="12">
+															<v-textarea
+																id="myreview"
+																v-model="editedItem.myreview"
+																label="Course Review"
+																prepend-icon="fa-pen-alt fa-sm"
+																outlined
+																counter
+															></v-textarea>
+														</v-col>
+													</v-row>
+												</v-container>
+											</v-card-text>
+
+											<v-card-actions>
+												<v-btn
+													v-if="formDelete"
+													outlined
+													color="red darken-1"
+													text
+													@click="deleteCourse()"
+												>Delete</v-btn>
+												<v-spacer></v-spacer>
+												<v-btn text @click="close">Cancel</v-btn>
+												<v-btn type="submit" outlined color="green accent-2" text>Save</v-btn>
+											</v-card-actions>
+										</form>
+									</v-container>
+								</v-card>
+							</v-dialog>
+						</v-col>
+					</v-row>
+				</template>
+				<template v-slot:item.myreview="{ item }">
+					<span class="review">{{ item.myreview }}</span>
+				</template>
+
 				<template v-slot:item.myprogress="{ item }">
 					<v-avatar v-if="item.myprogress == 1" size="36">
 						<v-icon color="blue">mdi-alarm</v-icon>
@@ -16,18 +163,6 @@
 					<v-avatar v-if="item.myprogress == 3" size="36">
 						<v-icon color="pink">mdi-heart</v-icon>
 					</v-avatar>
-					<!-- <v-chip v-if="item.myprogress == 1" outlined class="">
-						<v-icon class="mr-2" color="blue">mdi-alarm</v-icon>
-            Started
-					</v-chip>
-					<v-chip v-if="item.myprogress == 2" outlined class="">
-						<v-icon class="mr-2" color="green">mdi-check</v-icon>
-            Completed
-					</v-chip>
-					<v-chip v-if="item.myprogress == 3" outlined class="">
-						<v-icon class="mr-2" color="pink">mdi-heart</v-icon>
-            Shortlisted
-					</v-chip> -->
 				</template>
 
 				<template v-slot:item.start_date="{ item }">
@@ -64,19 +199,24 @@
 									<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
 								</v-avatar>View Course
 							</v-list-item>
+							<v-list-item @click="editRecord(item)">
+								<v-avatar>
+									<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
+								</v-avatar>Edit Record
+							</v-list-item>
 							<v-list-item @click="changestate(item, 2)">
 								<v-avatar>
-									<v-icon color="green accent-3" class="mr-2">fa-user-check fa-sm</v-icon>
+									<v-icon color="green accent-3" class="mr-2">mdi-check</v-icon>
 								</v-avatar>Set Completed
 							</v-list-item>
 							<v-list-item @click="changestate(item, 1)">
 								<v-avatar>
-									<v-icon color="blue lighten-3" class="mr-2">fa-user-clock fa-sm</v-icon>
+									<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
 								</v-avatar>Set Started
 							</v-list-item>
 							<v-list-item @click="changestate(item, 3)">
 								<v-avatar>
-									<v-icon color="amber" class="mr-2">fa-user-plus fa-sm</v-icon>
+									<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
 								</v-avatar>Set Shortlisted
 							</v-list-item>
 						</v-list>
@@ -89,18 +229,38 @@
 <script>
 import Axios from "axios";
 import VueFilterDateParse from "vue-filter-date-format";
+import moment from "moment";
 export default {
 	data() {
 		return {
 			loading: true,
+			dialog: false,
+			start_datepicker: false,
+			completed_datepicker: false,
 			mycpd: [],
 			search: "",
+			editedItem: {
+				name: "",
+				completed_date: "",
+				myprogress: "",
+				myrating: "",
+				myreview: "",
+				start_date: ""
+			},
+			defaultItem: {
+				name: "",
+				completed_date: "",
+				myprogress: "",
+				myrating: "",
+				myreview: "",
+				start_date: ""
+			},
 			datatableheaders: [
 				{
 					text: "",
 					align: "left",
-          value: "myprogress",
-          width: "40px"
+					value: "myprogress",
+					width: "40px"
 				},
 				{
 					text: "Course",
@@ -173,7 +333,39 @@ export default {
 				});
 			}
 		},
+		editReviewHint(item) {
+			return "Edit review for " + item.name;
+		},
+		editRecord(item) {
+			this.editedIndex = this.mycpd.indexOf(item);
+			this.editedItem = Object.assign({}, item);
+			this.dialog = true;
+		},
+		submit() {
+			axios
+				.post("/post/c/savecourse", this.editedItem)
+				.then(response => {
+					this.dialog = false;
+					this.fetch();
+					this.snackbar.color = "success";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
+					this.close();
+				})
+				.catch(error => {
+					if (error.response.status === 422) {
+						this.errors = error.response.data.errors || {};
+					}
+				});
+		},
+		close() {
+			this.dialog = false;
+			setTimeout(() => {
+				this.editedItem = Object.assign({}, this.defaultItem);
+			}, 300);
+		},
 		getStarColor(value) {
+			console.log(value);
 			if (value > 4) {
 				return "green";
 			}
@@ -181,7 +373,7 @@ export default {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-4";
+				return "orange darken-3";
 			}
 			if (value < 2) {
 				return "red";
@@ -190,6 +382,33 @@ export default {
 				return "black";
 			}
 		}
+	},
+	computed: {
+		formTitle() {
+			if (this.editedItem.id) {
+				return "Edit CPD record for " + this.editedItem.name;
+			} else {
+				return "Add CPD Record";
+			}
+		},
+		formDelete() {
+			if (this.editedItem.id) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		formatedStartDate() {
+			return this.editedItem.start_date
+				? moment(this.editedItem.start_date).format("dddd, MMMM Do YYYY")
+				: "";
+		},
+		formatedCompletedDate() {
+			return this.editedItem.completed_date
+				? moment(this.editedItem.completed_date).format("dddd, MMMM Do YYYY")
+				: "";
+		}
 	}
 };
 </script>
+

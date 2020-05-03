@@ -179,7 +179,18 @@
 			<v-spacer />
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on" class="d-none d-md-block">
+					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-sm-block">
+						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycpdrecord' }">
+							<v-icon>mdi-folder-account-outline</v-icon>
+						</router-link>
+					</v-btn>
+				</template>
+				<span>My CPD Record</span>
+			</v-tooltip>
+			<v-divider class="px-0 mx-0 d-none d-sm-block" vertical inset></v-divider>
+			<v-tooltip bottom>
+				<template v-slot:activator="{ on }">
+					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermyreviews' }">
 							<v-icon>mdi-file-star-outline</v-icon>
 						</router-link>
@@ -189,17 +200,17 @@
 			</v-tooltip>
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on" class="d-none d-md-block">
+					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
-							<v-icon>mdi-folder-account-outline</v-icon>
+							<v-icon>mdi-file-clock-outline</v-icon>
 						</router-link>
 					</v-btn>
 				</template>
-				<span>My Courses</span>
+				<span>My Current Courses</span>
 			</v-tooltip>
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on" class="d-none d-md-block">
+					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
 							<v-icon>mdi-book-search-outline</v-icon>
 						</router-link>
@@ -207,9 +218,9 @@
 				</template>
 				<span>Find A Course</span>
 			</v-tooltip>
-
+			<v-divider class="px-0 mx-1 d-none d-md-block" vertical inset></v-divider>
 			<v-menu
-				v-if="this.roleid == 1 && !$vuetify.breakpoint.xsOnly"
+				v-if="this.roleid == 1"
 				bottom
 				left
 				close-on-content-click
@@ -218,8 +229,8 @@
 				<template v-slot:activator="{ on: onMenu }">
 					<v-tooltip bottom>
 						<template #activator="{ on: onTooltip }">
-							<v-btn v-on="{ ...onMenu, ...onTooltip }" tile text>
-								<v-icon>fas fa-cog</v-icon>
+							<v-btn v-on="{ ...onMenu, ...onTooltip }" tile text class="px-0 mx-0">
+								<v-icon>fas fa-cog fa-sm</v-icon>
 							</v-btn>
 						</template>
 						<span>Admin Menu</span>
@@ -260,7 +271,7 @@
 					</v-card-text>
 				</v-card>
 			</v-menu>
-			<v-divider class="mx-4" vertical inset></v-divider>
+			<v-divider v-if="this.roleid == 1" class="mx-1 d-none d-md-block" vertical inset></v-divider>
 			<v-menu bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn v-on="on" tile text>
@@ -280,10 +291,17 @@
 									</v-avatar>My Profile
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+							<v-list-item @click="gotoMyCPDRecord" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>mdi-folder-account-outline</v-icon>
+									</v-avatar>My CPD Record
+								</v-list-item-title>
+							</v-list-item>
+							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+								<v-list-item-title>
+									<v-avatar>
+										<v-icon>mdi-file-clock-outline</v-icon>
 									</v-avatar>My Courses
 								</v-list-item-title>
 							</v-list-item>
@@ -438,6 +456,9 @@ export default {
 		},
 		gotoManageCategories() {
 			this.$router.push("/a/managecategories");
+		},
+		gotoMyCPDRecord() {
+			this.$router.push("/u/mycpdrecord");
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");

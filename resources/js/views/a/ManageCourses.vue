@@ -334,10 +334,10 @@ export default {
 				},
 				{
 					text: "Avg Rating",
-					align: "left",
+					align: "center",
 					sortable: true,
 					value: "avgrating",
-					width: "100px"
+					width: "110px"
 				},
 				{
 					text: "Ratings",
@@ -433,7 +433,7 @@ export default {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-4";
+				return "orange darken-3";
 			}
 			if (value < 2) {
 				return "red";

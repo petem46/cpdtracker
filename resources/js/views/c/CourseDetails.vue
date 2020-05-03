@@ -121,11 +121,14 @@
 								<v-col cols="4" class="pb-1">
 									<v-rating
 										:value="this.course.avgrating"
+										dense
 										readonly
 										half-increments
-										color="amber"
-										size="1rem"
-										dense
+										:color="getStarColor(this.course.avgrating)"
+										full-icon="fas fa-star"
+										half-icon="fa-star-half-alt"
+										empty-icon="far fa-star"
+										background-color="grey"
 									></v-rating>
 									<div v-if="this.course.ratingscount > 0">{{roundOff(this.course.avgrating, 1)}} out of 5</div>
 								</v-col>
@@ -321,6 +324,23 @@ export default {
 				this.viewcountupdated = 1;
 				this.fetch();
 			});
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green dark-2";
+			}
+			if (value > 3.5) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange darken-3";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
 		},
 		back(val) {
 			// console.log(this.$router.go(val));
