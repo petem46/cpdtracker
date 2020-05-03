@@ -5,7 +5,15 @@
 		</h1>
 		<div id="mycpdcourses" class="mb-10">
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
-			<v-data-table :headers="datatableheaders" :items="mycpd" :search="search">
+			<v-data-table
+				:headers="datatableheaders"
+				:items="mycpd"
+        :items-per-page="25"
+				:search="search"
+				:sort-by="['completed_date', 'start_date']"
+				:sort-desc="[true, true]"
+				multi-sort
+			>
 				<template v-slot:top>
 					<v-row>
 						<v-col>
@@ -45,7 +53,7 @@
 																:disabled="formDelete"
 															></v-text-field>
 														</v-col>
-														<v-col cols="6">
+														<v-col cols="12" md="6">
 															<v-menu
 																v-model="start_datepicker"
 																:close-on-content-click="false"
@@ -55,7 +63,7 @@
 															>
 																<template v-slot:activator="{ on }">
 																	<v-text-field
-																		:value="formatedCompletedDate"
+																		:value="formatedStartDate"
 																		label="Course Start Date"
 																		prepend-icon="far fa-calendar-alt"
 																		readonly
@@ -73,7 +81,7 @@
 															</v-menu>
 														</v-col>
 
-														<v-col cols="6">
+														<v-col cols="12" md="6">
 															<v-menu
 																v-model="completed_datepicker"
 																:close-on-content-click="false"
@@ -83,7 +91,7 @@
 															>
 																<template v-slot:activator="{ on }">
 																	<v-text-field
-																		:value="formatedStartDate"
+																		:value="formatedCompletedDate"
 																		label="Course Completed Date"
 																		prepend-icon="far fa-calendar-alt"
 																		readonly
@@ -101,22 +109,6 @@
 															</v-menu>
 														</v-col>
 														<v-col cols="12">
-															<div id="myrating" class="text-center">
-																<v-rating
-																	id="myrating"
-																	v-model="editedItem.myrating"
-																	dense
-																	readonly
-																	half-increments
-																	:color="getStarColor(editedItem.myrating)"
-																	full-icon="fas fa-star"
-																	half-icon="fa-star-half-alt"
-																	empty-icon="far fa-star"
-																	background-color="grey"
-																></v-rating>
-															</div>
-														</v-col>
-														<v-col cols="12">
 															<v-textarea
 																id="myreview"
 																v-model="editedItem.myreview"
@@ -125,6 +117,26 @@
 																outlined
 																counter
 															></v-textarea>
+														</v-col>
+														<v-col cols="12">
+															<v-switch
+																id="myreviewpublic"
+																v-model="editedItem.myreviewpublic"
+																:label="publicPrivateLabel(editedItem.myreviewpublic)"
+															></v-switch>
+														</v-col>
+														<v-col cols="12">
+															<div id="myrating" class="text-center">
+																<v-rating
+																	id="myrating"
+																	v-model="editedItem.myrating"
+																	:color="getStarColor(editedItem.myrating)"
+																	full-icon="fas fa-star"
+																	half-icon="fa-star-half-alt"
+																	empty-icon="far fa-star"
+																	background-color="grey"
+																></v-rating>
+															</div>
 														</v-col>
 													</v-row>
 												</v-container>
@@ -136,7 +148,7 @@
 													outlined
 													color="red darken-1"
 													text
-													@click="deleteCourse()"
+													@click="deleteRecord()"
 												>Delete</v-btn>
 												<v-spacer></v-spacer>
 												<v-btn text @click="close">Cancel</v-btn>
@@ -150,18 +162,20 @@
 					</v-row>
 				</template>
 				<template v-slot:item.myreview="{ item }">
-					<span class="review">{{ item.myreview }}</span>
+					<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
+					<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
+					<div class="review">{{ item.myreview }}</div>
 				</template>
 
 				<template v-slot:item.myprogress="{ item }">
-					<v-avatar v-if="item.myprogress == 1" size="36">
-						<v-icon color="blue">mdi-alarm</v-icon>
+					<v-avatar color="blue" v-if="item.myprogress == 1" size="36">
+						<v-icon>mdi-alarm</v-icon>
 					</v-avatar>
-					<v-avatar v-if="item.myprogress == 2" size="36">
-						<v-icon color="green">mdi-check</v-icon>
+					<v-avatar color="green" v-if="item.myprogress == 2" size="36">
+						<v-icon>mdi-check</v-icon>
 					</v-avatar>
-					<v-avatar v-if="item.myprogress == 3" size="36">
-						<v-icon color="pink">mdi-heart</v-icon>
+					<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
+						<v-icon>mdi-heart</v-icon>
 					</v-avatar>
 				</template>
 
@@ -224,6 +238,20 @@
 				</template>
 			</v-data-table>
 		</div>
+
+		<!--
+    ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
+		-->
+		<v-snackbar
+			v-model="snackbar.show"
+			:color="snackbar.color"
+			:timeout="snackbar.timeout"
+			multi-line
+			bottom
+		>
+			{{ snackbar.text }}
+			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
+		</v-snackbar>
 	</div>
 </template>
 <script>
@@ -243,18 +271,29 @@ export default {
 				name: "",
 				completed_date: "",
 				myprogress: "",
-				myrating: "",
+				myrating: null,
 				myreview: "",
+				myreviewpublic: false,
 				start_date: ""
 			},
 			defaultItem: {
 				name: "",
 				completed_date: "",
 				myprogress: "",
-				myrating: "",
+				myrating: null,
 				myreview: "",
+				myreviewpublic: false,
 				start_date: ""
 			},
+			snackbar: {
+				color: "",
+				mode: "",
+				show: false,
+				text: "",
+				timeout: 3000,
+				y: "top"
+			},
+
 			datatableheaders: [
 				{
 					text: "",
@@ -341,9 +380,12 @@ export default {
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
+		deleteRecord(item) {
+			alert("Delete Function not ready");
+		},
 		submit() {
 			axios
-				.post("/post/c/savecourse", this.editedItem)
+				.post("/post/u/updateMyCPD", this.editedItem)
 				.then(response => {
 					this.dialog = false;
 					this.fetch();
@@ -353,9 +395,8 @@ export default {
 					this.close();
 				})
 				.catch(error => {
-					if (error.response.status === 422) {
-						this.errors = error.response.data.errors || {};
-					}
+					console.log("ZDFLKGHDLKFJHG");
+					console.log(error);
 				});
 		},
 		close() {
@@ -365,7 +406,6 @@ export default {
 			}, 300);
 		},
 		getStarColor(value) {
-			console.log(value);
 			if (value > 4) {
 				return "green";
 			}
@@ -380,6 +420,20 @@ export default {
 			}
 			if (value < 1) {
 				return "black";
+			}
+		},
+		publicchip(item) {
+			if (item.myreviewpublic == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		publicPrivateLabel(item) {
+			if (item) {
+				return "Review can be seen by all";
+			} else {
+				return "Review is private";
 			}
 		}
 	},

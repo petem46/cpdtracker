@@ -108,7 +108,7 @@
 			<v-card-text class="py-2">
 				<v-row align="center" class="mx-0">
 					<v-rating
-						:value="getUserRating(this.courserating)"
+						:value="getAverageRating(this.courserating)"
 						dense
 						readonly
 						half-increments
@@ -119,7 +119,7 @@
 						background-color="grey"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length"></div>
+						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
 					</div>
 				</v-row>
 				<div

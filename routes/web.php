@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
 |- USER ROUTES
 */
   Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
+  Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
   Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
   Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');

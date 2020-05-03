@@ -6,6 +6,7 @@ use App\Course;
 use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
+use App\CourseReview;
 use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
@@ -64,10 +65,108 @@ class CourseController extends Controller
     $uid = Auth::id();
     $data = [
       'mycpd' => new MyCPDCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('user_id', '=', $uid);
+        $q->where('user_id', '=', $uid)->orderBy('completed_date');
       })->get()),
     ];
     return $data;
+  }
+
+  public function updateMyCPD(Request $request)
+  {
+    $uid = Auth::id();
+    $course = Course::find($request->get('id'));
+    $progress = CourseProgress::where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    $review = CourseReview::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    if ($course) {
+      if ($progress) {
+        $progress->state_id = $request->get('myprogress');
+        $progress->start_date = $request->get('start_date');
+        $progress->completed_date = $request->get('completed_date');
+        $progress->touch();
+        $progress->save();
+      } else {
+      }
+      if ($rating) {
+        $rating->rating = $request->get('myrating');
+        $rating->touch();
+        $rating->save();
+      } else {
+        if ($request->get('myrating')) {
+          $myrating = CourseRating::create([
+            'course_id'      => $course->id,
+            'user_id'        => Auth::id(),
+            'rating' => $request->get('myrating'),
+          ]);
+        }
+      }
+      if ($review) {
+        if (!$request->get('myreview')) {
+          $review->delete();
+        } else {
+          $review->review = $request->get('myreview');
+          $review->public = $request->get('myreviewpublic') || false;
+          $review->deleted_at = null;
+          $review->touch();
+          $review->save();
+        }
+      } else {
+        if ($request->get('myreview')) {
+          $myreview = CourseReview::create([
+            'course_id'      => $course->id,
+            'user_id'        => Auth::id(),
+            'review' => $request->get('myreview'),
+            'public' => $request->get('myreviewpublic'),
+            'deleted_at' => null,
+          ]);
+        }
+      }
+      return response('CPD Record Updated', Response::HTTP_OK);
+    } else {
+      $course = Course::create([
+        'name' => $request->get('name'),
+        'slug' => $request->get('name'),
+        'description' => 'MyCPD Entry',
+        'access_details' => 'MyCPD Entry',
+        'viewcounter' => 0,
+        'cost' => 'MyCPD Entry',
+        'length' => 'MyCPD Entry',
+        'startdate' => now(),
+        'enddate' => now(),
+        'active' => 0,
+        'type' => 'MyCPD',
+      ]);
+      if ($request->get('completed_date')) {
+        $state_id = 2;
+      } elseif ($request->get('start_date')) {
+        $state_id = 1;
+      } else {
+        $state_id = 3;
+      }
+      $myprogress = CourseProgress::create([
+        'course_id'      => $course->id,
+        'user_id'        => Auth::id(),
+        'state_id'       => $state_id,
+        'start_date'     => $request->get('start_date'),
+        'completed_date' => $request->get('completed_date'),
+      ]);
+      if ($request->get('myrating')) {
+        $myrating = CourseRating::create([
+          'course_id'      => $course->id,
+          'user_id'        => Auth::id(),
+          'rating' => $request->get('myrating'),
+        ]);
+      }
+      if ($request->get('myreview')) {
+        $myreview = CourseReview::create([
+          'course_id'      => $course->id,
+          'user_id'        => Auth::id(),
+          'review' => $request->get('myreview'),
+          'public' => $request->get('myreviewpublic'),
+        ]);
+      }
+      return response('CPD Record Create', Response::HTTP_OK);
+    }
   }
 
   public function addToMyCourses($course_id, $state_id)

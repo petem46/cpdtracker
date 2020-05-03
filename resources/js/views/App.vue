@@ -181,14 +181,14 @@
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-sm-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycpdrecord' }">
-							<v-icon>mdi-folder-account-outline</v-icon>
+							<v-icon color="green accent-3">mdi-folder-account-outline</v-icon>
 						</router-link>
 					</v-btn>
 				</template>
 				<span>My CPD Record</span>
 			</v-tooltip>
 			<v-divider class="px-0 mx-0 d-none d-sm-block" vertical inset></v-divider>
-			<v-tooltip bottom>
+			<!-- <v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermyreviews' }">
@@ -197,7 +197,7 @@
 					</v-btn>
 				</template>
 				<span>My Reviews</span>
-			</v-tooltip>
+			</v-tooltip> -->
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">

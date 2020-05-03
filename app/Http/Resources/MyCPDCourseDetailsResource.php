@@ -26,6 +26,7 @@ class MyCPDCourseDetailsResource extends JsonResource
         'start_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('start_date'),
         'completed_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('completed_date'),
         'myreview'        => CourseReview::where('user_id', $uid)->where('course_id', $this->id)->max('review'),
+        'myreviewpublic'        => CourseReview::where('user_id', $uid)->where('course_id', $this->id)->max('public'),
     ];
     }
 }
