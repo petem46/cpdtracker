@@ -427,13 +427,13 @@ export default {
 		},
 		getStarColor(value) {
 			if (value > 4) {
-				return "green dark-2";
+				return "green";
 			}
-			if (value > 3.5) {
+			if (value > 3) {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-3";
+				return "orange";
 			}
 			if (value < 2) {
 				return "red";

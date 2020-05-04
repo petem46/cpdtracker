@@ -108,18 +108,17 @@
 			<v-card-text class="py-2">
 				<v-row align="center" class="mx-0">
 					<v-rating
-						:value="getAverageRating(this.courserating)"
+						:value="getUserRating(this.courserating)"
 						dense
-						readonly
-						half-increments
 						:color="getStarColor(getUserRating(this.courserating))"
 						full-icon="fas fa-star"
 						half-icon="fa-star-half-alt"
 						empty-icon="far fa-star"
 						background-color="grey"
+            @input="addRating($event, id)"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
+						<div v-if="this.courserating.length">(Your Rating)</div>
 					</div>
 				</v-row>
 				<div

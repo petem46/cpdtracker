@@ -142,7 +142,7 @@ export default {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-3";
+				return "orange";
 			}
 			if (value < 2) {
 				return "red";

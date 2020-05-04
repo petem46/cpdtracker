@@ -174,30 +174,50 @@ class CourseController extends Controller
 
   public function addToMyCourses($course_id, $state_id)
   {
-    $completed_date = null;
-    $start_date = null;
-    if ($state_id == 2 || $state_id == 1) {
-      $start_date = now();
-    }
-    if ($state_id == 2) {
-      $completed_date = now();
-    }
-
     $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
     if ($mycourse) {
+      if ($state_id == 1) {
+        $mycourse->start_date = now();
+        $mycourse->completed_date = null;
+      }
+      if ($state_id == 2) {
+        $mycourse->completed_date = now();
+      }
+      if ($state_id == 3) {
+        $mycourse->start_date = null;
+        $mycourse->completed_date = null;
+      }
       $mycourse->state_id = $state_id;
-      $mycourse->start_date = $start_date;
-      $mycourse->completed_date = $completed_date;
       $mycourse->touch();
       $mycourse->save();
     } else {
-      $mycourse = CourseProgress::create([
-        'course_id'      => $course_id,
-        'user_id'        => Auth::id(),
-        'state_id'       => $state_id,
-        'start_date'     => $start_date,
-        'completed_date' => $completed_date,
-      ]);
+      if ($state_id == 1) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => now(),
+          'completed_date' => null,
+        ]);
+      }
+      if ($state_id == 2) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => now(),
+          'completed_date' => now(),
+        ]);
+      }
+      if ($state_id == 3) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => null,
+          'completed_date' => null,
+        ]);
+      }
     }
     return response(null, Response::HTTP_OK);
   }
@@ -226,20 +246,26 @@ class CourseController extends Controller
 
   public function addRating($course_id, $rating)
   {
-    $oldrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    $oldrating = CourseRating::withTrashed()->where('course_id', $course_id)->where('user_id', Auth::id())->first();
 
     if ($oldrating) {
-      $oldrating->rating = $rating;
-      $oldrating->touch();
-      $oldrating->save();
+      if ($oldrating->rating == $rating) {
+        $oldrating->delete();
+        return response("Rating Removed", Response::HTTP_OK);
+      } else {
+        $oldrating->rating = $rating;
+        $oldrating->touch();
+        $oldrating->save();
+        return response("Your Rating has been updated", Response::HTTP_OK);
+      }
     } else {
       $newrating = CourseRating::create([
         'course_id'   => $course_id,
         'user_id'     => Auth::id(),
         'rating'    => $rating,
       ]);
+      return response("Your Rating has been recorded", Response::HTTP_OK);
     }
-    return response(null, Response::HTTP_OK);
   }
 
   public function details($course)

@@ -40,6 +40,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'inprogress'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->get(),
       'shortlisted'   => CourseProgress::where('course_id', $this->id)->where('state_id', 3)->get(),
       'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
+      'myrating'     => CourseRating::where('course_id', $this->id)->where('user_id', Auth::id())->max('rating'),
       'ratings'       => CourseRating::where('course_id', $this->id)->get(),
       'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
       'oneratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 1)->count(),
