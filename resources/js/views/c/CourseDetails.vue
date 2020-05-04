@@ -145,7 +145,8 @@
 										background-color="grey"
 										@input="addRating($event)"
 									></v-rating>
-									<div v-if="this.course.ratingscount > 0">{{ this.myrating }} out of 5 </div>
+									<div v-if="this.myrating > 0">{{ this.myrating }} out of 5 </div>
+									<div v-if="!this.myrating" class="my-1 caption red--text text-left">Please rate this course</div>
 								</v-col>
 								<v-col cols="12" class="headline">{{ this.course.ratingscount }} staff reviews</v-col>
 								<v-col cols="12">
