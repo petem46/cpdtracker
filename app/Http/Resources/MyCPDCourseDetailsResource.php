@@ -19,6 +19,7 @@ class MyCPDCourseDetailsResource extends JsonResource
         'type'          =>  'mycpdcourse',
         'id'            =>  (string) $this->id,
         'name'          => $this->name,
+        // 'type'          => $this->type,
         'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
         'myrating'       => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->max('rating'),
         'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),

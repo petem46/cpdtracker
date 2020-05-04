@@ -8,15 +8,37 @@
 			<v-data-table
 				:headers="datatableheaders"
 				:items="mycpd"
-        :items-per-page="25"
+				:items-per-page="25"
 				:search="search"
 				:sort-by="['completed_date', 'start_date']"
 				:sort-desc="[true, true]"
 				multi-sort
 			>
 				<template v-slot:top>
-					<v-row>
-						<v-col>
+					<v-row class="px-3">
+						<v-col cols="12" md="6" class="order-md-1 order-last">
+							<v-text-field
+								v-model="search"
+								prepend-icon="fas fa-search fa-sm"
+								single-line
+								hint="Search courses and reviews"
+								persistent-hint
+								clearable
+							>
+								<template v-slot:label>Search</template>
+							</v-text-field>
+						</v-col>
+						<v-col cols="12" md="4" class="order-md-3 order-9">
+							<v-select
+								prepend-icon="fa-filter fa-sm"
+								hint="Type Filter"
+								persistent-hint
+								v-model="type"
+								:items="types"
+							></v-select>
+						</v-col>
+						<v-col cols="12" md="2" class="order-md-last order-first">
+							<v-spacer></v-spacer>
 							<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="50%">
 								<template v-slot:activator="{ on }">
 									<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add CPD</v-btn>
@@ -71,6 +93,7 @@
 																		hint="Leave blank if couse not yet started"
 																		persistent-hint
 																		clearable
+                                    @click:clear="clearStartDate"
 																	></v-text-field>
 																</template>
 																<v-date-picker
@@ -99,6 +122,7 @@
 																		hint="Leave blank if couse not yet completed"
 																		persistent-hint
 																		clearable
+                                    @click:clear="clearCompletedDate"
 																	></v-text-field>
 																</template>
 																<v-date-picker
@@ -114,6 +138,8 @@
 																v-model="editedItem.myreview"
 																label="Course Review"
 																prepend-icon="fa-pen-alt fa-sm"
+                                hint="Delete your review by clearing this textbox"
+                                persistent-hint
 																outlined
 																counter
 															></v-textarea>
@@ -267,6 +293,8 @@ export default {
 			completed_datepicker: false,
 			mycpd: [],
 			search: "",
+			type: "All",
+			types: ["All", "Complete", "Started", "Shortlisted"],
 			editedItem: {
 				name: "",
 				completed_date: "",
@@ -299,7 +327,14 @@ export default {
 					text: "",
 					align: "left",
 					value: "myprogress",
-					width: "40px"
+					width: "40px",
+					filter: value => {
+						if (this.type === "All") return true;
+						if (!this.type) return true;
+						if (this.type === "Complete") return value === 2;
+						if (this.type === "Started") return value === 1;
+						if (this.type === "Shortlisted") return value === 3;
+					}
 				},
 				{
 					text: "Course",
@@ -421,7 +456,13 @@ export default {
 			if (value < 1) {
 				return "black";
 			}
-		},
+    },
+    clearCompletedDate() {
+      this.editedItem.completed_date = null;
+    },
+    clearStartDate() {
+      this.editedItem.start_date = null;
+    },
 		publicchip(item) {
 			if (item.myreviewpublic == 1) {
 				return true;

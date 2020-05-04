@@ -181,13 +181,13 @@
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-sm-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycpdrecord' }">
-							<v-icon color="green accent-3">mdi-folder-account-outline</v-icon>
+							<v-icon>mdi-folder-account-outline</v-icon>
 						</router-link>
 					</v-btn>
 				</template>
 				<span>My CPD Record</span>
 			</v-tooltip>
-			<v-divider class="px-0 mx-0 d-none d-sm-block" vertical inset></v-divider>
+			<!-- <v-divider class="px-0 mx-0 d-none d-sm-block" vertical inset></v-divider> -->
 			<!-- <v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
@@ -198,7 +198,7 @@
 				</template>
 				<span>My Reviews</span>
 			</v-tooltip> -->
-			<v-tooltip bottom>
+			<!-- <v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
 						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
@@ -207,7 +207,7 @@
 					</v-btn>
 				</template>
 				<span>My Current Courses</span>
-			</v-tooltip>
+			</v-tooltip> -->
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
@@ -218,7 +218,7 @@
 				</template>
 				<span>Find A Course</span>
 			</v-tooltip>
-			<v-divider class="px-0 mx-1 d-none d-md-block" vertical inset></v-divider>
+			<!-- <v-divider class="px-0 mx-1 d-none d-md-block" vertical inset></v-divider> -->
 			<v-menu
 				v-if="this.roleid == 1"
 				bottom
@@ -298,7 +298,7 @@
 									</v-avatar>My CPD Record
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
+							<!-- <v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>mdi-file-clock-outline</v-icon>
@@ -311,7 +311,7 @@
 										<v-icon>mdi-file-star-outline</v-icon>
 									</v-avatar>My Reviews
 								</v-list-item-title>
-							</v-list-item>
+							</v-list-item> -->
 							<v-divider></v-divider>
 							<v-list-item @click="logout" class="ml-0 pl-0">
 								<v-list-item-title>
