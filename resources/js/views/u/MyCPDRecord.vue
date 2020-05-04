@@ -171,6 +171,7 @@
 											<v-card-actions>
 												<v-btn
 													v-if="formDelete"
+                          disabled
 													outlined
 													color="red darken-1"
 													text
