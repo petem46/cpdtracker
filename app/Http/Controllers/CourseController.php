@@ -138,8 +138,11 @@ class CourseController extends Controller
       ]);
       if ($request->get('completed_date')) {
         $state_id = 2;
+        $start_date = $request->get('start_date');
+        $completed_date = $request->get('completed_date');
       } elseif ($request->get('start_date')) {
         $state_id = 1;
+        $start_date = $request->get('start_date');
       } else {
         $state_id = 3;
       }
