@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+use App\Course;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
@@ -15,7 +16,6 @@ class MyCPDCoursesResource extends ResourceCollection
   public function toArray($request)
   {
     $uid = Auth::id();
-    $uid = 1;
     // return parent::toArray($request);
     return [
       'completedcount' => CourseProgress::where('state_id', 2)->where('user_id', $uid)->count(),
