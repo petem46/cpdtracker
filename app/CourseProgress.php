@@ -10,7 +10,7 @@ class CourseProgress extends Model
   // use SoftDeletes;
 
   protected $table = 'course_progress';
-  protected $fillable = ['course_id', 'user_id', 'state_id'];
+  protected $fillable = ['course_id', 'user_id', 'state_id', 'start_date', 'completed_date'];
 
   public function course() {
     return $this->belongsTo('App\Course');

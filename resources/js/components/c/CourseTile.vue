@@ -18,7 +18,7 @@
 								min-width="100px"
 								class="mx-auto mb-1 teal--text"
 								color="white"
-                small
+								small
 							>Details</v-btn>
 							<br />
 							<v-btn
@@ -28,7 +28,7 @@
 								outlined
 								class="mx-auto"
 								color="white"
-                small
+								small
 							>Review</v-btn>
 							<!-- <br />
 							Cost: {{ cost }}-->
@@ -62,14 +62,19 @@
 			>{{ this.name }}</v-card-text>
 			<v-card-text class="py-2">
 				<v-row align="center" class="mx-0">
+
 					<v-rating
 						:value="getAverageRating(this.courserating)"
-						color="amber"
 						dense
-						half-increments
-						background-color="grey lighten-1"
 						readonly
+						half-increments
+						:color="getStarColor(getAverageRating(this.courserating))"
+						full-icon="fas fa-star"
+						half-icon="fa-star-half-alt"
+						empty-icon="far fa-star"
+						background-color="grey"
 					></v-rating>
+
 					<div class="grey--text ml-4">
 						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
 					</div>
@@ -104,13 +109,16 @@
 				<v-row align="center" class="mx-0">
 					<v-rating
 						:value="getUserRating(this.courserating)"
-						background-color="grey lighten-1"
-						color="green"
 						dense
-						@input="addRating($event, id)"
+						:color="getStarColor(getUserRating(this.courserating))"
+						full-icon="fas fa-star"
+						half-icon="fa-star-half-alt"
+						empty-icon="far fa-star"
+						background-color="grey"
+            @input="addRating($event, id)"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length"></div>
+						<div v-if="this.courserating.length">(Your Rating)</div>
 					</div>
 				</v-row>
 				<div
@@ -150,11 +158,14 @@
 				<v-row align="center" class="mx-0">
 					<v-rating
 						:value="getAverageRating(this.courserating)"
-						color="amber"
 						dense
-						half-increments
-						background-color="grey lighten-1"
 						readonly
+						half-increments
+						:color="getStarColor(getAverageRating(this.courserating))"
+						full-icon="fas fa-star"
+						half-icon="fa-star-half-alt"
+						empty-icon="far fa-star"
+						background-color="grey"
 					></v-rating>
 					<div class="grey--text ml-4">
 						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
@@ -190,11 +201,14 @@
 				<v-row align="center" class="mx-0">
 					<v-rating
 						:value="getAverageRating(this.courserating)"
-						color="amber"
 						dense
-						half-increments
-						background-color="grey lighten-1"
 						readonly
+						half-increments
+						:color="getStarColor(getAverageRating(this.courserating))"
+						full-icon="fas fa-star"
+						half-icon="fa-star-half-alt"
+						empty-icon="far fa-star"
+						background-color="grey"
 					></v-rating>
 					<div class="grey--text ml-4">
 						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
@@ -357,6 +371,23 @@ export default {
 				path: "/c/details/" + value,
 				params: { review: true }
 			});
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green";
+			}
+			if (value >= 3) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange darken-3";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
 		}
 	},
 	computed: {
@@ -368,12 +399,12 @@ export default {
 </script>
 <style>
 .module {
-  width: 250px;
-  margin: 0 0 1em 0;
-  overflow: hidden;
+	width: 250px;
+	margin: 0 0 1em 0;
+	overflow: hidden;
 }
 .module p {
-  margin: 0;
+	margin: 0;
 }
 .fade {
 	display: -webkit-box;

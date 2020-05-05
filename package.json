@@ -13,7 +13,7 @@
         "@fortawesome/fontawesome-free": "^5.12.1",
         "axios": "^0.19.2",
         "cross-env": "^5.1",
-        "jquery": "^3.5.0",
+        "jquery": "^3.5.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
         "popper.js": "^1.16.1",
@@ -21,7 +21,7 @@
         "sass": "^1.26.5",
         "sass-loader": "7.*",
         "vue": "^2.6.11",
-        "vue-loader": "^15.9.1",
+        "vue-loader": "^15.9.2",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {

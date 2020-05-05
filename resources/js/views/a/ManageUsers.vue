@@ -12,10 +12,24 @@
 			:items-per-page="100"
 		>
 			<template v-slot:top>
-				<v-text-field v-model="search" append-icon="fas fa-search fa-sm" label="Search" class="mx-4 mt-4"></v-text-field>
+				<v-text-field
+					v-model="search"
+					append-icon="fas fa-search fa-sm"
+					label="Search"
+					class="mx-4 mt-4"
+				></v-text-field>
 			</template>
 			<template v-slot:item.avgrating="{ item }">
-				<v-rating :value="roundOff(item.avgrating, 1)" readonly half-increments :color="getStarColor(item.avgrating)" background-color="black" size="1rem"></v-rating>
+				<v-rating
+					:value="roundOff(item.avgrating, 1)"
+					readonly
+					half-increments
+					:color="getStarColor(item.avgrating)"
+					full-icon="fas fa-star"
+					half-icon="fa-star-half-alt"
+					empty-icon="far fa-star"
+					background-color="grey"
+				></v-rating>
 				<!-- <v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon> -->
 				<!-- <span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span> -->
 			</template>
@@ -128,7 +142,7 @@ export default {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-4";
+				return "orange";
 			}
 			if (value < 2) {
 				return "red";

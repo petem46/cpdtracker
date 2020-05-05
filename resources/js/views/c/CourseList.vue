@@ -24,7 +24,10 @@
 			</v-expand-transition>
 
 			<v-row v-for="category in courses" v-bind="category" :key="category.id">
-				<h1 v-if="category.courses.length == 0 && endpoint != '/get/c'" class="col-12 font-weight-light">No {{ category.name }} courses available at the moment</h1>
+				<h1
+					v-if="category.courses.length == 0 && endpoint != '/get/c'"
+					class="col-12 font-weight-light"
+				>No {{ category.name }} courses available at the moment</h1>
 				<h1 v-if="category.courses.length > 0" class="col-12 font-weight-light">{{ category.name }}</h1>
 				<course-tile
 					v-for="course in category.courses"
@@ -61,6 +64,20 @@
 				</v-list>
 			</v-bottom-sheet>
 		</div>
+
+		<!--
+    ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
+		-->
+		<v-snackbar
+			v-model="snackbar.show"
+			:color="snackbar.color"
+			:timeout="snackbar.timeout"
+			multi-line
+			bottom
+		>
+			{{ snackbar.text }}
+			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
+		</v-snackbar>
 	</div>
 </template>
 <script>
@@ -91,7 +108,13 @@ export default {
 				"red lighten-1",
 				"deep-purple accent-4"
 			],
-			slides: ["GDPR Training", "Level 2 Safeguarding", "Third", "Fourth", "Fifth"],
+			slides: [
+				"GDPR Training",
+				"Level 2 Safeguarding",
+				"Third",
+				"Fourth",
+				"Fifth"
+			],
 			courses: [],
 			endpoint: "/get/c",
 			// rating: 4.5,
@@ -126,6 +149,14 @@ export default {
 				icon: "mdi-delete-alert",
 				title: "Remove from my lists",
 				action: "delete"
+			},
+			snackbar: {
+				color: "",
+				mode: "",
+				show: false,
+				text: "",
+				timeout: 3000,
+				y: "top"
 			}
 		};
 	},
@@ -136,7 +167,11 @@ export default {
 	},
 	methods: {
 		checkroute() {
-			if (this.$route.path === "/c/all" || this.$route.path === "/" || this.$route.path === "/home" ) {
+			if (
+				this.$route.path === "/c/all" ||
+				this.$route.path === "/" ||
+				this.$route.path === "/home"
+			) {
 				this.endpoint = "/get/c";
 				this.loading = true;
 			} else {
@@ -154,7 +189,11 @@ export default {
 				.then(() => {
 					this.loading = false;
 					this.loadingtiles = false;
-					if (this.$route.path === "/c/all" || this.$route.path === "/" || this.$route.path === "/home" ) {
+					if (
+						this.$route.path === "/c/all" ||
+						this.$route.path === "/" ||
+						this.$route.path === "/home"
+					) {
 						this.showbanner = true;
 					}
 				});
@@ -186,8 +225,11 @@ export default {
 		},
 		addRating(value, id) {
 			// console.log("Rating Added: " + value + " Course ID: " + id);
-			axios.put("/put/u/addRating/" + id + "/" + value).then($res => {
+			axios.put("/put/u/addRating/" + id + "/" + value).then(response => {
 				this.fetch();
+				this.snackbar.color = "success";
+				this.snackbar.text = response.data;
+				this.snackbar.show = true;
 			});
 		}
 	},

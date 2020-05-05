@@ -183,9 +183,11 @@
 			<!--
       SLOT modifier for average rating column
 			-->
-			<template
-				v-slot:item.approved_date="{ item }"
-			>{{ item.approved_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
+			<template v-slot:item.approved_date="{ item }">
+				<div
+					v-if="item.approved_date"
+				>{{ item.approved_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+			</template>
 			<!--
       SLOT modifier for action buttons
 			-->
@@ -332,10 +334,10 @@ export default {
 				},
 				{
 					text: "Avg Rating",
-					align: "left",
+					align: "center",
 					sortable: true,
 					value: "avgrating",
-					width: "100px"
+					width: "110px"
 				},
 				{
 					text: "Ratings",
@@ -425,13 +427,13 @@ export default {
 		},
 		getStarColor(value) {
 			if (value > 4) {
-				return "green dark-2";
+				return "green";
 			}
-			if (value > 3.5) {
+			if (value > 3) {
 				return "amber";
 			}
 			if (value >= 2) {
-				return "orange darken-4";
+				return "orange";
 			}
 			if (value < 2) {
 				return "red";

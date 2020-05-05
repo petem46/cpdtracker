@@ -6,6 +6,7 @@ use App\Course;
 use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
+use App\CourseReview;
 use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
@@ -64,38 +65,159 @@ class CourseController extends Controller
     $uid = Auth::id();
     $data = [
       'mycpd' => new MyCPDCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('user_id', '=', $uid);
+        $q->where('user_id', '=', $uid)->orderBy('completed_date');
       })->get()),
     ];
     return $data;
   }
 
+  public function updateMyCPD(Request $request)
+  {
+    $uid = Auth::id();
+    $course = Course::find($request->get('id'));
+    $progress = CourseProgress::where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    $review = CourseReview::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
+    if ($course) {
+      if ($progress) {
+        $progress->state_id = $request->get('myprogress');
+        $progress->start_date = $request->get('start_date');
+        $progress->completed_date = $request->get('completed_date');
+        $progress->touch();
+        $progress->save();
+      } else {
+      }
+      if ($rating) {
+        $rating->rating = $request->get('myrating');
+        $rating->touch();
+        $rating->save();
+      } else {
+        if ($request->get('myrating')) {
+          $myrating = CourseRating::create([
+            'course_id'      => $course->id,
+            'user_id'        => Auth::id(),
+            'rating' => $request->get('myrating'),
+          ]);
+        }
+      }
+      if ($review) {
+        if (!$request->get('myreview')) {
+          $review->delete();
+        } else {
+          $review->review = $request->get('myreview');
+          $review->public = $request->get('myreviewpublic') || false;
+          $review->deleted_at = null;
+          $review->touch();
+          $review->save();
+        }
+      } else {
+        if ($request->get('myreview')) {
+          $myreview = CourseReview::create([
+            'course_id'      => $course->id,
+            'user_id'        => Auth::id(),
+            'review' => $request->get('myreview'),
+            'public' => $request->get('myreviewpublic'),
+            'deleted_at' => null,
+          ]);
+        }
+      }
+      return response('CPD Record Updated', Response::HTTP_OK);
+    } else {
+      $course = Course::create([
+        'name' => $request->get('name'),
+        'slug' => $request->get('name'),
+        'description' => 'MyCPD Entry',
+        'access_details' => 'MyCPD Entry',
+        'viewcounter' => 0,
+        'cost' => 'MyCPD Entry',
+        'length' => 'MyCPD Entry',
+        'startdate' => now(),
+        'enddate' => now(),
+        'active' => 0,
+        'type' => 'MyCPD',
+      ]);
+      if ($request->get('completed_date')) {
+        $state_id = 2;
+        $start_date = $request->get('start_date');
+        $completed_date = $request->get('completed_date');
+      } elseif ($request->get('start_date')) {
+        $state_id = 1;
+        $start_date = $request->get('start_date');
+      } else {
+        $state_id = 3;
+      }
+      $myprogress = CourseProgress::create([
+        'course_id'      => $course->id,
+        'user_id'        => Auth::id(),
+        'state_id'       => $state_id,
+        'start_date'     => $request->get('start_date'),
+        'completed_date' => $request->get('completed_date'),
+      ]);
+      if ($request->get('myrating')) {
+        $myrating = CourseRating::create([
+          'course_id'      => $course->id,
+          'user_id'        => Auth::id(),
+          'rating' => $request->get('myrating'),
+        ]);
+      }
+      if ($request->get('myreview')) {
+        $myreview = CourseReview::create([
+          'course_id'      => $course->id,
+          'user_id'        => Auth::id(),
+          'review' => $request->get('myreview'),
+          'public' => $request->get('myreviewpublic'),
+        ]);
+      }
+      return response('CPD Record Create', Response::HTTP_OK);
+    }
+  }
+
   public function addToMyCourses($course_id, $state_id)
   {
-    $completed_date = null;
-    $start_date = null;
-    if ($state_id == 2 || $state_id == 1) {
-      $start_date = now();
-    }
-    if ($state_id == 2) {
-      $completed_date = now();
-    }
-
     $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
     if ($mycourse) {
+      if ($state_id == 1) {
+        $mycourse->start_date = now();
+        $mycourse->completed_date = null;
+      }
+      if ($state_id == 2) {
+        $mycourse->completed_date = now();
+      }
+      if ($state_id == 3) {
+        $mycourse->start_date = null;
+        $mycourse->completed_date = null;
+      }
       $mycourse->state_id = $state_id;
-      $mycourse->start_date = $start_date;
-      $mycourse->completed_date = $completed_date;
       $mycourse->touch();
       $mycourse->save();
     } else {
-      $mycourse = CourseProgress::create([
-        'course_id'      => $course_id,
-        'user_id'        => Auth::id(),
-        'state_id'       => $state_id,
-        'start_date'     => $start_date,
-        'completed_date' => $completed_date,
-      ]);
+      if ($state_id == 1) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => now(),
+          'completed_date' => null,
+        ]);
+      }
+      if ($state_id == 2) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => now(),
+          'completed_date' => now(),
+        ]);
+      }
+      if ($state_id == 3) {
+        $mycourse = CourseProgress::create([
+          'course_id'      => $course_id,
+          'user_id'        => Auth::id(),
+          'state_id'       => $state_id,
+          'start_date'     => null,
+          'completed_date' => null,
+        ]);
+      }
     }
     return response(null, Response::HTTP_OK);
   }
@@ -124,20 +246,26 @@ class CourseController extends Controller
 
   public function addRating($course_id, $rating)
   {
-    $oldrating = CourseRating::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    $oldrating = CourseRating::withTrashed()->where('course_id', $course_id)->where('user_id', Auth::id())->first();
 
     if ($oldrating) {
-      $oldrating->rating = $rating;
-      $oldrating->touch();
-      $oldrating->save();
+      if ($oldrating->rating == $rating) {
+        $oldrating->delete();
+        return response("Rating Removed", Response::HTTP_OK);
+      } else {
+        $oldrating->rating = $rating;
+        $oldrating->touch();
+        $oldrating->save();
+        return response("Your Rating has been updated", Response::HTTP_OK);
+      }
     } else {
       $newrating = CourseRating::create([
         'course_id'   => $course_id,
         'user_id'     => Auth::id(),
         'rating'    => $rating,
       ]);
+      return response("Your Rating has been recorded", Response::HTTP_OK);
     }
-    return response(null, Response::HTTP_OK);
   }
 
   public function details($course)

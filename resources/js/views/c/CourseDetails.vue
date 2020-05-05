@@ -118,16 +118,35 @@
 					<v-card>
 						<v-card-text>
 							<v-row>
-								<v-col cols="4" class="pb-1">
+								<v-col cols="6" class="pb-1">
+									<div v-if="this.course.ratingscount > 0">Average Rating</div>
 									<v-rating
 										:value="this.course.avgrating"
+										dense
 										readonly
 										half-increments
-										color="amber"
-										size="1rem"
-										dense
+										:color="getStarColor(this.course.avgrating)"
+										full-icon="fas fa-star"
+										half-icon="fa-star-half-alt"
+										empty-icon="far fa-star"
+										background-color="grey"
 									></v-rating>
 									<div v-if="this.course.ratingscount > 0">{{roundOff(this.course.avgrating, 1)}} out of 5</div>
+								</v-col>
+								<v-col cols="6" class="pb-1">
+									<div v-if="this.course.ratingscount > 0">Your Rating</div>
+									<v-rating
+										:value="this.myrating"
+										dense
+										:color="getStarColor(this.myrating)"
+										full-icon="fas fa-star"
+										half-icon="fa-star-half-alt"
+										empty-icon="far fa-star"
+										background-color="grey"
+										@input="addRating($event)"
+									></v-rating>
+									<div v-if="this.myrating > 0">{{ this.myrating }} out of 5 </div>
+									<div v-if="!this.myrating" class="my-1 caption red--text text-left">Please rate this course</div>
 								</v-col>
 								<v-col cols="12" class="headline">{{ this.course.ratingscount }} staff reviews</v-col>
 								<v-col cols="12">
@@ -228,6 +247,17 @@
 			{{ snackbar.text }}
 			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
 		</v-snackbar>
+		<v-snackbar
+			v-if="snackbar1"
+			v-model="snackbar1.show"
+			:color="this.snackbar1.color"
+			:timeout="this.snackbar1.timeout"
+			multi-line
+			bottom
+		>
+			{{ snackbar1.text }}
+			<v-btn dark text @click="snackbar1.show = false">Close</v-btn>
+		</v-snackbar>
 	</div>
 </template>
 <script>
@@ -242,10 +272,19 @@ export default {
 			addtocourseid: "",
 			course: [],
 			endpoint: "/get/c/details/" + this.name,
+			myrating: 0,
 			mystate: 0,
 			publicreviews: [],
 			privatereviews: [],
-			viewcountupdated: 0
+      viewcountupdated: 0,
+			snackbar1: {
+				color: "",
+				mode: "",
+				show: false,
+				text: "",
+				timeout: 3000,
+				y: "top"
+			}
 		};
 	},
 	mounted() {
@@ -258,6 +297,7 @@ export default {
 				.then(({ data }) => {
 					this.course = data.data.course[0];
 					this.mystate = this.course.mystate;
+					this.myrating = this.course.myrating;
 					this.publicreviews = this.course.publicreviews;
 					this.privatereviews = this.course.privatereviews;
 				})
@@ -321,6 +361,32 @@ export default {
 				this.viewcountupdated = 1;
 				this.fetch();
 			});
+    },
+		addRating(value) {
+			// console.log("Rating Added: " + value + " Course ID: " + id);
+			axios.put("/put/u/addRating/" + this.course.id + "/" + value).then(response => {
+				this.fetch();
+				this.snackbar1.color = "success";
+				this.snackbar1.text = response.data;
+				this.snackbar1.show = true;
+			});
+		},
+		getStarColor(value) {
+			if (value > 4) {
+				return "green";
+			}
+			if (value > 3) {
+				return "amber";
+			}
+			if (value >= 2) {
+				return "orange";
+			}
+			if (value < 2) {
+				return "red";
+			}
+			if (value < 1) {
+				return "black";
+			}
 		},
 		back(val) {
 			// console.log(this.$router.go(val));
