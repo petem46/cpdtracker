@@ -236,7 +236,12 @@ export default {
 	computed: {
 		userid() {
 			return this.$store.getters.getUserId;
-		}
+    },
+    filteredcourses() {
+      return this.courses.filter(course => {
+        return course.name.toLowerCase().include(this.search.toLowerCase())
+      })
+    }
 	}
 };
 </script>
