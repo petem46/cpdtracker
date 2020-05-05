@@ -106,7 +106,7 @@
 					:headers="completeddatatableheaders"
 					:items="mycpd.completedcourses"
 					:items-per-page="10"
-					:search="search"
+					:search="searchcompleted"
 					:sort-by="'completed_date'"
 					:sort-desc="true"
 					multi-sort
@@ -116,7 +116,7 @@
 							<v-col class="mx-5">
 								<v-card>
 									<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;My Completed Courses
+										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;My Completed CPD
 									</v-card-title>
 								</v-card>
 							</v-col>
@@ -377,7 +377,7 @@
 					:headers="otherdatatableheaders"
 					:items="mycpd.othercourses"
 					:items-per-page="10"
-					:search="search"
+					:search="searchothers"
 					:sort-by="'completed_date'"
 					:sort-desc="true"
 					multi-sort
@@ -387,7 +387,7 @@
 							<v-col class="mx-5">
 								<v-card>
 									<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;My CPD Courses
+										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;Started and Shortlisted Courses
 									</v-card-title>
 								</v-card>
 							</v-col>
@@ -522,7 +522,8 @@ export default {
 			start_datepicker: false,
 			completed_datepicker: false,
 			mycpd: [],
-			search: "",
+			searchcompleted: "",
+			searchothers: "",
 			type: "All",
 			types: ["All", "Started", "Shortlisted"],
 			editedItem: {
