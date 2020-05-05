@@ -143,7 +143,6 @@
 										half-icon="fa-star-half-alt"
 										empty-icon="far fa-star"
 										background-color="grey"
-										half-increments
 										@input="addRating($event)"
 									></v-rating>
 									<div v-if="this.myrating > 0">{{ this.myrating }} out of 5</div>

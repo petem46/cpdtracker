@@ -114,7 +114,6 @@
 						half-icon="fa-star-half-alt"
 						empty-icon="far fa-star"
 						background-color="grey"
-						half-increments
 						@input="addRating($event, id)"
 					></v-rating>
 					<div class="grey--text ml-4">
