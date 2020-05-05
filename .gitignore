@@ -1,5 +1,9 @@
 /node_modules
 
+public/js/app.js
+public/css/app.css
+public/js/app.js
+
 /public/js/app.js
 /public/js
 
@@ -16,5 +20,3 @@ npm-debug.log
 yarn-error.log
 
 !/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/Resource.php
-public/js/app.js
-public/css/app.css
