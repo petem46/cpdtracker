@@ -24,7 +24,13 @@ class MyCPDCoursesResource extends ResourceCollection
       'myratingcount' => CourseRating::where('user_id', $uid)->count(),
       'myratingaverage' => CourseRating::where('user_id', $uid)->average('rating'),
       'myreviewcount' => CourseReview::where('user_id', $uid)->count(),
-      'courses' => MyCPDCourseDetailsResource::collection($this->collection),
+      // 'courses' => MyCPDCourseDetailsResource::collection($this->collection),
+      'completedcourses' => MyCPDCourseDetailsResource::collection(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('user_id', '=', $uid)->where('state_id', 2)->orderBy('completed_date');
+      })->get()),
+      'othercourses' => MyCPDCourseDetailsResource::collection(Course::whereHas('courseprogress', function ($q) use ($uid) {
+        $q->where('user_id', '=', $uid)->where('state_id', '!=', 2)->orderBy('completed_date');
+      })->get()),
     ];
   }
 }

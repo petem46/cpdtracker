@@ -105,7 +105,7 @@
 													</v-col>
 													<v-col cols="12">
 														<v-radio-group v-model="editedItem.type" column label="Course Status">
-															<v-radio label="Active" color="green accent-3" value="active"></v-radio>
+															<v-radio label="Active" color="green darken-3" value="active"></v-radio>
 															<v-radio label="Inactive" color="grey" value="inactive"></v-radio>
 															<v-radio label="Suggested" color="orange accent-3" value="suggested"></v-radio>
 														</v-radio-group>
@@ -124,7 +124,7 @@
 											>Delete</v-btn>
 											<v-spacer></v-spacer>
 											<v-btn text @click="close">Cancel</v-btn>
-											<v-btn type="submit" outlined color="green accent-2" text>Save</v-btn>
+											<v-btn type="submit" outlined color="green darken-3" text>Save</v-btn>
 										</v-card-actions>
 									</form>
 								</v-container>
@@ -145,7 +145,7 @@
 					<v-icon @click="filterType(item)" color="orange accent-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="item.type == 'active'">
-					<v-icon @click="filterType(item)" color="green accent-3" class="px-0">fa-power-off</v-icon>
+					<v-icon @click="filterType(item)" color="green darken-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="item.type == 'inactive'">
 					<v-icon @click="filterType(item)" color="grey" class="px-0">fa-power-off</v-icon>

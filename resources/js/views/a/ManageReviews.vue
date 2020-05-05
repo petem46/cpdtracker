@@ -79,7 +79,7 @@
 				v-slot:item.date="{ item }"
 			>{{ item.date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</template>
 			<template v-slot:item.public="{ item }">
-				<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
+				<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
 				<v-chip v-if="!publicchip(item)" x-small color="red" class="mr-2">Private</v-chip>
 			</template>
 			<template v-slot:item.avgrating="{ item }">
