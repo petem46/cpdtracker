@@ -2,7 +2,7 @@
 	<v-app id="fcatcpdapp">
 		<v-navigation-drawer
 			v-model="primaryDrawer.model"
-			:clipped="primaryDrawer.clipped"
+			:clipped="$vuetify.breakpoint.lgAndUp"
 			:floating="primaryDrawer.floating"
 			:mini-variant="primaryDrawer.mini"
 			app
@@ -106,8 +106,10 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
-        <!-- MONTGOMERY ACADEMY OFFERS -->
-				<v-subheader v-if="this.school === 'Montgomery' || this.school === 'FCAT'">Montgomery Academy Only</v-subheader>
+				<!-- MONTGOMERY ACADEMY OFFERS -->
+				<v-subheader
+					v-if="this.school === 'Montgomery' || this.school === 'FCAT'"
+				>Montgomery Academy Only</v-subheader>
 				<v-list-item-group v-if="this.school === 'Montgomery' || this.school === 'FCAT'">
 					<v-list-item>
 						<v-list-item-icon>
@@ -178,7 +180,7 @@
 		</v-navigation-drawer>
 
 		<v-app-bar
-			:clipped-left="primaryDrawer.clipped"
+			:clipped-left="$vuetify.breakpoint.lgAndUp"
 			app
 			dark
 			flat
@@ -201,27 +203,6 @@
 				</template>
 				<span>My CPD Record</span>
 			</v-tooltip>
-			<!-- <v-divider class="px-0 mx-0 d-none d-sm-block" vertical inset></v-divider> -->
-			<!-- <v-tooltip bottom>
-				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
-						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermyreviews' }">
-							<v-icon>mdi-file-star-outline</v-icon>
-						</router-link>
-					</v-btn>
-				</template>
-				<span>My Reviews</span>
-			</v-tooltip> -->
-			<!-- <v-tooltip bottom>
-				<template v-slot:activator="{ on }">
-					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
-						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycourses' }">
-							<v-icon>mdi-file-clock-outline</v-icon>
-						</router-link>
-					</v-btn>
-				</template>
-				<span>My Current Courses</span>
-			</v-tooltip> -->
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
@@ -232,14 +213,7 @@
 				</template>
 				<span>Find A Course</span>
 			</v-tooltip>
-			<!-- <v-divider class="px-0 mx-1 d-none d-md-block" vertical inset></v-divider> -->
-			<v-menu
-				v-if="this.roleid == 1"
-				bottom
-				left
-				close-on-content-click
-				offset-y
-			>
+			<v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on: onMenu }">
 					<v-tooltip bottom>
 						<template #activator="{ on: onTooltip }">
@@ -312,20 +286,6 @@
 									</v-avatar>My CPD Record
 								</v-list-item-title>
 							</v-list-item>
-							<!-- <v-list-item @click="gotoMyCourses" class="ml-0 pl-0">
-								<v-list-item-title>
-									<v-avatar>
-										<v-icon>mdi-file-clock-outline</v-icon>
-									</v-avatar>My Courses
-								</v-list-item-title>
-							</v-list-item>
-							<v-list-item @click="gotoMyReviews" class="ml-0 pl-0">
-								<v-list-item-title>
-									<v-avatar>
-										<v-icon>mdi-file-star-outline</v-icon>
-									</v-avatar>My Reviews
-								</v-list-item-title>
-							</v-list-item> -->
 							<v-divider></v-divider>
 							<v-list-item @click="logout" class="ml-0 pl-0">
 								<v-list-item-title>
@@ -382,7 +342,7 @@
 import { mdiCog } from "@mdi/js";
 import SuggestCourseForm from "../components/c/SuggestCourseForm";
 export default {
-	props: ["userid", "roleid", "avatar", "name", "school" ],
+	props: ["userid", "roleid", "avatar", "name", "school"],
 	watch: {
 		$route: function() {
 			this.checkroute();
@@ -400,7 +360,9 @@ export default {
 			drawer: false
 		},
 		dialog: false,
-		categories: [],
+    categories: [],
+    courses: [],
+    courseSearch: "",
 		suggestedsnackbar: {
 			color: "",
 			mode: "",
@@ -434,7 +396,7 @@ export default {
 		this.$store.commit("setUserId", this.userid);
 		this.$store.commit("setRoleId", this.roleid);
 		this.$store.commit("setAvatar", this.avatar);
-		this.getCategories();
+    this.getCategories();
 	},
 	methods: {
 		getCategories() {
@@ -511,15 +473,7 @@ export default {
 			this.suggestedsnackbar = sb;
 		}
 	},
-	computed: {
-		// isDisabled() {
-		// 	if (this.$router.currentRoute.name == "managecourses") {
-		// 		return true;
-		// 	} else {
-		// 		return false;
-		// 	}
-		// }
-	}
+	computed: {}
 };
 </script>
 <style>

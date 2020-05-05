@@ -75,7 +75,7 @@
 					></v-rating>
 
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
+						<div v-if="this.courserating.length">({{this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
 				<div class="my-1 caption text-left">Cost: {{ this.cost }}</div>
@@ -107,9 +107,9 @@
 			<v-card-text class="py-2">
 				<v-row align="center" class="mx-0">
 					<v-rating
-						:value="getUserRating(this.courserating)"
+						:value="getAverageRating(this.courserating)"
 						dense
-						:color="getStarColor(getUserRating(this.courserating))"
+						:color="getStarColor(getAverageRating(this.courserating))"
 						full-icon="fas fa-star"
 						half-icon="fa-star-half-alt"
 						empty-icon="far fa-star"
@@ -117,17 +117,17 @@
 						@input="addRating($event, id)"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length">(Your Rating)</div>
+						<div v-if="this.courserating.length">({{ this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
 				<div
 					v-if="getUserRating(this.courserating) === 0"
 					class="my-1 caption red--text text-left"
-				>Please rate this course</div>
+				>Completed - Please rate this course</div>
 				<div
 					v-if="getUserRating(this.courserating) > 0"
 					class="my-1 caption green--text text-left"
-				>You have completed this course</div>
+				>Completed - You rated this course {{ getUserRating(this.courserating) }}/5</div>
 			</v-card-text>
 		</div>
 		<!-- SHOW IF COURSE IN-PROGRESS -->
@@ -167,7 +167,7 @@
 						background-color="grey"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
+						<div v-if="this.courserating.length">({{this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
 				<div class="my-1 caption blue--text text-left">You have started this course</div>
@@ -210,7 +210,7 @@
 						background-color="grey"
 					></v-rating>
 					<div class="grey--text ml-4">
-						<div v-if="this.courserating.length">({{this.courserating.length }})</div>
+						<div v-if="this.courserating.length">({{this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
 				<div class="my-1 caption text-left">You have shortlisted this course</div>
@@ -360,7 +360,11 @@ export default {
 
 			courserating.avgRating = total / length;
 			return courserating.avgRating;
+    },
+		roundOff(value, decimals) {
+			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
+
 		addRating(value, id) {
 			this.$emit("addRating", value, id);
 		},
