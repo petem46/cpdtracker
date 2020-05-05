@@ -347,12 +347,8 @@
 			</v-container>
 		</v-content>
 		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
-			<v-btn @click="gotoMyReviews()" tile text>
-				<span>My Reviews</span>
-				<v-icon>mdi-file-star-outline</v-icon>
-			</v-btn>
-			<v-btn @click="gotoMyCourses()" tile text>
-				<span>My Courses</span>
+			<v-btn @click="gotoMyCPDRecord()" tile text>
+				<span>My CPD Record</span>
 				<v-icon>mdi-folder-account-outline</v-icon>
 			</v-btn>
 			<v-btn @click="gotoAllCourses()" tile text>
