@@ -109,7 +109,6 @@
 					:search="searchcompleted"
 					:sort-by="'completed_date'"
 					:sort-desc="true"
-					multi-sort
 				>
 					<template v-slot:top>
 						<v-row>
@@ -127,11 +126,11 @@
 									v-model="searchcompleted"
 									prepend-icon="fas fa-search fa-sm"
 									single-line
-									hint="Search courses and reviews"
+									hint="Search your completed courses"
 									persistent-hint
 									clearable
 								>
-									<template v-slot:label>Search</template>
+									<template v-slot:label>Search by keyword</template>
 								</v-text-field>
 							</v-col>
 							<v-col cols="12" md="4" class="order-md-3 order-9 d-none">
@@ -378,9 +377,8 @@
 					:items="mycpd.othercourses"
 					:items-per-page="10"
 					:search="searchothers"
-					:sort-by="'completed_date'"
-					:sort-desc="true"
-					multi-sort
+					:sort-by="'name'"
+					:sort-desc="false"
 				>
 					<template v-slot:top>
 						<v-row>
@@ -398,11 +396,12 @@
 									v-model="searchothers"
 									prepend-icon="fas fa-search fa-sm"
 									single-line
-									hint="Search courses and reviews"
+									hint="Search your started and shortlisted courses"
 									persistent-hint
 									clearable
+
 								>
-									<template v-slot:label>Search</template>
+									<template v-slot:label>Search by keyword</template>
 								</v-text-field>
 							</v-col>
 							<v-col cols="12" md="6" class="order-md-3 order-9">
