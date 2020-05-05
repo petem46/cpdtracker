@@ -554,6 +554,12 @@ export default {
 			},
 			completeddatatableheaders: [
 				{
+					text: "",
+					align: "left",
+					value: "myprogress",
+					width: "40px"
+				},
+				{
 					text: "Course",
 					align: "left",
 					value: "name"
