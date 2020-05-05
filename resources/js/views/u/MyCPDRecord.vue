@@ -251,6 +251,7 @@
 															<div id="myrating" class="text-center">
 																<v-rating
 																	id="myrating"
+                                  half-increments
 																	v-model="editedItem.myrating"
 																	:color="getStarColor(editedItem.myrating)"
 																	full-icon="fas fa-star"
