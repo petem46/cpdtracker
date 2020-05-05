@@ -26,7 +26,7 @@
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn text @click="close()">Close</v-btn>
-							<v-btn type="submit" color="green accent-3" text>Save</v-btn>
+							<v-btn type="submit" color="green darken-3" text>Save</v-btn>
 						</v-card-actions>
 					</form>
 				</v-card>

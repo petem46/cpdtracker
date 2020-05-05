@@ -11,6 +11,7 @@
   roleid="{{ Auth::user()->role_id }}"
   avatar="{{ Auth::user()->avatar }}"
   name="{{ Auth::user()->name }}"
+  school="{{ Auth::user()->school }}"
 >
 </app>
 

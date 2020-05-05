@@ -26,7 +26,7 @@
 						></v-text-field>
 					</v-col>
 					<v-col right cols="12" md="3" class="text-right order-first order-md-2">
-						<v-btn @click="addReview()" color="blue">Add Review</v-btn>
+						<v-btn @click="addReview()" color="blue darken-3">Add Review</v-btn>
 					</v-col>
 				</v-row>
 			</template>
@@ -34,7 +34,7 @@
 				<span class="review">{{ item.review }}</span>
 			</template>
 			<template v-slot:item.public="{ item }">
-				<v-chip v-if="publicchip(item)" x-small color="green" class="mr-2">Public</v-chip>
+				<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
 				<v-chip v-if="!publicchip(item)" x-small color="red" class="mr-2">Private</v-chip>
 			</template>
 			<template v-slot:item.course="{ item }">{{ item.course }}</template>
@@ -98,7 +98,7 @@
 						<v-btn v-if="formDelete" color="red darken-1" text @click="deleteReview()">Delete</v-btn>
 						<v-spacer></v-spacer>
 						<v-btn text @click="close">Cancel</v-btn>
-						<v-btn type="submit" color="green accent-3" text>Save</v-btn>
+						<v-btn type="submit" color="green darken-3" text>Save</v-btn>
 					</v-card-actions>
 				</form>
 			</v-card>

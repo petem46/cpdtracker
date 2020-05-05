@@ -68,7 +68,7 @@
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -81,7 +81,7 @@
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -94,7 +94,7 @@
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -106,11 +106,25 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
+        <!-- MONTGOMERY ACADEMY OFFERS -->
+				<v-subheader v-if="this.school === 'Montgomery' || this.school === 'FCAT'">Montgomery Academy Only</v-subheader>
+				<v-list-item-group v-if="this.school === 'Montgomery' || this.school === 'FCAT'">
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a href="https://thenationalcollege.co.uk/" target="_blank">The National College</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
 				<v-subheader>External Offers</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -120,7 +134,7 @@
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -133,7 +147,7 @@
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="green accent-3">mdi-label</v-icon>
+							<v-icon color="green darken-3">mdi-label</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -372,7 +386,7 @@
 import { mdiCog } from "@mdi/js";
 import SuggestCourseForm from "../components/c/SuggestCourseForm";
 export default {
-	props: ["userid", "roleid", "avatar", "name"],
+	props: ["userid", "roleid", "avatar", "name", "school" ],
 	watch: {
 		$route: function() {
 			this.checkroute();
@@ -383,7 +397,7 @@ export default {
 			.querySelector('meta[name="csrf-token"]')
 			.getAttribute("content"),
 		primaryDrawer: {
-			model: true,
+			model: false,
 			clipped: false,
 			floating: false,
 			mini: false,

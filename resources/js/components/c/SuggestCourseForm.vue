@@ -125,7 +125,7 @@
 						</v-btn>
 						<v-spacer></v-spacer>
 						<!-- <v-btn text @click="close">Cancel</v-btn> -->
-						<v-btn type="submit" color="green accent-3" class text>Submit</v-btn>
+						<v-btn type="submit" color="green darken-3" class text>Submit</v-btn>
 					</v-card-actions>
 				</v-container>
 			</v-form>

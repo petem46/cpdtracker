@@ -65,7 +65,7 @@
 
 						<v-tooltip bottom>
 							<template v-slot:activator="{ on }">
-								<v-chip v-on="on" label outlined class="mr-4" text-color="green">
+								<v-chip v-on="on" label outlined class="mr-4" text-color="green darken-3">
 									<v-icon>mdi-check</v-icon>
 								</v-chip>
 							</template>
@@ -89,7 +89,7 @@
 					<v-icon color="orange accent-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="this.course.type == 'active'">
-					<v-icon color="green accent-3" class="px-0">fa-power-off</v-icon>
+					<v-icon color="green darken-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
 				<v-avatar v-if="this.course.type == 'inactive'">
 					<v-icon color="grey" class="px-0">fa-power-off</v-icon>
