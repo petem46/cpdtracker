@@ -106,6 +106,20 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
+        <!-- MONTGOMERY ACADEMY OFFERS ONLY -->
+				<v-subheader v-if="this.school === 'Montgomery'">Montgomery Academy Only</v-subheader>
+				<v-list-item-group v-if="this.school === 'Montgomery'">
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a href="https://thenationalcollege.co.uk/" target="_blank">The National College</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
 				<v-subheader>External Offers</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -372,7 +386,7 @@
 import { mdiCog } from "@mdi/js";
 import SuggestCourseForm from "../components/c/SuggestCourseForm";
 export default {
-	props: ["userid", "roleid", "avatar", "name"],
+	props: ["userid", "roleid", "avatar", "name", "school" ],
 	watch: {
 		$route: function() {
 			this.checkroute();
