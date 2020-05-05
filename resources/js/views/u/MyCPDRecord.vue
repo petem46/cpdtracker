@@ -1,13 +1,109 @@
 <template>
 	<div class="v-container">
-		<h1 class="mb-5">
-			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;My CPD Record
+		<h1 class="display-1 font-weight-light mb-10 ml-5">
+			<v-icon large>mdi-folder-account-outline</v-icon>&nbsp;&nbsp;My CPD Record
 		</h1>
+		<div id="mycpdheadlines">
+			<v-row>
+				<v-col cols="12" sm="6" lg="3">
+					<v-card>
+						<v-card-text class="py-0">
+							<v-row>
+								<v-col cols="4">
+									<v-avatar
+										tile
+										size="80"
+										color="green"
+										style="margin-top: -2rem !important; border-radius: 4px;"
+										class="mr-5"
+									>
+										<v-icon large>mdi-check</v-icon>
+									</v-avatar>
+								</v-col>
+								<v-col cols="8" class="text-right">
+									<p class="caption font-weight-light mb-0">Completed Courses</p>
+									<h1 class="display-1 font-weight-light">{{ this.mycpd.completedcount }}</h1>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+				<v-col cols="12" sm="6" lg="3">
+					<v-card>
+						<v-card-text class="py-0">
+							<v-row>
+								<v-col cols="4">
+									<v-avatar
+										tile
+										size="80"
+										color="blue"
+										style="margin-top: -2rem !important; border-radius: 4px;"
+										class="mr-5"
+									>
+										<v-icon large>mdi-alarm</v-icon>
+									</v-avatar>
+								</v-col>
+								<v-col cols="8" class="text-right">
+									<p class="caption font-weight-light mb-0">Started Courses</p>
+									<h1 class="display-1 font-weight-light">{{ this.mycpd.startedcount }}</h1>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+				<v-col cols="12" sm="6" lg="3">
+					<v-card>
+						<v-card-text class="py-0">
+							<v-row>
+								<v-col cols="4">
+									<v-avatar
+										tile
+										size="80"
+										color="pink"
+										style="margin-top: -2rem !important; border-radius: 4px;"
+										class="mr-5"
+									>
+										<v-icon large>fa-heart</v-icon>
+									</v-avatar>
+								</v-col>
+								<v-col cols="8" class="text-right">
+									<p class="caption font-weight-light mb-0">Shortlisted Courses</p>
+									<h1 class="display-1 font-weight-light">{{ this.mycpd.shortlistedcount }}</h1>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+				<v-col cols="12" sm="6" lg="3">
+					<v-card>
+						<v-card-text class="py-0">
+							<v-row>
+								<v-col cols="4">
+									<v-avatar
+										tile
+										size="80"
+										color="amber darken-2"
+										style="margin-top: -2rem !important; border-radius: 4px;"
+										class="mr-5"
+									>
+										<v-icon large>fa-star</v-icon>
+									</v-avatar>
+								</v-col>
+								<v-col cols="8" class="text-right">
+									<p class="caption font-weight-light mb-0">My Average Rating</p>
+									<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+			</v-row>
+		</div>
 		<div id="mycpdcourses" class="mb-10">
 			<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 			<v-data-table
 				:headers="datatableheaders"
-				:items="mycpd"
+				:items="mycpd.courses"
 				:items-per-page="25"
 				:search="search"
 				:sort-by="['completed_date', 'start_date']"
@@ -93,7 +189,7 @@
 																		hint="Leave blank if couse not yet started"
 																		persistent-hint
 																		clearable
-                                    @click:clear="clearStartDate"
+																		@click:clear="clearStartDate"
 																	></v-text-field>
 																</template>
 																<v-date-picker
@@ -122,7 +218,7 @@
 																		hint="Leave blank if couse not yet completed"
 																		persistent-hint
 																		clearable
-                                    @click:clear="clearCompletedDate"
+																		@click:clear="clearCompletedDate"
 																	></v-text-field>
 																</template>
 																<v-date-picker
@@ -138,8 +234,8 @@
 																v-model="editedItem.myreview"
 																label="Course Review"
 																prepend-icon="fa-pen-alt fa-sm"
-                                hint="Delete your review by clearing this textbox"
-                                persistent-hint
+																hint="Delete your review by clearing this textbox"
+																persistent-hint
 																outlined
 																counter
 															></v-textarea>
@@ -171,7 +267,7 @@
 											<v-card-actions>
 												<v-btn
 													v-if="formDelete"
-                          disabled
+													disabled
 													outlined
 													color="red darken-1"
 													text
@@ -384,8 +480,7 @@ export default {
 			axios
 				.get("/get/u/getMyCPD")
 				.then(({ data }) => {
-					// console.log(data.completed);
-					this.mycpd = data.mycpd.courses;
+					this.mycpd = data.mycpd;
 				})
 				.then(() => {
 					setTimeout(() => {
@@ -412,7 +507,7 @@ export default {
 			return "Edit review for " + item.name;
 		},
 		editRecord(item) {
-			this.editedIndex = this.mycpd.indexOf(item);
+			this.editedIndex = this.mycpd.courses.indexOf(item);
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -457,13 +552,13 @@ export default {
 			if (value < 1) {
 				return "black";
 			}
-    },
-    clearCompletedDate() {
-      this.editedItem.completed_date = null;
-    },
-    clearStartDate() {
-      this.editedItem.start_date = null;
-    },
+		},
+		clearCompletedDate() {
+			this.editedItem.completed_date = null;
+		},
+		clearStartDate() {
+			this.editedItem.start_date = null;
+		},
 		publicchip(item) {
 			if (item.myreviewpublic == 1) {
 				return true;

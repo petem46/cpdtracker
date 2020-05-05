@@ -113,12 +113,12 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'home',
-      component: CourseList
+      component: MyCPDRecord
     },
     {
       path: '/',
       name: 'landing',
-      component: CourseList
+      component: MyCPDRecord
     },
     {
       path: '/a/manageusers',

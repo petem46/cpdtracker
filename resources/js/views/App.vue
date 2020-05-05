@@ -27,7 +27,7 @@
 					</v-list-item>
 					<v-list-item>
 						<v-list-item-icon>
-							<v-icon color="yellow accent-3">mdi-folder-account-outline</v-icon>
+							<v-icon>mdi-folder-account-outline</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -383,7 +383,7 @@ export default {
 			.querySelector('meta[name="csrf-token"]')
 			.getAttribute("content"),
 		primaryDrawer: {
-			model: false,
+			model: true,
 			clipped: false,
 			floating: false,
 			mini: false,

@@ -14,6 +14,7 @@ class ManageCourseDetails2Resource extends JsonResource
 {
   public function toArray($request)
   {
+    $uid = Auth::id();
     $mystateid = 0;
     try {
       $mystate = CourseProgress::select('state_id')->where('course_id', $this->id)->where('user_id', Auth::id())->firstOrFail();
@@ -40,7 +41,7 @@ class ManageCourseDetails2Resource extends JsonResource
       'inprogress'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->get(),
       'shortlisted'   => CourseProgress::where('course_id', $this->id)->where('state_id', 3)->get(),
       'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
-      'myrating'     => CourseRating::where('course_id', $this->id)->where('user_id', Auth::id())->max('rating'),
+      'myrating'     => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->max('rating'),
       'ratings'       => CourseRating::where('course_id', $this->id)->get(),
       'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
       'oneratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 1)->count(),
@@ -48,13 +49,9 @@ class ManageCourseDetails2Resource extends JsonResource
       'threeratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 3)->count(),
       'fourratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 4)->count(),
       'fiveratingscount'       => CourseRating::where('course_id', $this->id)->where('rating', 5)->count(),
-      // 'reviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 1)->get(),
       'publicreviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 1)->get(),
       'privatereviews'       => CourseReview::with('user')->where('course_id', $this->id)->where('public', 0)->get(),
       'reviewcount'       => CourseReview::where('course_id', $this->id)->count(),
-      // 'links'         => [
-      // 'self' => route('cc.show', ['cc' => $this->id]),
-      // ],
     ];
   }
 }
