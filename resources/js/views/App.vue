@@ -106,9 +106,9 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
-        <!-- MONTGOMERY ACADEMY OFFERS ONLY -->
-				<v-subheader v-if="this.school === 'Montgomery'">Montgomery Academy Only</v-subheader>
-				<v-list-item-group v-if="this.school === 'Montgomery'">
+        <!-- MONTGOMERY ACADEMY OFFERS -->
+				<v-subheader v-if="this.school === 'Montgomery' || this.school === 'FCAT'">Montgomery Academy Only</v-subheader>
+				<v-list-item-group v-if="this.school === 'Montgomery' || this.school === 'FCAT'">
 					<v-list-item>
 						<v-list-item-icon>
 							<v-icon color="blue">fas fa-external-link-alt fa-sm</v-icon>
