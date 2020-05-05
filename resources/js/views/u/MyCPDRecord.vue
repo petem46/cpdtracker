@@ -36,6 +36,29 @@
 									<v-avatar
 										tile
 										size="80"
+										color="amber darken-2"
+										style="margin-top: -2rem !important; border-radius: 4px;"
+										class="mr-5"
+									>
+										<v-icon large>fa-star</v-icon>
+									</v-avatar>
+								</v-col>
+								<v-col cols="8" class="text-right">
+									<p class="caption font-weight-light mb-0">My Average Rating</p>
+									<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+				<v-col cols="12" sm="6" lg="3" class="mt-5">
+					<v-card>
+						<v-card-text class="py-0">
+							<v-row>
+								<v-col cols="4">
+									<v-avatar
+										tile
+										size="80"
 										color="blue darken-3"
 										style="margin-top: -2rem !important; border-radius: 4px;"
 										class="mr-5"
@@ -74,29 +97,6 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-col cols="12" sm="6" lg="3" class="mt-5">
-					<v-card>
-						<v-card-text class="py-0">
-							<v-row>
-								<v-col cols="4">
-									<v-avatar
-										tile
-										size="80"
-										color="amber darken-2"
-										style="margin-top: -2rem !important; border-radius: 4px;"
-										class="mr-5"
-									>
-										<v-icon large>fa-star</v-icon>
-									</v-avatar>
-								</v-col>
-								<v-col cols="8" class="text-right">
-									<p class="caption font-weight-light mb-0">My Average Rating</p>
-									<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
 			</v-row>
 		</div>
 		<v-row>
@@ -116,7 +116,7 @@
 							<v-col class="mx-5">
 								<v-card>
 									<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;My Completed CPD
+										<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;My Completed CPD
 									</v-card-title>
 								</v-card>
 							</v-col>
@@ -124,7 +124,7 @@
 						<v-row class="px-3">
 							<v-col cols="12" md="10" class="order-md-1 order-last">
 								<v-text-field
-									v-model="search"
+									v-model="searchcompleted"
 									prepend-icon="fas fa-search fa-sm"
 									single-line
 									hint="Search courses and reviews"
@@ -329,7 +329,7 @@
 					</template>
 					<template v-slot:item.avgrating="{ item }">
 						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.avgrating, 1) }}
+						{{ roundOff(item.avgrating, 1) || '' }}
 					</template>
 
 					<template v-slot:item.actions="{ item }">
@@ -387,7 +387,7 @@
 							<v-col class="mx-5">
 								<v-card>
 									<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-format-list-bulleted-type</v-icon>&nbsp;&nbsp;Started and Shortlisted Courses
+										<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed Courses
 									</v-card-title>
 								</v-card>
 							</v-col>
@@ -395,7 +395,7 @@
 						<v-row class="px-3">
 							<v-col cols="12" md="6" class="order-md-1 order-last">
 								<v-text-field
-									v-model="search"
+									v-model="searchothers"
 									prepend-icon="fas fa-search fa-sm"
 									single-line
 									hint="Search courses and reviews"
@@ -451,7 +451,7 @@
 					</template>
 					<template v-slot:item.avgrating="{ item }">
 						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.avgrating, 1) }}
+						{{ roundOff(item.avgrating, 1) || '' }}
 					</template>
 
 					<template v-slot:item.actions="{ item }">
