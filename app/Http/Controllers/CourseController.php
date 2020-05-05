@@ -255,6 +255,7 @@ class CourseController extends Controller
       } else {
         $oldrating->rating = $rating;
         $oldrating->deleted_at = null;
+
         $oldrating->touch();
         $oldrating->save();
         return response("Your Rating has been updated", Response::HTTP_OK);
