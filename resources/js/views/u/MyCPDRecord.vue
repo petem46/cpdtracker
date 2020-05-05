@@ -554,27 +554,9 @@ export default {
 			},
 			completeddatatableheaders: [
 				{
-					text: "",
-					align: "left",
-					value: "myprogress",
-					width: "40px"
-					// filter: value => {
-					// 	if (this.type === "All") return true;
-					// 	if (!this.type) return true;
-					// 	if (this.type === "Complete") return value === 2;
-					// 	if (this.type === "Started") return value === 1;
-					// 	if (this.type === "Shortlisted") return value === 3;
-					// }
-				},
-				{
 					text: "Course",
 					align: "left",
 					value: "name"
-				},
-				{
-					text: "Start Date",
-					align: "left d-none",
-					value: "start_date"
 				},
 				{
 					text: "Completed Date",
@@ -624,7 +606,7 @@ export default {
 				},
 				{
 					text: "Start Date",
-					align: "left d-none",
+					align: "left",
 					value: "start_date"
 				},
 				{
