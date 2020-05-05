@@ -258,6 +258,7 @@
 																	half-icon="fa-star-half-alt"
 																	empty-icon="far fa-star"
 																	background-color="grey"
+
 																></v-rating>
 															</div>
 														</v-col>
