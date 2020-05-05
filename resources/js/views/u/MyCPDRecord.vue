@@ -325,7 +325,7 @@
 
 					<template v-slot:item.myrating="{ item }">
 						<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ item.myrating }}
+						{{ roundOff(item.myrating,1) }}
 					</template>
 					<template v-slot:item.avgrating="{ item }">
 						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
@@ -447,7 +447,7 @@
 
 					<template v-slot:item.myrating="{ item }">
 						<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ item.myrating }}
+						{{ roundOff(item.myrating,1) }}
 					</template>
 					<template v-slot:item.avgrating="{ item }">
 						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
