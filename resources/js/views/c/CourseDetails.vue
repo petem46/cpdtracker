@@ -143,9 +143,10 @@
 										half-icon="fa-star-half-alt"
 										empty-icon="far fa-star"
 										background-color="grey"
+										half-increments
 										@input="addRating($event)"
 									></v-rating>
-									<div v-if="this.myrating > 0">{{ this.myrating }} out of 5 </div>
+									<div v-if="this.myrating > 0">{{ this.myrating }} out of 5</div>
 									<div v-if="!this.myrating" class="my-1 caption red--text text-left">Please rate this course</div>
 								</v-col>
 								<v-col cols="12" class="headline">{{ this.course.ratingscount }} staff reviews</v-col>
@@ -276,7 +277,7 @@ export default {
 			mystate: 0,
 			publicreviews: [],
 			privatereviews: [],
-      viewcountupdated: 0,
+			viewcountupdated: 0,
 			snackbar1: {
 				color: "",
 				mode: "",
@@ -361,15 +362,17 @@ export default {
 				this.viewcountupdated = 1;
 				this.fetch();
 			});
-    },
+		},
 		addRating(value) {
 			// console.log("Rating Added: " + value + " Course ID: " + id);
-			axios.put("/put/u/addRating/" + this.course.id + "/" + value).then(response => {
-				this.fetch();
-				this.snackbar1.color = "success";
-				this.snackbar1.text = response.data;
-				this.snackbar1.show = true;
-			});
+			axios
+				.put("/put/u/addRating/" + this.course.id + "/" + value)
+				.then(response => {
+					this.fetch();
+					this.snackbar1.color = "success";
+					this.snackbar1.text = response.data;
+					this.snackbar1.show = true;
+				});
 		},
 		getStarColor(value) {
 			if (value > 4) {
