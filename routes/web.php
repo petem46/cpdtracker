@@ -20,7 +20,7 @@ Auth::routes([
   'verify' => false
 ]);
 
-Route::get('/get/hash', 'UsersController@hash')->name('hash');
+// Route::get('/get/hash', 'UsersController@hash')->name('hash');
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');

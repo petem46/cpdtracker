@@ -14,14 +14,14 @@ class UsersController extends Controller
       return new ManageUsersResource(User::get());
     }
 
-    public function hash() {
-      $users = User::where('school', 'Fleetwood')->get();
-      foreach ($users as $u) {
-        //  $u->name = Hash::make($u->name);
-        $u->password = Hash::make('$u->password');
-        $u->touch();
-        $u->save();
-      }
-      return $users;
-    }
+    // public function hash() {
+      // $users = User::where('school', 'Fleetwood')->get();
+      // foreach ($users as $u) {
+      //   //  $u->name = Hash::make($u->name);
+      //   $u->password = Hash::make('$u->password');
+      //   $u->touch();
+      //   $u->save();
+      // }
+      // return $users;
+    // }
 }
