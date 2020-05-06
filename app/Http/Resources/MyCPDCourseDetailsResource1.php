@@ -9,16 +9,25 @@ use App\CourseReview;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MyCPDCourseDetailsResource extends JsonResource
+class MyCPDCourseDetailsResource1 extends JsonResource
 {
+  private $uid;
+
+  public function __construct($collection, $uid)
+  {
+    parent::__construct($collection);
+    $this->uid = $uid;
+  }
+
   public function toArray($request)
   {
-    $uid = Auth::id();
+    $uid = 1;
     return [
-      'type'          =>  'mycpdcourse',
+      'type'          =>  'fuck off',
       'id'            =>  (string) $this->id,
+      'uid'            =>  (string) $this->uid,
       'name'          => $this->name,
-      // 'type'          => $this->type,
+      'type'          => $this->type,
       'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
       'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
       'myrating'       => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->max('rating'),
