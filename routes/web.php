@@ -20,7 +20,6 @@ Auth::routes([
   'verify' => false
 ]);
 
-// Route::get('/get/hash', 'UsersController@hash')->name('hash');
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
@@ -28,6 +27,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
 Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
 
 Route::group(['middleware' => ['auth']], function () {
+  // Route::get('/get/hash', 'UsersController@hash')->name('hash');
 
   /*
 |- COURSE ROUTES
