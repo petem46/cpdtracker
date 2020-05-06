@@ -102,16 +102,16 @@
 				:key="category.id"
 				small
 				outlined
-				class="mr-2"
+				class="mr-2 mb-5"
 			>
 				<v-icon left color="amber">mdi-label</v-icon>
 				{{ category.name }}
 			</v-chip>
-			<p v-if="this.course.description">{{ this.course.description}}</p>
-			<p v-if="!this.course.description">No description avaiable</p>
-			<p>
+			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
+			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
+			<v-subheader>
 				<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
-			</p>
+			</v-subheader>
 			<v-row class>
 				<v-col cols="12" md="4">
 					<h1>Course Ratings</h1>
