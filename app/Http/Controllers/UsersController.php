@@ -18,7 +18,7 @@ class UsersController extends Controller
       $users = User::where('school', 'Fleetwood')->get();
       foreach ($users as $u) {
         //  $u->name = Hash::make($u->name);
-        // $u->password = Hash::make('$u->password');
+        $u->password = Hash::make('$u->password');
         $u->touch();
         $u->save();
       }
