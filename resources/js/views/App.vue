@@ -122,7 +122,7 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
-				<v-subheader>External Offers</v-subheader>
+				<v-subheader>The Open University</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
@@ -130,7 +130,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<a href="https://www.open.edu/openlearn/free-courses/full-catalogue" target="_blank">OpenLearn</a>
+								<a href="https://www.open.edu/openlearn/free-courses/full-catalogue" target="_blank">OpenLearn Free</a>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
