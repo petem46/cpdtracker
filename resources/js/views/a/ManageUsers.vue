@@ -12,7 +12,7 @@
 			:items-per-page="100"
 		>
 			<template v-slot:top>
-				<v-row class="mx-4">
+				<v-row>
 					<v-col cols="12" md="4">
 						<v-text-field
 							v-model="search"
@@ -20,6 +20,7 @@
 							label="Staff Search"
 							hint="Search for staff member"
 							persistent-hint
+              class="ml-5"
 						></v-text-field>
 					</v-col>
 					<v-col cols="12" md="4" class="order-md-3 order-9">
@@ -29,6 +30,7 @@
 							persistent-hint
 							v-model="school"
 							:items="schools"
+              class="ml-5"
 						></v-select>
 					</v-col>
 				</v-row>
