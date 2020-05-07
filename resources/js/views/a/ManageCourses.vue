@@ -138,9 +138,6 @@
       include type/status icon
 			-->
 			<template v-slot:item.type="{ item }">
-				<span class="d-none"></span>
-			</template>
-			<template v-slot:item.name="{ item }">
 				<v-avatar v-if="item.type == 'suggested'">
 					<v-icon @click="filterType(item)" color="orange accent-3" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
@@ -150,6 +147,11 @@
 				<v-avatar v-if="item.type == 'inactive'">
 					<v-icon @click="filterType(item)" color="grey" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
+				<v-avatar v-if="item.type == 'MyCPD'">
+					<v-icon @click="filterType(item)" color="cyan accent-2" class="px-0">fas fa-user-graduate</v-icon>
+				</v-avatar>
+			</template>
+			<template v-slot:item.name="{ item }">
 				{{ item.name }}
 			</template>
 			<!--
@@ -231,7 +233,7 @@ export default {
 			test: [],
 			coursefiltertest: [],
 			type: "Any",
-			types: ["Any", "Active", "Inactive", "Suggested"],
+			types: ["Any", "Active", "Inactive", "Suggested", "Personal"],
 			search: "",
 			catfilter: "",
 			multisort: false,
@@ -282,14 +284,15 @@ export default {
 			datatableheaders: [
 				{
 					text: "",
-					class: "hide",
-					align: " d-none",
+					// class: "hide",
+					// align: " d-none",
 					sortable: false,
 					value: "type",
 					width: "0%",
 					filter: value => {
 						if (this.type === "Any") return true;
 						if (!this.type) return true;
+						if (this.type === "Personal") return value === "MyCPD";
 						return value === this.type.toLowerCase();
 					}
 				},
@@ -503,11 +506,14 @@ export default {
 			return true;
 		},
 		filterType(type) {
-			if (type.type == this.type.toLowerCase()) {
+			if (type.type == this.type.toLowerCase() || this.type == "Personal" && type.type == "MyCPD") {
 				this.type = "Any";
+			} else if (type.type == "MyCPD") {
+				this.type = "Personal";
+			} else if (type.type == "MyCPD") {
+				this.type = "Personal";
 			} else {
 				this.type = this.capitalize(type.type);
-				console.log(type.type);
 			}
 			return true;
 		},
