@@ -94,7 +94,7 @@
 				<v-avatar v-if="this.course.type == 'inactive'">
 					<v-icon color="grey" class="px-0">fa-power-off</v-icon>
 				</v-avatar>
-				{{ this.name }}
+				{{ this.course.name }}
 			</h1>
 			<v-chip
 				v-for="category in this.course.categories"
@@ -231,6 +231,22 @@
 					</v-row>
 				</v-col>
 			</v-row>
+      <v-row v-if="this.adminuser">
+      <!-- <v-col cols="12" md="6">
+        <v-list-group>
+          <v-list-item-title>
+            TITLE
+          </v-list-item-title>
+          <v-list-item
+          v-for="completed in course.completed"
+          				v-bind="completed"
+				:key="completed.id">
+        {{ completed.user_id}}
+          </v-list-item>
+        </v-list-group>
+      </v-col> -->
+
+      </v-row>
 		</section>
 
 		<!--

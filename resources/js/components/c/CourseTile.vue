@@ -14,7 +14,7 @@
 								<p class="cpation">{{ description }}</p>
 							</div>
 							<v-btn
-								@click="courseDetails(name);"
+								@click="courseDetails(id);"
 								min-width="100px"
 								class="mx-auto mb-1 teal--text"
 								color="white"

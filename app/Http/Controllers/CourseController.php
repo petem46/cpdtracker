@@ -271,7 +271,7 @@ class CourseController extends Controller
 
   public function details($course)
   {
-    return new ManageCourseDetails1Resource(Course::where('name', $course)->get());
+    return new ManageCourseDetails1Resource(Course::where('id', $course)->get());
   }
 
   public function savecourse(Request $request)

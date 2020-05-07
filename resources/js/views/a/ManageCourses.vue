@@ -444,7 +444,7 @@ export default {
 		},
 		courseDetails(value) {
 			// this.$emit("closeappdrawer");
-			this.$router.push("/c/details/" + value.name);
+			this.$router.push("/c/details/" + value.id);
 		},
 		close() {
 			this.dialog = false;
