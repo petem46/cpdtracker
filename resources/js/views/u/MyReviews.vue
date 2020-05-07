@@ -98,7 +98,7 @@
 						<v-btn v-if="formDelete" color="red darken-1" text @click="deleteReview()">Delete</v-btn>
 						<v-spacer></v-spacer>
 						<v-btn text @click="close">Cancel</v-btn>
-						<v-btn type="submit" color="green darken-3" text>Save</v-btn>
+						<v-btn type="submit" text>Save</v-btn>
 					</v-card-actions>
 				</form>
 			</v-card>

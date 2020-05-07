@@ -109,8 +109,11 @@
 			</v-chip>
 			<v-subheader v-if="this.course.description">{{ this.course.description}}</v-subheader>
 			<v-subheader v-if="!this.course.description">No description avaiable</v-subheader>
-			<v-subheader>
+			<v-subheader v-if="this.course.type != 'MyCPD'">
 				<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
+			</v-subheader>
+			<v-subheader v-if="this.course.type == 'MyCPD'">
+				Course Completed by {{ this.course.approved_by }}
 			</v-subheader>
 			<v-row class>
 				<v-col cols="12" md="4">

@@ -176,9 +176,21 @@
 																	v-model="editedItem.name"
 																	label="Course Name"
 																	hide-details="auto"
-																	prepend-icon="far fa-calendar-alt"
+																	prepend-icon="fas fa-book-reader"
 																	:disabled="formDelete"
 																></v-text-field>
+															</v-col>
+															<v-col cols="12">
+																<v-textarea
+																	id="description"
+																	v-model="editedItem.description"
+																	label="Course description"
+																	hide-details="auto"
+																	prepend-icon="fa-info"
+																	:disabled="formDelete"
+                                  outlined
+                                  counter
+																></v-textarea>
 															</v-col>
 															<v-col cols="12" md="6">
 																<v-menu
@@ -284,7 +296,7 @@
 													>Delete</v-btn>
 													<v-spacer></v-spacer>
 													<v-btn text @click="close">Cancel</v-btn>
-													<v-btn type="submit" outlined color="green darken-3" text>Save</v-btn>
+													<v-btn type="submit" text>Save</v-btn>
 												</v-card-actions>
 											</form>
 										</v-container>
@@ -647,7 +659,7 @@ export default {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
 		gotoCourse(item) {
-			this.$router.push("/c/details/" + item.name);
+			this.$router.push("/c/details/" + item.id);
 		},
 		changestate(item, state) {
 			if (this.myprogress == state) {

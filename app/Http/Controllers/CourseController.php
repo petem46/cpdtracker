@@ -126,7 +126,7 @@ class CourseController extends Controller
       $course = Course::create([
         'name' => $request->get('name'),
         'slug' => $request->get('name'),
-        'description' => 'MyCPD Entry',
+        'description' => $request->get('name') || 'MyCPD Entry',
         'access_details' => 'MyCPD Entry',
         'viewcounter' => 0,
         'cost' => 'MyCPD Entry',

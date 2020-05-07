@@ -15,6 +15,7 @@ class ManageCourseDetails2Resource extends JsonResource
   public function toArray($request)
   {
     $uid = Auth::id();
+    $uname = Auth::user()->name;
     $mystateid = 0;
     try {
       $mystate = CourseProgress::select('state_id')->where('course_id', $this->id)->where('user_id', Auth::id())->firstOrFail();
@@ -33,6 +34,9 @@ class ManageCourseDetails2Resource extends JsonResource
       'startdate'      => $this->startdate,
       'enddate'      => $this->enddate,
       'cost'          => $this->cost,
+      'approved_by'          => $this->approved_by,
+      'suggested_by'          => $this->suggested_by,
+      'username'        => $uname,
       'mystate' =>  $mystateid,
       'completedcount'     => CourseProgress::where('course_id', $this->id)->where('state_id', 2)->count(),
       'inprogresscount'    => CourseProgress::where('course_id', $this->id)->where('state_id', 1)->count(),

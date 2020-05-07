@@ -54,7 +54,7 @@
 				<v-card-actions>
 					<v-spacer></v-spacer>
 					<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-					<v-btn type="submit" color="blue darken-1" text>Save</v-btn>
+					<v-btn type="submit" text>Save</v-btn>
 				</v-card-actions>
 			</form>
 		</v-card>
