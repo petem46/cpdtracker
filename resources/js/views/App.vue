@@ -64,6 +64,22 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
+				<!-- MONTGOMERY ACADEMY OFFERS -->
+				<v-subheader
+					v-if="this.school === 'Montgomery' || this.school === 'FCAT'"
+				>Montgomery Academy Only</v-subheader>
+				<v-list-item-group v-if="this.school === 'Montgomery' || this.school === 'FCAT'">
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
+								<a href="https://thenationalcollege.co.uk/" target="_blank">The National College</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
 				<v-subheader>GOV.UK - National Careers Service</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
@@ -106,23 +122,7 @@
 						</v-list-item-content>
 					</v-list-item>
 				</v-list-item-group>
-				<!-- MONTGOMERY ACADEMY OFFERS -->
-				<v-subheader
-					v-if="this.school === 'Montgomery' || this.school === 'FCAT'"
-				>Montgomery Academy Only</v-subheader>
-				<v-list-item-group v-if="this.school === 'Montgomery' || this.school === 'FCAT'">
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<a href="https://thenationalcollege.co.uk/" target="_blank">The National College</a>
-							</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-				</v-list-item-group>
-				<v-subheader>The Open University</v-subheader>
+				<v-subheader>The Open University Free Learning</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
@@ -130,7 +130,10 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<a href="https://www.open.edu/openlearn/free-courses/full-catalogue" target="_blank">OpenLearn Free</a>
+								<a
+									href="https://www.open.edu/openlearn/free-courses/full-catalogue"
+									target="_blank"
+								>OpenLearn</a>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -373,9 +376,9 @@ export default {
 			drawer: false
 		},
 		dialog: false,
-    categories: [],
-    courses: [],
-    courseSearch: "",
+		categories: [],
+		courses: [],
+		courseSearch: "",
 		suggestedsnackbar: {
 			color: "",
 			mode: "",
@@ -409,7 +412,7 @@ export default {
 		this.$store.commit("setUserId", this.userid);
 		this.$store.commit("setRoleId", this.roleid);
 		this.$store.commit("setAvatar", this.avatar);
-    this.getCategories();
+		this.getCategories();
 	},
 	methods: {
 		getCategories() {
