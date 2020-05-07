@@ -20,6 +20,7 @@ Auth::routes([
   'verify' => false
 ]);
 
+Route::get('/get/schools', 'UsersController@getSchools');
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
@@ -63,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
   Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
+
 
   /*
 |- MANAGE USERS ROUTES

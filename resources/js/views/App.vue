@@ -130,6 +130,19 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
+								<a href="https://www.open.edu/openlearn/free-courses/full-catalogue" target="_blank">OpenLearn</a>
+							</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list-item-group>
+				<v-subheader>External Offers</v-subheader>
+				<v-list-item-group>
+					<v-list-item>
+						<v-list-item-icon>
+							<v-icon color="blue darken-3">fas fa-external-link-alt fa-sm</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>
 								<a href="#" target="_blank">Randstad</a>
 							</v-list-item-title>
 						</v-list-item-content>

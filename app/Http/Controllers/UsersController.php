@@ -14,6 +14,14 @@ class UsersController extends Controller
       return new ManageUsersResource(User::get());
     }
 
+    public function getSchools()
+    {
+      $data = [
+        'schools' => User::select('school')->groupBy('school')->orderBy('school')->get(),
+      ];
+      return $data;
+    }
+
     // public function hash() {
       // $users = User::where('school', 'Fleetwood')->get();
       // foreach ($users as $u) {

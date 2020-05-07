@@ -12,15 +12,29 @@
 			:items-per-page="100"
 		>
 			<template v-slot:top>
-				<v-text-field
-					v-model="search"
-					append-icon="fas fa-search fa-sm"
-					label="Search"
-					class="mx-4 mt-4"
-				></v-text-field>
+				<v-row>
+					<v-col cols="12" md="6">
+						<v-text-field
+							v-model="search"
+							prepend-icon="fas fa-search fa-sm"
+							label="Staff Search"
+							hint="Search for staff member"
+							persistent-hint
+						></v-text-field>
+					</v-col>
+					<v-col cols="12" md="4" class="order-md-3 order-9">
+						<v-select
+							prepend-icon="fa-filter fa-sm"
+							hint="School Filter"
+							persistent-hint
+							v-model="school"
+							:items="schools"
+						></v-select>
+					</v-col>
+				</v-row>
 			</template>
 			<template v-slot:item.avgrating="{ item }">
-				<v-rating
+				<!-- <v-rating
 					:value="roundOff(item.avgrating, 1)"
 					readonly
 					half-increments
@@ -29,9 +43,9 @@
 					half-icon="fa-star-half-alt"
 					empty-icon="far fa-star"
 					background-color="grey"
-				></v-rating>
-				<!-- <v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon> -->
-				<!-- <span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span> -->
+				></v-rating>-->
+				<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon>
+				<span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span>
 			</template>
 			<template v-slot:item.last_login_at="{ item }">
 				<div
@@ -53,6 +67,8 @@ export default {
 			loading: true,
 			users: [],
 			search: "",
+			school: "All",
+			schools: [],
 			multisort: false,
 			datatableheaders: [
 				{
@@ -65,7 +81,12 @@ export default {
 					text: "School",
 					align: "left",
 					sortable: true,
-					value: "school"
+					value: "school",
+					filter: value => {
+						if (this.school === "All") return true;
+						if (!this.school) return true;
+						return value === this.school;
+					}
 				},
 				{
 					text: "Completed",
@@ -73,18 +94,18 @@ export default {
 					sortable: true,
 					value: "completed"
 				},
-				// {
-				// 	text: "Started",
-				// 	align: "center",
-				// 	sortable: true,
-				// 	value: "inprogress"
-				// },
-				// {
-				// 	text: "Shortlisted",
-				// 	align: "center",
-				// 	sortable: true,
-				// 	value: "shortlisted"
-				// },
+				{
+					text: "Started",
+					align: "center",
+					sortable: true,
+					value: "inprogress"
+				},
+				{
+					text: "Shortlisted",
+					align: "center",
+					sortable: true,
+					value: "shortlisted"
+				},
 				{
 					text: "Total",
 					align: "center",
@@ -126,6 +147,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
+		this.getSchools();
 	},
 	methods: {
 		fetch() {
@@ -138,6 +160,16 @@ export default {
 					setTimeout(() => {
 						this.loading = false;
 					}, 1000);
+				});
+		},
+		getSchools() {
+			axios
+				.get("/get/schools")
+				.then(({ data }) => {
+					this.schools = data.schools.map(schools => schools.school);
+				})
+				.then(() => {
+					this.schools.unshift("All");
 				});
 		},
 		checkrow(value) {
