@@ -33,6 +33,12 @@
 				<!-- <v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-1">mdi-star</v-icon> -->
 				<!-- <span v-if="item.avgrating">{{roundOff(item.avgrating, 1)}}</span> -->
 			</template>
+			<template v-slot:item.last_login_at="{ item }">
+				<div
+					v-if="item.last_login_at"
+				>{{ item.last_login_at | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+			</template>
+
 			<template v-slot:item.actions="{ item }">
 				<v-btn @click="buttonclicker('details')" small outlined color>Details</v-btn>
 			</template>
@@ -102,6 +108,12 @@ export default {
 					align: "center",
 					sortable: true,
 					value: "reviews"
+				},
+				{
+					text: "Last Login",
+					align: "center",
+					sortable: true,
+					value: "last_login_at"
 				},
 				{
 					text: "",

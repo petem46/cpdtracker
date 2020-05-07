@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\SocialGoogleAccount;
 use App\User;
+use Carbon\Carbon;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 
 class SocialGoogleAccountService
@@ -22,6 +23,7 @@ class SocialGoogleAccountService
         $user->school = User::getGoogleSchool($providerUser->getEmail());
         $user->avatar = $providerUser->getAvatar();
         $user->password = md5(rand(1, 10000));
+        $user->last_login_at = Carbon::now()->toDateTimeString();
         $user->touch();
         $user->save();
         $account->user()->associate($user);
@@ -32,6 +34,7 @@ class SocialGoogleAccountService
         $user->school = User::getGoogleSchool($providerUser->getEmail());
         $user->avatar = $providerUser->getAvatar();
         $user->password = md5(rand(1, 10000));
+        $user->last_login_at = Carbon::now()->toDateTimeString();
         $user->touch();
         $user->save();
         $account->user()->associate($user);
@@ -54,6 +57,8 @@ class SocialGoogleAccountService
           'password' => md5(rand(1, 10000)),
           'usergroup_id' => '5',
           'role_id' => '3',
+          'last_login_at' => Carbon::now()->toDateTimeString(),
+          // 'last_login_ip' => $request->getClientIp()
         ]);
       }
       $account->user()->associate($user);
