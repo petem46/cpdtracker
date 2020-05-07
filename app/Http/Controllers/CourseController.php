@@ -135,6 +135,10 @@ class CourseController extends Controller
         'enddate' => now(),
         'active' => 0,
         'type' => 'MyCPD',
+        'suggested_by' => Auth::user()->name,
+        'suggested_date' => Carbon::now()->toDateTimeString(),
+        'approved_by' => Auth::user()->name,
+        'approved_date' => Carbon::now()->toDateTimeString(),
       ]);
       if ($request->get('completed_date')) {
         $state_id = 2;
