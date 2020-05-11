@@ -682,8 +682,8 @@ export default {
 	},
 	methods: {
 		fetch() {
-      this.loading = true;
-      if (this.userid) {
+			this.loading = true;
+			if (this.userid) {
 				this.endpoint = "/get/u/getMyCPD/" + this.userid;
 			} else {
 				this.endpoint = "/get/u/getMyCPD";
@@ -798,7 +798,12 @@ export default {
 			}
 		},
 		mycpdcheck() {
-			return this.userid === this.$store.getters.getUserId;
+			if (this.userid === this.$store.getters.getUserId) {
+				return true;
+			}
+			if (this.endpoint === "/get/u/getMyCPD") {
+				return true;
+			}
 		},
 		formTitle() {
 			if (this.editedItem.id) {
