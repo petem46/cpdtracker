@@ -45,17 +45,17 @@ class ReviewController extends Controller
 
       $review = CourseReview::where('id', $request->get('id'))->where('user_id', Auth::id())->first();
 
-    } elseif ($request->get('course_id')) {
+    } elseif ($request->get('courseid')) {
 
-      $course_id = $request->get('course_id');
-      $review = CourseReview::where('course_id', $request->get('course_id'))->where('user_id', Auth::id())->first();
+      $course_id = $request->get('courseid');
+      $review = CourseReview::where('courseid', $request->get('courseid'))->where('user_id', Auth::id())->first();
 
     } elseif ($request->get('course')) {
 
       $course = Course::where('name', $request->get('course'))->first();
       $course_id = $course->id;
 
-      $review = CourseReview::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+      $review = CourseReview::where('courseid', $course_id)->where('user_id', Auth::id())->first();
 
     }
 
@@ -67,7 +67,7 @@ class ReviewController extends Controller
       return response('Review Updated Successfully', Response::HTTP_OK);
     } else {
       $review = CourseReview::create([
-        'course_id' => $course_id,
+        'course_id' => $request->get('courseid'),
         'review' => $request->get('review'),
         'user_id' => Auth::id()
       ]);
