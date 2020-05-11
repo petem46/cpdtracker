@@ -14,7 +14,7 @@ class ManageReviewResource extends JsonResource
       'id'            =>  (string) $this->id,
       'userid'            =>  (string) $this->user_id,
       'reviewer'            =>  (string) $this->user['name'],
-      'courseid'            =>  (string) $this->course_id,
+      'course_id'            =>  (string) $this->course_id,
       'course'      => $this->course['name'],
       'review'            =>  (string) $this->review,
       'date'            =>  (string) $this->created_at,

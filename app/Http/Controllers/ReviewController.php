@@ -38,24 +38,24 @@ class ReviewController extends Controller
 
   public function savereview(Request $request)
   {
-    // $course_id = Course::select('id')->where('name', $request->get('course'))->first();
-    // $review = CourseReview::where('course_id', $course_id->id)->where('user_id', Auth::id())->first();
+    // $course_id = $request->get('course_id');
+    // $review = CourseReview::where('course_id', $course_id)->where('user_id', Auth::id())->first();
 
     if ($request->get('id')) {
 
-      $review = CourseReview::where('id', $request->get('id'))->where('user_id', Auth::id())->first();
+      $review = CourseReview::where('id', $request->get('id'))->where('user_id', $request->get('userid'))->first();
 
-    } elseif ($request->get('courseid')) {
+    } elseif ($request->get('course_id')) {
 
-      $course_id = $request->get('courseid');
-      $review = CourseReview::where('courseid', $request->get('courseid'))->where('user_id', Auth::id())->first();
+      $course_id = $request->get('course_id');
+      $review = CourseReview::where('course_id', $course_id)->where('user_id', $request->get('userid'))->first();
 
     } elseif ($request->get('course')) {
 
       $course = Course::where('name', $request->get('course'))->first();
       $course_id = $course->id;
 
-      $review = CourseReview::where('courseid', $course_id)->where('user_id', Auth::id())->first();
+      $review = CourseReview::where('course_id', $course_id)->where('user_id', $request->get('userid'))->first();
 
     }
 
@@ -67,9 +67,9 @@ class ReviewController extends Controller
       return response('Review Updated Successfully', Response::HTTP_OK);
     } else {
       $review = CourseReview::create([
-        'course_id' => $request->get('courseid'),
+        'course_id' => $request->get('course_id'),
         'review' => $request->get('review'),
-        'user_id' => Auth::id()
+        'user_id' => $request->get('userid')
       ]);
       return response('Review Added Successfully', Response::HTTP_OK);
     }
