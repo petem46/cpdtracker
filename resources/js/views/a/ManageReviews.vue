@@ -354,7 +354,7 @@ export default {
 			this.editedItem = Object.assign({}, item);
 			console.log(item);
 			// this.dialog = true;
-			this.$router.push("/c/details/" + this.editedItem.course);
+			this.$router.push("/c/details/" + this.editedItem.id);
 		},
 		deleteItem(item) {},
 		submit() {
