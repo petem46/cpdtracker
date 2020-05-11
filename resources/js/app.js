@@ -180,7 +180,7 @@ const router = new VueRouter({
       component: MyCPDRecord
     },
     {
-      path: '/u/mycpdrecord/:userid',
+      path: '/u/:userid/mycpdrecord',
       name: 'usermycpdrecord',
       component: MyCPDRecord,
       props: true

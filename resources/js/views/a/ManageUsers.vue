@@ -198,7 +198,7 @@ export default {
 			}
 		},
 		viewUserCPD(user) {
-			this.$router.push("/u/mycpdrecord/" + user.id);
+			this.$router.push("/u/" + user.id + "/mycpdrecord");
 		}
 	}
 };

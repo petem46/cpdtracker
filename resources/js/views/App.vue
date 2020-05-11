@@ -34,7 +34,7 @@
 								<router-link
 									exact
 									exact-active-class="teal--yellow"
-									:to="{path: '/u/mycpdrecord/' + this.userid}"
+									:to="{path: '/u/' + this.userid + '/mycpdrecord'}"
 								>My CPD Record</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
@@ -446,7 +446,7 @@ export default {
 			this.$router.push("/a/managecategories");
 		},
 		gotoMyCPDRecord() {
-			this.$router.push("/u/mycpdrecord/" + this.userid);
+			this.$router.push("/u/" + this.userid + "/mycpdrecord/");
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");
