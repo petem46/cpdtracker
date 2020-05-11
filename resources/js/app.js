@@ -176,8 +176,14 @@ const router = new VueRouter({
     },
     {
       path: '/u/mycpdrecord',
-      name: 'usermycpdrecord',
+      name: 'mycpdrecord',
       component: MyCPDRecord
+    },
+    {
+      path: '/u/mycpdrecord/:userid',
+      name: 'usermycpdrecord',
+      component: MyCPDRecord,
+      props: true
     },
     {
       path: '/u/mycourses',

@@ -56,7 +56,7 @@
 			</template>
 
 			<template v-slot:item.actions="{ item }">
-				<v-btn @click="buttonclicker('details')" small outlined color>Details</v-btn>
+				<v-btn @click="buttonclicker(item)" small outlined color>Details</v-btn>
 			</template>
 		</v-data-table>
 	</div>
@@ -197,8 +197,9 @@ export default {
 				return "black";
 			}
 		},
-		buttonclicker(value) {
-			alert(value);
+		buttonclicker(user) {
+
+      this.$router.push("/u/mycpdrecord/" + user.id);
 		}
 	}
 };

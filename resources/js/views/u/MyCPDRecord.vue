@@ -1,8 +1,12 @@
 <template>
-	<div class="v-container px-5">
+  <div id="myCPDRecord">
 		<h1 class="display-1 font-weight-light mb-5 ml-5">
-			<v-icon large>mdi-folder-account-outline</v-icon>&nbsp;&nbsp;My CPD Record
+			<v-icon large>mdi-folder-account-outline</v-icon>
+			<span v-if="loading">&nbsp;&nbsp;My CPD Record - Loading...</span>
+			<span v-if="!loading">&nbsp;&nbsp;My CPD Record - {{this.mycpd.user.name}}</span>
 		</h1>
+  <v-progress-linear v-if="loading" indeterminate></v-progress-linear>
+  <div v-if="!loading" class="v-container px-5">
 		<div id="mycpdheadlines">
 			<v-row>
 				<v-col cols="12" sm="6" lg="3" class="mt-5">
@@ -115,7 +119,7 @@
 							<v-col class="mx-5">
 								<v-card>
 									<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;My Completed CPD
+										<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;Completed CPD
 									</v-card-title>
 								</v-card>
 							</v-col>
@@ -188,8 +192,8 @@
 																	hide-details="auto"
 																	prepend-icon="fa-info"
 																	:disabled="formDelete"
-                                  outlined
-                                  counter
+																	outlined
+																	counter
 																></v-textarea>
 															</v-col>
 															<v-col cols="12" md="6">
@@ -411,7 +415,6 @@
 									hint="Search your started and shortlisted courses"
 									persistent-hint
 									clearable
-
 								>
 									<template v-slot:label>Search by keyword</template>
 								</v-text-field>
@@ -519,13 +522,15 @@
 			{{ snackbar.text }}
 			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
 		</v-snackbar>
-	</div>
+  </div>
+  </div>
 </template>
 <script>
 import Axios from "axios";
 import VueFilterDateParse from "vue-filter-date-format";
 import moment from "moment";
 export default {
+	props: ["userid"],
 	data() {
 		return {
 			loading: true,
@@ -645,7 +650,7 @@ export default {
 	methods: {
 		fetch() {
 			axios
-				.get("/get/u/getMyCPD")
+				.get("/get/u/getMyCPD/" + this.userid)
 				.then(({ data }) => {
 					this.mycpd = data.mycpd;
 				})
@@ -669,9 +674,6 @@ export default {
 					this.fetch();
 				});
 			}
-		},
-		editReviewHint(item) {
-			return "Edit review for " + item.name;
 		},
 		editRecord(item) {
 			this.editedIndex = item.id;
@@ -742,6 +744,20 @@ export default {
 		}
 	},
 	computed: {
+		uid() {
+			if (this.userid) {
+				return this.userid;
+			} else {
+				return this.$store.getters.getUserId;
+			}
+		},
+		uname() {
+			if (this.mycpd.user.name) {
+				return this.mycpd.user.name;
+			} else {
+				return this.$store.getters.getName;
+			}
+		},
 		formTitle() {
 			if (this.editedItem.id) {
 				return "Edit CPD record for " + this.editedItem.name;

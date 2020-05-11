@@ -20,19 +20,20 @@ Auth::routes([
   'verify' => false
 ]);
 
-Route::get('/get/schools', 'UsersController@getSchools');
+Route::get('/get/u/getUserCPD/{id}', 'CourseController@getUserCPD');
+
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
 
-Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
 
 Route::group(['middleware' => ['auth']], function () {
   // Route::get('/get/hash', 'UsersController@hash')->name('hash');
+  Route::get('/get/schools', 'UsersController@getSchools');
 
   /*
-|- COURSE ROUTES
-*/
+  |- COURSE ROUTES
+  */
   Route::get('/get/courselist', 'CategoryController@index');
   Route::get('/get/c', 'CategoryController@index');
   Route::get('/get/c/details/{id}', 'CourseController@details');
@@ -52,18 +53,21 @@ Route::group(['middleware' => ['auth']], function () {
   Route::delete('/delete/cc/deleteCategory/{id}', 'CategoryController@deleteCategory');
 
   /*
-|- USER ROUTES
-*/
-  Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
-  Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
+  |- USER ROUTES
+  */
+  Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
+  // Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
+  Route::get('/get/u/getMyCPD', 'CourseController@getUserCPD');
+  Route::get('/get/u/getMyCPD/{id}', 'CourseController@getUserCPD');
+  Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
+  Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
+  Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
+  Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
   Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
-  Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
-  Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
-  Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
 
 
   /*

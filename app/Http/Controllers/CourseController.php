@@ -7,11 +7,13 @@ use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
+use App\User;
 use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
 use App\Http\Resources\MyCPDCoursesResource;
+use App\Http\Resources\UserCPDDetailsResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -60,13 +62,22 @@ class CourseController extends Controller
     return $data;
   }
 
+  public function getUserCPD($uid)
+  {
+    if(Auth::user()->role_id != 1) { $uid = Auth::id();}
+    $data = [
+      'mycpd' => new UserCPDDetailsResource(User::where('id', $uid)->get(), $uid),
+    ];
+    return $data;
+  }
+
   public function getMyCPD()
   {
     $uid = Auth::id();
     $data = [
       'mycpd' => new MyCPDCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('user_id', '=', $uid)->orderBy('completed_date');
-      })->get()),
+      })->get(), $uid),
     ];
     return $data;
   }

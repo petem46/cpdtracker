@@ -31,7 +31,11 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/u/mycpdrecord">My CPD Record</router-link>
+								<router-link
+									exact
+									exact-active-class="teal--yellow"
+									:to="{path: '/u/mycpdrecord/' + this.userid}"
+								>My CPD Record</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -212,9 +216,7 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-sm-block">
-						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'usermycpdrecord' }">
-							<v-icon>mdi-folder-account-outline</v-icon>
-						</router-link>
+						<v-icon @click="gotoMyCPDRecord()">mdi-folder-account-outline</v-icon>
 					</v-btn>
 				</template>
 				<span>My CPD Record</span>
@@ -222,9 +224,7 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
-						<router-link exact exact-active-class="teal--yellow" :to="{ name: 'courselist' }">
-							<v-icon>mdi-book-search-outline</v-icon>
-						</router-link>
+						<v-icon @click="gotoAllCourses()">mdi-book-search-outline</v-icon>
 					</v-btn>
 				</template>
 				<span>Find A Course</span>
@@ -446,7 +446,7 @@ export default {
 			this.$router.push("/a/managecategories");
 		},
 		gotoMyCPDRecord() {
-			this.$router.push("/u/mycpdrecord");
+			this.$router.push("/u/mycpdrecord/" + this.userid);
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");
