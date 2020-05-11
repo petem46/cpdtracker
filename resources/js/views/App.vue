@@ -29,17 +29,11 @@
 						<v-list-item-icon>
 							<v-icon>mdi-folder-account-outline</v-icon>
 						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>
-								<router-link
-									exact
-									exact-active-class="teal--yellow"
-									:to="{path: '/u/' + this.userid + '/mycpdrecord'}"
-								>My CPD Record</router-link>
-							</v-list-item-title>
+						<v-list-item-content @click="gotoMyCPDRecord">
+							<v-list-item-title>My CPD Record</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-item :disabled="this.checkroute()" @click="dialog = true">
+					<v-list-item :disabled="this.checkadminroute()" @click="dialog = true">
 						<v-list-item-icon>
 							<v-icon color="light-green accent-3">mdi-playlist-plus</v-icon>
 						</v-list-item-icon>
@@ -216,7 +210,7 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-sm-block">
-						<v-icon @click="gotoMyCPDRecord()">mdi-folder-account-outline</v-icon>
+						<v-icon @click="gotoMyCPDRecord">mdi-folder-account-outline</v-icon>
 					</v-btn>
 				</template>
 				<span>My CPD Record</span>
@@ -323,7 +317,7 @@
 			</v-container>
 		</v-content>
 		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
-			<v-btn @click="gotoMyCPDRecord()" tile text>
+			<v-btn @click="gotoMyCPDRecord" tile text>
 				<span>My CPD Record</span>
 				<v-icon>mdi-folder-account-outline</v-icon>
 			</v-btn>
@@ -361,7 +355,8 @@ export default {
 	props: ["userid", "roleid", "avatar", "name", "school"],
 	watch: {
 		$route: function() {
-			this.checkroute();
+			this.checkadminroute();
+			// this.checkmycpdroute();
 		}
 	},
 	data: () => ({
@@ -446,7 +441,7 @@ export default {
 			this.$router.push("/a/managecategories");
 		},
 		gotoMyCPDRecord() {
-			this.$router.push("/u/" + this.userid + "/mycpdrecord/");
+			this.$router.push("/u/mycpdrecord").catch(err => {});
 		},
 		gotoMyCourses() {
 			this.$router.push("/u/mycourses");
@@ -478,18 +473,37 @@ export default {
 				})
 				.catch(error => {});
 		},
-		checkroute() {
+		checkadminroute() {
 			if (this.$route.path.indexOf("/a/") >= 0) {
 				return true;
 			} else {
 				return false;
 			}
 		},
+		// checkmycpdroute() {
+		// 	if (this.$route.name == "usermycpdrecord") {
+		// 		return false;
+		// 		console.log("WTF");
+		// 		console.log("WTF");
+		// 	} else {
+		// 		return true;
+		// 	}
+		// },
 		suggestedsnackbarupdate(sb) {
 			this.suggestedsnackbar = sb;
 		}
 	},
-	computed: {}
+	computed: {
+		checkmycpdroute() {
+			if (this.$route.name == "usermycpdrecord") {
+				return false;
+				console.log("WTF");
+				console.log("WTF");
+			} else {
+				return true;
+			}
+		}
+	}
 };
 </script>
 <style>

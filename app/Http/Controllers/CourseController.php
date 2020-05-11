@@ -75,9 +75,7 @@ class CourseController extends Controller
   {
     $uid = Auth::id();
     $data = [
-      'mycpd' => new MyCPDCoursesResource(Course::whereHas('courseprogress', function ($q) use ($uid) {
-        $q->where('user_id', '=', $uid)->orderBy('completed_date');
-      })->get(), $uid),
+      'mycpd' => new UserCPDDetailsResource(User::where('id', $uid)->get(), $uid),
     ];
     return $data;
   }

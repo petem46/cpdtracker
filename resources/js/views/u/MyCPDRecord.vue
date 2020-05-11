@@ -558,9 +558,15 @@ import VueFilterDateParse from "vue-filter-date-format";
 import moment from "moment";
 export default {
 	props: ["userid"],
+	watch: {
+		$route: function() {
+			this.fetch();
+		}
+	},
 	data() {
 		return {
 			loading: true,
+			endpoint: "",
 			dialog: false,
 			start_datepicker: false,
 			completed_datepicker: false,
@@ -676,8 +682,14 @@ export default {
 	},
 	methods: {
 		fetch() {
+      this.loading = true;
+      if (this.userid) {
+				this.endpoint = "/get/u/getMyCPD/" + this.userid;
+			} else {
+				this.endpoint = "/get/u/getMyCPD";
+			}
 			axios
-				.get("/get/u/getMyCPD/" + this.userid)
+				.get(this.endpoint)
 				.then(({ data }) => {
 					this.mycpd = data.mycpd;
 				})

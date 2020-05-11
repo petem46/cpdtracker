@@ -56,8 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
   |- USER ROUTES
   */
   Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
-  // Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
-  Route::get('/get/u/getMyCPD', 'CourseController@getUserCPD');
+  Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
   Route::get('/get/u/getMyCPD/{id}', 'CourseController@getUserCPD');
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
