@@ -141,7 +141,7 @@ const router = new VueRouter({
       component: ManageReviews
     },
     {
-      path: '/c/details/:name',
+      path: '/c/details/:id',
       name: 'coursedetails',
       component: CourseDetails,
       props: true

@@ -282,7 +282,7 @@
 <script>
 import axios from "axios";
 export default {
-	props: ["name", "review", "snackbar"],
+	props: ["id", "review", "snackbar"],
 	data() {
 		return {
 			loading: true,
@@ -290,7 +290,7 @@ export default {
 			addtocoursename: "",
 			addtocourseid: "",
 			course: [],
-			endpoint: "/get/c/details/" + this.name,
+			endpoint: "/get/c/details/" + this.id,
 			myrating: 0,
 			mystate: 0,
 			publicreviews: [],
@@ -315,7 +315,7 @@ export default {
 				.get(this.endpoint)
 				.then(({ data }) => {
 					this.course = data.data.course[0];
-					this.mystate = this.course.mystate;
+					this.mystate = this.course.mystate || 0;
 					this.myrating = this.course.myrating;
 					this.publicreviews = this.course.publicreviews;
 					this.privatereviews = this.course.privatereviews;

@@ -3,7 +3,7 @@
 		<h1 v-if="loading">LOADING....</h1>
 		<v-progress-linear indeterminate v-if="loading"></v-progress-linear>
 		<div v-if="!loading">
-			<course-details :name="coursename" :review="fromreview"></course-details>
+			<course-details :id="courseid" :review="fromreview"></course-details>
 
 			<v-dialog v-model="review" persistent max-width="600px" :fullscreen="$vuetify.breakpoint.xsOnly">
 				<template v-slot:activator="{ on }">
@@ -101,14 +101,14 @@ export default {
 				this.snackbar.show = true;
 
 				this.$router.push({
-					path: "/c/details/" + this.coursename,
+					path: "/c/details/" + this.courseid,
 					params: { snackbar: this.snackbar, review: false }
 				});
 			});
 		},
 		close() {
 			this.$router.push({
-				path: "/c/details/" + this.coursename,
+				path: "/c/details/" + this.courseid,
 				params: { review: false }
 			});
 		},
