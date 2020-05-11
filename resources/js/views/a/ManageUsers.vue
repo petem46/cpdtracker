@@ -20,7 +20,7 @@
 							label="Staff Search"
 							hint="Search for staff member"
 							persistent-hint
-              class="ml-5"
+							class="ml-5"
 						></v-text-field>
 					</v-col>
 					<v-col cols="12" md="4" class="order-md-3 order-9">
@@ -30,7 +30,7 @@
 							persistent-hint
 							v-model="school"
 							:items="schools"
-              class="ml-5"
+							class="ml-5"
 						></v-select>
 					</v-col>
 				</v-row>
@@ -56,7 +56,7 @@
 			</template>
 
 			<template v-slot:item.actions="{ item }">
-				<v-btn @click="buttonclicker(item)" small outlined color>Details</v-btn>
+				<v-btn @click="viewUserCPD(item)" small outlined color>View CPD Record</v-btn>
 			</template>
 		</v-data-table>
 	</div>
@@ -197,9 +197,8 @@ export default {
 				return "black";
 			}
 		},
-		buttonclicker(user) {
-
-      this.$router.push("/u/mycpdrecord/" + user.id);
+		viewUserCPD(user) {
+			this.$router.push("/u/mycpdrecord/" + user.id);
 		}
 	}
 };
