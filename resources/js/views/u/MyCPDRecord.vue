@@ -100,7 +100,7 @@
 			</v-row>
 		</div>
 		<v-row>
-			<div id="mycpdcourses" class="mb-10 mt-5 col-lg-6 col-12 px-3">
+			<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
 				<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 				<v-data-table
 					:headers="completeddatatableheaders"
@@ -382,7 +382,7 @@
 					</template>
 				</v-data-table>
 			</div>
-			<div id="mycpdcourses" class="mb-10 mt-5 col-lg-6 col-12 px-3">
+			<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
 				<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 				<v-data-table
 					:headers="otherdatatableheaders"
