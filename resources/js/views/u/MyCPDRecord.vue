@@ -1,529 +1,556 @@
 <template>
-  <div id="myCPDRecord">
+	<div id="myCPDRecord">
 		<h1 class="display-1 font-weight-light mb-5 ml-5">
 			<v-icon large>mdi-folder-account-outline</v-icon>
 			<span v-if="loading">&nbsp;&nbsp;My CPD Record - Loading...</span>
 			<span v-if="!loading">&nbsp;&nbsp;My CPD Record - {{this.mycpd.user.name}}</span>
 		</h1>
-  <v-progress-linear v-if="loading" indeterminate></v-progress-linear>
-  <div v-if="!loading" class="v-container px-5">
-		<div id="mycpdheadlines">
+		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
+		<div v-if="!loading" class="v-container px-5">
+			<div id="mycpdheadlines">
+				<v-row>
+					<v-col cols="12" sm="6" lg="3" class="mt-5">
+						<v-card>
+							<v-card-text class="py-0">
+								<v-row>
+									<v-col cols="4">
+										<v-avatar
+											tile
+											size="80"
+											color="green darken-3"
+											style="margin-top: -2rem !important; border-radius: 4px;"
+											class="mr-5"
+										>
+											<v-icon large>mdi-check</v-icon>
+										</v-avatar>
+									</v-col>
+									<v-col cols="8" class="text-right">
+										<p class="caption font-weight-light mb-0">Completed Courses</p>
+										<h1 class="display-1 font-weight-light">{{ this.mycpd.completedcount }}</h1>
+									</v-col>
+								</v-row>
+							</v-card-text>
+						</v-card>
+					</v-col>
+					<v-col cols="12" sm="6" lg="3" class="mt-5">
+						<v-card>
+							<v-card-text class="py-0">
+								<v-row>
+									<v-col cols="4">
+										<v-avatar
+											tile
+											size="80"
+											color="amber darken-2"
+											style="margin-top: -2rem !important; border-radius: 4px;"
+											class="mr-5"
+										>
+											<v-icon large>fa-star</v-icon>
+										</v-avatar>
+									</v-col>
+									<v-col cols="8" class="text-right">
+										<p class="caption font-weight-light mb-0">My Average Rating</p>
+										<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
+									</v-col>
+								</v-row>
+							</v-card-text>
+						</v-card>
+					</v-col>
+					<v-col cols="12" sm="6" lg="3" class="mt-5">
+						<v-card>
+							<v-card-text class="py-0">
+								<v-row>
+									<v-col cols="4">
+										<v-avatar
+											tile
+											size="80"
+											color="blue darken-3"
+											style="margin-top: -2rem !important; border-radius: 4px;"
+											class="mr-5"
+										>
+											<v-icon large>mdi-alarm</v-icon>
+										</v-avatar>
+									</v-col>
+									<v-col cols="8" class="text-right">
+										<p class="caption font-weight-light mb-0">Started Courses</p>
+										<h1 class="display-1 font-weight-light">{{ this.mycpd.startedcount }}</h1>
+									</v-col>
+								</v-row>
+							</v-card-text>
+						</v-card>
+					</v-col>
+					<v-col cols="12" sm="6" lg="3" class="mt-5">
+						<v-card>
+							<v-card-text class="py-0">
+								<v-row>
+									<v-col cols="4">
+										<v-avatar
+											tile
+											size="80"
+											color="pink"
+											style="margin-top: -2rem !important; border-radius: 4px;"
+											class="mr-5"
+										>
+											<v-icon large>fa-heart</v-icon>
+										</v-avatar>
+									</v-col>
+									<v-col cols="8" class="text-right">
+										<p class="caption font-weight-light mb-0">Shortlisted Courses</p>
+										<h1 class="display-1 font-weight-light">{{ this.mycpd.shortlistedcount }}</h1>
+									</v-col>
+								</v-row>
+							</v-card-text>
+						</v-card>
+					</v-col>
+				</v-row>
+			</div>
 			<v-row>
-				<v-col cols="12" sm="6" lg="3" class="mt-5">
-					<v-card>
-						<v-card-text class="py-0">
+				<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
+					<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
+					<v-data-table
+						:headers="completeddatatableheaders"
+						:items="mycpd.completedcourses"
+						:items-per-page="10"
+						:search="searchcompleted"
+						:sort-by="'completed_date'"
+						:sort-desc="true"
+					>
+						<template v-slot:top>
 							<v-row>
-								<v-col cols="4">
-									<v-avatar
-										tile
-										size="80"
-										color="green darken-3"
-										style="margin-top: -2rem !important; border-radius: 4px;"
-										class="mr-5"
-									>
-										<v-icon large>mdi-check</v-icon>
-									</v-avatar>
-								</v-col>
-								<v-col cols="8" class="text-right">
-									<p class="caption font-weight-light mb-0">Completed Courses</p>
-									<h1 class="display-1 font-weight-light">{{ this.mycpd.completedcount }}</h1>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" sm="6" lg="3" class="mt-5">
-					<v-card>
-						<v-card-text class="py-0">
-							<v-row>
-								<v-col cols="4">
-									<v-avatar
-										tile
-										size="80"
-										color="amber darken-2"
-										style="margin-top: -2rem !important; border-radius: 4px;"
-										class="mr-5"
-									>
-										<v-icon large>fa-star</v-icon>
-									</v-avatar>
-								</v-col>
-								<v-col cols="8" class="text-right">
-									<p class="caption font-weight-light mb-0">My Average Rating</p>
-									<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" sm="6" lg="3" class="mt-5">
-					<v-card>
-						<v-card-text class="py-0">
-							<v-row>
-								<v-col cols="4">
-									<v-avatar
-										tile
-										size="80"
-										color="blue darken-3"
-										style="margin-top: -2rem !important; border-radius: 4px;"
-										class="mr-5"
-									>
-										<v-icon large>mdi-alarm</v-icon>
-									</v-avatar>
-								</v-col>
-								<v-col cols="8" class="text-right">
-									<p class="caption font-weight-light mb-0">Started Courses</p>
-									<h1 class="display-1 font-weight-light">{{ this.mycpd.startedcount }}</h1>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" sm="6" lg="3" class="mt-5">
-					<v-card>
-						<v-card-text class="py-0">
-							<v-row>
-								<v-col cols="4">
-									<v-avatar
-										tile
-										size="80"
-										color="pink"
-										style="margin-top: -2rem !important; border-radius: 4px;"
-										class="mr-5"
-									>
-										<v-icon large>fa-heart</v-icon>
-									</v-avatar>
-								</v-col>
-								<v-col cols="8" class="text-right">
-									<p class="caption font-weight-light mb-0">Shortlisted Courses</p>
-									<h1 class="display-1 font-weight-light">{{ this.mycpd.shortlistedcount }}</h1>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
-		</div>
-		<v-row>
-			<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
-				<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
-				<v-data-table
-					:headers="completeddatatableheaders"
-					:items="mycpd.completedcourses"
-					:items-per-page="10"
-					:search="searchcompleted"
-					:sort-by="'completed_date'"
-					:sort-desc="true"
-				>
-					<template v-slot:top>
-						<v-row>
-							<v-col class="mx-5">
-								<v-card>
-									<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;Completed CPD
-									</v-card-title>
-								</v-card>
-							</v-col>
-						</v-row>
-						<v-row class="px-3">
-							<v-col cols="12" md="10" class="order-md-1 order-last">
-								<v-text-field
-									v-model="searchcompleted"
-									prepend-icon="fas fa-search fa-sm"
-									single-line
-									hint="Search your completed courses"
-									persistent-hint
-									clearable
-								>
-									<template v-slot:label>Search by keyword</template>
-								</v-text-field>
-							</v-col>
-							<v-col cols="12" md="4" class="order-md-3 order-9 d-none">
-								<v-select
-									prepend-icon="fa-filter fa-sm"
-									hint="Type Filter"
-									persistent-hint
-									v-model="type"
-									:items="types"
-								></v-select>
-							</v-col>
-							<v-col cols="12" md="2" class="order-md-last order-first">
-								<v-spacer></v-spacer>
-								<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="50%">
-									<template v-slot:activator="{ on }">
-										<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add CPD</v-btn>
-										<v-btn
-											color="primary"
-											dark
-											class="d-md-none btn-block mb-2 float-left"
-											v-on="on"
-										>Add Course</v-btn>
-									</template>
+								<v-col class="mx-5">
 									<v-card>
-										<v-toolbar color="primary">
-											<v-btn icon @click="close">
-												<v-icon>mdi-close</v-icon>
-											</v-btn>
-											<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
-											<v-spacer></v-spacer>
-											<v-toolbar-items>
-												<v-btn text @click="submit">Save</v-btn>
-											</v-toolbar-items>
-										</v-toolbar>
-										<v-container>
-											<form @submit.prevent="submit">
-												<v-card-text>
-													<v-container>
-														<v-row>
-															<v-col cols="12">
-																<v-text-field
-																	id="name"
-																	v-model="editedItem.name"
-																	label="Course Name"
-																	hide-details="auto"
-																	prepend-icon="fas fa-book-reader"
-																	:disabled="formDelete"
-																></v-text-field>
-															</v-col>
-															<v-col cols="12">
-																<v-textarea
-																	id="description"
-																	v-model="editedItem.description"
-																	label="Course description"
-																	hide-details="auto"
-																	prepend-icon="fa-info"
-																	:disabled="formDelete"
-																	outlined
-																	counter
-																></v-textarea>
-															</v-col>
-															<v-col cols="12" md="6">
-																<v-menu
-																	v-model="start_datepicker"
-																	:close-on-content-click="false"
-																	transition="scale-transition"
-																	:nudge-right="50"
-																	min-width="290px"
-																>
-																	<template v-slot:activator="{ on }">
-																		<v-text-field
-																			:value="formatedStartDate"
-																			label="Course Start Date"
-																			prepend-icon="far fa-calendar-alt"
-																			readonly
-																			v-on="on"
-																			hint="Leave blank if couse not yet started"
-																			persistent-hint
-																			clearable
-																			@click:clear="clearStartDate"
-																		></v-text-field>
-																	</template>
-																	<v-date-picker
-																		v-model="editedItem.start_date"
-																		scrollable
-																		@input="start_datepicker = false"
-																	></v-date-picker>
-																</v-menu>
-															</v-col>
-
-															<v-col cols="12" md="6">
-																<v-menu
-																	v-model="completed_datepicker"
-																	:close-on-content-click="false"
-																	transition="scale-transition"
-																	:nudge-right="50"
-																	min-width="290px"
-																>
-																	<template v-slot:activator="{ on }">
-																		<v-text-field
-																			:value="formatedCompletedDate"
-																			label="Course Completed Date"
-																			prepend-icon="far fa-calendar-alt"
-																			readonly
-																			v-on="on"
-																			hint="Leave blank if couse not yet completed"
-																			persistent-hint
-																			clearable
-																			@click:clear="clearCompletedDate"
-																		></v-text-field>
-																	</template>
-																	<v-date-picker
-																		v-model="editedItem.completed_date"
-																		scrollable
-																		@input="completed_datepicker = false"
-																	></v-date-picker>
-																</v-menu>
-															</v-col>
-															<v-col cols="12">
-																<v-textarea
-																	id="myreview"
-																	v-model="editedItem.myreview"
-																	label="Course Review"
-																	prepend-icon="fa-pen-alt fa-sm"
-																	hint="Delete your review by clearing this textbox"
-																	persistent-hint
-																	outlined
-																	counter
-																></v-textarea>
-															</v-col>
-															<v-col cols="12">
-																<v-switch
-																	id="myreviewpublic"
-																	v-model="editedItem.myreviewpublic"
-																	:label="publicPrivateLabel(editedItem.myreviewpublic)"
-																></v-switch>
-															</v-col>
-															<v-col cols="12">
-																<div id="myrating" class="text-center">
-																	<v-rating
-																		id="myrating"
-																		v-model="editedItem.myrating"
-																		:color="getStarColor(editedItem.myrating)"
-																		full-icon="fas fa-star"
-																		half-icon="fa-star-half-alt"
-																		empty-icon="far fa-star"
-																		background-color="grey"
-																	></v-rating>
-																</div>
-															</v-col>
-														</v-row>
-													</v-container>
-												</v-card-text>
-
-												<v-card-actions>
-													<v-btn
-														v-if="formDelete"
-														disabled
-														outlined
-														color="red darken-1"
-														text
-														@click="deleteRecord()"
-													>Delete</v-btn>
-													<v-spacer></v-spacer>
-													<v-btn text @click="close">Cancel</v-btn>
-													<v-btn type="submit" text>Save</v-btn>
-												</v-card-actions>
-											</form>
-										</v-container>
+										<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
+											<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;Completed CPD
+										</v-card-title>
 									</v-card>
-								</v-dialog>
-							</v-col>
-						</v-row>
-					</template>
-					<template v-slot:item.myreview="{ item }">
-						<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
-						<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
-						<div class="review">{{ item.myreview }}</div>
-					</template>
+								</v-col>
+							</v-row>
+							<v-row class="px-3">
+								<v-col cols="12" md="10" class="order-md-1 order-last">
+									<v-text-field
+										v-model="searchcompleted"
+										prepend-icon="fas fa-search fa-sm"
+										single-line
+										hint="Search your completed courses"
+										persistent-hint
+										clearable
+									>
+										<template v-slot:label>Search by keyword</template>
+									</v-text-field>
+								</v-col>
+								<v-col cols="12" md="4" class="order-md-3 order-9 d-none">
+									<v-select
+										prepend-icon="fa-filter fa-sm"
+										hint="Type Filter"
+										persistent-hint
+										v-model="type"
+										:items="types"
+									></v-select>
+								</v-col>
+								<v-col cols="12" md="2" class="order-md-last order-first">
+									<v-spacer></v-spacer>
+									<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="50%">
+										<template v-slot:activator="{ on }">
+											<v-btn
+												v-if="mycpdcheck"
+												color="primary"
+												dark
+												class="d-none d-md-block mb-2 float-right"
+												v-on="on"
+											>Add CPD</v-btn>
+											<v-btn
+												v-if="mycpdcheck"
+												color="primary"
+												dark
+												class="d-md-none btn-block mb-2 float-left"
+												v-on="on"
+											>Add Course</v-btn>
+										</template>
+										<v-card>
+											<v-toolbar color="primary">
+												<v-btn icon @click="close">
+													<v-icon>mdi-close</v-icon>
+												</v-btn>
+												<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
+												<v-spacer></v-spacer>
+												<v-toolbar-items>
+													<v-btn v-if="mycpdcheck" text @click="submit">Save</v-btn>
+												</v-toolbar-items>
+											</v-toolbar>
+											<v-container>
+												<form @submit.prevent="submit">
+													<v-card-text>
+														<v-container>
+															<v-row>
+																<v-col cols="12">
+																	<v-text-field
+																		id="name"
+																		v-model="editedItem.name"
+																		label="Course Name"
+																		hide-details="auto"
+																		prepend-icon="fas fa-book-reader"
+																		:disabled="formDelete"
+																	></v-text-field>
+																</v-col>
+																<v-col cols="12">
+																	<v-textarea
+																		id="description"
+																		v-model="editedItem.description"
+																		label="Course description"
+																		hide-details="auto"
+																		prepend-icon="fa-info"
+																		:disabled="formDelete"
+																		outlined
+																		counter
+																	></v-textarea>
+																</v-col>
+																<v-col cols="12" md="6">
+																	<v-menu
+																		v-model="start_datepicker"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		:nudge-right="50"
+																		min-width="290px"
+																		:disabled="!mycpdcheck"
+																		:readonly="!mycpdcheck"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				:value="formatedStartDate"
+																				label="Course Start Date"
+																				prepend-icon="far fa-calendar-alt"
+																				:disabled="!mycpdcheck"
+																				readonly
+																				v-on="on"
+																				hint="Leave blank if couse not yet started"
+																				persistent-hint
+																				clearable
+																				@click:clear="clearStartDate"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="editedItem.start_date"
+																			scrollable
+																			@input="start_datepicker = false"
+																		></v-date-picker>
+																	</v-menu>
+																</v-col>
 
-					<template v-slot:item.myprogress="{ item }">
-						<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
-							<v-icon>mdi-alarm</v-icon>
-						</v-avatar>
-						<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
-							<v-icon>mdi-check</v-icon>
-						</v-avatar>
-						<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
-							<v-icon>mdi-heart</v-icon>
-						</v-avatar>
-					</template>
+																<v-col cols="12" md="6">
+																	<v-menu
+																		v-model="completed_datepicker"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		:nudge-right="50"
+																		min-width="290px"
+																		:disabled="!mycpdcheck"
+																		:readonly="!mycpdcheck"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				:value="formatedCompletedDate"
+																				label="Course Completed Date"
+																				prepend-icon="far fa-calendar-alt"
+																				readonly
+																				:disabled="!mycpdcheck"
+																				v-on="on"
+																				hint="Leave blank if couse not yet completed"
+																				persistent-hint
+																				clearable
+																				@click:clear="clearCompletedDate"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="editedItem.completed_date"
+																			scrollable
+																			@input="completed_datepicker = false"
+																		></v-date-picker>
+																	</v-menu>
+																</v-col>
+																<v-col cols="12">
+																	<v-textarea
+																		id="myreview"
+																		v-model="editedItem.myreview"
+																		label="Course Review"
+																		prepend-icon="fa-pen-alt fa-sm"
+																		hint="Delete your review by clearing this textbox"
+																		persistent-hint
+																		outlined
+																		counter
+																		:disabled="!mycpdcheck"
+																		:readonly="!mycpdcheck"
+																	></v-textarea>
+																</v-col>
+																<v-col cols="12">
+																	<v-switch
+																		id="myreviewpublic"
+																		v-model="editedItem.myreviewpublic"
+																		:label="publicPrivateLabel(editedItem.myreviewpublic)"
+																		:disabled="!mycpdcheck"
+																		:readonly="!mycpdcheck"
+																	></v-switch>
+																</v-col>
+																<v-col cols="12">
+																	<div id="myrating" class="text-center">
+																		<v-rating
+																			id="myrating"
+																			v-model="editedItem.myrating"
+																			:color="getStarColor(editedItem.myrating)"
+																			full-icon="fas fa-star"
+																			half-icon="fa-star-half-alt"
+																			empty-icon="far fa-star"
+																			background-color="grey"
+																			:disabled="!mycpdcheck"
+																			:readonly="!mycpdcheck"
+																		></v-rating>
+																	</div>
+																</v-col>
+															</v-row>
+														</v-container>
+													</v-card-text>
 
-					<template v-slot:item.start_date="{ item }">
-						<div
-							v-if="item.start_date"
-						>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
-					</template>
-					<template v-slot:item.completed_date="{ item }">
-						<div
-							v-if="item.completed_date"
-						>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
-					</template>
+													<v-card-actions v-if="mycpdcheck">
+														<v-btn
+															v-if="formDelete"
+															disabled
+															outlined
+															color="red darken-1"
+															text
+															@click="deleteRecord()"
+														>Delete</v-btn>
+														<v-spacer></v-spacer>
+														<v-btn text @click="close">Cancel</v-btn>
+														<v-btn type="submit" text>Save</v-btn>
+													</v-card-actions>
+												</form>
+											</v-container>
+										</v-card>
+									</v-dialog>
+								</v-col>
+							</v-row>
+						</template>
+						<template v-slot:item.myreview="{ item }">
+							<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
+							<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
+							<div class="review">{{ item.myreview }}</div>
+						</template>
 
-					<template v-slot:item.myrating="{ item }">
-						<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.myrating,1) || '' }}
-					</template>
-					<template v-slot:item.avgrating="{ item }">
-						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.avgrating, 1) || '' }}
-					</template>
+						<template v-slot:item.myprogress="{ item }">
+							<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
+								<v-icon>mdi-alarm</v-icon>
+							</v-avatar>
+							<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
+								<v-icon>mdi-check</v-icon>
+							</v-avatar>
+							<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
+								<v-icon>mdi-heart</v-icon>
+							</v-avatar>
+						</template>
 
-					<template v-slot:item.actions="{ item }">
-						<v-menu offset-y bottom left>
-							<template v-slot:activator="{ on }">
-								<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
-									<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
-								</v-btn>
-								<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
-							</template>
-							<v-list>
-								<v-list-item @click="gotoCourse(item)">
-									<v-avatar>
-										<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-									</v-avatar>View Course
-								</v-list-item>
-								<v-list-item @click="editRecord(item)">
-									<v-avatar>
-										<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
-									</v-avatar>View Record
-								</v-list-item>
-								<v-list-item @click="changestate(item, 2)">
-									<v-avatar>
-										<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
-									</v-avatar>Set Completed
-								</v-list-item>
-								<v-list-item @click="changestate(item, 1)">
-									<v-avatar>
-										<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
-									</v-avatar>Set Started
-								</v-list-item>
-								<v-list-item @click="changestate(item, 3)">
-									<v-avatar>
-										<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
-									</v-avatar>Set Shortlisted
-								</v-list-item>
-							</v-list>
-						</v-menu>
-					</template>
-				</v-data-table>
-			</div>
-			<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
-				<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
-				<v-data-table
-					:headers="otherdatatableheaders"
-					:items="mycpd.othercourses"
-					:items-per-page="10"
-					:search="searchothers"
-					:sort-by="'name'"
-					:sort-desc="false"
-				>
-					<template v-slot:top>
-						<v-row>
-							<v-col class="mx-5">
-								<v-card>
-									<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
-										<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed Courses
-									</v-card-title>
-								</v-card>
-							</v-col>
-						</v-row>
-						<v-row class="px-3">
-							<v-col cols="12" md="6" class="order-md-1 order-last">
-								<v-text-field
-									v-model="searchothers"
-									prepend-icon="fas fa-search fa-sm"
-									single-line
-									hint="Search your started and shortlisted courses"
-									persistent-hint
-									clearable
-								>
-									<template v-slot:label>Search by keyword</template>
-								</v-text-field>
-							</v-col>
-							<v-col cols="12" md="6" class="order-md-3 order-9">
-								<v-select
-									prepend-icon="fa-filter fa-sm"
-									hint="Type Filter"
-									persistent-hint
-									v-model="type"
-									:items="types"
-								></v-select>
-							</v-col>
-						</v-row>
-					</template>
-					<template v-slot:item.myreview="{ item }">
-						<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
-						<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
-						<div class="review">{{ item.myreview }}</div>
-					</template>
+						<template v-slot:item.start_date="{ item }">
+							<div
+								v-if="item.start_date"
+							>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+						</template>
+						<template v-slot:item.completed_date="{ item }">
+							<div
+								v-if="item.completed_date"
+							>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+						</template>
 
-					<template v-slot:item.myprogress="{ item }">
-						<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
-							<v-icon>mdi-alarm</v-icon>
-						</v-avatar>
-						<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
-							<v-icon>mdi-check</v-icon>
-						</v-avatar>
-						<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
-							<v-icon>mdi-heart</v-icon>
-						</v-avatar>
-					</template>
+						<template v-slot:item.myrating="{ item }">
+							<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
+							{{ roundOff(item.myrating,1) || '' }}
+						</template>
+						<template v-slot:item.avgrating="{ item }">
+							<v-icon
+								v-if="item.avgrating"
+								:color="getStarColor(item.avgrating)"
+								class="mr-2"
+							>fa-star fa-sm</v-icon>
+							{{ roundOff(item.avgrating, 1) || '' }}
+						</template>
 
-					<template v-slot:item.start_date="{ item }">
-						<div
-							v-if="item.start_date"
-						>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
-					</template>
-					<template v-slot:item.completed_date="{ item }">
-						<div
-							v-if="item.completed_date"
-						>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
-					</template>
+						<template v-slot:item.actions="{ item }">
+							<v-menu offset-y bottom left>
+								<template v-slot:activator="{ on }">
+									<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
+										<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
+									</v-btn>
+									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
+								</template>
+								<v-list>
+									<v-list-item @click="gotoCourse(item)">
+										<v-avatar>
+											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
+										</v-avatar>View Course
+									</v-list-item>
+									<v-list-item @click="editRecord(item)">
+										<v-avatar>
+											<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
+										</v-avatar>View Record
+									</v-list-item>
+									<v-list-item v-if="mycpdcheck" @click="changestate(item, 2)">
+										<v-avatar>
+											<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
+										</v-avatar>Set Completed
+									</v-list-item>
+									<v-list-item v-if="mycpdcheck" @click="changestate(item, 1)">
+										<v-avatar>
+											<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
+										</v-avatar>Set Started
+									</v-list-item>
+									<v-list-item v-if="mycpdcheck" @click="changestate(item, 3)">
+										<v-avatar>
+											<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
+										</v-avatar>Set Shortlisted
+									</v-list-item>
+								</v-list>
+							</v-menu>
+						</template>
+					</v-data-table>
+				</div>
+				<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
+					<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
+					<v-data-table
+						:headers="otherdatatableheaders"
+						:items="mycpd.othercourses"
+						:items-per-page="10"
+						:search="searchothers"
+						:sort-by="'name'"
+						:sort-desc="false"
+					>
+						<template v-slot:top>
+							<v-row>
+								<v-col class="mx-5">
+									<v-card>
+										<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
+											<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed Courses
+										</v-card-title>
+									</v-card>
+								</v-col>
+							</v-row>
+							<v-row class="px-3">
+								<v-col cols="12" md="6" class="order-md-1 order-last">
+									<v-text-field
+										v-model="searchothers"
+										prepend-icon="fas fa-search fa-sm"
+										single-line
+										hint="Search your started and shortlisted courses"
+										persistent-hint
+										clearable
+									>
+										<template v-slot:label>Search by keyword</template>
+									</v-text-field>
+								</v-col>
+								<v-col cols="12" md="6" class="order-md-3 order-9">
+									<v-select
+										prepend-icon="fa-filter fa-sm"
+										hint="Type Filter"
+										persistent-hint
+										v-model="type"
+										:items="types"
+									></v-select>
+								</v-col>
+							</v-row>
+						</template>
+						<template v-slot:item.myreview="{ item }">
+							<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
+							<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
+							<div class="review">{{ item.myreview }}</div>
+						</template>
 
-					<template v-slot:item.myrating="{ item }">
-						<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.myrating,1) || '' }}
-					</template>
-					<template v-slot:item.avgrating="{ item }">
-						<v-icon v-if="item.avgrating" :color="getStarColor(item.avgrating)" class="mr-2">fa-star fa-sm</v-icon>
-						{{ roundOff(item.avgrating, 1) || '' }}
-					</template>
+						<template v-slot:item.myprogress="{ item }">
+							<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
+								<v-icon>mdi-alarm</v-icon>
+							</v-avatar>
+							<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
+								<v-icon>mdi-check</v-icon>
+							</v-avatar>
+							<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
+								<v-icon>mdi-heart</v-icon>
+							</v-avatar>
+						</template>
 
-					<template v-slot:item.actions="{ item }">
-						<v-menu offset-y bottom left>
-							<template v-slot:activator="{ on }">
-								<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
-									<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
-								</v-btn>
-								<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
-							</template>
-							<v-list>
-								<v-list-item @click="gotoCourse(item)">
-									<v-avatar>
-										<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-									</v-avatar>View Course
-								</v-list-item>
-								<v-list-item @click="editRecord(item)">
-									<v-avatar>
-										<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
-									</v-avatar>View Record
-								</v-list-item>
-								<v-list-item @click="changestate(item, 2)">
-									<v-avatar>
-										<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
-									</v-avatar>Set Completed
-								</v-list-item>
-								<v-list-item @click="changestate(item, 1)">
-									<v-avatar>
-										<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
-									</v-avatar>Set Started
-								</v-list-item>
-								<v-list-item @click="changestate(item, 3)">
-									<v-avatar>
-										<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
-									</v-avatar>Set Shortlisted
-								</v-list-item>
-							</v-list>
-						</v-menu>
-					</template>
-				</v-data-table>
-			</div>
-		</v-row>
+						<template v-slot:item.start_date="{ item }">
+							<div
+								v-if="item.start_date"
+							>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+						</template>
+						<template v-slot:item.completed_date="{ item }">
+							<div
+								v-if="item.completed_date"
+							>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+						</template>
 
-		<!--
+						<template v-slot:item.myrating="{ item }">
+							<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
+							{{ roundOff(item.myrating,1) || '' }}
+						</template>
+						<template v-slot:item.avgrating="{ item }">
+							<v-icon
+								v-if="item.avgrating"
+								:color="getStarColor(item.avgrating)"
+								class="mr-2"
+							>fa-star fa-sm</v-icon>
+							{{ roundOff(item.avgrating, 1) || '' }}
+						</template>
+
+						<template v-slot:item.actions="{ item }">
+							<v-menu v-if="mycpdcheck" offset-y bottom left>
+								<template v-slot:activator="{ on }">
+									<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
+										<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
+									</v-btn>
+									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
+								</template>
+								<v-list>
+									<v-list-item @click="gotoCourse(item)">
+										<v-avatar>
+											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
+										</v-avatar>View Course
+									</v-list-item>
+									<v-list-item @click="editRecord(item)">
+										<v-avatar>
+											<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
+										</v-avatar>View Record
+									</v-list-item>
+									<v-list-item @click="changestate(item, 2)">
+										<v-avatar>
+											<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
+										</v-avatar>Set Completed
+									</v-list-item>
+									<v-list-item @click="changestate(item, 1)">
+										<v-avatar>
+											<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
+										</v-avatar>Set Started
+									</v-list-item>
+									<v-list-item @click="changestate(item, 3)">
+										<v-avatar>
+											<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
+										</v-avatar>Set Shortlisted
+									</v-list-item>
+								</v-list>
+							</v-menu>
+						</template>
+					</v-data-table>
+				</div>
+			</v-row>
+
+			<!--
     ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
-		-->
-		<v-snackbar
-			v-model="snackbar.show"
-			:color="snackbar.color"
-			:timeout="snackbar.timeout"
-			multi-line
-			bottom
-		>
-			{{ snackbar.text }}
-			<v-btn dark text @click="snackbar.show = false">Close</v-btn>
-		</v-snackbar>
-  </div>
-  </div>
+			-->
+			<v-snackbar
+				v-model="snackbar.show"
+				:color="snackbar.color"
+				:timeout="snackbar.timeout"
+				multi-line
+				bottom
+			>
+				{{ snackbar.text }}
+				<v-btn dark text @click="snackbar.show = false">Close</v-btn>
+			</v-snackbar>
+		</div>
+	</div>
 </template>
 <script>
 import Axios from "axios";
@@ -757,6 +784,9 @@ export default {
 			} else {
 				return this.$store.getters.getName;
 			}
+		},
+		mycpdcheck() {
+			return this.userid === this.$store.getters.getUserId;
 		},
 		formTitle() {
 			if (this.editedItem.id) {
