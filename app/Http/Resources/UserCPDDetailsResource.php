@@ -26,6 +26,7 @@ class UserCPDDetailsResource extends ResourceCollection
   {
     // return parent::toArray($request);
     $uid = $this->uid;
+    $foo = 'SELECT ' . $uid;
     return [
       'uid' => $this->uid,
       'user' => User::where('id', $uid)->first()->only(['name', 'school', 'email']),
@@ -35,10 +36,10 @@ class UserCPDDetailsResource extends ResourceCollection
       'myratingcount' => CourseRating::where('user_id', $uid)->count(),
       'myratingaverage' => CourseRating::where('user_id', $uid)->average('rating'),
       'myreviewcount' => CourseReview::where('user_id', $uid)->count(),
-      'completedcourses' => MyCPDCourseDetailsResource::collection(Course::whereHas('courseprogress', function ($q) use ($uid) {
+      'completedcourses' => MyCPDCourseDetailsResource::collection(Course::select('*')->selectSub($foo, 'uid')->whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('user_id', '=', $uid)->where('state_id', 2)->orderBy('completed_date');
       })->get()),
-      'othercourses' => MyCPDCourseDetailsResource::collection(Course::whereHas('courseprogress', function ($q) use ($uid) {
+      'othercourses' => MyCPDCourseDetailsResource::collection(Course::select('*')->selectSub($foo, 'uid')->whereHas('courseprogress', function ($q) use ($uid) {
         $q->where('user_id', '=', $uid)->where('state_id', '!=', 2)->orderBy('completed_date');
       })->get()),
     ];

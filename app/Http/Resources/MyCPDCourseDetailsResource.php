@@ -13,20 +13,20 @@ class MyCPDCourseDetailsResource extends JsonResource
 {
   public function toArray($request)
   {
-    $uid = Auth::id();
+    // return parent::toArray($request);
     return [
-      // 'type'          =>  'mycpdcourse',
+      'uid'           => $this->uid,
       'id'            =>  (string) $this->id,
       'name'          => $this->name,
       'type'          => $this->type,
       'avgrating'     => CourseRating::where('course_id', $this->id)->avg('rating'),
       'ratingscount'       => CourseRating::where('course_id', $this->id)->count(),
-      'myrating'       => CourseRating::where('course_id', $this->id)->where('user_id', $uid)->max('rating'),
-      'myprogress'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('state_id'),
-      'start_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('start_date'),
-      'completed_date'      => CourseProgress::where('user_id', $uid)->where('course_id', $this->id)->max('completed_date'),
-      'myreview'        => CourseReview::where('user_id', $uid)->where('course_id', $this->id)->max('review'),
-      'myreviewpublic'        => CourseReview::where('user_id', $uid)->where('course_id', $this->id)->max('public'),
+      'myrating'       => CourseRating::where('course_id', $this->id)->where('user_id', $this->uid)->max('rating'),
+      'myprogress'      => CourseProgress::where('user_id', $this->uid)->where('course_id', $this->id)->max('state_id'),
+      'start_date'      => CourseProgress::where('user_id', $this->uid)->where('course_id', $this->id)->max('start_date'),
+      'completed_date'      => CourseProgress::where('user_id', $this->uid)->where('course_id', $this->id)->max('completed_date'),
+      'myreview'        => CourseReview::where('user_id', $this->uid)->where('course_id', $this->id)->max('review'),
+      'myreviewpublic'        => CourseReview::where('user_id', $this->uid)->where('course_id', $this->id)->max('public'),
     ];
   }
 }

@@ -1,26 +1,26 @@
 <template>
 	<div>
 		<!-- <v-card class="flex d-flex flex-column"> -->
-		<v-hover v-slot:default="{ hover }" open-delay="150" close-delay="200">
+		<v-hover v-slot:default="{ hover }" open-delay="100" close-delay="200">
 			<v-img :src="randomTile(id)" alt="Course Tile" height="165" width="100%">
 				<v-expand-transition>
 					<div
 						v-if="hover"
-						class="d-flex transition-fast-in-fast-out teal v-card--reveal white--text justify-center"
+						class="d-flex transition-fast-in-fast-out teal v-card--reveal white--text"
 						style="height: 100%;"
 					>
 						<div class="pa-3">
 							<div class="module fade">
 								<p class="cpation">{{ description }}</p>
 							</div>
+							<p>Cost: {{ cost }}</p>
 							<v-btn
 								@click="courseDetails(id);"
 								min-width="100px"
 								class="mx-auto mb-1 teal--text"
 								color="white"
-								small
 							>Details</v-btn>
-							<br />
+							<!-- <br />
 							<v-btn
 								v-if="checkUserProgress(courseprogress) === 2"
 								@click="addReview(id, 1)"
@@ -28,10 +28,8 @@
 								outlined
 								class="mx-auto"
 								color="white"
-								small
-							>Review</v-btn>
-							<!-- <br />
-							Cost: {{ cost }}-->
+
+							>Review</v-btn>-->
 						</div>
 					</div>
 				</v-expand-transition>
@@ -360,7 +358,7 @@ export default {
 
 			courserating.avgRating = total / length;
 			return courserating.avgRating;
-    },
+		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
@@ -402,7 +400,7 @@ export default {
 </script>
 <style>
 .module {
-	width: 250px;
+	/* width: 90%; */
 	margin: 0 0 1em 0;
 	overflow: hidden;
 }
