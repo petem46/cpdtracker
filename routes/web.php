@@ -20,7 +20,6 @@ Auth::routes([
   'verify' => false
 ]);
 
-Route::get('/get/u/getUserCPD/{id}', 'CourseController@getUserCPD');
 
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
@@ -28,6 +27,7 @@ Route::get('/callback', 'SocialAuthGoogleController@callback');
 
 
 Route::group(['middleware' => ['auth']], function () {
+  Route::get('/get/u/getUserCPD/{id}', 'CourseController@getUserCPD');
   // Route::get('/get/hash', 'UsersController@hash')->name('hash');
   Route::get('/get/schools', 'UsersController@getSchools');
 
