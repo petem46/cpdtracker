@@ -142,8 +142,8 @@ class CourseController extends Controller
         'viewcounter' => 0,
         'cost' => -1,
         'length' => -1,
-        'startdate' => now(),
-        'enddate' => now(),
+        'startdate' => Carbon::now()->toDateTimeString(),
+        'enddate' => Carbon::now()->toDateTimeString(),
         'active' => 0,
         'type' => 'MyCPD',
         'suggested_by' => $request->get('username'),
@@ -189,9 +189,21 @@ class CourseController extends Controller
 
   public function addToMyCourses($course_id, $state_id)
   {
+    $start_date = Carbon::now()->toDateTimeString();
+    $completed_date = Carbon::now()->toDateTimeString();
     $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
-    if($mycourse->start_date) {$start_date = $mycourse->start_date;} else {$start_date = now();}
-    if($mycourse->completed_date) {$completed_date = $mycourse->completed_date;} else {$completed_date = now();}
+    if ($mycourse) {
+      if ($mycourse->start_date) {
+        $start_date = $mycourse->start_date;
+      } else {
+        $start_date = Carbon::now()->toDateTimeString();
+      }
+      if ($mycourse->completed_date) {
+        $completed_date = $mycourse->completed_date;
+      } else {
+        $completed_date = Carbon::now()->toDateTimeString();
+      }
+    }
     if ($mycourse) {
       if ($state_id == 1) {
         $mycourse->start_date = $start_date;
@@ -223,7 +235,7 @@ class CourseController extends Controller
           'course_id'      => $course_id,
           'user_id'        => Auth::id(),
           'state_id'       => $state_id,
-          'start_date'     => $start_date ,
+          'start_date'     => $start_date,
           'completed_date' => $completed_date,
         ]);
       }
@@ -305,7 +317,7 @@ class CourseController extends Controller
       if ($request->get('type') === 'active' && $course->type === 'suggested') {
         $course->type = $request->get('type');
         $course->approved_by = Auth::user()->name;
-        $course->approved_date = now();
+        $course->approved_date = Carbon::now()->toDateTimeString();
         $message = 'Suggested Course Approved by ' . Auth::user()->name;
       }
       if ($request->get('type') === 'suggested' && $course->type === 'suggested') {
@@ -356,7 +368,7 @@ class CourseController extends Controller
           'active' => $request->get('active'),
           'type' => $request->get('type'),
           'suggested_by' => Auth::user()->name,
-          'suggested_date' => now(),
+          'suggested_date' => Carbon::now()->toDateTimeString(),
         ]);
 
         $course->category()->detach();
@@ -373,7 +385,7 @@ class CourseController extends Controller
         // IF NOT SUGGESTED CREATE A NEW ACTIVE || INACTIVE COURSE
         if ($request->get('type') === 'active') {
           $approved_by = Auth::user()->name;
-          $approved_date = now();
+          $approved_date = Carbon::now()->toDateTimeString();
         }
         $course = Course::create([
           'name' => $request->get('name'),
