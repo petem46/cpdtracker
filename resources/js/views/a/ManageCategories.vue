@@ -162,7 +162,7 @@ export default {
 					value: "name"
 				},
 				{
-					text: "Courses",
+					text: "CPD",
 					align: "center",
 					sortable: true,
 					value: "courses.length"
@@ -250,7 +250,7 @@ export default {
 			});
 		},
 
-		gotoCourses() {}
+		gotoCPD() {}
 	}
 };
 </script>

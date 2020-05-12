@@ -65,8 +65,8 @@
 										id="course"
 										:items="courses"
 										v-model="editedItem.course"
-										label="Course"
-										hint="Select Course"
+										label="CPD"
+										hint="Select CPD"
 										persistent-hint
 									></v-select>
 								</v-col>
@@ -168,7 +168,7 @@ export default {
 					value: "public"
 				},
 				{
-					text: "Course",
+					text: "CPD",
 					align: "left",
 					sortable: true,
 					value: "course",
@@ -209,7 +209,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
-		this.getCourseNames();
+		this.getCPDNames();
 	},
 	methods: {
 		fetch() {
@@ -226,7 +226,7 @@ export default {
 					}, 1000);
 				});
 		},
-		getCourseNames() {
+		getCPDNames() {
 			axios
 				.get("/get/c/all")
 				.then(({ data }) => {
@@ -344,7 +344,7 @@ export default {
 		clickCheck(item) {
 			alert("you clicked me: " + item);
 		},
-		filterCourse(item) {
+		filterCPD(item) {
 			if (item.course == this.course) {
 				this.course = "All";
 			} else {

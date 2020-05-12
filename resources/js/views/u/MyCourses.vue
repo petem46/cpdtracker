@@ -87,14 +87,14 @@
 				<v-list-item
 					v-for="tile in addtooptions"
 					:key="tile.title"
-					@click="addtosheet = false; addToMyCourses(tile.action, tile.stateid)"
+					@click="addtosheet = false; addToMyCPD(tile.action, tile.stateid)"
 				>
 					<v-btn class="mx-2" fab dark small :color="tile.buttoncolor">
 						<v-icon>{{tile.icon}}</v-icon>
 					</v-btn>
 					<v-list-item-title>{{ tile.title }}</v-list-item-title>
 				</v-list-item>
-				<v-list-item @click="addtosheet = false; deleteFromMyCourses()">
+				<v-list-item @click="addtosheet = false; deleteFromMyCPD()">
 					<v-btn class="mx-2" fab dark small :color="deleteFromShortlist.buttoncolor">
 						<v-icon>{{deleteFromShortlist.icon}}</v-icon>
 					</v-btn>
@@ -156,7 +156,6 @@ export default {
 			axios
 				.get(this.endpoint)
 				.then(({ data }) => {
-					// console.log(data.completed);
 					this.mycompletedcourses = data.completed;
 					this.myinprogresscourses = data.inprogress;
 					this.myshortlistedcourses = data.shortlisted;
@@ -167,15 +166,14 @@ export default {
 					}, 1000);
 				});
 		},
-		addToMyCourses($action, $state_id) {
-			console.log("Course ID: " + this.addtocourseid);
+		addToMyCPD($action, $state_id) {
 			axios
 				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});
 		},
-		deleteFromMyCourses() {
+		deleteFromMyCPD() {
 			axios.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid).then(() => {
 				this.fetch();
 			});
@@ -191,7 +189,6 @@ export default {
 			return true;
 		},
 		addRating(value, id) {
-			console.log("Rating Added: " + value + " Course ID: " + id);
 			axios.put("/put/u/addRating/" + id + "/" + value).then($res => {
 				this.fetch();
 			});

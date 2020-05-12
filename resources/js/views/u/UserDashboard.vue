@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="font-weight-light">Completed Courses</h1>
+		<h1 class="font-weight-light">Completed CPD</h1>
 	</div>
 </template>
 <script>

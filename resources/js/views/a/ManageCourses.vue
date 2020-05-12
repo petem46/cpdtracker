@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>
-			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage Courses
+			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage CPD
 		</h1>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<v-data-table
@@ -43,8 +43,8 @@
 						<!-- <v-dialog v-model="dialog" max-width="800px" :fullscreen="$vuetify.breakpoint.smAndDown"> -->
 						<v-dialog v-model="dialog" fullscreen>
 							<template v-slot:activator="{ on }">
-								<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add Course</v-btn>
-								<v-btn color="primary" dark class="d-md-none btn-block mb-2 float-left" v-on="on">Add Course</v-btn>
+								<v-btn color="primary" dark class="d-none d-md-block mb-2 float-right" v-on="on">Add CPD</v-btn>
+								<v-btn color="primary" dark class="d-md-none btn-block mb-2 float-left" v-on="on">Add CPD</v-btn>
 							</template>
 							<v-card>
 								<v-toolbar color="primary">
@@ -66,7 +66,7 @@
 														<v-text-field
 															id="name"
 															v-model="editedItem.name"
-															label="Course name"
+															label="CPD name"
 															:rules="rules"
 															hide-details="auto"
 														></v-text-field>
@@ -104,7 +104,7 @@
 														></v-text-field>
 													</v-col>
 													<v-col cols="12">
-														<v-radio-group v-model="editedItem.type" column label="Course Status">
+														<v-radio-group v-model="editedItem.type" column label="CPD Status">
 															<v-radio label="Active" color="green darken-3" value="active"></v-radio>
 															<v-radio label="Inactive" color="grey" value="inactive"></v-radio>
 															<v-radio label="Suggested" color="orange accent-3" value="suggested"></v-radio>
@@ -120,7 +120,7 @@
 												outlined
 												color="red darken-1"
 												text
-												@click="deleteCourse()"
+												@click="deleteCPD()"
 											>Delete</v-btn>
 											<v-spacer></v-spacer>
 											<v-btn text @click="close">Cancel</v-btn>
@@ -461,7 +461,7 @@ export default {
 			this.editedItem = Object.assign({}, item);
 			this.dialog = true;
 		},
-		deleteCourse() {
+		deleteCPD() {
 			axios
 				.delete("/delete/c/deleteCourse/" + this.editedItem.id)
 				.then(response => {
@@ -541,7 +541,7 @@ export default {
 	},
 	computed: {
 		formTitle() {
-			return this.editedIndex === -1 ? "New Course" : "Edit Course";
+			return this.editedIndex === -1 ? "New CPD" : "Edit CPD";
 		},
 		formDelete() {
 			return this.editedIndex === -1 ? false : true;

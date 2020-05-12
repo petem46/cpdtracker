@@ -25,7 +25,7 @@
 										</v-avatar>
 									</v-col>
 									<v-col cols="8" class="text-right">
-										<p class="caption font-weight-light mb-0">Completed Courses</p>
+										<p class="caption font-weight-light mb-0">Completed CPD</p>
 										<h1 class="display-1 font-weight-light">{{ this.mycpd.completedcount }}</h1>
 									</v-col>
 								</v-row>
@@ -71,7 +71,7 @@
 										</v-avatar>
 									</v-col>
 									<v-col cols="8" class="text-right">
-										<p class="caption font-weight-light mb-0">Started Courses</p>
+										<p class="caption font-weight-light mb-0">Started CPD</p>
 										<h1 class="display-1 font-weight-light">{{ this.mycpd.startedcount }}</h1>
 									</v-col>
 								</v-row>
@@ -94,7 +94,7 @@
 										</v-avatar>
 									</v-col>
 									<v-col cols="8" class="text-right">
-										<p class="caption font-weight-light mb-0">Shortlisted Courses</p>
+										<p class="caption font-weight-light mb-0">Shortlisted CPD</p>
 										<h1 class="display-1 font-weight-light">{{ this.mycpd.shortlistedcount }}</h1>
 									</v-col>
 								</v-row>
@@ -107,6 +107,7 @@
 				<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
 					<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 					<v-data-table
+						@click:row="editRecord"
 						:headers="completeddatatableheaders"
 						:items="mycpd.completedcourses"
 						:items-per-page="10"
@@ -148,7 +149,7 @@
 								</v-col>
 								<v-col cols="12" md="2" class="order-md-last order-first">
 									<v-spacer></v-spacer>
-									<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="50%">
+									<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="80%">
 										<template v-slot:activator="{ on }">
 											<v-btn
 												v-if="mycpdcheck"
@@ -163,10 +164,10 @@
 												dark
 												class="d-md-none btn-block mb-2 float-left"
 												v-on="on"
-											>Add Course</v-btn>
+											>Add CPD</v-btn>
 										</template>
 										<v-card>
-											<v-toolbar color="primary">
+											<v-toolbar :color="formTitleColor">
 												<v-btn icon @click="close">
 													<v-icon>mdi-close</v-icon>
 												</v-btn>
@@ -185,7 +186,7 @@
 																	<v-text-field
 																		id="name"
 																		v-model="editedItem.name"
-																		label="Course Name"
+																		label="CPD Name"
 																		hide-details="auto"
 																		prepend-icon="fas fa-book-reader"
 																		:disabled="formDelete"
@@ -195,10 +196,12 @@
 																	<v-textarea
 																		id="description"
 																		v-model="editedItem.description"
-																		label="Course description"
+																		label="CPD description"
 																		hide-details="auto"
 																		prepend-icon="fa-info"
 																		:disabled="formDelete"
+																		auto-grow
+																		rows="1"
 																		outlined
 																		counter
 																	></v-textarea>
@@ -216,7 +219,7 @@
 																		<template v-slot:activator="{ on }">
 																			<v-text-field
 																				:value="formatedStartDate"
-																				label="Course Start Date"
+																				label="CPD Start Date"
 																				prepend-icon="far fa-calendar-alt"
 																				:disabled="!mycpdcheck"
 																				readonly
@@ -248,7 +251,7 @@
 																		<template v-slot:activator="{ on }">
 																			<v-text-field
 																				:value="formatedCompletedDate"
-																				label="Course Completed Date"
+																				label="CPD Completed Date"
 																				prepend-icon="far fa-calendar-alt"
 																				readonly
 																				:disabled="!mycpdcheck"
@@ -270,10 +273,12 @@
 																	<v-textarea
 																		id="myreview"
 																		v-model="editedItem.myreview"
-																		label="Course Review"
+																		label="CPD Review"
 																		prepend-icon="fa-pen-alt fa-sm"
 																		hint="Delete your review by clearing this textbox"
 																		persistent-hint
+																		auto-grow
+																		rows="1"
 																		outlined
 																		counter
 																		:disabled="!mycpdcheck"
@@ -290,7 +295,8 @@
 																	></v-switch>
 																</v-col>
 																<v-col cols="12">
-																	<div id="myrating" class="text-center">
+																	<div id="myrating">
+																		CPD Rating
 																		<v-rating
 																			id="myrating"
 																			v-model="editedItem.myrating"
@@ -299,10 +305,14 @@
 																			half-icon="fa-star-half-alt"
 																			empty-icon="far fa-star"
 																			background-color="grey"
+																			clearable
 																			:disabled="!mycpdcheck"
 																			:readonly="!mycpdcheck"
 																		></v-rating>
 																	</div>
+																</v-col>
+																<v-col cols="12">
+																	<v-icon class="mr-5">fa-certificate</v-icon>ATTACH CERTIFICATE
 																</v-col>
 															</v-row>
 														</v-container>
@@ -379,10 +389,10 @@
 									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
 								</template>
 								<v-list>
-									<v-list-item @click="gotoCourse(item)">
+									<v-list-item @click="gotoCPD(item)">
 										<v-avatar>
 											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-										</v-avatar>View Course
+										</v-avatar>View CPD
 									</v-list-item>
 									<v-list-item @click="editRecord(item)">
 										<v-avatar>
@@ -412,6 +422,7 @@
 				<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
 					<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 					<v-data-table
+						@click:row="editRecord"
 						:headers="otherdatatableheaders"
 						:items="mycpd.othercourses"
 						:items-per-page="10"
@@ -424,7 +435,7 @@
 								<v-col class="mx-5">
 									<v-card>
 										<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
-											<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed Courses
+											<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed CPD
 										</v-card-title>
 									</v-card>
 								</v-col>
@@ -504,10 +515,10 @@
 									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
 								</template>
 								<v-list>
-									<v-list-item @click="gotoCourse(item)">
+									<v-list-item @click="gotoCPD(item)">
 										<v-avatar>
 											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-										</v-avatar>View Course
+										</v-avatar>View CPD
 									</v-list-item>
 									<v-list-item @click="editRecord(item)">
 										<v-avatar>
@@ -559,14 +570,22 @@ import moment from "moment";
 export default {
 	props: ["userid"],
 	watch: {
-		$route: function() {
-			this.fetch();
+		$route(to, from) {
+			this.to = to;
+			this.from = from;
+			console.log("From: " + this.from + " ... To: " + this.to);
+			if (this.to.path != this.from.path) {
+				this.loading = true;
+				this.fetch();
+			}
 		}
 	},
 	data() {
 		return {
 			loading: true,
 			endpoint: "",
+			to: {},
+			from: {},
 			dialog: false,
 			start_datepicker: false,
 			completed_datepicker: false,
@@ -582,7 +601,9 @@ export default {
 				myrating: null,
 				myreview: "",
 				myreviewpublic: false,
-				start_date: ""
+				start_date: "",
+        uid: this.userid,
+        username: "",
 			},
 			defaultItem: {
 				name: "",
@@ -591,7 +612,9 @@ export default {
 				myrating: null,
 				myreview: "",
 				myreviewpublic: false,
-				start_date: ""
+				start_date: "",
+        uid: this.userid,
+        username: "",
 			},
 			snackbar: {
 				color: "",
@@ -609,7 +632,7 @@ export default {
 					width: "40px"
 				},
 				{
-					text: "Course",
+					text: "CPD Name",
 					align: "left",
 					value: "name"
 				},
@@ -655,7 +678,7 @@ export default {
 					}
 				},
 				{
-					text: "Course",
+					text: "CPD Name",
 					align: "left",
 					value: "name"
 				},
@@ -682,7 +705,6 @@ export default {
 	},
 	methods: {
 		fetch() {
-			this.loading = true;
 			if (this.userid) {
 				this.endpoint = "/get/u/getMyCPD/" + this.userid;
 			} else {
@@ -702,7 +724,7 @@ export default {
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
-		gotoCourse(item) {
+		gotoCPD(item) {
 			this.$router.push("/c/details/" + item.id);
 		},
 		changestate(item, state) {
@@ -714,9 +736,16 @@ export default {
 				});
 			}
 		},
+		rowClick(item) {
+			this.editedIndex = item.id;
+			this.editedItem = Object.assign({}, item);
+      this.editedItem.username = this.mycpd.user.name;
+			this.dialog = true;
+		},
 		editRecord(item) {
 			this.editedIndex = item.id;
 			this.editedItem = Object.assign({}, item);
+      this.editedItem.username = this.mycpd.user.name;
 			this.dialog = true;
 		},
 		deleteRecord(item) {
@@ -751,11 +780,14 @@ export default {
 			if (value > 3) {
 				return "amber";
 			}
-			if (value >= 2) {
-				return "orange";
+			if (value >= 2.5) {
+				return "orange darken-1";
 			}
-			if (value < 2) {
-				return "red";
+			if (value > 1.5) {
+				return "orange darken-4";
+			}
+			if (value <= 1.5) {
+				return "red darke-1";
 			}
 			if (value < 1) {
 				return "black";
@@ -776,25 +808,25 @@ export default {
 		},
 		publicPrivateLabel(item) {
 			if (item) {
-				return "Review can be seen by all";
+				return "This review can be seen by all users";
 			} else {
-				return "Review is private";
+				return "This review is private";
 			}
 		}
 	},
 	computed: {
 		uid() {
 			if (this.userid) {
-				return this.userid;
+				return this.editedItem.uid = this.userid;
 			} else {
-				return this.$store.getters.getUserId;
+				return this.editedItem.uid = this.$store.getters.getUserId;
 			}
 		},
 		uname() {
 			if (this.mycpd.user.name) {
-				return this.mycpd.user.name;
+				return this.editedItem.username = this.mycpd.user.name;
 			} else {
-				return this.$store.getters.getName;
+				return this.editedItem.username = this.mycpd.user.name = this.$store.getters.getName;
 			}
 		},
 		mycpdcheck() {
@@ -810,6 +842,17 @@ export default {
 				return "Edit CPD record for " + this.editedItem.name;
 			} else {
 				return "Add CPD Record";
+			}
+		},
+		formTitleColor() {
+			if (this.editedItem.myprogress == 1) {
+				return "blue";
+			} else if (this.editedItem.myprogress == 2) {
+				return "green";
+			} else if (this.editedItem.myprogress == 3) {
+				return "pink";
+			} else {
+				return "blue";
 			}
 		},
 		formDelete() {

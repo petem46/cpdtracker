@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 v-if="loading">
-			LOADING COURSES...
+			LOADING CPD LISTINGS...
 			<v-progress-linear indeterminate color="teal"></v-progress-linear>
 		</h1>
 		<div v-if="!loading">
@@ -16,7 +16,7 @@
 					<v-carousel-item v-for="(slide, i) in slides" :key="i">
 						<v-sheet :color="colors[i]" height="100%">
 							<v-row class="fill-height" align="center" justify="center">
-								<div class="display-3">{{ slide }} Course</div>
+								<div class="display-3">{{ slide }} CPD</div>
 							</v-row>
 						</v-sheet>
 					</v-carousel-item>
@@ -48,14 +48,14 @@
 					<v-list-item
 						v-for="tile in addtooptions"
 						:key="tile.title"
-						@click="addtosheet = false; addToMyCourses(tile.action, tile.stateid)"
+						@click="addtosheet = false; addToMyCPD(tile.action, tile.stateid)"
 					>
 						<v-btn class="mx-2" fab dark small :color="tile.buttoncolor">
 							<v-icon>{{tile.icon}}</v-icon>
 						</v-btn>
 						<v-list-item-title>{{ tile.title }}</v-list-item-title>
 					</v-list-item>
-					<v-list-item @click="addtosheet = false; deleteFromMyCourses()">
+					<v-list-item @click="addtosheet = false; deleteFromMyCPD()">
 						<v-btn class="mx-2" fab dark small :color="deleteFromShortlist.buttoncolor">
 							<v-icon>{{deleteFromShortlist.icon}}</v-icon>
 						</v-btn>
@@ -198,15 +198,14 @@ export default {
 					}
 				});
 		},
-		addToMyCourses($action, $state_id) {
-			// console.log("Course ID: " + this.addtocourseid);
+		addToMyCPD($action, $state_id) {
 			axios
 				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});
 		},
-		deleteFromMyCourses() {
+		deleteFromMyCPD() {
 			axios
 				.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
 				.then(() => {
@@ -224,7 +223,6 @@ export default {
 			return true;
 		},
 		addRating(value, id) {
-			// console.log("Rating Added: " + value + " Course ID: " + id);
 			axios.put("/put/u/addRating/" + id + "/" + value).then(response => {
 				this.fetch();
 				this.snackbar.color = "success";

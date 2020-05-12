@@ -113,11 +113,11 @@
 				<a :href="this.course.access_details" target="_blank">{{ this.course.access_details }}</a>
 			</v-subheader>
 			<v-subheader v-if="this.course.type == 'MyCPD'">
-				Course Completed by {{ this.course.approved_by }}
+				CPD Completed by {{ this.course.approved_by }}
 			</v-subheader>
 			<v-row class>
 				<v-col cols="12" md="4">
-					<h1>Course Ratings</h1>
+					<h1>CPD Ratings</h1>
 					<v-card>
 						<v-card-text>
 							<v-row>
@@ -355,19 +355,19 @@ export default {
 		},
 		changestate(state) {
 			if (this.mystate == state) {
-				this.deleteFromMyCourses();
+				this.deleteFromMyCPD();
 			} else {
-				this.addToMyCourses(state);
+				this.addToMyCPD(state);
 			}
 		},
-		addToMyCourses(state) {
+		addToMyCPD(state) {
 			axios
 				.put("/put/u/addToMyCourses/" + this.course.id + "/" + state)
 				.then(() => {
 					this.fetch();
 				});
 		},
-		deleteFromMyCourses() {
+		deleteFromMyCPD() {
 			axios
 				.delete("/delete/u/deleteFromMyCourses/" + this.course.id)
 				.then(() => {
@@ -382,7 +382,6 @@ export default {
 			});
 		},
 		addRating(value) {
-			// console.log("Rating Added: " + value + " Course ID: " + id);
 			axios
 				.put("/put/u/addRating/" + this.course.id + "/" + value)
 				.then(response => {

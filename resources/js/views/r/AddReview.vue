@@ -10,13 +10,13 @@
 					<v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
 				</template>
 				<v-card>
-					<v-card-title class="subtitle-2 pb-0 grey--text">Add Course Review</v-card-title>
+					<v-card-title class="subtitle-2 pb-0 grey--text">Add CPD Review</v-card-title>
 					<v-card-title class="pt-1">{{ this.coursename }}</v-card-title>
 					<form @submit.prevent="submit">
 						<v-card-text>
 							<v-textarea
 								v-model="review.review"
-								label="Course Review/Feedback"
+								label="CPD Review/Feedback"
 								outlined
 								auto-grow
 								counter="500"

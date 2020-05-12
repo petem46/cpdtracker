@@ -26,7 +26,7 @@
 						></v-text-field>
 					</v-col>
 					<v-col cols="12" md="4">
-						<v-select hint="Course Filter" persistent-hint v-model="course" :items="courses"></v-select>
+						<v-select hint="CPD Filter" persistent-hint v-model="course" :items="courses"></v-select>
 					</v-col>
 					<v-col cols="12" md="4">
 						<v-select hint="Reviewer Filter" persistent-hint v-model="reviewer" :items="reviewers"></v-select>
@@ -41,9 +41,9 @@
 					v-if="!$vuetify.breakpoint.xsOnly"
 					outlined
 					small
-					@click="filterCourse(item)"
+					@click="filterCPD(item)"
 				>{{ item.course }}</v-chip>
-				<span v-if="$vuetify.breakpoint.xsOnly" @click="filterCourse(item)">{{ item.course }}</span>
+				<span v-if="$vuetify.breakpoint.xsOnly" @click="filterCPD(item)">{{ item.course }}</span>
 			</template>
 			<template v-slot:item.reviewer="{ item }">
 				<v-chip outlined small @click="filterReviewer(item)">{{ item.reviewer }}</v-chip>
@@ -62,10 +62,10 @@
 								<v-icon class="mr-2">mdi-pencil</v-icon>
 							</v-avatar>Edit Review
 						</v-list-item>
-						<v-list-item @click="gotoCourse(item)">
+						<v-list-item @click="gotoCPD(item)">
 							<v-avatar>
 								<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-							</v-avatar>View Course
+							</v-avatar>View CPD
 						</v-list-item>
 						<v-list-item disabled>
 							<v-avatar>
@@ -105,7 +105,7 @@
 										id="course"
 										:items="courses"
 										v-model="editedItem.course"
-										label="Course"
+										label="CPD"
 										hint="Non-editable"
 										persistent-hint
 									></v-select>
@@ -213,7 +213,7 @@ export default {
 					width: "30%"
 				},
 				{
-					text: "Course",
+					text: "CPD",
 					align: "left",
 					sortable: true,
 					value: "course",
@@ -263,7 +263,7 @@ export default {
 	},
 	mounted() {
 		this.fetch();
-		this.getCourseNames();
+		this.getCPDNames();
 		this.getReviewerNames();
 	},
 	methods: {
@@ -279,7 +279,7 @@ export default {
 					}, 1000);
 				});
 		},
-		getCourseNames() {
+		getCPDNames() {
 			axios
 				.get("/get/c/all")
 				.then(({ data }) => {
@@ -349,7 +349,7 @@ export default {
 
 			this.dialog = true;
 		},
-		gotoCourse(item) {
+		gotoCPD(item) {
 			this.editedIndex = this.reviews.indexOf(item);
 			this.editedItem = Object.assign({}, item);
 			console.log(item);
@@ -390,7 +390,7 @@ export default {
 		clickCheck(item) {
 			alert("you clicked me: " + item);
 		},
-		filterCourse(item) {
+		filterCPD(item) {
 			if (item.course == this.course) {
 				this.course = "All";
 			} else {

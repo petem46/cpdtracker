@@ -2,7 +2,7 @@
 	<div>
 		<!-- <v-card class="flex d-flex flex-column"> -->
 		<v-hover v-slot:default="{ hover }" open-delay="100" close-delay="200">
-			<v-img :src="randomTile(id)" alt="Course Tile" height="165" width="100%">
+			<v-img :src="randomTile(id)" alt="CPD Tile" height="165" width="100%">
 				<v-expand-transition>
 					<div
 						v-if="hover"
@@ -242,19 +242,19 @@ export default {
 			addtooptions: [
 				{
 					img: "hangouts.png",
-					title: "Add To Shortlisted Courses",
+					title: "Add To Shortlisted CPD",
 					action: "addtoshortlist",
 					stateid: 3
 				},
 				{
 					img: "inbox.png",
-					title: "Add To In Progress Courses",
+					title: "Add To In Progress CPD",
 					action: "addtoinprogress",
 					stateid: 1
 				},
 				{
 					img: "keep.png",
-					title: "Add To Completed Courses",
+					title: "Add To Completed CPD",
 					action: "addtocompleted",
 					stateid: 2
 				}
@@ -272,20 +272,20 @@ export default {
 		clickCheck(value) {
 			alert("CLICK:" + value);
 		},
-		addToMyCourses($action, $state_id) {
-			axios
-				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
-				.then(() => {
-					this.fetch();
-				});
-		},
-		deleteFromMyCourses() {
-			axios
-				.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
-				.then(() => {
-					this.fetch();
-				});
-		},
+		// addToMyCourses($action, $state_id) {
+		// 	axios
+		// 		.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+		// 		.then(() => {
+		// 			this.fetch();
+		// 		});
+		// },
+		// deleteFromMyCourses() {
+		// 	axios
+		// 		.delete("/delete/u/deleteFromMyCourses/" + this.addtocourseid)
+		// 		.then(() => {
+		// 			this.fetch();
+		// 		});
+		// },
 		randomTile($courseid) {
 			return "https://picsum.photos/295/165/?random=" + $courseid;
 		},

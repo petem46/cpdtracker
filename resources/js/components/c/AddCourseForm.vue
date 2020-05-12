@@ -1,7 +1,7 @@
 <template>
 	<v-dialog max-width="50%">
 		<template v-slot:activator="{ on }">
-			<v-btn color="primary" dark class="mb-2 float-right" v-on="on">Add Course</v-btn>
+			<v-btn color="primary" dark class="mb-2 float-right" v-on="on">Add CPD</v-btn>
 		</template>
 		<v-card>
 			<v-card-title>
@@ -15,7 +15,7 @@
 								<v-text-field
 									id="name"
 									v-model="editedItem.name"
-									label="Course name"
+									label="CPD name"
 									:rules="rules"
 									hide-details="auto"
 								></v-text-field>
@@ -83,7 +83,7 @@ export default {
 	computed: {
 		formTitle() {
 			console.log(this.editedIndex);
-			return this.editedIndex === -1 ? "New Course" : "Edit Course";
+			return this.editedIndex === -1 ? "New CPD" : "Edit CPD";
 		}
 	}
 };

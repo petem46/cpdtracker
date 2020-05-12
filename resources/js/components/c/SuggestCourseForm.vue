@@ -5,7 +5,7 @@
 				<v-btn icon @click="close">
 					<v-icon>mdi-close</v-icon>
 				</v-btn>
-				<v-toolbar-title>Suggest A Course</v-toolbar-title>
+				<v-toolbar-title>Suggest CPD</v-toolbar-title>
 				<v-spacer></v-spacer>
 				<!-- <v-toolbar-items>
 					<v-btn text @click="dialog = false">Save</v-btn>
@@ -19,7 +19,7 @@
 								<v-text-field
 									id="name"
 									v-model="suggested.name"
-									label="Course name"
+									label="CPD name"
 									prepend-icon="far fa-bookmark"
 									:rules="nameRules"
 									hide-details="auto"
@@ -68,7 +68,7 @@
 									<template v-slot:activator="{ on }">
 										<v-text-field
 											v-model="suggested.startdate"
-											label="Course Start Date"
+											label="CPD Start Date"
 											prepend-icon="far fa-calendar-check"
 											readonly
 											v-on="on"
@@ -92,7 +92,7 @@
 									<template v-slot:activator="{ on }">
 										<v-text-field
 											v-model="suggested.enddate"
-											label="Course End Date"
+											label="CPD End Date"
 											prepend-icon="far fa-calendar-alt"
 											readonly
 											v-on="on"
@@ -108,7 +108,7 @@
 								<v-text-field
 									id="cost"
 									v-model="suggested.cost"
-									label="Cost of Course"
+									label="Cost of CPD"
 									prepend-icon="fa-pound-sign"
 									hint="Details of costs invovled, if no costs please enter 'Free'"
 									:rules="costRules"
@@ -226,7 +226,7 @@ export default {
 				axios.post("/post/c/savecourse", this.suggested).then(response => {
 					console.log(this.suggested);
 					this.snackbar.color = "success";
-					this.snackbar.text = "Course Suggestion Submitted";
+					this.snackbar.text = "CPD Suggestion Submitted";
 					this.snackbar.show = true;
 					this.$emit("suggestedsnackbarupdate", this.snackbar);
 					this.reset();

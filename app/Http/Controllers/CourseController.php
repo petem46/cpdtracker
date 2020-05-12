@@ -64,7 +64,9 @@ class CourseController extends Controller
 
   public function getUserCPD($uid)
   {
-    if(Auth::user()->role_id != 1) { $uid = Auth::id();}
+    if (Auth::user()->role_id != 1) {
+      $uid = Auth::id();
+    }
     $data = [
       'mycpd' => new UserCPDDetailsResource(User::where('id', $uid)->get(), $uid),
     ];
@@ -82,7 +84,7 @@ class CourseController extends Controller
 
   public function updateMyCPD(Request $request)
   {
-    $uid = Auth::id();
+    $uid = $request->get('uid');
     $course = Course::find($request->get('id'));
     $progress = CourseProgress::where('user_id', $uid)->where('course_id', $request->get('id'))->first();
     $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
@@ -104,7 +106,7 @@ class CourseController extends Controller
         if ($request->get('myrating')) {
           $myrating = CourseRating::create([
             'course_id'      => $course->id,
-            'user_id'        => Auth::id(),
+            'user_id'        => $uid,
             'rating' => $request->get('myrating'),
           ]);
         }
@@ -114,7 +116,7 @@ class CourseController extends Controller
           $review->delete();
         } else {
           $review->review = $request->get('myreview');
-          $review->public = $request->get('myreviewpublic') || false;
+          $review->public = $request->get('myreviewpublic');
           $review->deleted_at = null;
           $review->touch();
           $review->save();
@@ -123,7 +125,7 @@ class CourseController extends Controller
         if ($request->get('myreview')) {
           $myreview = CourseReview::create([
             'course_id'      => $course->id,
-            'user_id'        => Auth::id(),
+            'user_id'        => $uid,
             'review' => $request->get('myreview'),
             'public' => $request->get('myreviewpublic'),
             'deleted_at' => null,
@@ -135,18 +137,18 @@ class CourseController extends Controller
       $course = Course::create([
         'name' => $request->get('name'),
         'slug' => $request->get('name'),
-        'description' => $request->get('name') || 'MyCPD Entry',
+        'description' => $request->get('description'),
         'access_details' => 'MyCPD Entry',
         'viewcounter' => 0,
-        'cost' => 'MyCPD Entry',
-        'length' => 'MyCPD Entry',
+        'cost' => -1,
+        'length' => -1,
         'startdate' => now(),
         'enddate' => now(),
         'active' => 0,
         'type' => 'MyCPD',
-        'suggested_by' => Auth::user()->name,
+        'suggested_by' => $request->get('username'),
         'suggested_date' => Carbon::now()->toDateTimeString(),
-        'approved_by' => Auth::user()->name,
+        'approved_by' => $request->get('username'),
         'approved_date' => Carbon::now()->toDateTimeString(),
       ]);
       if ($request->get('completed_date')) {
@@ -161,7 +163,7 @@ class CourseController extends Controller
       }
       $myprogress = CourseProgress::create([
         'course_id'      => $course->id,
-        'user_id'        => Auth::id(),
+        'user_id'        => $uid,
         'state_id'       => $state_id,
         'start_date'     => $request->get('start_date'),
         'completed_date' => $request->get('completed_date'),
@@ -169,14 +171,14 @@ class CourseController extends Controller
       if ($request->get('myrating')) {
         $myrating = CourseRating::create([
           'course_id'      => $course->id,
-          'user_id'        => Auth::id(),
+          'user_id'        => $uid,
           'rating' => $request->get('myrating'),
         ]);
       }
       if ($request->get('myreview')) {
         $myreview = CourseReview::create([
           'course_id'      => $course->id,
-          'user_id'        => Auth::id(),
+          'user_id'        => $uid,
           'review' => $request->get('myreview'),
           'public' => $request->get('myreviewpublic'),
         ]);
@@ -188,13 +190,16 @@ class CourseController extends Controller
   public function addToMyCourses($course_id, $state_id)
   {
     $mycourse = CourseProgress::where('course_id', $course_id)->where('user_id', Auth::id())->first();
+    if($mycourse->start_date) {$start_date = $mycourse->start_date;} else {$start_date = now();}
+    if($mycourse->completed_date) {$completed_date = $mycourse->completed_date;} else {$completed_date = now();}
     if ($mycourse) {
       if ($state_id == 1) {
-        $mycourse->start_date = now();
+        $mycourse->start_date = $start_date;
         $mycourse->completed_date = null;
       }
       if ($state_id == 2) {
-        $mycourse->completed_date = now();
+        $mycourse->start_date = $start_date;
+        $mycourse->completed_date = $completed_date;
       }
       if ($state_id == 3) {
         $mycourse->start_date = null;
@@ -209,7 +214,7 @@ class CourseController extends Controller
           'course_id'      => $course_id,
           'user_id'        => Auth::id(),
           'state_id'       => $state_id,
-          'start_date'     => now(),
+          'start_date'     => $start_date,
           'completed_date' => null,
         ]);
       }
@@ -218,8 +223,8 @@ class CourseController extends Controller
           'course_id'      => $course_id,
           'user_id'        => Auth::id(),
           'state_id'       => $state_id,
-          'start_date'     => now(),
-          'completed_date' => now(),
+          'start_date'     => $start_date ,
+          'completed_date' => $completed_date,
         ]);
       }
       if ($state_id == 3) {

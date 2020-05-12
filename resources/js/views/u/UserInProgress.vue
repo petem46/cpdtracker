@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="font-weight-light">In Progress Courses</h1>
+		<h1 class="font-weight-light">In Progress CPD</h1>
 	</div>
 </template>
 <script>

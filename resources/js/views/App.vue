@@ -9,7 +9,7 @@
 			dark
 		>
 			<v-list shaped dense flat>
-				<v-subheader>COURSES</v-subheader>
+				<v-subheader class="text-uppercase">CPD : Main Menu</v-subheader>
 				<v-list-item-group>
 					<v-list-item>
 						<v-list-item-icon>
@@ -21,7 +21,7 @@
 									exact
 									exact-active-class="teal--yellow"
 									:to="{ name: 'courselist' }"
-								>Find A Course</router-link>
+								>Find CPD</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -38,7 +38,7 @@
 							<v-icon color="light-green accent-3">mdi-playlist-plus</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
-							<v-list-item-title>Suggest A Course</v-list-item-title>
+							<v-list-item-title>Suggest CPD</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 					<v-list-item class="d-none">
@@ -167,7 +167,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c/all">All Courses</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/c/all">All CPD</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -218,10 +218,10 @@
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
 					<v-btn tile text v-on="on" class="px-0 mx-0 d-none d-md-block">
-						<v-icon @click="gotoAllCourses()">mdi-book-search-outline</v-icon>
+						<v-icon @click="gotoAllCPD()">mdi-book-search-outline</v-icon>
 					</v-btn>
 				</template>
-				<span>Find A Course</span>
+				<span>Find CPD</span>
 			</v-tooltip>
 			<v-menu v-if="this.roleid == 1" bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on: onMenu }">
@@ -244,11 +244,11 @@
 									</v-avatar>Manage Users
 								</v-list-item-title>
 							</v-list-item>
-							<v-list-item @click="gotoManageCourses" class="ml-0 pl-0">
+							<v-list-item @click="gotoManageCPD" class="ml-0 pl-0">
 								<v-list-item-title>
 									<v-avatar>
 										<v-icon>far fa-folder-open</v-icon>
-									</v-avatar>Manage Courses
+									</v-avatar>Manage CPD
 								</v-list-item-title>
 							</v-list-item>
 							<v-list-item @click="gotoManageReviews" class="ml-0 pl-0">
@@ -321,8 +321,8 @@
 				<span>My CPD Record</span>
 				<v-icon>mdi-folder-account-outline</v-icon>
 			</v-btn>
-			<v-btn @click="gotoAllCourses()" tile text>
-				<span>All Courses</span>
+			<v-btn @click="gotoAllCPD()" tile text>
+				<span>All CPD</span>
 				<v-icon>mdi-book-search-outline</v-icon>
 			</v-btn>
 		</v-bottom-navigation>
@@ -431,7 +431,7 @@ export default {
 		gotoManageUsers() {
 			this.$router.push("/a/manageusers");
 		},
-		gotoManageCourses() {
+		gotoManageCPD() {
 			this.$router.push("/a/managecourses");
 		},
 		gotoManageReviews() {
@@ -443,7 +443,7 @@ export default {
 		gotoMyCPDRecord() {
 			this.$router.push("/u/mycpdrecord").catch(err => {});
 		},
-		gotoMyCourses() {
+		gotoMyCPD() {
 			this.$router.push("/u/mycourses");
 		},
 		gotoMyProfile() {
@@ -452,7 +452,7 @@ export default {
 		gotoMyReviews() {
 			this.$router.push("/u/myreviews");
 		},
-		gotoAllCourses() {
+		gotoAllCPD() {
 			this.$router.push("/c/all");
 		},
 		closeappdrawer() {
