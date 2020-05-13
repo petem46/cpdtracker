@@ -85,6 +85,7 @@ class CourseController extends Controller
   public function updateMyCPD(Request $request)
   {
     $uid = $request->get('uid');
+    if(!$uid) { $uid = Auth::id();}
     $course = Course::find($request->get('id'));
     $progress = CourseProgress::where('user_id', $uid)->where('course_id', $request->get('id'))->first();
     $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();

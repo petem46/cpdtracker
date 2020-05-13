@@ -573,7 +573,6 @@ export default {
 		$route(to, from) {
 			this.to = to;
 			this.from = from;
-			console.log("From: " + this.from + " ... To: " + this.to);
 			if (this.to.path != this.from.path) {
 				this.loading = true;
 				this.fetch();
@@ -602,8 +601,8 @@ export default {
 				myreview: "",
 				myreviewpublic: false,
 				start_date: "",
-        uid: this.userid,
-        username: "",
+				uid: this.userid,
+				username: ""
 			},
 			defaultItem: {
 				name: "",
@@ -613,8 +612,8 @@ export default {
 				myreview: "",
 				myreviewpublic: false,
 				start_date: "",
-        uid: this.userid,
-        username: "",
+				uid: this.userid,
+				username: ""
 			},
 			snackbar: {
 				color: "",
@@ -710,6 +709,10 @@ export default {
 			} else {
 				this.endpoint = "/get/u/getMyCPD";
 			}
+			if (this.endpoint == "/get/u/getMyCPD") {
+				this.editedItem.uid = this.$store.getters.getUserId;
+			}
+
 			axios
 				.get(this.endpoint)
 				.then(({ data }) => {
@@ -718,7 +721,7 @@ export default {
 				.then(() => {
 					setTimeout(() => {
 						this.loading = false;
-					}, 1000);
+					}, 300);
 				});
 		},
 		roundOff(value, decimals) {
@@ -739,13 +742,13 @@ export default {
 		rowClick(item) {
 			this.editedIndex = item.id;
 			this.editedItem = Object.assign({}, item);
-      this.editedItem.username = this.mycpd.user.name;
+			this.editedItem.username = this.mycpd.user.name;
 			this.dialog = true;
 		},
 		editRecord(item) {
 			this.editedIndex = item.id;
 			this.editedItem = Object.assign({}, item);
-      this.editedItem.username = this.mycpd.user.name;
+			this.editedItem.username = this.mycpd.user.name;
 			this.dialog = true;
 		},
 		deleteRecord(item) {
@@ -815,20 +818,6 @@ export default {
 		}
 	},
 	computed: {
-		uid() {
-			if (this.userid) {
-				return this.editedItem.uid = this.userid;
-			} else {
-				return this.editedItem.uid = this.$store.getters.getUserId;
-			}
-		},
-		uname() {
-			if (this.mycpd.user.name) {
-				return this.editedItem.username = this.mycpd.user.name;
-			} else {
-				return this.editedItem.username = this.mycpd.user.name = this.$store.getters.getName;
-			}
-		},
 		mycpdcheck() {
 			if (this.userid === this.$store.getters.getUserId) {
 				return true;
