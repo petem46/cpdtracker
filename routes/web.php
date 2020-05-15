@@ -62,7 +62,10 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
   Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
+
   Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
+  Route::post('/post/u/uploadCertificate', 'CourseController@uploadCertificate');
+
   Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');

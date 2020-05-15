@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
-
+use App\CPDCertificate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,6 +27,7 @@ class MyCPDCourseDetailsResource extends JsonResource
       'completed_date'      => CourseProgress::where('user_id', $this->uid)->where('course_id', $this->id)->max('completed_date'),
       'myreview'        => CourseReview::where('user_id', $this->uid)->where('course_id', $this->id)->max('review'),
       'myreviewpublic'        => CourseReview::where('user_id', $this->uid)->where('course_id', $this->id)->max('public'),
+      'mycertificates'  => CPDCertificate::where('user_id', $this->uid)->where('course_id', $this->id)->get(),
     ];
   }
 }

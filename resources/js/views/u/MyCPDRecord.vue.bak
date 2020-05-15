@@ -5,7 +5,7 @@
 			<span v-if="loading">&nbsp;&nbsp;My CPD Record - Loading...</span>
 			<span v-if="!loading">&nbsp;&nbsp;My CPD Record - {{this.mycpd.user.name}}</span>
 		</h1>
-		<p v-if="!loading">&nbsp;&nbsp;Response - {{this.responsedata.original}}</p>
+			<p v-if="!loading">&nbsp;&nbsp;Response - {{this.responsedata}}</p>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<div v-if="!loading" class="v-container px-5">
 			<div id="mycpdheadlines">
@@ -320,11 +320,11 @@
 																		v-model="editedItem.files"
 																		color="blue accent-4"
 																		counter
+																		multiple
 																		label="File input"
 																		placeholder="Select your files"
 																		prepend-icon="mdi-paperclip"
 																		outlined
-																		multiple
 																		:show-size="1000"
 																	>
 																		<template v-slot:selection="{ index, text }">
@@ -336,19 +336,6 @@
 																			>+{{ editedItem.files.length - 2 }} File(s)</span>
 																		</template>
 																	</v-file-input>
-
-																	<!-- <v-col cols="12" class>
-																		<div class="custom-file">
-																			<input
-																				type="file"
-																				name="filename"
-																				class="custom-file-input"
-																				id="inputFileUpload"
-																				v-on:change="onFileChange"
-																			/>
-																			<label class="custom-file-label" for="inputFileUpload">Choose file</label>
-																		</div>
-																	</v-col>-->
 																</v-col>
 															</v-row>
 														</v-container>
@@ -617,8 +604,7 @@ export default {
 	},
 	data() {
 		return {
-			responsedata: "response",
-			file: "",
+      responsedata: "response",
 			loading: true,
 			endpoint: "",
 			to: {},
@@ -641,8 +627,7 @@ export default {
 				start_date: "",
 				uid: this.userid,
 				username: "",
-				files: [],
-				file: ""
+				files: []
 			},
 			defaultItem: {
 				name: "",
@@ -779,11 +764,6 @@ export default {
 				});
 			}
 		},
-		onFileChange(e) {
-			console.log(e.target.files[0]);
-			// this.filename = "Selected File: " + e.target.files[0].name;
-			// this.file = e.target.files[0];
-		},
 		rowClick(item) {
 			this.editedIndex = item.id;
 			this.editedItem = Object.assign({}, item);
@@ -800,39 +780,40 @@ export default {
 			alert("Delete Function not ready");
 		},
 		submit() {
+			console.log(this.editedItem);
+			let formData = new FormData();
+			if (this.editedItem.files) {
+				for (let file of this.editedItem.files) {
+					formData.append("files", file);
+				}
+			}
+			formData.append("id", this.editedItem.id);
+			formData.append("completed_date", this.editedItem.completed_date);
+			formData.append("myprogress", this.editedItem.myprogress);
+			if (this.editedItem.myrating) {
+				formData.append("myrating", this.editedItem.myrating);
+			}
+			formData.append("myreview", this.editedItem.myreview);
+			if (this.editedItem.myreviewpublic) {
+				formData.append("myreviewpublic", this.editedItem.myreviewpublic);
+			} else {formData.append("myreviewpublic", 0)}
+			formData.append("name", this.editedItem.name);
+			formData.append("ratingcount", this.editedItem.ratingcount);
+			formData.append("start_date", this.editedItem.start_date);
+			formData.append("type", this.editedItem.type);
+			formData.append("uid", this.editedItem.uid);
+			formData.append("username", this.editedItem.username);
 			axios
-				.post("/post/u/updateMyCPD", this.editedItem)
-				.then($data => {
-					this.loading = true;
-					this.dialog = false;
-					this.responsedata = $data.data.response;
-					if (this.editedItem.files) {
-						for (let i = 0; i < this.editedItem.files.length; i++) {
-							if (this.editedItem.files[i].id) {
-								continue;
-							}
-							let formData = new FormData();
-							formData.append("file", this.editedItem.files[i]);
-							formData.append("course_id", $data.data.course_id);
-							formData.append("user_id", this.editedItem.uid);
-							formData.append("username", this.editedItem.username);
-							axios.post("/post/u/uploadCertificate", formData, {
-								headers: {
-									"content-type": "multipart/form-data",
-									"X-CSRF-TOKEN": document.querySelector(
-										'meta[name="csrf-token"]'
-									).content
-								}
-							});
-						}
-					}
+				.post("/post/u/updateMyCPD", formData)
+				.then(response => {
 					this.dialog = false;
 					this.fetch();
+          console.log(response.data);
+          this.responsedata = response.data;
 					this.snackbar.color = "success";
-					this.snackbar.text = this.responsedata.original;
+					this.snackbar.text = response.data;
 					this.snackbar.show = true;
 					this.close();
-					this.fetch();
 				})
 				.catch(error => {
 					console.log("ZDFLKGHDLKFJHG");

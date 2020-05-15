@@ -7,16 +7,17 @@ use App\Category;
 use App\CourseProgress;
 use App\CourseRating;
 use App\CourseReview;
+use App\CPDCertificate;
 use App\User;
 use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\MyCoursesResource;
-use App\Http\Resources\MyCPDCoursesResource;
 use App\Http\Resources\UserCPDDetailsResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+
 
 use Carbon\Carbon;
 
@@ -85,7 +86,9 @@ class CourseController extends Controller
   public function updateMyCPD(Request $request)
   {
     $uid = $request->get('uid');
-    if(!$uid) { $uid = Auth::id();}
+    if (!$uid) {
+      $uid = Auth::id();
+    }
     $course = Course::find($request->get('id'));
     $progress = CourseProgress::where('user_id', $uid)->where('course_id', $request->get('id'))->first();
     $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
@@ -133,7 +136,7 @@ class CourseController extends Controller
           ]);
         }
       }
-      return response('CPD Record Updated', Response::HTTP_OK);
+      return $data = ['response' => response('CPD Record Updated', Response::HTTP_OK), 'course_id' => $course->id];
     } else {
       $course = Course::create([
         'name' => $request->get('name'),
@@ -186,6 +189,27 @@ class CourseController extends Controller
       }
       return response('CPD Record Create', Response::HTTP_OK);
     }
+  }
+
+  public function uploadCertificate(Request $request)
+  {
+    if ($request->hasFile('file')) {
+      $file = $request->file('file');
+      $filename = $request->file->getClientOriginalName();
+      $ext = $file->getClientOriginalExtension();
+      $folder = '/public/cpdcertificates/' . $request->get('user_id') . '/' . hash('sha256', $request->get('course_id'));
+      $path = $file->storeAs($folder, $filename);
+
+      $certificate = CPDCertificate::create([
+        'course_id' => $request->get('course_id'),
+        'name' => $filename,
+        'filename' => $filename,
+        'path' => $path,
+        'extension' => $ext,
+        'user_id' => $request->get('user_id'),
+      ]);
+    }
+    // return $f;
   }
 
   public function addToMyCourses($course_id, $state_id)
