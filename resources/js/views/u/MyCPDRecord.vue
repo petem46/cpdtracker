@@ -402,7 +402,7 @@
 															@click="deleteRecord()"
 														>Delete</v-btn>
 														<v-spacer></v-spacer>
-														<v-btn text @click="close">Cancel</v-btn>
+														<v-btn text @click="close">Close</v-btn>
 														<v-btn type="submit" color="green">Save</v-btn>
 													</v-card-actions>
 												</form>
