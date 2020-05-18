@@ -949,6 +949,15 @@ export default {
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
 			setTimeout(() => {
+				this.fetch();
+			}, 100);
+			setTimeout(() => {
+				this.refreshEditedItem();
+			}, 300);
+			setTimeout(() => {
+				this.fetch();
+			}, 100);
+			setTimeout(() => {
 				this.refreshEditedItem();
 			}, 300);
 		},
