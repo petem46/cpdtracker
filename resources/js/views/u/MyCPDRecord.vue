@@ -329,7 +329,11 @@
 																			:key="certificate.id"
 																		>
 																			<v-icon class="d-none d-lg-block">fas fa-blank fa-fw</v-icon>
-																			<a :href="'../' + certificate.path" target="_blank" style="text-decoration: none;">
+																			<a
+																				:href="'../' + certificate.path"
+																				target="_blank"
+																				style="text-decoration: none;"
+																			>
 																				<v-btn text class="ma-2">
 																					<v-icon class="mr-3">mdi-certificate</v-icon>
 																					{{certificate.name}}
@@ -943,6 +947,7 @@ export default {
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
 			this.refreshEditedItem();
+			this.refreshEditedItem();
 		},
 		close() {
 			this.dialog = false;
@@ -1022,13 +1027,6 @@ export default {
 									this.mycpd.completedcourses[i].id.name
 							);
 							continue;
-						} else {
-							console.log(
-								"not completed course " +
-									this.mycpd.completedcourses[i].id +
-									" name:" +
-									this.mycpd.completedcourses[i].id.name
-							);
 						}
 					}
 				}
@@ -1036,12 +1034,6 @@ export default {
 					for (let i = 0; i < this.mycpd.othercourses.length; i++) {
 						if (this.mycpd.othercourses[i].id == this.editedItem.id) {
 							this.editedItem = this.mycpd.othercourses[i];
-							console.log(
-								"other course " +
-									this.mycpd.othercourses[i].id +
-									" name:" +
-									this.mycpd.othercourses[i].id.name
-							);
 						}
 					}
 				}
