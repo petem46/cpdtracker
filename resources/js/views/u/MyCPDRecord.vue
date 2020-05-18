@@ -355,7 +355,9 @@
 																		<p>
 																			<v-icon class="mr-3">mdi-upload</v-icon>Upload Certificate(s)
 																		</p>
+                                    <v-progress-linear v-if="uploadingFile" indeterminate></v-progress-linear>
 																		<v-file-input
+                                    v-if="!uploadingFile"
 																			v-model="editedItem.files"
 																			color="blue accent-4"
 																			counter
@@ -675,7 +677,8 @@ export default {
 		return {
 			responsedata: "response",
 			file: "",
-			loading: true,
+      loading: true,
+      uploadingFile = false,
 			endpoint: "",
 			to: {},
 			from: {},
@@ -942,7 +945,8 @@ export default {
 					});
 				}
 			}
-			this.snackbar.color = "success";
+      this.uploadingFile = true;
+      this.snackbar.color = "success";
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
 			setTimeout(() => {
@@ -1037,7 +1041,8 @@ export default {
 						}
 					}
 				}
-			});
+      });
+      this.uploadingFile = false;
 		}
 	},
 	computed: {
