@@ -942,24 +942,15 @@ export default {
 					});
 				}
 			}
-			setTimeout(() => {
-				this.fetch();
-			}, 100);
 			this.snackbar.color = "success";
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
 			setTimeout(() => {
 				this.fetch();
-			}, 100);
+			}, 250);
 			setTimeout(() => {
 				this.refreshEditedItem();
-			}, 300);
-			setTimeout(() => {
-				this.fetch();
-			}, 100);
-			setTimeout(() => {
-				this.refreshEditedItem();
-			}, 300);
+			}, 250);
 		},
 		close() {
 			this.dialog = false;
@@ -1024,7 +1015,7 @@ export default {
 				this.snackbar.show = true;
 				setTimeout(() => {
 					this.refreshEditedItem();
-				}, 300);
+				}, 100);
 			});
 		},
 		refreshEditedItem() {
