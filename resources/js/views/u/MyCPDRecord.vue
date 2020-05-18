@@ -350,14 +350,15 @@
 																		</v-col>
 																	</div>
 																</v-col>
-																<v-col cols="12">
-																	<div id="addcertificates">
+																<v-col cols="12" v-if="uploadingFile">
+																	<v-progress-linear indeterminate></v-progress-linear>
+																</v-col>
+																<v-col cols="12" v-if="!uploadingFile">
+																	<div id="addcertificates" v-if="!uploadingFile">
 																		<p>
 																			<v-icon class="mr-3">mdi-upload</v-icon>Upload Certificate(s)
 																		</p>
-                                    <v-progress-linear v-if="uploadingFile" indeterminate></v-progress-linear>
 																		<v-file-input
-                                    v-if="!uploadingFile"
 																			v-model="editedItem.files"
 																			color="blue accent-4"
 																			counter
@@ -379,7 +380,7 @@
 																		</v-file-input>
 																		<div class="ml-8">
 																			<v-btn
-																				v-if="editedItem.files"
+																				v-if="editedItem.files && !uploadingFile"
 																				color="teal darken-3"
 																				class="btn-block"
 																				@click="uploadFiles"
@@ -677,8 +678,8 @@ export default {
 		return {
 			responsedata: "response",
 			file: "",
-      loading: true,
-      uploadingFile = false,
+			loading: true,
+			uploadingFile: false,
 			endpoint: "",
 			to: {},
 			from: {},
@@ -927,6 +928,7 @@ export default {
 		},
 		uploadFiles() {
 			if (this.editedItem.files && this.editedItem.id) {
+				this.uploadingFile = true;
 				for (let i = 0; i < this.editedItem.files.length; i++) {
 					if (this.editedItem.files[i].id) {
 						continue;
@@ -945,8 +947,8 @@ export default {
 					});
 				}
 			}
-      this.uploadingFile = true;
-      this.snackbar.color = "success";
+
+			this.snackbar.color = "success";
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
 			setTimeout(() => {
@@ -1041,8 +1043,8 @@ export default {
 						}
 					}
 				}
-      });
-      this.uploadingFile = false;
+			});
+			this.uploadingFile = false;
 		}
 	},
 	computed: {
