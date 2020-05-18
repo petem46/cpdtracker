@@ -184,7 +184,7 @@
 												</v-toolbar-items>
 											</v-toolbar>
 											<v-container>
-												<form @submit.prevent="submit" enctype="multipart/form-data">
+												<v-form @submit.prevent="submit" enctype="multipart/form-data" ref="form" lazy-validation>
 													<v-card-text>
 														<v-container>
 															<v-row>
@@ -195,7 +195,9 @@
 																		label="CPD Name"
 																		hide-details="auto"
 																		prepend-icon="fas fa-book-reader"
+                                    outlined
 																		:disabled="formDelete"
+																		:rules="rulesCourseName"
 																	></v-text-field>
 																</v-col>
 																<v-col cols="12">
@@ -210,6 +212,7 @@
 																		rows="1"
 																		outlined
 																		counter
+																		:x-----rules="rulesCourseDescription"
 																	></v-textarea>
 																</v-col>
 																<v-col cols="12" md="6">
@@ -380,7 +383,7 @@
 																		</v-file-input>
 																		<div class="ml-8">
 																			<v-btn
-																				v-if="editedItem.files && !uploadingFile"
+																				v-if="editedItem.files && editedItem.id && !uploadingFile"
 																				color="teal darken-3"
 																				class="btn-block"
 																				@click="uploadFiles"
@@ -405,7 +408,7 @@
 														<v-btn text @click="close">Close</v-btn>
 														<v-btn type="submit" color="green">Save</v-btn>
 													</v-card-actions>
-												</form>
+												</v-form>
 											</v-container>
 										</v-card>
 									</v-dialog>
@@ -692,6 +695,16 @@ export default {
 			searchothers: "",
 			type: "All",
 			types: ["All", "Started", "Shortlisted"],
+			rulesCourseName: [
+				v => !!v || "CPD name is required",
+				v => (v && v.length >= 3) || "Name must be longer than 3 characters"
+			],
+			rulesCourseDescription: [
+				v => !!v || "CPD description is required",
+				v =>
+					(v && v.length >= 3) || "description must be longer than 3 characters"
+			],
+
 			editedItem: {
 				name: "",
 				completed_date: "",
@@ -887,44 +900,52 @@ export default {
 			alert("Delete Function not ready");
 		},
 		submit() {
-			axios
-				.post("/post/u/updateMyCPD", this.editedItem)
-				.then($data => {
-					this.loading = true;
-					this.dialog = false;
-					this.responsedata = $data.data.response;
-					if (this.editedItem.files) {
-						for (let i = 0; i < this.editedItem.files.length; i++) {
-							if (this.editedItem.files[i].id) {
-								continue;
-							}
-							let formData = new FormData();
-							formData.append("file", this.editedItem.files[i]);
-							formData.append("course_id", $data.data.course_id);
-							formData.append("user_id", this.editedItem.uid);
-							formData.append("username", this.editedItem.username);
-							axios.post("/post/u/uploadCertificate", formData, {
-								headers: {
-									"content-type": "multipart/form-data",
-									"X-CSRF-TOKEN": document.querySelector(
-										'meta[name="csrf-token"]'
-									).content
+			this.$refs.form.validate();
+			if (this.$refs.form.validate()) {
+				axios
+					.post("/post/u/updateMyCPD", this.editedItem)
+					.then($data => {
+						this.loading = true;
+						this.dialog = false;
+						this.responsedata = $data.data.response;
+						if (this.editedItem.files) {
+							for (let i = 0; i < this.editedItem.files.length; i++) {
+								if (this.editedItem.files[i].id) {
+									continue;
 								}
-							});
+								let formData = new FormData();
+								formData.append("file", this.editedItem.files[i]);
+								formData.append("course_id", $data.data.course_id);
+								formData.append("user_id", this.editedItem.uid);
+								formData.append("username", this.editedItem.username);
+								axios.post("/post/u/uploadCertificate", formData, {
+									headers: {
+										"content-type": "multipart/form-data",
+										"X-CSRF-TOKEN": document.querySelector(
+											'meta[name="csrf-token"]'
+										).content
+									}
+								});
+							}
 						}
-					}
-					this.dialog = false;
-					this.fetch();
-					this.snackbar.color = "success";
-					this.snackbar.text = this.responsedata.original;
-					this.snackbar.show = true;
-					this.close();
-					this.fetch();
-				})
-				.catch(error => {
-					console.log("ZDFLKGHDLKFJHG");
-					console.log(error);
-				});
+						this.dialog = false;
+						this.fetch();
+						this.snackbar.color = "success";
+						this.snackbar.text = this.responsedata.original;
+						this.snackbar.show = true;
+						this.close();
+						this.fetch();
+					})
+					.catch(error => {
+						console.log("ZDFLKGHDLKFJHG");
+						console.log(error);
+					});
+				this.reset();
+			}
+		},
+		reset() {
+			this.$refs.form.reset();
+			this.$refs.form.resetValidation();
 		},
 		uploadFiles() {
 			if (this.editedItem.files && this.editedItem.id) {
@@ -959,7 +980,8 @@ export default {
 			}, 250);
 		},
 		close() {
-			this.dialog = false;
+      this.$refs.form.resetValidation();
+      this.dialog = false;
 			setTimeout(() => {
 				this.editedItem = Object.assign({}, this.defaultItem);
 			}, 300);
