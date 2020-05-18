@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
   Route::post('/post/u/uploadCertificate', 'CourseController@uploadCertificate');
+  Route::delete('/delete/u/deleteCertificate/{id}', 'CourseController@deleteCertificate');
 
   Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');

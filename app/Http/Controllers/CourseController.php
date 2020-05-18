@@ -17,6 +17,7 @@ use App\Http\Resources\UserCPDDetailsResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 use Carbon\Carbon;
@@ -195,14 +196,16 @@ class CourseController extends Controller
   {
     if ($request->hasFile('file')) {
       $file = $request->file('file');
-      $filename = $request->file->getClientOriginalName();
+      $filename = hash('sha256', Carbon::now()->toDateTimeString()) . "-" . $request->file->getClientOriginalName();
+      $name = $request->file->getClientOriginalName();
       $ext = $file->getClientOriginalExtension();
-      $folder = '/public/cpdcertificates/' . $request->get('user_id') . '/' . hash('sha256', $request->get('course_id'));
-      $path = $file->storeAs($folder, $filename);
+      $folder = 'cpdcertificates/' . $request->get('user_id') . '/' . hash('sha256', $request->get('course_id'));
+      $store = $file->storeAs('/public/' . $folder, $filename);
+      $path = 'storage/' . $folder . '/' . $filename;
 
       $certificate = CPDCertificate::create([
         'course_id' => $request->get('course_id'),
-        'name' => $filename,
+        'name' => $name,
         'filename' => $filename,
         'path' => $path,
         'extension' => $ext,
@@ -210,6 +213,19 @@ class CourseController extends Controller
       ]);
     }
     // return $f;
+  }
+
+  public function deleteCertificate($id) {
+    $path = CPDCertificate::findorFail($id);
+    $file = CPDCertificate::findorFail($id);
+    $file->forceDelete();
+    $deleted = File::delete($path->path);
+    if($deleted) {
+      return response('File Deleted', Response::HTTP_OK);
+    }
+    else {
+      return response($path->path, Response::HTTP_OK);
+    }
   }
 
   public function addToMyCourses($course_id, $state_id)

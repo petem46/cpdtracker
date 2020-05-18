@@ -150,7 +150,12 @@
 								</v-col>
 								<v-col cols="12" md="2" class="order-md-last order-first">
 									<v-spacer></v-spacer>
-									<v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.smAndDown" width="80%">
+									<v-dialog
+										v-model="dialog"
+										persistent
+										:fullscreen="$vuetify.breakpoint.smAndDown"
+										width="80%"
+									>
 										<template v-slot:activator="{ on }">
 											<v-btn
 												v-if="mycpdcheck"
@@ -315,40 +320,66 @@
 																		></v-rating>
 																	</div>
 																</v-col>
+																<v-col v-if="editedItem.mycertificates.length">
+																	<div id="certificates">
+																		<v-icon class="mr-3">fa-certificate fa-fw</v-icon>Attached Certificate(s)
+																		<v-col
+																			class="py-0 pl-5"
+																			v-for="certificate in editedItem.mycertificates"
+																			:key="certificate.id"
+																		>
+																			<v-icon class="d-none d-lg-block">fas fa-blank fa-fw</v-icon>
+																			<a :href="'../' + certificate.path" target="_blank" style="text-decoration: none;">
+																				<v-btn text class="ma-2">
+																					<v-icon class="mr-3">mdi-certificate</v-icon>
+																					{{certificate.name}}
+																					<v-icon class="ml-3" color="white">mdi-download</v-icon>
+																				</v-btn>
+																			</a>
+																			<v-btn
+																				@click="confirmDeleteUpload(certificate)"
+																				class="ma-2 outlined"
+																				color="red darken-3"
+																			>
+																				<v-icon color="white">far fa-trash-alt fa-sm</v-icon>
+																			</v-btn>
+																		</v-col>
+																	</div>
+																</v-col>
 																<v-col cols="12">
-																	<v-file-input
-																		v-model="editedItem.files"
-																		color="blue accent-4"
-																		counter
-																		label="File input"
-																		placeholder="Select your files"
-																		prepend-icon="mdi-paperclip"
-																		outlined
-																		multiple
-																		:show-size="1000"
-																	>
-																		<template v-slot:selection="{ index, text }">
-																			<v-chip v-if="index < 2" color="blue darken-4" dark label small>{{ text }}</v-chip>
+																	<div id="addcertificates">
+																		<p>
+																			<v-icon class="mr-3">mdi-upload</v-icon>Upload Certificate(s)
+																		</p>
+																		<v-file-input
+																			v-model="editedItem.files"
+																			color="blue accent-4"
+																			counter
+																			label="Upload your certificate"
+																			placeholder="Select your files"
+																			prepend-icon="mdi-none"
+																			outlined
+																			multiple
+																			:show-size="1000"
+																		>
+																			<template v-slot:selection="{ index, text }">
+																				<v-chip v-if="index < 2" color="teal darken-3" dark label small>{{ text }}</v-chip>
 
-																			<span
-																				v-else-if="index === 2"
-																				class="overline grey--text text--darken-3 mx-2"
-																			>+{{ editedItem.files.length - 2 }} File(s)</span>
-																		</template>
-																	</v-file-input>
-
-																	<!-- <v-col cols="12" class>
-																		<div class="custom-file">
-																			<input
-																				type="file"
-																				name="filename"
-																				class="custom-file-input"
-																				id="inputFileUpload"
-																				v-on:change="onFileChange"
-																			/>
-																			<label class="custom-file-label" for="inputFileUpload">Choose file</label>
+																				<span
+																					v-else-if="index === 2"
+																					class="overline grey--text text--darken-3 mx-2"
+																				>+{{ editedItem.files.length - 2 }} File(s)</span>
+																			</template>
+																		</v-file-input>
+																		<div class="ml-8">
+																			<v-btn
+																				v-if="editedItem.files"
+																				color="teal darken-3"
+																				class="btn-block"
+																				@click="uploadFiles"
+																			>Upload Files</v-btn>
 																		</div>
-																	</v-col>-->
+																	</div>
 																</v-col>
 															</v-row>
 														</v-container>
@@ -365,7 +396,7 @@
 														>Delete</v-btn>
 														<v-spacer></v-spacer>
 														<v-btn text @click="close">Cancel</v-btn>
-														<v-btn type="submit" text>Save</v-btn>
+														<v-btn type="submit" color="green">Save</v-btn>
 													</v-card-actions>
 												</form>
 											</v-container>
@@ -583,6 +614,27 @@
 				</div>
 			</v-row>
 
+			<v-dialog v-if="confirmDelete" persistent v-model="confirmDelete" max-width="500px">
+				<v-card>
+					<v-card-title class="red darken-4">
+						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete
+					</v-card-title>
+					<v-card-text class="pt-3">
+						<h3 class="title">{{deleteCertificate.name}}</h3>
+						<p
+							class="grey--text"
+						>Upload date: {{deleteCertificate.created_at | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY')}}</p>
+						<h3 class="mb-3">Are you sure you want to delete this file?</h3>
+						<h3 class="red--text darken-4">This file will be permanently deleted!</h3>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn text @click="cancelDeleteUpload">Cancel</v-btn>
+						<v-spacer></v-spacer>
+						<v-btn color="red darken-4" @click="doDeleteCertificate(deleteCertificate.id)">Delete</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
+
 			<!--
     ****  SNACKBAR ALERT AFTER EDIT OR ADD COURSE
 			-->
@@ -624,6 +676,7 @@ export default {
 			to: {},
 			from: {},
 			dialog: false,
+			confirmDelete: false,
 			start_datepicker: false,
 			completed_datepicker: false,
 			mycpd: [],
@@ -642,6 +695,7 @@ export default {
 				uid: this.userid,
 				username: "",
 				files: [],
+				mycertificates: [],
 				file: ""
 			},
 			defaultItem: {
@@ -654,7 +708,32 @@ export default {
 				start_date: "",
 				uid: this.userid,
 				username: "",
-				files: []
+				files: [],
+				mycertificates: []
+			},
+			deleteCertificate: {
+				id: "",
+				name: "",
+				course_id: "",
+				created_at: "",
+				deleted_at: "",
+				extension: "",
+				filename: "",
+				path: "",
+				updated_at: "",
+				user_id: ""
+			},
+			defaultCertificate: {
+				id: "",
+				name: "",
+				course_id: "",
+				created_at: "",
+				deleted_at: "",
+				extension: "",
+				filename: "",
+				path: "",
+				updated_at: "",
+				user_id: ""
 			},
 			snackbar: {
 				color: "",
@@ -839,6 +918,32 @@ export default {
 					console.log(error);
 				});
 		},
+		uploadFiles() {
+			if (this.editedItem.files && this.editedItem.id) {
+				for (let i = 0; i < this.editedItem.files.length; i++) {
+					if (this.editedItem.files[i].id) {
+						continue;
+					}
+					let formData = new FormData();
+					formData.append("file", this.editedItem.files[i]);
+					formData.append("course_id", this.editedItem.id);
+					formData.append("user_id", this.editedItem.uid);
+					formData.append("username", this.editedItem.username);
+					axios.post("/post/u/uploadCertificate", formData, {
+						headers: {
+							"content-type": "multipart/form-data",
+							"X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+								.content
+						}
+					});
+				}
+			}
+			this.fetch();
+			this.snackbar.color = "success";
+			this.snackbar.text = "File Uploaded Successfully";
+			this.snackbar.show = true;
+			this.refreshEditedItem();
+		},
 		close() {
 			this.dialog = false;
 			setTimeout(() => {
@@ -884,6 +989,63 @@ export default {
 			} else {
 				return "This review is private";
 			}
+		},
+		confirmDeleteUpload(upload) {
+			this.deleteCertificate = upload;
+			this.confirmDelete = true;
+		},
+		cancelDeleteUpload() {
+			this.deleteCertificate = this.defaultCertificate;
+			this.confirmDelete = false;
+		},
+		doDeleteCertificate(id) {
+			axios.delete("/delete/u/deleteCertificate/" + id).then(response => {
+				this.deleteCertificate = this.defaultCertificate;
+				this.confirmDelete = false;
+				this.snackbar.color = "red";
+				this.snackbar.text = response.data;
+				this.snackbar.show = true;
+				this.refreshEditedItem();
+			});
+		},
+		refreshEditedItem() {
+			axios.get(this.endpoint).then(({ data }) => {
+				this.mycpd = data.mycpd;
+				if (this.mycpd.completedcourses) {
+					for (let i = 0; i < this.mycpd.completedcourses.length; i++) {
+						if (this.mycpd.completedcourses[i].id == this.editedItem.id) {
+							this.editedItem = this.mycpd.completedcourses[i];
+							console.log(
+								"completed course " +
+									this.mycpd.completedcourses[i].id +
+									" name:" +
+									this.mycpd.completedcourses[i].id.name
+							);
+							continue;
+						} else {
+							console.log(
+								"not completed course " +
+									this.mycpd.completedcourses[i].id +
+									" name:" +
+									this.mycpd.completedcourses[i].id.name
+							);
+						}
+					}
+				}
+				if (this.mycpd.othercourses) {
+					for (let i = 0; i < this.mycpd.othercourses.length; i++) {
+						if (this.mycpd.othercourses[i].id == this.editedItem.id) {
+							this.editedItem = this.mycpd.othercourses[i];
+							console.log(
+								"other course " +
+									this.mycpd.othercourses[i].id +
+									" name:" +
+									this.mycpd.othercourses[i].id.name
+							);
+						}
+					}
+				}
+			});
 		}
 	},
 	computed: {
