@@ -1020,12 +1020,6 @@ export default {
 					for (let i = 0; i < this.mycpd.completedcourses.length; i++) {
 						if (this.mycpd.completedcourses[i].id == this.editedItem.id) {
 							this.editedItem = this.mycpd.completedcourses[i];
-							console.log(
-								"completed course " +
-									this.mycpd.completedcourses[i].id +
-									" name:" +
-									this.mycpd.completedcourses[i].id.name
-							);
 							continue;
 						}
 					}
@@ -1033,7 +1027,8 @@ export default {
 				if (this.mycpd.othercourses) {
 					for (let i = 0; i < this.mycpd.othercourses.length; i++) {
 						if (this.mycpd.othercourses[i].id == this.editedItem.id) {
-							this.editedItem = this.mycpd.othercourses[i];
+              this.editedItem = this.mycpd.othercourses[i];
+              continue;
 						}
 					}
 				}
