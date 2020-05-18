@@ -942,12 +942,15 @@ export default {
 					});
 				}
 			}
-			this.fetch();
+			setTimeout(() => {
+				this.fetch();
+			}, 100);
 			this.snackbar.color = "success";
 			this.snackbar.text = "File Uploaded Successfully";
 			this.snackbar.show = true;
-			this.refreshEditedItem();
-			this.refreshEditedItem();
+			setTimeout(() => {
+				this.refreshEditedItem();
+			}, 300);
 		},
 		close() {
 			this.dialog = false;
@@ -1010,7 +1013,9 @@ export default {
 				this.snackbar.color = "red";
 				this.snackbar.text = response.data;
 				this.snackbar.show = true;
-				this.refreshEditedItem();
+				setTimeout(() => {
+					this.refreshEditedItem();
+				}, 300);
 			});
 		},
 		refreshEditedItem() {
@@ -1027,8 +1032,8 @@ export default {
 				if (this.mycpd.othercourses) {
 					for (let i = 0; i < this.mycpd.othercourses.length; i++) {
 						if (this.mycpd.othercourses[i].id == this.editedItem.id) {
-              this.editedItem = this.mycpd.othercourses[i];
-              continue;
+							this.editedItem = this.mycpd.othercourses[i];
+							continue;
 						}
 					}
 				}
