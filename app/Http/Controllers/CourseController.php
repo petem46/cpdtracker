@@ -139,7 +139,7 @@ class CourseController extends Controller
       }
       return $data = ['response' => response('CPD Record Updated', Response::HTTP_OK), 'course_id' => $course->id];
     } else {
-      $course = Course::create([
+      $newcourse = Course::create([
         'name' => $request->get('name'),
         'slug' => $request->get('name'),
         'description' => $request->get('description'),
@@ -167,7 +167,7 @@ class CourseController extends Controller
         $state_id = 3;
       }
       $myprogress = CourseProgress::create([
-        'course_id'      => $course->id,
+        'course_id'      => $newcourse->id,
         'user_id'        => $uid,
         'state_id'       => $state_id,
         'start_date'     => $request->get('start_date'),
@@ -175,14 +175,14 @@ class CourseController extends Controller
       ]);
       if ($request->get('myrating')) {
         $myrating = CourseRating::create([
-          'course_id'      => $course->id,
+          'course_id'      => $newcourse->id,
           'user_id'        => $uid,
           'rating' => $request->get('myrating'),
         ]);
       }
       if ($request->get('myreview')) {
         $myreview = CourseReview::create([
-          'course_id'      => $course->id,
+          'course_id'      => $newcourse->id,
           'user_id'        => $uid,
           'review' => $request->get('myreview'),
           'public' => $request->get('myreviewpublic'),
