@@ -5,7 +5,6 @@
 			<span v-if="loading">&nbsp;&nbsp;My CPD Record - Loading...</span>
 			<span v-if="!loading">&nbsp;&nbsp;My CPD Record - {{this.mycpd.user.name}}</span>
 		</h1>
-		<p v-if="!loading">&nbsp;&nbsp;Response - {{this.responsedata.original}}</p>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<div v-if="!loading" class="v-container px-5">
 			<div id="mycpdheadlines">
@@ -184,7 +183,7 @@
 												</v-toolbar-items>
 											</v-toolbar>
 											<v-container>
-												<v-form @submit.prevent="submit" enctype="multipart/form-data" ref="form" lazy-validation>
+												<v-form @submit.prevent="submit" enctype="multipart/form-data">
 													<v-card-text>
 														<v-container>
 															<v-row>
@@ -900,8 +899,8 @@ export default {
 			alert("Delete Function not ready");
 		},
 		submit() {
-			this.$refs.form.validate();
-			if (this.$refs.form.validate()) {
+      console.log(this.editedItem);
+        console.log(this.editedItem);
 				axios
 					.post("/post/u/updateMyCPD", this.editedItem)
 					.then($data => {
@@ -940,8 +939,7 @@ export default {
 						console.log("ZDFLKGHDLKFJHG");
 						console.log(error);
 					});
-				this.reset();
-			}
+				// this.reset();
 		},
 		reset() {
 			this.$refs.form.reset();
