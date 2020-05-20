@@ -941,10 +941,6 @@ export default {
 					});
 				// this.reset();
 		},
-		reset() {
-			this.$refs.form.reset();
-			this.$refs.form.resetValidation();
-		},
 		uploadFiles() {
 			if (this.editedItem.files && this.editedItem.id) {
 				this.uploadingFile = true;
@@ -978,7 +974,6 @@ export default {
 			}, 250);
 		},
 		close() {
-      this.$refs.form.resetValidation();
       this.dialog = false;
 			setTimeout(() => {
 				this.editedItem = Object.assign({}, this.defaultItem);
