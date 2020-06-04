@@ -194,7 +194,7 @@
 																		label="CPD Name"
 																		hide-details="auto"
 																		prepend-icon="fas fa-book-reader"
-                                    outlined
+																		outlined
 																		:disabled="!canEditCPD"
 																		:rules="rulesCPDName"
 																	></v-text-field>
@@ -211,7 +211,7 @@
 																		rows="1"
 																		outlined
 																		counter
-																		:x-----rules="rulesCPDDescription"
+																		:rules="rulesCPDDescription"
 																	></v-textarea>
 																</v-col>
 																<v-col cols="12" md="6">
@@ -343,7 +343,7 @@
 																				</v-btn>
 																			</a>
 																			<v-btn
-                                      v-if="mycpdcheck"
+																				v-if="mycpdcheck"
 																				@click="confirmDeleteUpload(certificate)"
 																				class="ma-2 outlined"
 																				color="red darken-3"
@@ -623,7 +623,12 @@
 				</div>
 			</v-row>
 
-			<v-dialog v-if="confirmDeleteUploadDialog" persistent v-model="confirmDeleteUpload" max-width="500px">
+			<v-dialog
+				v-if="confirmDeleteUploadDialog"
+				persistent
+				v-model="confirmDeleteUpload"
+				max-width="500px"
+			>
 				<v-card>
 					<v-card-title class="red darken-4">
 						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete
@@ -651,8 +656,12 @@
 					</v-card-title>
 					<v-card-text class="pt-3">
 						<h3 class="title">{{editedCPD.name}}</h3>
-						<p class="mb-3 grey--text">All ratings, reviews and dates linked to this course will also be deleted.</p>
-						<h3 class="red--text darken-4">Are you sure you want to delete this course from your CPD record?</h3>
+						<p
+							class="mb-3 grey--text"
+						>All ratings, reviews and dates linked to this course will also be deleted.</p>
+						<h3
+							class="red--text darken-4"
+						>Are you sure you want to delete this course from your CPD record?</h3>
 					</v-card-text>
 					<v-card-actions>
 						<v-btn text @click="confirmDeleteCPDDialog = false">Cancel</v-btn>
@@ -704,8 +713,8 @@ export default {
 			to: {},
 			from: {},
 			dialog: false,
-      confirmDeleteUploadDialog: false,
-      confirmDeleteCPDDialog: false,
+			confirmDeleteUploadDialog: false,
+			confirmDeleteCPDDialog: false,
 			start_datepicker: false,
 			completed_datepicker: false,
 			mycpd: [],
@@ -917,47 +926,47 @@ export default {
 			alert("Delete Function not ready");
 		},
 		submit() {
-      console.log(this.editedCPD);
-        console.log(this.editedCPD);
-				axios
-					.post("/post/u/updateMyCPD", this.editedCPD)
-					.then($data => {
-						this.loading = true;
-						this.dialog = false;
-						this.responsedata = $data.data.response;
-						if (this.editedCPD.files) {
-							for (let i = 0; i < this.editedCPD.files.length; i++) {
-								if (this.editedCPD.files[i].id) {
-									continue;
-								}
-								let formData = new FormData();
-								formData.append("file", this.editedCPD.files[i]);
-								formData.append("course_id", $data.data.course_id);
-								formData.append("user_id", this.editedCPD.uid);
-								formData.append("username", this.editedCPD.username);
-								axios.post("/post/u/uploadCertificate", formData, {
-									headers: {
-										"content-type": "multipart/form-data",
-										"X-CSRF-TOKEN": document.querySelector(
-											'meta[name="csrf-token"]'
-										).content
-									}
-								});
+			console.log(this.editedCPD);
+			console.log(this.editedCPD);
+			axios
+				.post("/post/u/updateMyCPD", this.editedCPD)
+				.then($data => {
+					this.loading = true;
+					this.dialog = false;
+					this.responsedata = $data.data.response;
+					if (this.editedCPD.files) {
+						for (let i = 0; i < this.editedCPD.files.length; i++) {
+							if (this.editedCPD.files[i].id) {
+								continue;
 							}
+							let formData = new FormData();
+							formData.append("file", this.editedCPD.files[i]);
+							formData.append("course_id", $data.data.course_id);
+							formData.append("user_id", this.editedCPD.uid);
+							formData.append("username", this.editedCPD.username);
+							axios.post("/post/u/uploadCertificate", formData, {
+								headers: {
+									"content-type": "multipart/form-data",
+									"X-CSRF-TOKEN": document.querySelector(
+										'meta[name="csrf-token"]'
+									).content
+								}
+							});
 						}
-						this.dialog = false;
-						this.fetch();
-						this.snackbar.color = "success";
-						this.snackbar.text = this.responsedata.original;
-						this.snackbar.show = true;
-						this.close();
-						this.fetch();
-					})
-					.catch(error => {
-						console.log("ZDFLKGHDLKFJHG");
-						console.log(error);
-					});
-				// this.reset();
+					}
+					this.dialog = false;
+					this.fetch();
+					this.snackbar.color = "success";
+					this.snackbar.text = this.responsedata.original;
+					this.snackbar.show = true;
+					this.close();
+					this.fetch();
+				})
+				.catch(error => {
+					console.log("ZDFLKGHDLKFJHG");
+					console.log(error);
+				});
+			// this.reset();
 		},
 		uploadFiles() {
 			if (this.editedCPD.files && this.editedCPD.id) {
@@ -992,7 +1001,7 @@ export default {
 			}, 250);
 		},
 		close() {
-      this.dialog = false;
+			this.dialog = false;
 			setTimeout(() => {
 				this.editedCPD = Object.assign({}, this.defaultItem);
 			}, 300);
@@ -1056,7 +1065,7 @@ export default {
 					this.refreshEditedItem();
 				}, 100);
 			});
-    },
+		},
 		confirmDeleteCPD() {
 			this.confirmDeleteCPDDialog = true;
 		},
@@ -1116,12 +1125,14 @@ export default {
 			}
 		},
 		canEditCPD() {
-			if (
-        this.editedCPD.uid == this.$store.getters.getUserId &&
-        this.editedCPD.type === 'MyCPD'
-        ) {
-        console.log("HEELLLLOOO")
-        return true;
+			if (!this.editedCPD.id) {
+				return true;
+			} else if (
+				this.editedCPD.uid == this.$store.getters.getUserId &&
+				this.editedCPD.type === "MyCPD"
+			) {
+				console.log("HEELLLLOOO");
+				return true;
 			} else {
 				return false;
 			}
