@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
   |- COURSE ROUTES
   */
   Route::get('/get/courselist', 'CategoryController@index');
-  Route::get('/get/c', 'CategoryController@index');
-  Route::get('/get/c/details/{id}', 'CourseController@details');
-  Route::get('/get/c/name/{id}', 'CourseController@getname');
-  Route::put('/put/c/updateViewCounter/{id}', 'CourseController@updateViewCounter');
-  Route::delete('/delete/c/deleteCourse/{id}', 'CourseController@deleteCourse');
+  Route::get('/get/cpd', 'CategoryController@index');
+  Route::get('/get/cpd/details/{id}', 'CourseController@details');
+  Route::get('/get/cpd/name/{id}', 'CourseController@getname');
+  Route::put('/put/cpd/updateViewCounter/{id}', 'CourseController@updateViewCounter');
+  Route::delete('/delete/cpd/deleteCourse/{id}', 'CourseController@deleteCourse');
 
   /*
   |- CATEGORY ROUTES
@@ -61,13 +61,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
-  Route::post('/post/c/suggestcourse', 'CourseController@suggestcourse');
+  Route::post('/post/cpd/suggestcourse', 'CourseController@suggestcourse');
 
   Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
   Route::post('/post/u/uploadCertificate', 'CourseController@uploadCertificate');
   Route::delete('/delete/u/deleteCertificate/{id}', 'CourseController@deleteCertificate');
 
-  Route::put('/put/u/addToMyCourses/{course_id}/{state_id}',  'CourseController@addToMyCourses');
+  Route::put('/put/u/addToMyCPD/{course_id}/{state_id}',  'CourseController@addToMyCPD');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
   Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
@@ -81,8 +81,8 @@ Route::group(['middleware' => ['auth']], function () {
   /*
 |- MANAGE COURSES ROUTES
 */
-  Route::get('/get/c/all', 'CourseController@overview');
-  Route::post('/post/c/savecourse', 'CourseController@savecourse');
+  Route::get('/get/cpd/all', 'CourseController@overview');
+  Route::post('/post/cpd/savecourse', 'CourseController@savecourse');
 
   /*
   |- MANAGE REVIEWS ROUTES

@@ -290,7 +290,7 @@ export default {
 			addtocoursename: "",
 			addtocourseid: "",
 			course: [],
-			endpoint: "/get/c/details/" + this.id,
+			endpoint: "/get/cpd/details/" + this.id,
 			myrating: 0,
 			mystate: 0,
 			publicreviews: [],
@@ -362,7 +362,7 @@ export default {
 		},
 		addToMyCPD(state) {
 			axios
-				.put("/put/u/addToMyCourses/" + this.course.id + "/" + state)
+				.put("/put/u/addToMyCPD/" + this.course.id + "/" + state)
 				.then(() => {
 					this.fetch();
 				});
@@ -376,7 +376,7 @@ export default {
 		},
 		updateViewCounter() {
 			this.course.viewcounter = this.course.viewcounter + 1;
-			axios.put("/put/c/updateViewCounter/" + this.course.id).then(() => {
+			axios.put("/put/cpd/updateViewCounter/" + this.course.id).then(() => {
 				this.viewcountupdated = 1;
 				this.fetch();
 			});

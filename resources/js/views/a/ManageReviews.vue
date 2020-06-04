@@ -281,7 +281,7 @@ export default {
 		},
 		getCPDNames() {
 			axios
-				.get("/get/c/all")
+				.get("/get/cpd/all")
 				.then(({ data }) => {
 					this.courses = data.data.courses.map(courses => courses.name);
 				})
@@ -301,7 +301,7 @@ export default {
 		},
 		checkrow(value) {
 			// this.$emit("closeappdrawer");
-			this.$router.push("/c/details/" + value.name);
+			this.$router.push("/cpd/details/" + value.name);
 		},
 		roundOff(value, decimals) {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
@@ -328,7 +328,7 @@ export default {
 			alert(
 				"Router Push: /r/" + this.$store.getters.getUserId + "/" + value.id
 			);
-			// this.$router.push("/c/details/" + value.name);
+			// this.$router.push("/cpd/details/" + value.name);
 		},
 		close() {
 			this.dialog = false;
@@ -354,7 +354,7 @@ export default {
 			this.editedItem = Object.assign({}, item);
 			console.log(item);
 			// this.dialog = true;
-			this.$router.push("/c/details/" + this.editedItem.id);
+			this.$router.push("/cpd/details/" + this.editedItem.id);
 		},
 		deleteItem(item) {},
 		submit() {

@@ -66,7 +66,7 @@ export default {
 	},
 	methods: {
 		fetch() {
-			axios.get("/get/c/name/" + this.courseid).then(({ data }) => {
+			axios.get("/get/cpd/name/" + this.courseid).then(({ data }) => {
 				console.log(data.course);
 				this.coursename = data.course[0].name;
 				this.getMyReview();
@@ -101,14 +101,14 @@ export default {
 				this.snackbar.show = true;
 
 				this.$router.push({
-					path: "/c/details/" + this.courseid,
+					path: "/cpd/details/" + this.courseid,
 					params: { snackbar: this.snackbar, review: false }
 				});
 			});
 		},
 		close() {
 			this.$router.push({
-				path: "/c/details/" + this.courseid,
+				path: "/cpd/details/" + this.courseid,
 				params: { review: false }
 			});
 		},

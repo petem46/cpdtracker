@@ -168,7 +168,7 @@ export default {
 		},
 		addToMyCPD($action, $state_id) {
 			axios
-				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.put("/put/u/addToMyCPD/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});

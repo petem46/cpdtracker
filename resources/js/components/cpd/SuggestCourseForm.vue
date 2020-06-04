@@ -223,7 +223,7 @@ export default {
 		submit() {
 			this.$refs.form.validate();
 			if (this.$refs.form.validate()) {
-				axios.post("/post/c/savecourse", this.suggested).then(response => {
+				axios.post("/post/cpd/savecourse", this.suggested).then(response => {
 					console.log(this.suggested);
 					this.snackbar.color = "success";
 					this.snackbar.text = "CPD Suggestion Submitted";

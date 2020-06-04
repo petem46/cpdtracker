@@ -753,13 +753,13 @@ export default {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
 		gotoCPD(item) {
-			this.$router.push("/c/details/" + item.id);
+			this.$router.push("/cpd/details/" + item.id);
 		},
 		changestate(item, state) {
 			if (this.myprogress == state) {
 				return true;
 			} else {
-				axios.put("/put/u/addToMyCourses/" + item.id + "/" + state).then(() => {
+				axios.put("/put/u/addToMyCPD/" + item.id + "/" + state).then(() => {
 					this.fetch();
 				});
 			}

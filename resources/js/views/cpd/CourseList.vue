@@ -116,7 +116,7 @@ export default {
 				"Fifth"
 			],
 			courses: [],
-			endpoint: "/get/c",
+			endpoint: "/get/cpd",
 			// rating: 4.5,
 			addtocoursename: "",
 			addtocourseid: "",
@@ -168,11 +168,11 @@ export default {
 	methods: {
 		checkroute() {
 			if (
-				this.$route.path === "/c/all" ||
+				this.$route.path === "/cpd/all" ||
 				this.$route.path === "/" ||
 				this.$route.path === "/home"
 			) {
-				this.endpoint = "/get/c";
+				this.endpoint = "/get/cpd";
 				this.loading = true;
 			} else {
 				this.endpoint = "/get/cat/" + this.name;
@@ -190,7 +190,7 @@ export default {
 					this.loading = false;
 					this.loadingtiles = false;
 					if (
-						this.$route.path === "/c/all" ||
+						this.$route.path === "/cpd/all" ||
 						this.$route.path === "/" ||
 						this.$route.path === "/home"
 					) {
@@ -200,7 +200,7 @@ export default {
 		},
 		addToMyCPD($action, $state_id) {
 			axios
-				.put("/put/u/addToMyCourses/" + this.addtocourseid + "/" + $state_id)
+				.put("/put/u/addToMyCPD/" + this.addtocourseid + "/" + $state_id)
 				.then(() => {
 					this.fetch();
 				});

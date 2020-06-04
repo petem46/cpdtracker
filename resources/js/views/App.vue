@@ -167,7 +167,7 @@
 						</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title>
-								<router-link exact exact-active-class="teal--yellow" to="/c/all">All CPD</router-link>
+								<router-link exact exact-active-class="teal--yellow" to="/cpd/all">All CPD</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
@@ -184,7 +184,7 @@
 								<router-link
 									exact
 									exact-active-class="teal--yellow"
-									:to="{ path: '/c/' + category.name, params:{ name: category.name}}"
+									:to="{ path: '/cpd/' + category.name, params:{ name: category.name}}"
 								>{{category.name}}</router-link>
 							</v-list-item-title>
 						</v-list-item-content>
@@ -350,7 +350,7 @@
 </template>
 <script>
 import { mdiCog } from "@mdi/js";
-import SuggestCourseForm from "../components/c/SuggestCourseForm";
+import SuggestCourseForm from "../components/cpd/SuggestCourseForm";
 export default {
 	props: ["userid", "roleid", "avatar", "name", "school"],
 	watch: {
@@ -453,7 +453,7 @@ export default {
 			this.$router.push("/u/myreviews");
 		},
 		gotoAllCPD() {
-			this.$router.push("/c/all");
+			this.$router.push("/cpd/all");
 		},
 		closeappdrawer() {
 			this.primaryDrawer.model = !this.primaryDrawer.model;

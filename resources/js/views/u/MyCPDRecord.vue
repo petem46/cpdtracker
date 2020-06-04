@@ -190,28 +190,28 @@
 																<v-col cols="12">
 																	<v-text-field
 																		id="name"
-																		v-model="editedItem.name"
+																		v-model="editedCPD.name"
 																		label="CPD Name"
 																		hide-details="auto"
 																		prepend-icon="fas fa-book-reader"
                                     outlined
-																		:disabled="formDelete"
-																		:rules="rulesCourseName"
+																		:disabled="!canEditCPD"
+																		:rules="rulesCPDName"
 																	></v-text-field>
 																</v-col>
 																<v-col cols="12">
 																	<v-textarea
 																		id="description"
-																		v-model="editedItem.description"
+																		v-model="editedCPD.description"
 																		label="CPD description"
 																		hide-details="auto"
 																		prepend-icon="fa-info"
-																		:disabled="formDelete"
+																		:disabled="!canEditCPD"
 																		auto-grow
 																		rows="1"
 																		outlined
 																		counter
-																		:x-----rules="rulesCourseDescription"
+																		:x-----rules="rulesCPDDescription"
 																	></v-textarea>
 																</v-col>
 																<v-col cols="12" md="6">
@@ -240,7 +240,7 @@
 																			></v-text-field>
 																		</template>
 																		<v-date-picker
-																			v-model="editedItem.start_date"
+																			v-model="editedCPD.start_date"
 																			scrollable
 																			@input="start_datepicker = false"
 																		></v-date-picker>
@@ -273,7 +273,7 @@
 																			></v-text-field>
 																		</template>
 																		<v-date-picker
-																			v-model="editedItem.completed_date"
+																			v-model="editedCPD.completed_date"
 																			scrollable
 																			@input="completed_datepicker = false"
 																		></v-date-picker>
@@ -282,7 +282,7 @@
 																<v-col cols="12">
 																	<v-textarea
 																		id="myreview"
-																		v-model="editedItem.myreview"
+																		v-model="editedCPD.myreview"
 																		label="CPD Review"
 																		prepend-icon="fa-pen-alt fa-sm"
 																		hint="Delete your review by clearing this textbox"
@@ -298,8 +298,8 @@
 																<v-col cols="12">
 																	<v-switch
 																		id="myreviewpublic"
-																		v-model="editedItem.myreviewpublic"
-																		:label="publicPrivateLabel(editedItem.myreviewpublic)"
+																		v-model="editedCPD.myreviewpublic"
+																		:label="publicPrivateLabel(editedCPD.myreviewpublic)"
 																		:disabled="!mycpdcheck"
 																		:readonly="!mycpdcheck"
 																	></v-switch>
@@ -309,8 +309,8 @@
 																		<v-icon class="mr-3">fa-thumbs-up</v-icon>CPD Rating
 																		<v-rating
 																			id="myrating"
-																			v-model="editedItem.myrating"
-																			:color="getStarColor(editedItem.myrating)"
+																			v-model="editedCPD.myrating"
+																			:color="getStarColor(editedCPD.myrating)"
 																			full-icon="fas fa-star"
 																			half-icon="fa-star-half-alt"
 																			empty-icon="far fa-star"
@@ -322,12 +322,12 @@
 																		></v-rating>
 																	</div>
 																</v-col>
-																<v-col v-if="editedItem.mycertificates.length">
+																<v-col v-if="editedCPD.mycertificates.length">
 																	<div id="certificates">
 																		<v-icon class="mr-3">fa-certificate fa-fw</v-icon>Attached Certificate(s)
 																		<v-col
 																			class="py-0 pl-5"
-																			v-for="certificate in editedItem.mycertificates"
+																			v-for="certificate in editedCPD.mycertificates"
 																			:key="certificate.id"
 																		>
 																			<v-icon class="d-none d-lg-block">fas fa-blank fa-fw</v-icon>
@@ -343,6 +343,7 @@
 																				</v-btn>
 																			</a>
 																			<v-btn
+                                      v-if="mycpdcheck"
 																				@click="confirmDeleteUpload(certificate)"
 																				class="ma-2 outlined"
 																				color="red darken-3"
@@ -355,13 +356,13 @@
 																<v-col cols="12" v-if="uploadingFile">
 																	<v-progress-linear indeterminate></v-progress-linear>
 																</v-col>
-																<v-col cols="12" v-if="!uploadingFile">
+																<v-col cols="12" v-if="!uploadingFile && mycpdcheck">
 																	<div id="addcertificates" v-if="!uploadingFile">
 																		<p>
 																			<v-icon class="mr-3">mdi-upload</v-icon>Upload Certificate(s)
 																		</p>
 																		<v-file-input
-																			v-model="editedItem.files"
+																			v-model="editedCPD.files"
 																			color="blue accent-4"
 																			counter
 																			label="Upload your certificate"
@@ -377,12 +378,12 @@
 																				<span
 																					v-else-if="index === 2"
 																					class="overline grey--text text--darken-3 mx-2"
-																				>+{{ editedItem.files.length - 2 }} File(s)</span>
+																				>+{{ editedCPD.files.length - 2 }} File(s)</span>
 																			</template>
 																		</v-file-input>
 																		<div class="ml-8">
 																			<v-btn
-																				v-if="editedItem.files && editedItem.id && !uploadingFile"
+																				v-if="editedCPD.files && editedCPD.id && !uploadingFile"
 																				color="teal darken-3"
 																				class="btn-block"
 																				@click="uploadFiles"
@@ -396,12 +397,11 @@
 
 													<v-card-actions v-if="mycpdcheck">
 														<v-btn
-															v-if="formDelete"
-															disabled
+															v-if="canEditCPD"
 															outlined
 															color="red darken-1"
 															text
-															@click="deleteRecord()"
+															@click="confirmDeleteCPD()"
 														>Delete</v-btn>
 														<v-spacer></v-spacer>
 														<v-btn text @click="close">Close</v-btn>
@@ -623,7 +623,7 @@
 				</div>
 			</v-row>
 
-			<v-dialog v-if="confirmDelete" persistent v-model="confirmDelete" max-width="500px">
+			<v-dialog v-if="confirmDeleteUploadDialog" persistent v-model="confirmDeleteUpload" max-width="500px">
 				<v-card>
 					<v-card-title class="red darken-4">
 						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete
@@ -638,6 +638,24 @@
 					</v-card-text>
 					<v-card-actions>
 						<v-btn text @click="cancelDeleteUpload">Cancel</v-btn>
+						<v-spacer></v-spacer>
+						<v-btn color="red darken-4" @click="doDeleteCertificate(deleteCertificate.id)">Delete</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
+
+			<v-dialog v-if="confirmDeleteCPDDialog" persistent v-model="confirmDeleteCPD" max-width="500px">
+				<v-card>
+					<v-card-title class="red darken-4">
+						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete CPD
+					</v-card-title>
+					<v-card-text class="pt-3">
+						<h3 class="title">{{editedCPD.name}}</h3>
+						<p class="mb-3 grey--text">All ratings, reviews and dates linked to this course will also be deleted.</p>
+						<h3 class="red--text darken-4">Are you sure you want to delete this course from your CPD record?</h3>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn text @click="confirmDeleteCPDDialog = false">Cancel</v-btn>
 						<v-spacer></v-spacer>
 						<v-btn color="red darken-4" @click="doDeleteCertificate(deleteCertificate.id)">Delete</v-btn>
 					</v-card-actions>
@@ -686,7 +704,8 @@ export default {
 			to: {},
 			from: {},
 			dialog: false,
-			confirmDelete: false,
+      confirmDeleteUploadDialog: false,
+      confirmDeleteCPDDialog: false,
 			start_datepicker: false,
 			completed_datepicker: false,
 			mycpd: [],
@@ -694,17 +713,16 @@ export default {
 			searchothers: "",
 			type: "All",
 			types: ["All", "Started", "Shortlisted"],
-			rulesCourseName: [
+			rulesCPDName: [
 				v => !!v || "CPD name is required",
 				v => (v && v.length >= 3) || "Name must be longer than 3 characters"
 			],
-			rulesCourseDescription: [
+			rulesCPDDescription: [
 				v => !!v || "CPD description is required",
 				v =>
 					(v && v.length >= 3) || "description must be longer than 3 characters"
 			],
-
-			editedItem: {
+			editedCPD: {
 				name: "",
 				completed_date: "",
 				myprogress: "",
@@ -850,7 +868,7 @@ export default {
 				this.endpoint = "/get/u/getMyCPD";
 			}
 			if (this.endpoint == "/get/u/getMyCPD") {
-				this.editedItem.uid = this.$store.getters.getUserId;
+				this.editedCPD.uid = this.$store.getters.getUserId;
 			}
 			axios
 				.get(this.endpoint)
@@ -867,13 +885,13 @@ export default {
 			return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 		},
 		gotoCPD(item) {
-			this.$router.push("/c/details/" + item.id);
+			this.$router.push("/cpd/details/" + item.id);
 		},
 		changestate(item, state) {
 			if (this.myprogress == state) {
 				return true;
 			} else {
-				axios.put("/put/u/addToMyCourses/" + item.id + "/" + state).then(() => {
+				axios.put("/put/u/addToMyCPD/" + item.id + "/" + state).then(() => {
 					this.fetch();
 				});
 			}
@@ -885,38 +903,38 @@ export default {
 		},
 		rowClick(item) {
 			this.editedIndex = item.id;
-			this.editedItem = Object.assign({}, item);
-			this.editedItem.username = this.mycpd.user.name;
+			this.editedCPD = Object.assign({}, item);
+			this.editedCPD.username = this.mycpd.user.name;
 			this.dialog = true;
 		},
 		editRecord(item) {
 			this.editedIndex = item.id;
-			this.editedItem = Object.assign({}, item);
-			this.editedItem.username = this.mycpd.user.name;
+			this.editedCPD = Object.assign({}, item);
+			this.editedCPD.username = this.mycpd.user.name;
 			this.dialog = true;
 		},
 		deleteRecord(item) {
 			alert("Delete Function not ready");
 		},
 		submit() {
-      console.log(this.editedItem);
-        console.log(this.editedItem);
+      console.log(this.editedCPD);
+        console.log(this.editedCPD);
 				axios
-					.post("/post/u/updateMyCPD", this.editedItem)
+					.post("/post/u/updateMyCPD", this.editedCPD)
 					.then($data => {
 						this.loading = true;
 						this.dialog = false;
 						this.responsedata = $data.data.response;
-						if (this.editedItem.files) {
-							for (let i = 0; i < this.editedItem.files.length; i++) {
-								if (this.editedItem.files[i].id) {
+						if (this.editedCPD.files) {
+							for (let i = 0; i < this.editedCPD.files.length; i++) {
+								if (this.editedCPD.files[i].id) {
 									continue;
 								}
 								let formData = new FormData();
-								formData.append("file", this.editedItem.files[i]);
+								formData.append("file", this.editedCPD.files[i]);
 								formData.append("course_id", $data.data.course_id);
-								formData.append("user_id", this.editedItem.uid);
-								formData.append("username", this.editedItem.username);
+								formData.append("user_id", this.editedCPD.uid);
+								formData.append("username", this.editedCPD.username);
 								axios.post("/post/u/uploadCertificate", formData, {
 									headers: {
 										"content-type": "multipart/form-data",
@@ -942,17 +960,17 @@ export default {
 				// this.reset();
 		},
 		uploadFiles() {
-			if (this.editedItem.files && this.editedItem.id) {
+			if (this.editedCPD.files && this.editedCPD.id) {
 				this.uploadingFile = true;
-				for (let i = 0; i < this.editedItem.files.length; i++) {
-					if (this.editedItem.files[i].id) {
+				for (let i = 0; i < this.editedCPD.files.length; i++) {
+					if (this.editedCPD.files[i].id) {
 						continue;
 					}
 					let formData = new FormData();
-					formData.append("file", this.editedItem.files[i]);
-					formData.append("course_id", this.editedItem.id);
-					formData.append("user_id", this.editedItem.uid);
-					formData.append("username", this.editedItem.username);
+					formData.append("file", this.editedCPD.files[i]);
+					formData.append("course_id", this.editedCPD.id);
+					formData.append("user_id", this.editedCPD.uid);
+					formData.append("username", this.editedCPD.username);
 					axios.post("/post/u/uploadCertificate", formData, {
 						headers: {
 							"content-type": "multipart/form-data",
@@ -976,7 +994,7 @@ export default {
 		close() {
       this.dialog = false;
 			setTimeout(() => {
-				this.editedItem = Object.assign({}, this.defaultItem);
+				this.editedCPD = Object.assign({}, this.defaultItem);
 			}, 300);
 		},
 		getStarColor(value) {
@@ -1000,10 +1018,10 @@ export default {
 			}
 		},
 		clearCompletedDate() {
-			this.editedItem.completed_date = null;
+			this.editedCPD.completed_date = null;
 		},
 		clearStartDate() {
-			this.editedItem.start_date = null;
+			this.editedCPD.start_date = null;
 		},
 		publicchip(item) {
 			if (item.myreviewpublic == 1) {
@@ -1038,22 +1056,30 @@ export default {
 					this.refreshEditedItem();
 				}, 100);
 			});
+    },
+		confirmDeleteCPD() {
+			this.confirmDeleteCPDDialog = true;
 		},
+		cancelDeleteCPD() {
+			this.deleteCertificate = this.defaultCertificate;
+			this.confirmDelete = false;
+		},
+
 		refreshEditedItem() {
 			axios.get(this.endpoint).then(({ data }) => {
 				this.mycpd = data.mycpd;
 				if (this.mycpd.completedcourses) {
 					for (let i = 0; i < this.mycpd.completedcourses.length; i++) {
-						if (this.mycpd.completedcourses[i].id == this.editedItem.id) {
-							this.editedItem = this.mycpd.completedcourses[i];
+						if (this.mycpd.completedcourses[i].id == this.editedCPD.id) {
+							this.editedCPD = this.mycpd.completedcourses[i];
 							continue;
 						}
 					}
 				}
 				if (this.mycpd.othercourses) {
 					for (let i = 0; i < this.mycpd.othercourses.length; i++) {
-						if (this.mycpd.othercourses[i].id == this.editedItem.id) {
-							this.editedItem = this.mycpd.othercourses[i];
+						if (this.mycpd.othercourses[i].id == this.editedCPD.id) {
+							this.editedCPD = this.mycpd.othercourses[i];
 							continue;
 						}
 					}
@@ -1072,38 +1098,42 @@ export default {
 			}
 		},
 		formTitle() {
-			if (this.editedItem.id) {
-				return "Edit CPD record for " + this.editedItem.name;
+			if (this.editedCPD.id) {
+				return "Edit CPD record for " + this.editedCPD.name;
 			} else {
 				return "Add CPD Record";
 			}
 		},
 		formTitleColor() {
-			if (this.editedItem.myprogress == 1) {
+			if (this.editedCPD.myprogress == 1) {
 				return "blue";
-			} else if (this.editedItem.myprogress == 2) {
+			} else if (this.editedCPD.myprogress == 2) {
 				return "green";
-			} else if (this.editedItem.myprogress == 3) {
+			} else if (this.editedCPD.myprogress == 3) {
 				return "pink";
 			} else {
 				return "blue";
 			}
 		},
-		formDelete() {
-			if (this.editedItem.id) {
-				return true;
+		canEditCPD() {
+			if (
+        this.editedCPD.uid == this.$store.getters.getUserId &&
+        this.editedCPD.type === 'MyCPD'
+        ) {
+        console.log("HEELLLLOOO")
+        return true;
 			} else {
 				return false;
 			}
 		},
 		formatedStartDate() {
-			return this.editedItem.start_date
-				? moment(this.editedItem.start_date).format("dddd, MMMM Do YYYY")
+			return this.editedCPD.start_date
+				? moment(this.editedCPD.start_date).format("dddd, MMMM Do YYYY")
 				: "";
 		},
 		formatedCompletedDate() {
-			return this.editedItem.completed_date
-				? moment(this.editedItem.completed_date).format("dddd, MMMM Do YYYY")
+			return this.editedCPD.completed_date
+				? moment(this.editedCPD.completed_date).format("dddd, MMMM Do YYYY")
 				: "";
 		}
 	}

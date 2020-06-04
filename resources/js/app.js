@@ -34,16 +34,16 @@ require('./bootstrap');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('course-tile', require('./components/c/CourseTile.vue').default);
-Vue.component('course-details', require('./views/c/CourseDetails.vue').default);
-Vue.component('suggest-course-form', require('./components/c/SuggestCourseForm.vue').default);
+Vue.component('course-tile', require('./components/cpd/CourseTile.vue').default);
+Vue.component('course-details', require('./views/cpd/CourseDetails.vue').default);
+Vue.component('suggest-course-form', require('./components/cpd/SuggestCourseForm.vue').default);
 
 import App from './views/App'
 import Home from './views/Home'
-import SuggestCourseForm from './components/c/SuggestCourseForm'
+import SuggestCourseForm from './components/cpd/SuggestCourseForm'
 
-import CourseDetails from './views/c/CourseDetails'
-import CourseList from './views/c/CourseList'
+import CourseDetails from './views/cpd/CourseDetails'
+import CourseList from './views/cpd/CourseList'
 
 import AddReview from './views/r/AddReview'
 
@@ -141,18 +141,18 @@ const router = new VueRouter({
       component: ManageReviews
     },
     {
-      path: '/c/details/:id',
+      path: '/cpd/details/:id',
       name: 'coursedetails',
       component: CourseDetails,
       props: true
     },
     {
-      path: '/c/all',
+      path: '/cpd/all',
       name: 'courselist',
       component: CourseList
     },
     {
-      path: '/c/:name',
+      path: '/cpd/:name',
       name: 'courselist',
       component: CourseList,
       props: true

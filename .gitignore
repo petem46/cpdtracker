@@ -20,3 +20,4 @@ npm-debug.log
 yarn-error.log
 
 !/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/Resource.php
+resources/js/views/u/Search.code-search

@@ -228,7 +228,7 @@ class CourseController extends Controller
     }
   }
 
-  public function addToMyCourses($course_id, $state_id)
+  public function addToMyCPD($course_id, $state_id)
   {
     $start_date = Carbon::now()->toDateTimeString();
     $completed_date = Carbon::now()->toDateTimeString();
