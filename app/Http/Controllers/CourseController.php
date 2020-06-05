@@ -95,6 +95,10 @@ class CourseController extends Controller
     $rating = CourseRating::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
     $review = CourseReview::withTrashed()->where('user_id', $uid)->where('course_id', $request->get('id'))->first();
     if ($course) {
+      $course->name = $request->get('name');
+      $course->description = $request->get('description');
+      $course->touch();
+      $course->save();
       if ($progress) {
         $progress->state_id = $request->get('myprogress');
         $progress->start_date = $request->get('start_date');
@@ -215,15 +219,15 @@ class CourseController extends Controller
     // return $f;
   }
 
-  public function deleteCertificate($id) {
+  public function deleteCertificate($id)
+  {
     $path = CPDCertificate::findorFail($id);
     $file = CPDCertificate::findorFail($id);
     $file->forceDelete();
     $deleted = File::delete($path->path);
-    if($deleted) {
+    if ($deleted) {
       return response('File Deleted', Response::HTTP_OK);
-    }
-    else {
+    } else {
       return response($path->path, Response::HTTP_OK);
     }
   }
@@ -465,5 +469,23 @@ class CourseController extends Controller
     }
 
     return response('Course Deleted Successfully', Response::HTTP_OK);
+  }
+
+  public function deleteMyProgress($id)
+  {
+    $progress = CourseProgress::find($id);
+    $progress->delete();
+  }
+
+  public function deleteMyRating($id)
+  {
+    $rating = CourseRating::find($id);
+    $rating->delete();
+  }
+
+  public function deleteMyReview($id)
+  {
+    $review = CourseReview::find($id);
+    $review->delete();
   }
 }

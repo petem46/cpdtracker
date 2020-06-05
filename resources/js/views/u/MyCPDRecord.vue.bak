@@ -646,7 +646,7 @@ export default {
 				mode: "",
 				show: false,
 				text: "",
-				timeout: 10000,
+				timeout: 2000,
 				y: "top"
 			},
 			completeddatatableheaders: [

@@ -56,22 +56,30 @@ Route::group(['middleware' => ['auth']], function () {
   |- USER ROUTES
   */
   Route::get('get/u/myreview/{courseid}', 'ReviewController@getmyreview');
-  Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
-  Route::get('/get/u/getMyCPD/{id}', 'CourseController@getUserCPD');
   Route::get('/get/u/getdashboarddata', 'CourseController@dashboarddata');
   Route::get('/get/r/getMyReviews', 'ReviewController@getMyReviews');
   Route::get('/get/u/getMyCourses', 'CourseController@getMyCourses');
   Route::post('/post/cpd/suggestcourse', 'CourseController@suggestcourse');
 
-  Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
-  Route::post('/post/u/uploadCertificate', 'CourseController@uploadCertificate');
-  Route::delete('/delete/u/deleteCertificate/{id}', 'CourseController@deleteCertificate');
-
   Route::put('/put/u/addToMyCPD/{course_id}/{state_id}',  'CourseController@addToMyCPD');
   Route::put('/put/u/addRating/{course_id}/{rating}',  'CourseController@addRating');
+
   Route::delete('/delete/u/deleteFromMyCourses/{course_id}/',  'CourseController@deleteFromMyCourses');
   Route::delete('/delete/r/deleteMyReview/{id}', 'ReviewController@deleteMyReview');
 
+  /*
+  |- MYCPD SPECIFIC
+  */
+  Route::get('/get/u/getMyCPD', 'CourseController@getMyCPD');
+  Route::get('/get/u/getMyCPD/{id}', 'CourseController@getUserCPD');
+
+  Route::post('/post/u/updateMyCPD', 'CourseController@updateMyCPD');
+  Route::post('/post/u/uploadCertificate', 'CourseController@uploadCertificate');
+
+  Route::delete('/delete/u/deleteCertificate/{id}', 'CourseController@deleteCertificate');
+  Route::delete('/delete/u/deleteMyProgress/{id}', 'CourseController@deleteMyProgress');
+  Route::delete('/delete/u/deleteMyRating/{id}', 'CourseController@deleteMyRating');
+  Route::delete('/delete/u/deleteMyReview/{id}', 'CourseController@deleteMyReview');
 
   /*
 |- MANAGE USERS ROUTES

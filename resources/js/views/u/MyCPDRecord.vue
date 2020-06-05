@@ -666,7 +666,7 @@
 					<v-card-actions>
 						<v-btn text @click="confirmDeleteCPDDialog = false">Cancel</v-btn>
 						<v-spacer></v-spacer>
-						<v-btn color="red darken-4" @click="doDeleteCertificate(deleteCertificate.id)">Delete</v-btn>
+						<v-btn color="red darken-4" @click="doDeleteCPD(editedCPD.id)">Delete</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-dialog>
@@ -745,7 +745,7 @@ export default {
 				mycertificates: [],
 				file: ""
 			},
-			defaultItem: {
+			defaultCPD: {
 				name: "",
 				completed_date: "",
 				myprogress: "",
@@ -787,7 +787,7 @@ export default {
 				mode: "",
 				show: false,
 				text: "",
-				timeout: 10000,
+				timeout: 2000,
 				y: "top"
 			},
 			completeddatatableheaders: [
@@ -931,8 +931,7 @@ export default {
 			axios
 				.post("/post/u/updateMyCPD", this.editedCPD)
 				.then($data => {
-					this.loading = true;
-					this.dialog = false;
+					// this.dialog = false;
 					this.responsedata = $data.data.response;
 					if (this.editedCPD.files) {
 						for (let i = 0; i < this.editedCPD.files.length; i++) {
@@ -1003,7 +1002,7 @@ export default {
 		close() {
 			this.dialog = false;
 			setTimeout(() => {
-				this.editedCPD = Object.assign({}, this.defaultItem);
+				this.editedCPD = Object.assign({}, this.defaultCPD);
 			}, 300);
 		},
 		getStarColor(value) {
@@ -1048,32 +1047,77 @@ export default {
 		},
 		confirmDeleteUpload(upload) {
 			this.deleteCertificate = upload;
-			this.confirmDelete = true;
+			this.confirmDeleteUploadDialog = true;
 		},
 		cancelDeleteUpload() {
 			this.deleteCertificate = this.defaultCertificate;
-			this.confirmDelete = false;
+			this.confirmDeleteUploadDialog = false;
 		},
 		doDeleteCertificate(id) {
-			axios.delete("/delete/u/deleteCertificate/" + id).then(response => {
-				this.deleteCertificate = this.defaultCertificate;
-				this.confirmDelete = false;
-				this.snackbar.color = "red";
-				this.snackbar.text = response.data;
-				this.snackbar.show = true;
-				setTimeout(() => {
-					this.refreshEditedItem();
-				}, 100);
-			});
+			if (id) {
+				axios.delete("/delete/u/deleteCertificate/" + id).then(response => {
+					this.deleteCertificate = this.defaultCertificate;
+					this.confirmDeleteUploadDialog = false;
+					this.snackbar.color = "red";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
+					setTimeout(() => {
+						this.refreshEditedItem();
+					}, 100);
+				});
+			}
 		},
 		confirmDeleteCPD() {
 			this.confirmDeleteCPDDialog = true;
 		},
 		cancelDeleteCPD() {
-			this.deleteCertificate = this.defaultCertificate;
-			this.confirmDelete = false;
+			this.editedCPD = this.defaultCPD;
+			this.confirmDeleteCPDDialog = false;
 		},
-
+		doDeleteCPD(id) {
+			if (id) {
+				if (this.editedCPD.mycertificates) {
+					for (let i = 0; i < this.editedCPD.mycertificates.length; i++) {
+						this.doDeleteCertificate(this.editedCPD.mycertificates[i].id);
+					}
+				}
+				if (this.editedCPD.myprogress) {
+					this.doDeleteMyProgress();
+				}
+				if (this.editedCPD.myrating) {
+					this.doDeleteMyRating();
+				}
+				if (this.editedCPD.myreview) {
+					this.doDeleteMyReview();
+				}
+				axios.delete("/delete/cpd/deleteCourse/" + id).then(response => {
+					this.editedCPD = this.defaultCPD;
+					this.confirmDeleteCPDDialog = false;
+					this.dialog = false;
+					this.snackbar.color = "red";
+					this.snackbar.text = response.data;
+					this.snackbar.show = true;
+					setTimeout(() => {
+						this.refreshEditedItem();
+					}, 100);
+				});
+			}
+		},
+		doDeleteMyProgress() {
+			axios
+				.delete("/delete/u/deleteMyProgress/" + this.editedCPD.myprogressid)
+				.then(response => {});
+		},
+		doDeleteMyRating() {
+			axios
+				.delete("/delete/u/deleteMyRating/" + this.editedCPD.myratingid)
+				.then(response => {});
+		},
+		doDeleteMyReview() {
+			axios
+				.delete("/delete/u/deleteMyReview/" + this.editedCPD.myreviewid)
+				.then(response => {});
+		},
 		refreshEditedItem() {
 			axios.get(this.endpoint).then(({ data }) => {
 				this.mycpd = data.mycpd;
