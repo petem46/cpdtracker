@@ -3,6 +3,15 @@
 		<h1>
 			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage CPD
 		</h1>
+		<download-excel
+			v-if="adminuser"
+			:data="this.cpdCompletionData"
+			type="csv"
+			name="cpd_users.csv"
+			worksheet="'FCAT CPD'"
+		>
+			<v-btn text>Download Data</v-btn>
+		</download-excel>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<v-data-table
 			id="testid"
@@ -115,13 +124,7 @@
 										</v-card-text>
 
 										<v-card-actions>
-											<v-btn
-												v-if="formDelete"
-												outlined
-												color="red darken-1"
-												text
-												@click="deleteCPD()"
-											>Delete</v-btn>
+											<v-btn v-if="formDelete" outlined color="red darken-1" text @click="deleteCPD()">Delete</v-btn>
 											<v-spacer></v-spacer>
 											<v-btn text @click="close">Cancel</v-btn>
 											<v-btn type="submit" text>Save</v-btn>
@@ -151,9 +154,7 @@
 					<v-icon @click="filterType(item)" color="cyan accent-2" class="px-0">fas fa-user-graduate</v-icon>
 				</v-avatar>
 			</template>
-			<template v-slot:item.name="{ item }">
-				{{ item.name }}
-			</template>
+			<template v-slot:item.name="{ item }">{{ item.name }}</template>
 			<!--
       SLOT modifier for category column
 			-->
@@ -226,6 +227,7 @@ export default {
 			loading: true,
 			dialog: false,
 			courses: [],
+			cpdCompletionData: [],
 			categoryfilter: "All",
 			categorylabel: [],
 			categorynames: [],
@@ -385,6 +387,7 @@ export default {
 		this.fetch();
 		this.getCategoryNames();
 		this.getCatFilters();
+		this.getCPDCompletionData();
 	},
 	methods: {
 		fetch() {
@@ -493,6 +496,23 @@ export default {
 					}
 				});
 		},
+		getCPDCompletionData() {
+      if (this.$store.getters.getRoleId == 1) {
+      school = 'Montgomery'
+				axios
+					.get("/get/cpdCompletionData/" + school)
+					.then(({ data }) => {
+						console.log("WELL WELL WELL");
+						console.log(data);
+						this.cpdCompletionData = data.cpdCompletionData;
+					})
+					.then(() => {
+						setTimeout(() => {
+							this.loading = false;
+						}, 1000);
+					});
+			}
+		},
 		clickCheck(item) {
 			alert("you clicked me: " + item);
 		},
@@ -506,7 +526,10 @@ export default {
 			return true;
 		},
 		filterType(type) {
-			if (type.type == this.type.toLowerCase() || this.type == "Personal" && type.type == "MyCPD") {
+			if (
+				type.type == this.type.toLowerCase() ||
+				(this.type == "Personal" && type.type == "MyCPD")
+			) {
 				this.type = "Any";
 			} else if (type.type == "MyCPD") {
 				this.type = "Personal";
@@ -545,6 +568,13 @@ export default {
 		},
 		formDelete() {
 			return this.editedIndex === -1 ? false : true;
+		},
+		adminuser() {
+			if (this.$store.getters.getRoleId == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 };

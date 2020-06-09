@@ -5,12 +5,15 @@ import VueRouter from 'vue-router'
 import Vuetify from 'vuetify'
 import VueFilterDateFormat from 'vue-filter-date-format'
 import VueFilterDateParse from 'vue-filter-date-parse'
+import JsonExcel from 'vue-json-excel'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Vuetify)
 Vue.use(VueFilterDateFormat)
 Vue.use(VueFilterDateParse)
+
+Vue.component('downloadExcel', JsonExcel)
 
 export default new Vuetify({
   theme: {

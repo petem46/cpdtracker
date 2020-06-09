@@ -20,6 +20,8 @@ Auth::routes([
   'verify' => false
 ]);
 
+Route::get('/get/cpdCompletionData/{school}', 'CourseController@getAllCPDCompletionData');
+
 
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
@@ -40,7 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/get/cpd/name/{id}', 'CourseController@getname');
   Route::put('/put/cpd/updateViewCounter/{id}', 'CourseController@updateViewCounter');
   Route::delete('/delete/cpd/deleteCourse/{id}', 'CourseController@deleteCourse');
-
   /*
   |- CATEGORY ROUTES
   */

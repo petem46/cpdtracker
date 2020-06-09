@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Course;
 use App\Category;
 use App\CourseProgress;
@@ -12,6 +13,7 @@ use App\User;
 use App\Http\Resources\ManageCoursesResource;
 use App\Http\Resources\ManageCourseDetails1Resource;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\CoursesResource;
 use App\Http\Resources\MyCoursesResource;
 use App\Http\Resources\UserCPDDetailsResource;
 use Illuminate\Http\Request;
@@ -45,6 +47,26 @@ class CourseController extends Controller
   public function courselist()
   {
     return new CategoriesResource(Category::get());
+  }
+
+  public function getAllCPDCompletionData($school)
+  {
+    $cpdCompletionData = [
+
+      'cpdCompletionData' => DB::table('courses as c')
+                  ->select('c.name as coursename', 'u.name as staffname', 'state', 'start_date', 'completed_date')
+                  ->leftJoin('course_progress as cp', 'c.id', '=', 'cp.course_id')
+                  ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
+                  ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
+                  ->where('u.school', '=', $school)
+                  ->orderBy('c.name')
+                  ->get(),
+    ];
+    return $cpdCompletionData;
+    // $cpdCompletionData = new CoursesResource(Course::whereHas('courseprogress', function ($q) {
+    //   $q->where('state_id', '=', 2);
+    // })->get());
+    // return $cpdCompletionData;
   }
 
   public function getMyCourses()
