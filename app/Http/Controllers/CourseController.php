@@ -54,11 +54,11 @@ class CourseController extends Controller
     $cpdCompletionData = [
 
       'cpdCompletionData' => DB::table('courses as c')
-                  ->select('c.name as coursename', 'u.name as staffname', 'state', 'start_date', 'completed_date')
+                  ->select('c.name as coursename', 'u.name as staffname', 'u.school as school', 'state', 'start_date', 'completed_date')
                   ->leftJoin('course_progress as cp', 'c.id', '=', 'cp.course_id')
                   ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
                   ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
-                  // ->where('u.school', '=', $school)
+                  ->where('u.school', '=', 'Montgomery')
                   ->orderBy('c.name')
                   ->get(),
     ];
