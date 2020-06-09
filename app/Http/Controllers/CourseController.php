@@ -58,15 +58,11 @@ class CourseController extends Controller
                   ->leftJoin('course_progress as cp', 'c.id', '=', 'cp.course_id')
                   ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
                   ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
-                  ->where('u.school', '=', $school)
+                  // ->where('u.school', '=', $school)
                   ->orderBy('c.name')
                   ->get(),
     ];
     return $cpdCompletionData;
-    // $cpdCompletionData = new CoursesResource(Course::whereHas('courseprogress', function ($q) {
-    //   $q->where('state_id', '=', 2);
-    // })->get());
-    // return $cpdCompletionData;
   }
 
   public function getMyCourses()

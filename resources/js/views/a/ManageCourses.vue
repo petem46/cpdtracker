@@ -498,9 +498,8 @@ export default {
 		},
 		getCPDCompletionData() {
       if (this.$store.getters.getRoleId == 1) {
-      school = 'Montgomery'
 				axios
-					.get("/get/cpdCompletionData/" + school)
+					.get("/get/cpdCompletionData/All")
 					.then(({ data }) => {
 						console.log("WELL WELL WELL");
 						console.log(data);
