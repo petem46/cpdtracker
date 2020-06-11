@@ -60,6 +60,7 @@ class CourseController extends Controller
                   ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
                   ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
                   ->where('u.school', 'LIKE', $school)
+                  ->whereNull('c.deleted_at')
                   ->orderBy('c.name')
                   ->get(),
     ];
