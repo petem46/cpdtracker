@@ -504,7 +504,7 @@ export default {
 		getCPDCompletionData() {
 			if (this.adminuser) {
 				axios
-					.get("/get/cpdCompletionData/%")
+					.get("/get/cpdCompletionData/cpd")
 					.then(({ data }) => {
 						console.log("WELL WELL WELL");
 						console.log(data);
