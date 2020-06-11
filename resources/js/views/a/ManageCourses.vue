@@ -4,7 +4,7 @@
 			<v-icon>fas fa-folder-open</v-icon>&nbsp;&nbsp;Manage CPD
 		</h1>
 		<download-excel
-			v-if="adminuser"
+			v-if="adminuser && cpdCompletionDataLoaded"
 			:data="this.cpdCompletionData"
 			type="csv"
 			name="cpd_users.csv"
@@ -228,6 +228,7 @@ export default {
 			dialog: false,
 			courses: [],
 			cpdCompletionData: [],
+			cpdCompletionDataLoaded: false,
 			categoryfilter: "All",
 			categorylabel: [],
 			categorynames: [],
@@ -382,7 +383,10 @@ export default {
 				value => (value && value.length >= 3) || "Min 3 characters"
 			]
 		};
-	},
+  },
+  created() {
+    // this.getCPDCompletionData();
+  },
 	mounted() {
 		this.fetch();
 		this.getCategoryNames();
@@ -394,7 +398,8 @@ export default {
 			axios
 				.get("/get/cpd/all")
 				.then(({ data }) => {
-					this.courses = data.data.courses;
+          this.courses = data.data.courses;
+          this.getCPDCompletionData();
 				})
 				.then(() => {
 					setTimeout(() => {
@@ -497,9 +502,9 @@ export default {
 				});
 		},
 		getCPDCompletionData() {
-      if (this.$store.getters.getRoleId == 1) {
+			if (this.adminuser) {
 				axios
-					.get("/get/cpdCompletionData/All")
+					.get("/get/cpdCompletionData/%")
 					.then(({ data }) => {
 						console.log("WELL WELL WELL");
 						console.log(data);
@@ -507,7 +512,7 @@ export default {
 					})
 					.then(() => {
 						setTimeout(() => {
-							this.loading = false;
+							this.cpdCompletionDataLoaded = true;
 						}, 1000);
 					});
 			}
