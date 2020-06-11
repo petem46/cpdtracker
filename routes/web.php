@@ -20,9 +20,7 @@ Auth::routes([
   'verify' => false
 ]);
 
-Route::get('/get/cpdCompletionData/{school}', 'CourseController@getAllCPDCompletionData');
-
-
+// Route::get('/get/cpdCompletionData/{school}', 'CourseController@getAllCPDCompletionData');
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
@@ -83,15 +81,16 @@ Route::group(['middleware' => ['auth']], function () {
   Route::delete('/delete/u/deleteMyReview/{id}', 'CourseController@deleteMyReview');
 
   /*
-|- MANAGE USERS ROUTES
-*/
+  |- MANAGE USERS ROUTES
+  */
   Route::get('/get/u/all', 'UsersController@overview');
 
   /*
-|- MANAGE COURSES ROUTES
-*/
+  |- MANAGE COURSES ROUTES
+  */
   Route::get('/get/cpd/all', 'CourseController@overview');
   Route::post('/post/cpd/savecourse', 'CourseController@savecourse');
+  Route::get('/get/cpdCompletionData/{school}', 'CourseController@getAllCPDCompletionData');
 
   /*
   |- MANAGE REVIEWS ROUTES

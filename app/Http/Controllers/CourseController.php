@@ -51,14 +51,15 @@ class CourseController extends Controller
 
   public function getAllCPDCompletionData($school)
   {
+    $school = Auth::user('school');
+    if(Auth::user('school') == 'FCAT') {$school = '%';}
     $cpdCompletionData = [
-
       'cpdCompletionData' => DB::table('courses as c')
                   ->select('c.name as coursename', 'u.name as staffname', 'u.school as school', 'state', 'start_date', 'completed_date')
                   ->leftJoin('course_progress as cp', 'c.id', '=', 'cp.course_id')
                   ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
                   ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
-                  ->where('u.school', '=', 'Montgomery')
+                  ->where('u.school', 'LIKE', $school)
                   ->orderBy('c.name')
                   ->get(),
     ];
