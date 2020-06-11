@@ -55,7 +55,7 @@ class CourseController extends Controller
     // if($school == 'FCAT') {$school = '';}
     $cpdCompletionData = [
       'cpdCompletionData' => DB::table('courses as c')
-                  ->select('c.name as coursename', 'u.name as staffname', 'u.school as school', 'state', 'start_date', 'completed_date')
+                  ->select('c.name as CPD', 'u.name as Staff', 'u.school as Academy', 'state as Status', 'start_date as Start Date', 'completed_date as Completed Date')
                   ->leftJoin('course_progress as cp', 'c.id', '=', 'cp.course_id')
                   ->leftJoin('coursestates as cs', 'cp.state_id', '=', 'cs.id')
                   ->leftJoin('users as u', 'u.id', '=', 'cp.user_id')
