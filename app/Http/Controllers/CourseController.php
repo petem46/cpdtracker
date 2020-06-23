@@ -52,7 +52,7 @@ class CourseController extends Controller
   public function getAllCPDCompletionData($school)
   {
     $school = Auth::user()->school;
-    if($school == 'FCAT') {$school = 'Montgomery';}
+    // if($school == 'FCAT') {$school = '';}
     $cpdCompletionData = [
       'cpdCompletionData' => DB::table('courses as c')
                   ->select('c.name as CPD', 'u.name as Staff', 'u.school as Academy', 'state as Status', 'start_date as Start Date', 'completed_date as Completed Date')
