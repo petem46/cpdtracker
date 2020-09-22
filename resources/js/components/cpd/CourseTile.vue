@@ -2,7 +2,12 @@
 	<div>
 		<!-- <v-card class="flex d-flex flex-column"> -->
 		<v-hover v-slot:default="{ hover }" open-delay="100" close-delay="200">
-			<v-img :src="'https://generative-placeholders.glitch.me/image?width=600&height=300&style=mondrian&colors=49&img=0' + id" alt="CPD Tile" height="165" width="100%">
+			<v-img
+				:src="'https://picsum.photos/600/300?random=' + id"
+				alt="CPD Tile"
+				height="165"
+				width="100%"
+			>
 				<v-expand-transition>
 					<div
 						v-if="hover"
@@ -292,28 +297,31 @@ export default {
 			return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 		},
 		randomTile(courseid) {
-			// let tilestyle = this.getRandomInt(3);
-      let tilestyle = courseid;
-      console.log(tilestyle);
-			if (tilestyle <= 3) {
-				return (
-					"https://generative-placeholders.glitch.me/image?width=600&height=300&style=mondrian&img=0" +
-					courseid
-				);
-			} else if (tilestyle <= 6) {
-				return (
-					"https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles&colors=49&img=0" +
-					courseid
-				);
-			} else if (tilestyle > 6) {
-				return (
-					"https://generative-placeholders.glitch.me/image?width=600&height=300&style=triangles&colors="+ courseid + "&gap=" +
-					this.getRandomInt(30, 80) +
-					"&img=0" +
-					courseid
-				);
-			}
+			return "https://picsum.photos/600/300/?random=" + courseid;
 		},
+		// randomTile(courseid) {
+		// 	// let tilestyle = this.getRandomInt(3);
+		//   let tilestyle = courseid;
+		//   console.log(tilestyle);
+		// 	if (tilestyle <= 3) {
+		// 		return (
+		// 			"https://generative-placeholders.glitch.me/image?width=600&height=300&style=mondrian&img=0" +
+		// 			courseid
+		// 		);
+		// 	} else if (tilestyle <= 6) {
+		// 		return (
+		// 			"https://generative-placeholders.glitch.me/image?width=600&height=300&style=tiles&colors=49&img=0" +
+		// 			courseid
+		// 		);
+		// 	} else if (tilestyle > 6) {
+		// 		return (
+		// 			"https://generative-placeholders.glitch.me/image?width=600&height=300&style=triangles&colors="+ courseid + "&gap=" +
+		// 			this.getRandomInt(30, 80) +
+		// 			"&img=0" +
+		// 			courseid
+		// 		);
+		// 	}
+		// },
 		tileClick($id, $name) {
 			alert("You Clicked course.id:" + $id + " course.name:" + $name + "!");
 		},
