@@ -16,7 +16,7 @@
 					>
 						<div class="pa-3">
 							<div class="module fade">
-								<p class="cpation">{{ description }}</p>
+								<p class="text-cpation">{{ description }}</p>
 							</div>
 							<p>Cost: {{ cost }}</p>
 							<v-btn
