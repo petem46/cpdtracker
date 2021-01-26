@@ -17,6 +17,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "nesbot/carbon": "^2.32",
+        "socialiteproviders/google": "^4.1",
+        "socialiteproviders/microsoft": "^4.1",
         "socialiteproviders/zoho": "^4.1"
     },
     "require-dev": {
