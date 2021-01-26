@@ -24,8 +24,8 @@ Auth::routes([
 
 Route::get('/redirect', 'SocialAuthGoogleController@redirect');
 Route::get('/callback', 'SocialAuthGoogleController@callback');
-// Route::get('/redirect', 'SocialAuthMSGraphController@redirect');
-// Route::get('/callback', 'SocialAuthMSGraphController@callback');
+Route::get('/msredirect', 'SocialAuthMSGraphController@redirect');
+Route::get('/mscallback', 'SocialAuthMSGraphController@callback');
 
 
 Route::group(['middleware' => ['auth']], function () {

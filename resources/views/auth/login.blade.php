@@ -25,7 +25,7 @@
                       </v-btn>
                     </v-col>
                     <v-col>
-                      <v-btn width="100%" href="{{ url('/redirect') }}" tile dark color="blue darken-2">
+                      <v-btn width="100%" href="{{ url('/msredirect') }}" tile dark color="blue darken-2">
                         <v-icon class="mr-3">mdi-microsoft</v-icon>Sign In With Microsoft
                       </v-btn>
                     </v-col>
