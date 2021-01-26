@@ -1,0 +1,65 @@
+# Query: /c/
+# Flags: IgnoreExcludeSettings
+# Including: ./resources/js
+
+36 results - 12 files
+
+resources\js\app.js:
+   37: Vue.component('course-tile', require('./components/cpd/CourseTile.vue').default);
+   38: Vue.component('course-details', require('./views/cpd/CourseDetails.vue').default);
+   39: Vue.component('suggest-course-form', require('./components/cpd/SuggestCourseForm.vue').default);
+   43: import SuggestCourseForm from './components/cpd/SuggestCourseForm'
+   45: import CourseDetails from './views/cpd/CourseDetails'
+   46: import CourseList from './views/cpd/CourseList'
+  144:       path: '/cpd/details/:id',
+  150:       path: '/cpd/all',
+  155:       path: '/cpd/:name',
+
+resources\js\components\c\CourseTile.vue:
+  397: 				path: "/cpd/details/" + value,
+
+resources\js\components\c\SuggestCourseForm.vue:
+  226: 				axios.post("/post/cpd/savecourse", this.suggested).then(response => {
+
+resources\js\views\App.vue:
+  170: 								<router-link exact exact-active-class="teal--yellow" to="/cpd/all">All CPD</router-link>
+  187: 									:to="{ path: '/cpd/' + category.name, params:{ name: category.name}}"
+  353: import SuggestCourseForm from "../components/cpd/SuggestCourseForm";
+  456: 			this.$router.push("/cpd/all");
+
+resources\js\views\a\ManageCourses.vue:
+  392: 				.get("/get/cpd/all")
+  426: 			this.$router.push("/cpd/details/" + value.name);
+  450: 			this.$router.push("/cpd/details/" + value.id);
+  466: 				.delete("/delete/cpd/deleteCourse/" + this.editedItem.id)
+  481: 				.post("/post/cpd/savecourse", this.editedItem)
+
+resources\js\views\a\ManageReviews.vue:
+  284: 				.get("/get/cpd/all")
+  304: 			this.$router.push("/cpd/details/" + value.name);
+  331: 			// this.$router.push("/cpd/details/" + value.name);
+  357: 			this.$router.push("/cpd/details/" + this.editedItem.id);
+
+resources\js\views\c\CourseDetails.vue:
+  293: 			endpoint: "/get/cpd/details/" + this.id,
+  379: 			axios.put("/put/cpd/updateViewCounter/" + this.course.id).then(() => {
+
+resources\js\views\c\CourseList.vue:
+  171: 				this.$route.path === "/cpd/all" ||
+  193: 						this.$route.path === "/cpd/all" ||
+
+resources\js\views\r\AddReview.vue:
+   69: 			axios.get("/get/cpd/name/" + this.courseid).then(({ data }) => {
+  104: 					path: "/cpd/details/" + this.courseid,
+  111: 				path: "/cpd/details/" + this.courseid,
+
+resources\js\views\u\MyCPDRecord.vue:
+  888: 			this.$router.push("/cpd/details/" + item.id);
+
+resources\js\views\u\MyCPDRecord.vue.bak:
+  756: 			this.$router.push("/cpd/details/" + item.id);
+
+resources\js\views\u\MyReviews.vue:
+  231: 				.get("/get/cpd/all")
+  241: 			this.$router.push("/cpd/details/" + value.name);
+  268: 			// this.$router.push("/cpd/details/" + value.name);

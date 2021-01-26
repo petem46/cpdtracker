@@ -1,14 +1,15 @@
 /node_modules
 
-public/js/app.js
-public/css/app.css
-public/js/app.js
+# public/js/app.js
+# public/css/app.css
+# public/js/app.js
 
-/public/js/app.js
-/public/js
+# /public/js/app.js
+# /public/js
 
 /public/hot
 /public/storage
+
 /storage/*.key
 /vendor
 .env
@@ -20,4 +21,6 @@ npm-debug.log
 yarn-error.log
 
 !/vendor/laravel/framework/src/Illuminate/Http/Resources/Json/Resource.php
-resources/js/views/u/Search.code-search
+public/.htaccess
+public/mix-manifest.json
+public/mix-manifest.json
