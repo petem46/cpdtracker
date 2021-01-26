@@ -179,6 +179,7 @@ return [
          * Socialite Google Auth Provider...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class
 
     ],
 
