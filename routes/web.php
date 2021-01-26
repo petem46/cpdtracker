@@ -22,8 +22,10 @@ Auth::routes([
 
 // Route::get('/get/cpdCompletionData/{school}', 'CourseController@getAllCPDCompletionData');
 
-Route::get('/redirect', 'SocialAuthGoogleController@redirect');
-Route::get('/callback', 'SocialAuthGoogleController@callback');
+Route::get('/gredirect', 'SocialAuthGoogleController@redirect');
+Route::get('/gcallback', 'SocialAuthGoogleController@callback');
+Route::get('/redirect', 'SocialAuthMSGraphController@redirect');
+Route::get('/callback', 'SocialAuthMSGraphController@callback');
 
 
 Route::group(['middleware' => ['auth']], function () {
