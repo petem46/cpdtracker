@@ -20,7 +20,7 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-btn width="100%" href="{{ url('/gredirect') }}" tile dark color="green">
+                      <v-btn width="100%" href="{{ url('/redirect') }}" tile dark color="green">
                         <v-icon class="mr-3">mdi-google</v-icon>Sign In With FCAT Google
                       </v-btn>
                     </v-col>
