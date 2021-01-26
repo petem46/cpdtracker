@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Socialite;
-use App\Services\SocialGoogleAccountService;
-class SocialAuthGoogleController extends Controller
+use App\Services\MicrosoftAccountService;
+class SocialAuthMSGraphController extends Controller
 {
   /**
    * Create a redirect method to google api.
@@ -12,19 +12,18 @@ class SocialAuthGoogleController extends Controller
    */
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+      return Socialite::driver('microsoft')->redirect();
     }
 /**
      * Return a callback method from google api.
      *
      * @return callback URL from google
      */
-    public function callback(SocialGoogleAccountService $service)
+    public function callback(MicrosoftAccountService $service)
     {
-        $user = $service->createOrGetUser(Socialite::driver('google')->user());
-        // return  $user;
+        $user = $service->createOrGetUser(Socialite::driver('microsoft')->user());
         if($user === 'fail') {
-          return redirect()->to('/home')->with('fail','Some message here.');
+          return redirect()->to('/login')->with('fail','Some message here.');
           sleep(3);
         }
         auth()->login($user);

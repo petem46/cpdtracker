@@ -10,44 +10,45 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password', 'school', 'avatar', 'usergroup_id', 'role_id', 'last_login_at', 'last_login_ip'
+      'name', 'email', 'password', 'school', 'avatar', 'keyrole', 'twitterHandle', 'ext', 'mobile', 'usergroup_id', 'role_id', 'last_login_at', 'last_login_ip',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function courserating() {
-      return $this->hasMany('App\CourseRating');
+    public static function checkAccess($email) {
+      $domain = explode("@", $email);
+      // dd($domain);
+      // dd(ctype_digit($domain[0]));
+
+      // check if email address begins with a number
+      // this would indicate student account and
+      // should be blocked by return 'fail'
+      if(ctype_digit($domain[0])) {
+        return('fail');
+      }
     }
 
-    public function courseprogress() {
-      return $this->hasMany('App\CourseProgress');
+    public static function checkGarstang($email) {
+      $domain = explode("@", $email);
+      if($domain[1] != 'garstangcommunityacademy.com') {
+        return('fail');
+      }
     }
 
-    public function coursereview() {
-      return $this->hasMany('App\CourseReview');
-    }
+    public static function getGarstangSchool($gmail) {
+      $domain = explode("@", $gmail);
+      $school = explode(".", $domain[1]);
+      $school = $school[0];
+      $school = ucfirst($school);
+      return $school;
+  }
 
     public static function getGoogleSchool($gmail) {
       $domain = explode("@", $gmail);
@@ -58,7 +59,6 @@ class User extends Authenticatable
       } else {
           $school = ucfirst($school);
       }
-
       return $school;
   }
 
