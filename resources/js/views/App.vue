@@ -309,13 +309,13 @@
 				</v-card>
 			</v-menu>
 		</v-app-bar>
-		<v-content>
+		<v-main>
 			<v-container fluid>
 				<transition name="fade" mode="out-in">
 					<router-view @closeappdrawer="closeappdrawer"></router-view>
 				</transition>
 			</v-container>
-		</v-content>
+		</v-main>
 		<v-bottom-navigation grow fixed v-if="$vuetify.breakpoint.smAndDown">
 			<v-btn @click="gotoMyCPDRecord" tile text>
 				<span>My CPD Record</span>
