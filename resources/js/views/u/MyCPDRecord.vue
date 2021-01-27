@@ -3,12 +3,14 @@
 		<h1 class="display-1 font-weight-light mb-5 ml-5">
 			<v-icon large>mdi-folder-account-outline</v-icon>
 			<span v-if="loading">&nbsp;&nbsp;My CPD Record - Loading...</span>
-			<span v-if="!loading">&nbsp;&nbsp;My CPD Record - {{this.mycpd.user.name}}</span>
+			<span v-if="!loading"
+				>&nbsp;&nbsp;My CPD Record - {{ this.mycpd.user.name }}</span
+			>
 		</h1>
 		<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 		<div v-if="!loading" class="v-container px-5">
 			<div id="mycpdheadlines">
-				<v-row>
+				<v-row class="m-0--now">
 					<v-col cols="12" sm="6" lg="3" class="mt-5">
 						<v-card>
 							<v-card-text class="py-0">
@@ -18,7 +20,7 @@
 											tile
 											size="80"
 											color="green darken-3"
-											style="margin-top: -2rem !important; border-radius: 4px;"
+											style="margin-top: -2rem !important; border-radius: 4px"
 											class="mr-5"
 										>
 											<v-icon large>mdi-check</v-icon>
@@ -26,7 +28,9 @@
 									</v-col>
 									<v-col cols="8" class="text-right">
 										<p class="caption font-weight-light mb-0">Completed CPD</p>
-										<h1 class="display-1 font-weight-light">{{ this.mycpd.completedcount }}</h1>
+										<h1 class="display-1 font-weight-light">
+											{{ this.mycpd.completedcount }}
+										</h1>
 									</v-col>
 								</v-row>
 							</v-card-text>
@@ -41,15 +45,19 @@
 											tile
 											size="80"
 											color="amber darken-2"
-											style="margin-top: -2rem !important; border-radius: 4px;"
+											style="margin-top: -2rem !important; border-radius: 4px"
 											class="mr-5"
 										>
 											<v-icon large>fa-star</v-icon>
 										</v-avatar>
 									</v-col>
 									<v-col cols="8" class="text-right">
-										<p class="caption font-weight-light mb-0">My Average Rating</p>
-										<h1 class="display-1 font-weight-light">{{ roundOff(this.mycpd.myratingaverage,1) }}</h1>
+										<p class="caption font-weight-light mb-0">
+											My Average Rating
+										</p>
+										<h1 class="display-1 font-weight-light">
+											{{ roundOff(this.mycpd.myratingaverage, 1) }}
+										</h1>
 									</v-col>
 								</v-row>
 							</v-card-text>
@@ -64,7 +72,7 @@
 											tile
 											size="80"
 											color="blue darken-3"
-											style="margin-top: -2rem !important; border-radius: 4px;"
+											style="margin-top: -2rem !important; border-radius: 4px"
 											class="mr-5"
 										>
 											<v-icon large>mdi-alarm</v-icon>
@@ -72,7 +80,9 @@
 									</v-col>
 									<v-col cols="8" class="text-right">
 										<p class="caption font-weight-light mb-0">Started CPD</p>
-										<h1 class="display-1 font-weight-light">{{ this.mycpd.startedcount }}</h1>
+										<h1 class="display-1 font-weight-light">
+											{{ this.mycpd.startedcount }}
+										</h1>
 									</v-col>
 								</v-row>
 							</v-card-text>
@@ -87,15 +97,19 @@
 											tile
 											size="80"
 											color="pink"
-											style="margin-top: -2rem !important; border-radius: 4px;"
+											style="margin-top: -2rem !important; border-radius: 4px"
 											class="mr-5"
 										>
 											<v-icon large>fa-heart</v-icon>
 										</v-avatar>
 									</v-col>
 									<v-col cols="8" class="text-right">
-										<p class="caption font-weight-light mb-0">Shortlisted CPD</p>
-										<h1 class="display-1 font-weight-light">{{ this.mycpd.shortlistedcount }}</h1>
+										<p class="caption font-weight-light mb-0">
+											Shortlisted CPD
+										</p>
+										<h1 class="display-1 font-weight-light">
+											{{ this.mycpd.shortlistedcount }}
+										</h1>
 									</v-col>
 								</v-row>
 							</v-card-text>
@@ -103,7 +117,7 @@
 					</v-col>
 				</v-row>
 			</div>
-			<v-row>
+			<v-row class="m-0--now">
 				<div id="mycpdcourses" class="mb-10 mt-5 col-xl-6 col-12 px-3">
 					<v-progress-linear v-if="loading" indeterminate></v-progress-linear>
 					<v-data-table
@@ -119,7 +133,10 @@
 							<v-row>
 								<v-col class="mx-5">
 									<v-card>
-										<v-card-title class="green darken-3 py-5" style="margin-top: -2rem !important;">
+										<v-card-title
+											class="green darken-3 py-5"
+											style="margin-top: -2rem !important"
+										>
 											<v-icon large>mdi-check</v-icon>&nbsp;&nbsp;Completed CPD
 										</v-card-title>
 									</v-card>
@@ -162,14 +179,16 @@
 												dark
 												class="d-none d-md-block mb-2 float-right"
 												v-on="on"
-											>Add CPD</v-btn>
+												>Add CPD</v-btn
+											>
 											<v-btn
 												v-if="mycpdcheck"
 												color="primary"
 												dark
 												class="d-md-none btn-block mb-2 float-left"
 												v-on="on"
-											>Add CPD</v-btn>
+												>Add CPD</v-btn
+											>
 										</template>
 										<v-card>
 											<v-toolbar :color="formTitleColor">
@@ -179,11 +198,16 @@
 												<v-toolbar-title>{{ formTitle }}</v-toolbar-title>
 												<v-spacer></v-spacer>
 												<v-toolbar-items>
-													<v-btn v-if="mycpdcheck" text @click="submit">Save</v-btn>
+													<v-btn v-if="mycpdcheck" text @click="submit"
+														>Save</v-btn
+													>
 												</v-toolbar-items>
 											</v-toolbar>
 											<v-container>
-												<v-form @submit.prevent="submit" enctype="multipart/form-data">
+												<v-form
+													@submit.prevent="submit"
+													enctype="multipart/form-data"
+												>
 													<v-card-text>
 														<v-container>
 															<v-row>
@@ -299,14 +323,19 @@
 																	<v-switch
 																		id="myreviewpublic"
 																		v-model="editedCPD.myreviewpublic"
-																		:label="publicPrivateLabel(editedCPD.myreviewpublic)"
+																		:label="
+																			publicPrivateLabel(
+																				editedCPD.myreviewpublic
+																			)
+																		"
 																		:disabled="!mycpdcheck"
 																		:readonly="!mycpdcheck"
 																	></v-switch>
 																</v-col>
 																<v-col cols="12">
 																	<div id="myrating">
-																		<v-icon class="mr-3">fa-thumbs-up</v-icon>CPD Rating
+																		<v-icon class="mr-3">fa-thumbs-up</v-icon
+																		>CPD Rating
 																		<v-rating
 																			id="myrating"
 																			v-model="editedCPD.myrating"
@@ -324,42 +353,63 @@
 																</v-col>
 																<v-col v-if="editedCPD.mycertificates.length">
 																	<div id="certificates">
-																		<v-icon class="mr-3">fa-certificate fa-fw</v-icon>Attached Certificate(s)
+																		<v-icon class="mr-3"
+																			>fa-certificate fa-fw</v-icon
+																		>Attached Certificate(s)
 																		<v-col
 																			class="py-0 pl-5"
 																			v-for="certificate in editedCPD.mycertificates"
 																			:key="certificate.id"
 																		>
-																			<v-icon class="d-none d-lg-block">fas fa-blank fa-fw</v-icon>
+																			<v-icon class="d-none d-lg-block"
+																				>fas fa-blank fa-fw</v-icon
+																			>
 																			<a
 																				:href="'../' + certificate.path"
 																				target="_blank"
-																				style="text-decoration: none;"
+																				style="text-decoration: none"
 																			>
 																				<v-btn text class="ma-2">
-																					<v-icon class="mr-3">mdi-certificate</v-icon>
-																					{{certificate.name}}
-																					<v-icon class="ml-3" color="white">mdi-download</v-icon>
+																					<v-icon class="mr-3"
+																						>mdi-certificate</v-icon
+																					>
+																					{{ certificate.name }}
+																					<v-icon class="ml-3" color="white"
+																						>mdi-download</v-icon
+																					>
 																				</v-btn>
 																			</a>
 																			<v-btn
 																				v-if="mycpdcheck"
-																				@click="confirmDeleteUpload(certificate)"
+																				@click="
+																					confirmDeleteUpload(certificate)
+																				"
 																				class="ma-2 outlined"
 																				color="red darken-3"
 																			>
-																				<v-icon color="white">far fa-trash-alt fa-sm</v-icon>
+																				<v-icon color="white"
+																					>far fa-trash-alt fa-sm</v-icon
+																				>
 																			</v-btn>
 																		</v-col>
 																	</div>
 																</v-col>
 																<v-col cols="12" v-if="uploadingFile">
-																	<v-progress-linear indeterminate></v-progress-linear>
+																	<v-progress-linear
+																		indeterminate
+																	></v-progress-linear>
 																</v-col>
-																<v-col cols="12" v-if="!uploadingFile && mycpdcheck">
-																	<div id="addcertificates" v-if="!uploadingFile">
+																<v-col
+																	cols="12"
+																	v-if="!uploadingFile && mycpdcheck"
+																>
+																	<div
+																		id="addcertificates"
+																		v-if="!uploadingFile"
+																	>
 																		<p>
-																			<v-icon class="mr-3">mdi-upload</v-icon>Upload Certificate(s)
+																			<v-icon class="mr-3">mdi-upload</v-icon
+																			>Upload Certificate(s)
 																		</p>
 																		<v-file-input
 																			v-model="editedCPD.files"
@@ -372,22 +422,40 @@
 																			multiple
 																			:show-size="1000"
 																		>
-																			<template v-slot:selection="{ index, text }">
-																				<v-chip v-if="index < 2" color="teal darken-3" dark label small>{{ text }}</v-chip>
+																			<template
+																				v-slot:selection="{ index, text }"
+																			>
+																				<v-chip
+																					v-if="index < 2"
+																					color="teal darken-3"
+																					dark
+																					label
+																					small
+																					>{{ text }}</v-chip
+																				>
 
 																				<span
 																					v-else-if="index === 2"
 																					class="overline grey--text text--darken-3 mx-2"
-																				>+{{ editedCPD.files.length - 2 }} File(s)</span>
+																					>+{{
+																						editedCPD.files.length - 2
+																					}}
+																					File(s)</span
+																				>
 																			</template>
 																		</v-file-input>
 																		<div class="ml-8">
 																			<v-btn
-																				v-if="editedCPD.files && editedCPD.id && !uploadingFile"
+																				v-if="
+																					editedCPD.files &&
+																					editedCPD.id &&
+																					!uploadingFile
+																				"
 																				color="teal darken-3"
 																				class="btn-block"
 																				@click="uploadFiles"
-																			>Upload Files</v-btn>
+																				>Upload Files</v-btn
+																			>
 																		</div>
 																	</div>
 																</v-col>
@@ -402,7 +470,8 @@
 															color="red darken-1"
 															text
 															@click="confirmDeleteCPD()"
-														>Delete</v-btn>
+															>Delete</v-btn
+														>
 														<v-spacer></v-spacer>
 														<v-btn text @click="close">Close</v-btn>
 														<v-btn type="submit" color="green">Save</v-btn>
@@ -415,16 +484,36 @@
 							</v-row>
 						</template>
 						<template v-slot:item.myreview="{ item }">
-							<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
-							<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
+							<v-chip
+								v-if="publicchip(item)"
+								x-small
+								color="green darken-3"
+								class="mr-2"
+								>Public</v-chip
+							>
+							<v-chip
+								v-if="!publicchip(item) && item.myreview"
+								x-small
+								color="red"
+								class="mr-2"
+								>Private</v-chip
+							>
 							<div class="review">{{ item.myreview }}</div>
 						</template>
 
 						<template v-slot:item.myprogress="{ item }">
-							<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
+							<v-avatar
+								color="blue darken-3"
+								v-if="item.myprogress == 1"
+								size="36"
+							>
 								<v-icon>mdi-alarm</v-icon>
 							</v-avatar>
-							<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
+							<v-avatar
+								color="green darken-3"
+								v-if="item.myprogress == 2"
+								size="36"
+							>
 								<v-icon>mdi-check</v-icon>
 							</v-avatar>
 							<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
@@ -433,62 +522,94 @@
 						</template>
 
 						<template v-slot:item.start_date="{ item }">
-							<div
-								v-if="item.start_date"
-							>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+							<div v-if="item.start_date">
+								{{
+									item.start_date
+										| dateParse("YYYY.MM.DD")
+										| dateFormat("DD-MM-YYYY")
+								}}
+							</div>
 						</template>
 						<template v-slot:item.completed_date="{ item }">
-							<div
-								v-if="item.completed_date"
-							>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+							<div v-if="item.completed_date">
+								{{
+									item.completed_date
+										| dateParse("YYYY.MM.DD")
+										| dateFormat("DD-MM-YYYY")
+								}}
+							</div>
 						</template>
 
 						<template v-slot:item.myrating="{ item }">
-							<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-							{{ roundOff(item.myrating,1) || '' }}
+							<v-icon
+								v-if="item.myrating"
+								:color="getStarColor(item.myrating)"
+								class="mr-2"
+								>fa-star fa-sm</v-icon
+							>
+							{{ roundOff(item.myrating, 1) || "" }}
 						</template>
 						<template v-slot:item.avgrating="{ item }">
 							<v-icon
 								v-if="item.avgrating"
 								:color="getStarColor(item.avgrating)"
 								class="mr-2"
-							>fa-star fa-sm</v-icon>
-							{{ roundOff(item.avgrating, 1) || '' }}
+								>fa-star fa-sm</v-icon
+							>
+							{{ roundOff(item.avgrating, 1) || "" }}
 						</template>
 
 						<template v-slot:item.actions="{ item }">
 							<v-menu offset-y bottom left>
 								<template v-slot:activator="{ on }">
 									<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
-										<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
+										<v-icon v-if="!$vuetify.breakpoint.xsOnly"
+											>mdi-dots-vertical</v-icon
+										>
 									</v-btn>
-									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
+									<v-btn
+										v-if="$vuetify.breakpoint.xsOnly"
+										text
+										outlined
+										v-on="on"
+										>Actions</v-btn
+									>
 								</template>
 								<v-list>
 									<v-list-item @click="gotoCPD(item)">
 										<v-avatar>
-											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-										</v-avatar>View CPD
+											<v-icon class="mr-2"
+												>mdi-folder-search-outline</v-icon
+											> </v-avatar
+										>View CPD
 									</v-list-item>
 									<v-list-item @click="editRecord(item)">
 										<v-avatar>
-											<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
-										</v-avatar>View Record
+											<v-icon color="amber" class="mr-2"
+												>fa-edit fa-sm</v-icon
+											> </v-avatar
+										>View Record
 									</v-list-item>
 									<v-list-item v-if="mycpdcheck" @click="changestate(item, 2)">
 										<v-avatar>
-											<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
-										</v-avatar>Set Completed
+											<v-icon color="green darken-3" class="mr-2"
+												>mdi-check</v-icon
+											> </v-avatar
+										>Set Completed
 									</v-list-item>
 									<v-list-item v-if="mycpdcheck" @click="changestate(item, 1)">
 										<v-avatar>
-											<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
-										</v-avatar>Set Started
+											<v-icon color="blue lighten-3" class="mr-2"
+												>mdi-alarm</v-icon
+											> </v-avatar
+										>Set Started
 									</v-list-item>
 									<v-list-item v-if="mycpdcheck" @click="changestate(item, 3)">
 										<v-avatar>
-											<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
-										</v-avatar>Set Shortlisted
+											<v-icon color="pink" class="mr-2"
+												>mdi-heart</v-icon
+											> </v-avatar
+										>Set Shortlisted
 									</v-list-item>
 								</v-list>
 							</v-menu>
@@ -510,8 +631,12 @@
 							<v-row>
 								<v-col class="mx-5">
 									<v-card>
-										<v-card-title class="blue darken-3 py-5" style="margin-top: -2rem !important;">
-											<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be Completed CPD
+										<v-card-title
+											class="blue darken-3 py-5"
+											style="margin-top: -2rem !important"
+										>
+											<v-icon large>mdi-alarm</v-icon>&nbsp;&nbsp;To Be
+											Completed CPD
 										</v-card-title>
 									</v-card>
 								</v-col>
@@ -541,16 +666,36 @@
 							</v-row>
 						</template>
 						<template v-slot:item.myreview="{ item }">
-							<v-chip v-if="publicchip(item)" x-small color="green darken-3" class="mr-2">Public</v-chip>
-							<v-chip v-if="!publicchip(item) && item.myreview" x-small color="red" class="mr-2">Private</v-chip>
+							<v-chip
+								v-if="publicchip(item)"
+								x-small
+								color="green darken-3"
+								class="mr-2"
+								>Public</v-chip
+							>
+							<v-chip
+								v-if="!publicchip(item) && item.myreview"
+								x-small
+								color="red"
+								class="mr-2"
+								>Private</v-chip
+							>
 							<div class="review">{{ item.myreview }}</div>
 						</template>
 
 						<template v-slot:item.myprogress="{ item }">
-							<v-avatar color="blue darken-3" v-if="item.myprogress == 1" size="36">
+							<v-avatar
+								color="blue darken-3"
+								v-if="item.myprogress == 1"
+								size="36"
+							>
 								<v-icon>mdi-alarm</v-icon>
 							</v-avatar>
-							<v-avatar color="green darken-3" v-if="item.myprogress == 2" size="36">
+							<v-avatar
+								color="green darken-3"
+								v-if="item.myprogress == 2"
+								size="36"
+							>
 								<v-icon>mdi-check</v-icon>
 							</v-avatar>
 							<v-avatar color="pink" v-if="item.myprogress == 3" size="36">
@@ -559,62 +704,94 @@
 						</template>
 
 						<template v-slot:item.start_date="{ item }">
-							<div
-								v-if="item.start_date"
-							>{{ item.start_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+							<div v-if="item.start_date">
+								{{
+									item.start_date
+										| dateParse("YYYY.MM.DD")
+										| dateFormat("DD-MM-YYYY")
+								}}
+							</div>
 						</template>
 						<template v-slot:item.completed_date="{ item }">
-							<div
-								v-if="item.completed_date"
-							>{{ item.completed_date | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY') }}</div>
+							<div v-if="item.completed_date">
+								{{
+									item.completed_date
+										| dateParse("YYYY.MM.DD")
+										| dateFormat("DD-MM-YYYY")
+								}}
+							</div>
 						</template>
 
 						<template v-slot:item.myrating="{ item }">
-							<v-icon v-if="item.myrating" :color="getStarColor(item.myrating)" class="mr-2">fa-star fa-sm</v-icon>
-							{{ roundOff(item.myrating,1) || '' }}
+							<v-icon
+								v-if="item.myrating"
+								:color="getStarColor(item.myrating)"
+								class="mr-2"
+								>fa-star fa-sm</v-icon
+							>
+							{{ roundOff(item.myrating, 1) || "" }}
 						</template>
 						<template v-slot:item.avgrating="{ item }">
 							<v-icon
 								v-if="item.avgrating"
 								:color="getStarColor(item.avgrating)"
 								class="mr-2"
-							>fa-star fa-sm</v-icon>
-							{{ roundOff(item.avgrating, 1) || '' }}
+								>fa-star fa-sm</v-icon
+							>
+							{{ roundOff(item.avgrating, 1) || "" }}
 						</template>
 
 						<template v-slot:item.actions="{ item }">
 							<v-menu v-if="mycpdcheck" offset-y bottom left>
 								<template v-slot:activator="{ on }">
 									<v-btn v-if="!$vuetify.breakpoint.xsOnly" icon v-on="on">
-										<v-icon v-if="!$vuetify.breakpoint.xsOnly">mdi-dots-vertical</v-icon>
+										<v-icon v-if="!$vuetify.breakpoint.xsOnly"
+											>mdi-dots-vertical</v-icon
+										>
 									</v-btn>
-									<v-btn v-if="$vuetify.breakpoint.xsOnly" text outlined v-on="on">Actions</v-btn>
+									<v-btn
+										v-if="$vuetify.breakpoint.xsOnly"
+										text
+										outlined
+										v-on="on"
+										>Actions</v-btn
+									>
 								</template>
 								<v-list>
 									<v-list-item @click="gotoCPD(item)">
 										<v-avatar>
-											<v-icon class="mr-2">mdi-folder-search-outline</v-icon>
-										</v-avatar>View CPD
+											<v-icon class="mr-2"
+												>mdi-folder-search-outline</v-icon
+											> </v-avatar
+										>View CPD
 									</v-list-item>
 									<v-list-item @click="editRecord(item)">
 										<v-avatar>
-											<v-icon color="amber" class="mr-2">fa-edit fa-sm</v-icon>
-										</v-avatar>View Record
+											<v-icon color="amber" class="mr-2"
+												>fa-edit fa-sm</v-icon
+											> </v-avatar
+										>View Record
 									</v-list-item>
 									<v-list-item @click="changestate(item, 2)">
 										<v-avatar>
-											<v-icon color="green darken-3" class="mr-2">mdi-check</v-icon>
-										</v-avatar>Set Completed
+											<v-icon color="green darken-3" class="mr-2"
+												>mdi-check</v-icon
+											> </v-avatar
+										>Set Completed
 									</v-list-item>
 									<v-list-item @click="changestate(item, 1)">
 										<v-avatar>
-											<v-icon color="blue lighten-3" class="mr-2">mdi-alarm</v-icon>
-										</v-avatar>Set Started
+											<v-icon color="blue lighten-3" class="mr-2"
+												>mdi-alarm</v-icon
+											> </v-avatar
+										>Set Started
 									</v-list-item>
 									<v-list-item @click="changestate(item, 3)">
 										<v-avatar>
-											<v-icon color="pink" class="mr-2">mdi-heart</v-icon>
-										</v-avatar>Set Shortlisted
+											<v-icon color="pink" class="mr-2"
+												>mdi-heart</v-icon
+											> </v-avatar
+										>Set Shortlisted
 									</v-list-item>
 								</v-list>
 							</v-menu>
@@ -634,39 +811,59 @@
 						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete
 					</v-card-title>
 					<v-card-text class="pt-3">
-						<h3 class="title">{{deleteCertificate.name}}</h3>
-						<p
-							class="grey--text"
-						>Upload date: {{deleteCertificate.created_at | dateParse('YYYY.MM.DD')| dateFormat('DD-MM-YYYY')}}</p>
+						<h3 class="title">{{ deleteCertificate.name }}</h3>
+						<p class="grey--text">
+							Upload date:
+							{{
+								deleteCertificate.created_at
+									| dateParse("YYYY.MM.DD")
+									| dateFormat("DD-MM-YYYY")
+							}}
+						</p>
 						<h3 class="mb-3">Are you sure you want to delete this file?</h3>
-						<h3 class="red--text darken-4">This file will be permanently deleted!</h3>
+						<h3 class="red--text darken-4">
+							This file will be permanently deleted!
+						</h3>
 					</v-card-text>
 					<v-card-actions>
 						<v-btn text @click="cancelDeleteUpload">Cancel</v-btn>
 						<v-spacer></v-spacer>
-						<v-btn color="red darken-4" @click="doDeleteCertificate(deleteCertificate.id)">Delete</v-btn>
+						<v-btn
+							color="red darken-4"
+							@click="doDeleteCertificate(deleteCertificate.id)"
+							>Delete</v-btn
+						>
 					</v-card-actions>
 				</v-card>
 			</v-dialog>
 
-			<v-dialog v-if="confirmDeleteCPDDialog" persistent v-model="confirmDeleteCPD" max-width="500px">
+			<v-dialog
+				v-if="confirmDeleteCPDDialog"
+				persistent
+				v-model="confirmDeleteCPD"
+				max-width="500px"
+			>
 				<v-card>
 					<v-card-title class="red darken-4">
-						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete CPD
+						<v-icon class="mr-3">fa-exclamation-triangle</v-icon>Confirm Delete
+						CPD
 					</v-card-title>
 					<v-card-text class="pt-3">
-						<h3 class="title">{{editedCPD.name}}</h3>
-						<p
-							class="mb-3 grey--text"
-						>All ratings, reviews and dates linked to this course will also be deleted.</p>
-						<h3
-							class="red--text darken-4"
-						>Are you sure you want to delete this course from your CPD record?</h3>
+						<h3 class="title">{{ editedCPD.name }}</h3>
+						<p class="mb-3 grey--text">
+							All ratings, reviews and dates linked to this course will also be
+							deleted.
+						</p>
+						<h3 class="red--text darken-4">
+							Are you sure you want to delete this course from your CPD record?
+						</h3>
 					</v-card-text>
 					<v-card-actions>
 						<v-btn text @click="confirmDeleteCPDDialog = false">Cancel</v-btn>
 						<v-spacer></v-spacer>
-						<v-btn color="red darken-4" @click="doDeleteCPD(editedCPD.id)">Delete</v-btn>
+						<v-btn color="red darken-4" @click="doDeleteCPD(editedCPD.id)"
+							>Delete</v-btn
+						>
 					</v-card-actions>
 				</v-card>
 			</v-dialog>
@@ -701,7 +898,7 @@ export default {
 				this.loading = true;
 				this.fetch();
 			}
-		}
+		},
 	},
 	data() {
 		return {
@@ -723,13 +920,14 @@ export default {
 			type: "All",
 			types: ["All", "Started", "Shortlisted"],
 			rulesCPDName: [
-				v => !!v || "CPD name is required",
-				v => (v && v.length >= 3) || "Name must be longer than 3 characters"
+				(v) => !!v || "CPD name is required",
+				(v) => (v && v.length >= 3) || "Name must be longer than 3 characters",
 			],
 			rulesCPDDescription: [
-				v => !!v || "CPD description is required",
-				v =>
-					(v && v.length >= 3) || "description must be longer than 3 characters"
+				(v) => !!v || "CPD description is required",
+				(v) =>
+					(v && v.length >= 3) ||
+					"description must be longer than 3 characters",
 			],
 			editedCPD: {
 				name: "",
@@ -743,7 +941,7 @@ export default {
 				username: "",
 				files: [],
 				mycertificates: [],
-				file: ""
+				file: "",
 			},
 			defaultCPD: {
 				name: "",
@@ -756,7 +954,7 @@ export default {
 				uid: this.userid,
 				username: "",
 				files: [],
-				mycertificates: []
+				mycertificates: [],
 			},
 			deleteCertificate: {
 				id: "",
@@ -768,7 +966,7 @@ export default {
 				filename: "",
 				path: "",
 				updated_at: "",
-				user_id: ""
+				user_id: "",
 			},
 			defaultCertificate: {
 				id: "",
@@ -780,7 +978,7 @@ export default {
 				filename: "",
 				path: "",
 				updated_at: "",
-				user_id: ""
+				user_id: "",
 			},
 			snackbar: {
 				color: "",
@@ -788,46 +986,46 @@ export default {
 				show: false,
 				text: "",
 				timeout: 2000,
-				y: "top"
+				y: "top",
 			},
 			completeddatatableheaders: [
 				{
 					text: "",
 					align: "left",
 					value: "myprogress",
-					width: "40px"
+					width: "40px",
 				},
 				{
 					text: "CPD Name",
 					align: "left",
-					value: "name"
+					value: "name",
 				},
 				{
 					text: "Completed Date",
 					align: "left",
-					value: "completed_date"
+					value: "completed_date",
 				},
 				{
 					text: "My Rating",
 					align: "center",
-					value: "myrating"
+					value: "myrating",
 				},
 				{
 					text: "Avg Rating",
 					align: "center d-none",
-					value: "avgrating"
+					value: "avgrating",
 				},
 				{
 					text: "Review",
 					align: "left d-none",
 					value: "myreview",
-					width: "25%"
+					width: "25%",
 				},
 				{
 					text: "",
 					align: "right",
-					value: "actions"
-				}
+					value: "actions",
+				},
 			],
 			otherdatatableheaders: [
 				{
@@ -835,35 +1033,35 @@ export default {
 					align: "left",
 					value: "myprogress",
 					width: "40px",
-					filter: value => {
+					filter: (value) => {
 						if (this.type === "All") return true;
 						if (!this.type) return true;
 						// if (this.type === "Complete") return value === 2;
 						if (this.type === "Started") return value === 1;
 						if (this.type === "Shortlisted") return value === 3;
-					}
+					},
 				},
 				{
 					text: "CPD Name",
 					align: "left",
-					value: "name"
+					value: "name",
 				},
 				{
 					text: "Start Date",
 					align: "left",
-					value: "start_date"
+					value: "start_date",
 				},
 				{
 					text: "Avg Rating",
 					align: "center",
-					value: "avgrating"
+					value: "avgrating",
 				},
 				{
 					text: "",
 					align: "right",
-					value: "actions"
-				}
-			]
+					value: "actions",
+				},
+			],
 		};
 	},
 	mounted() {
@@ -930,7 +1128,7 @@ export default {
 			console.log(this.editedCPD);
 			axios
 				.post("/post/u/updateMyCPD", this.editedCPD)
-				.then($data => {
+				.then(($data) => {
 					// this.dialog = false;
 					this.responsedata = $data.data.response;
 					if (this.editedCPD.files) {
@@ -948,8 +1146,8 @@ export default {
 									"content-type": "multipart/form-data",
 									"X-CSRF-TOKEN": document.querySelector(
 										'meta[name="csrf-token"]'
-									).content
-								}
+									).content,
+								},
 							});
 						}
 					}
@@ -961,7 +1159,7 @@ export default {
 					this.close();
 					this.fetch();
 				})
-				.catch(error => {
+				.catch((error) => {
 					console.log("ZDFLKGHDLKFJHG");
 					console.log(error);
 				});
@@ -983,8 +1181,8 @@ export default {
 						headers: {
 							"content-type": "multipart/form-data",
 							"X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-								.content
-						}
+								.content,
+						},
 					});
 				}
 			}
@@ -1055,7 +1253,7 @@ export default {
 		},
 		doDeleteCertificate(id) {
 			if (id) {
-				axios.delete("/delete/u/deleteCertificate/" + id).then(response => {
+				axios.delete("/delete/u/deleteCertificate/" + id).then((response) => {
 					this.deleteCertificate = this.defaultCertificate;
 					this.confirmDeleteUploadDialog = false;
 					this.snackbar.color = "red";
@@ -1090,7 +1288,7 @@ export default {
 				if (this.editedCPD.myreview) {
 					this.doDeleteMyReview();
 				}
-				axios.delete("/delete/cpd/deleteCourse/" + id).then(response => {
+				axios.delete("/delete/cpd/deleteCourse/" + id).then((response) => {
 					this.editedCPD = this.defaultCPD;
 					this.confirmDeleteCPDDialog = false;
 					this.dialog = false;
@@ -1106,17 +1304,17 @@ export default {
 		doDeleteMyProgress() {
 			axios
 				.delete("/delete/u/deleteMyProgress/" + this.editedCPD.myprogressid)
-				.then(response => {});
+				.then((response) => {});
 		},
 		doDeleteMyRating() {
 			axios
 				.delete("/delete/u/deleteMyRating/" + this.editedCPD.myratingid)
-				.then(response => {});
+				.then((response) => {});
 		},
 		doDeleteMyReview() {
 			axios
 				.delete("/delete/u/deleteMyReview/" + this.editedCPD.myreviewid)
-				.then(response => {});
+				.then((response) => {});
 		},
 		refreshEditedItem() {
 			axios.get(this.endpoint).then(({ data }) => {
@@ -1139,7 +1337,7 @@ export default {
 				}
 			});
 			this.uploadingFile = false;
-		}
+		},
 	},
 	computed: {
 		mycpdcheck() {
@@ -1190,8 +1388,13 @@ export default {
 			return this.editedCPD.completed_date
 				? moment(this.editedCPD.completed_date).format("dddd, MMMM Do YYYY")
 				: "";
-		}
-	}
+		},
+	},
 };
 </script>
-
+<style scoped>
+.m-0--now {
+  margin: 0 !important;
+  padding-bottom: 12px !important;
+}
+</style>

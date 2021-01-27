@@ -81,7 +81,7 @@
 						<div v-if="this.courserating.length">({{this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
-				<div class="my-1 caption text-left">Cost: {{ this.cost }}</div>
+				<div class="mt-5 caption text-left">Cost: {{ this.cost }}</div>
 			</v-card-text>
 		</div>
 		<!-- SHOW IF COURSE COMPLETED -->
@@ -125,11 +125,11 @@
 				</v-row>
 				<div
 					v-if="getUserRating(this.courserating) === 0"
-					class="my-1 caption red--text text-left"
+					class="mt-5 caption red--text text-left"
 				>Completed - Please rate this course</div>
 				<div
 					v-if="getUserRating(this.courserating) > 0"
-					class="my-1 caption green--text text-left"
+					class="mt-5 caption green--text text-left"
 				>Completed - You rated this course {{ getUserRating(this.courserating) }}/5</div>
 			</v-card-text>
 		</div>
@@ -216,7 +216,7 @@
 						<div v-if="this.courserating.length">({{this.courserating.length }} reviews)</div>
 					</div>
 				</v-row>
-				<div class="my-1 caption text-left">You have shortlisted this course</div>
+				<div class="mt-5 caption text-left">You have shortlisted this course</div>
 			</v-card-text>
 		</div>
 	</div>
