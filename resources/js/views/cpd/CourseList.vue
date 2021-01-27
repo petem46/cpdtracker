@@ -213,7 +213,7 @@ export default {
 				});
 		},
 		randomTile($courseid) {
-			return "https://picsum.photos/295/165/?random=" + $courseid;
+			return "https://picsum.photos/295/255/?random=" + $courseid;
 		},
 		addcoursedata(id, name) {
 			console.log("Hello from CourseList.vue");

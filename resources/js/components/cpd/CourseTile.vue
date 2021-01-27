@@ -5,7 +5,7 @@
 			<v-img
 				:src="'https://picsum.photos/600/300?random=' + id"
 				alt="CPD Tile"
-				height="165"
+				height="255"
 				width="100%"
 			>
 				<v-expand-transition>
