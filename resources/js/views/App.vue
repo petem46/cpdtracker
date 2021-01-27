@@ -203,18 +203,6 @@
 				</v-avatar>FCAT CPD Portal
 			</v-toolbar-title>
 			<v-spacer />
-			<v-menu bottom left close-on-content-click offset-y>
-				<template v-slot:activator="{ on, attrs }">
-					<v-btn tile text class="px-0 mx-0 d-none d-md-block" v-bind="attrs" v-on="on">
-						<v-icon>mdi-book-search-outline</v-icon>
-					</v-btn>
-				</template>
-				<v-list>
-					<v-list-item>
-						<v-autocomplete></v-autocomplete>
-					</v-list-item>
-				</v-list>
-			</v-menu>
 			<!-- <v-menu bottom left close-on-content-click offset-y>
 				<template v-slot:activator="{ on, attrs }">
 					<v-btn tile text class="px-0 mx-0 d-none d-md-block" v-bind="attrs" v-on="on">
