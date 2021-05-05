@@ -416,7 +416,6 @@
 																			color="blue accent-4"
 																			counter
 																			label="Upload your certificate"
-																			placeholder="Select your files"
 																			prepend-icon="mdi-none"
 																			outlined
 																			multiple
