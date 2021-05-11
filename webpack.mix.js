@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 // require('laravel-mix-bundle-analyzer');
 
 // if (!mix.inProduction()) {
@@ -14,18 +14,18 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-const webpack = require('webpack');
- mix.webpackConfig({
-  plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-  ]
+const webpack = require("webpack");
+mix.webpackConfig({
+  plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
 });
 
-mix.js('resources/js/app.js', 'public/js')
-.sass('resources/sass/app.scss', 'public/css')
-.version()
-    .extract();
+mix
+  .js("resources/js/app.js", "public/js")
+  .vue()
+  .sass("resources/sass/app.scss", "public/css")
+  .version()
+  .extract();
 
-    if (mix.inProduction()) {
-      mix.version();
-  }
+if (mix.inProduction()) {
+  mix.version();
+}
