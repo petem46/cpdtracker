@@ -1,24 +1,18 @@
 /*!
-  * Bootstrap v4.6.0 (https://getbootstrap.com/)
+  * Bootstrap v5.0.0 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 
 /*!
-  * vue-router v3.5.1
-  * (c) 2021 Evan You
-  * @license MIT
-  */
-
-/*!
- * Sizzle CSS Selector Engine v2.3.5
+ * Sizzle CSS Selector Engine v2.3.6
  * https://sizzlejs.com/
  *
  * Copyright JS Foundation and other contributors
  * Released under the MIT license
  * https://js.foundation/
  *
- * Date: 2020-03-14
+ * Date: 2021-02-16
  */
 
 /*!
@@ -28,21 +22,21 @@
  */
 
 /*!
- * jQuery JavaScript Library v3.5.1
+ * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
  * https://sizzlejs.com/
  *
- * Copyright JS Foundation and other contributors
+ * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2020-05-04T22:49Z
+ * Date: 2021-03-02T17:08Z
  */
 
 /*!
- * vuex v3.6.1
+ * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
  */
@@ -213,6 +207,8 @@ and limitations under the License.
 /*! ../../util/dateTimeUtils */
 
 /*! ../../util/dedupeModelListeners */
+
+/*! ../../util/dom */
 
 /*! ../../util/helpers */
 
@@ -976,6 +972,8 @@ and limitations under the License.
 
 /*! ./ru */
 
+/*! ./sanitizeDateString */
+
 /*! ./scroll */
 
 /*! ./services */
@@ -1238,6 +1236,8 @@ and limitations under the License.
 
 /*! exports provided: af, ar, bg, ca, ckb, cs, de, el, en, es, et, fa, fi, fr, hr, hu, he, id, it, ja, ko, lv, lt, nl, no, pl, pt, ro, ru, sk, sl, srCyrl, sv, th, tr, az, uk, zhHans, zhHant */
 
+/*! exports provided: attachedRoot */
+
 /*! exports provided: checkCollinear, getDistance, moveTo */
 
 /*! exports provided: column */
@@ -1246,7 +1246,7 @@ and limitations under the License.
 
 /*! exports provided: convertToComponentDeclarations, default */
 
-/*! exports provided: createItemTypeListeners, createItemTypeNativeListeners, createNativeLocaleFormatter, monthChange, pad */
+/*! exports provided: createItemTypeListeners, createItemTypeNativeListeners, createNativeLocaleFormatter, monthChange, sanitizeDateString, pad */
 
 /*! exports provided: createItemTypeNativeListeners, createItemTypeListeners */
 
@@ -1317,6 +1317,10 @@ and limitations under the License.
 /*!************************!*\
   !*** ./src/install.ts ***!
   \************************/
+
+/*!*************************!*\
+  !*** ./src/util/dom.ts ***!
+  \*************************/
 
 /*!**************************!*\
   !*** ./src/framework.ts ***!
@@ -3123,6 +3127,10 @@ and limitations under the License.
   \***************************************************************/
 
 /*!***************************************************************!*\
+  !*** ./src/components/VDatePicker/util/sanitizeDateString.ts ***!
+  \***************************************************************/
+
+/*!***************************************************************!*\
   !*** ./src/components/VNavigationDrawer/VNavigationDrawer.ts ***!
   \***************************************************************/
 
@@ -3209,3 +3217,5 @@ and limitations under the License.
  */
 
 //! moment.js
+
+//! moment.js locale configuration
