@@ -28,6 +28,10 @@ class SocialAuthGoogleController extends Controller
           sleep(3);
         }
         auth()->login($user);
+        $intended = session('url.intended');
+        if ($intended != '') {
+          return redirect()->to($intended);
+        }
         return redirect()->to('/home');
     }
 }

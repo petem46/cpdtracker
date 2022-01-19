@@ -6,6 +6,7 @@ use App\SocialGoogleAccount;
 use App\User;
 use Carbon\Carbon;
 use Laravel\Socialite\Contracts\User as ProviderUser;
+use Illuminate\Database\QueryException;
 
 class SocialGoogleAccountService
 {
