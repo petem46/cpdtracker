@@ -42,7 +42,7 @@
         "vue-json-excel": "^0.2.99",
         "vue-router": "^3.5.1",
         "vuedraggable": "^2.24.3",
-        "vuetify": "^2.4.3",
+        "vuetify": "^2.6.10",
         "vuex": "^3.6.1"
     }
 }
